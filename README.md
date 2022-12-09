@@ -14,6 +14,7 @@
 # 🚀 프로젝트 레포지토리 정리 
 * [스타트 10팀 - 나는가수다 Organization](https://github.com/orgs/MIDUBANG/repositories)
 * [Konlpy와 TF-IDF를 이용한 한국어 문장 유사도 계산 API (React)](https://github.com/MIDUBANG/Korean-Sentence-Similarity-Client)
+* [한글 OCR 모델 - CRNN 모델 Train 및 Test](https://github.com/MIDUBANG/OCR_CRNN)
 
 
 
