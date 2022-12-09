@@ -55,7 +55,7 @@ https://www.youtube.com/watch?v=12Gp_7EzfkM
 <table border="" cellspacing="0" cellpadding="0" width="100%">
     <tr width="100%">
         <td align="center"><a href= "https://github.com/dy6578ekdbs">정다윤</a></td>
-        <td align="center"><a href= "https://github.com/ParkIsComing">박가영</a></td>
+        <td  align="center"><a href= "https://github.com/ParkIsComing">박가영</a></td>
         <td  align="center"><a href= "https://github.com/h-sooah">한수아</a></td>  
     </tr>
     <tr width="100%">
