@@ -20,6 +20,8 @@
 # 🚀 프로젝트 레포지토리 정리 
 * [스타트 10팀 - 나는가수다 Organization](https://github.com/orgs/MIDUBANG/repositories)
 * [Konlpy와 TF-IDF를 이용한 한국어 문장 유사도 계산 API (React)](https://github.com/MIDUBANG/Korean-Sentence-Similarity-Client)
+* [Konlpy와 TF-IDF를 이용한 한국어 문장 유사도 계산 API (Flask)](https://github.com/MIDUBANG/Korean-Sentence-Similarity-API)
+* [Masking Personal Information in Image with Tesseract.js](https://github.com/MIDUBANG/Masking-Personal-Information-Tesseract)
 * [한글 OCR 모델 - CRNN 모델 Train 및 Test](https://github.com/MIDUBANG/OCR_CRNN)
 * [deep-text-recognition-benchmark를 이용한 OCR 사용자모델 학습](https://github.com/MIDUBANG/ocr_dtrb)
 
@@ -57,13 +59,13 @@ https://www.youtube.com/watch?v=12Gp_7EzfkM
         <td  align="center"><a href= "https://github.com/h-sooah">한수아</a></td>  
     </tr>
     <tr width="100%">
-         <td  align="center"><img src = "https://ifh.cc/g/J8FJYy.jpg" width="80px"/></td>
+         <td  align="center"><img src = "https://user-images.githubusercontent.com/81161750/206687440-f11f8d10-e8d5-46e4-9c49-5d146cf316d9.png" width="150px"/></td>
         <td  align="center"><img src = "https://velog.velcdn.com/images/goinggoing/post/802427b5-4500-41f4-a5f9-dbf95226ed4c/image.png" width="150px" /></td>
         <td  align="center"><img src = "https://s3.us-west-2.amazonaws.com/secure.notion-static.com/8db9ddb1-2c3a-49ec-811a-b807748d8f77/5ECA5D11-679A-419A-AED1-AE0EE3029894.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20221209%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20221209T104642Z&X-Amz-Expires=86400&X-Amz-Signature=438a3c7c044b4d8b5c3cd3bb856cd9e65f14c2fa99f0f518536cdff087ac86c6&X-Amz-SignedHeaders=host&response-content-disposition=filename%3D%225ECA5D11-679A-419A-AED1-AE0EE3029894.png%22&x-id=GetObject" width="150px"/></td>
     </tr>
     <tr width="100%">
-      <td  align="center"><p>메인 페이지</p><p>카테고리 페이지</p><p>검색 페이지</p><p>유저인증& 로그인유지</p></td>
-      <td  align="center"><p>BackEnd</p><p>OCR 모델 학습</p></td>
+      <td  align="center"><p>FrontEnd</p><p>Masking</p><p>NLP</p></td>
+      <td  align="center"><p>BackEnd</p><p>OCR Train(DTRB)</p></td>
       <td  align="center"><p>BackEnd</p><p>OCR Train(CRNN)</p></td>
    </tr>
 </table>
