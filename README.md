@@ -1,10 +1,16 @@
 # 🚀 믿어방 프로젝트 
 ###  프로젝트 목적
-블라블라
+- 믿어방은 자취생을 위한 부동산 전월세 계약 전문 AI 매니저 서비스입니다.
+- 믿어방 서비스는 자취를 처음해보거나 전/월세 부동산 계약에 대한 배경지식이 부족한 사람들에게 서비스를 제공합니다
+
 
 ### 제공 기능 
-* 블라블라
-* 블라브라
+1) OCR 간단 촬영을 통한 주택임대차계약서 분석 서비스
+2) OCR 간단 촬영을 통한 등기부등본 해설 서비스
+3) 쉽게 풀어 설명해주는 부동산 용어 해설 서비스 
+4) 슬기로운 자취 생활 체크리스트
+5) 자취 경험이 있는 사람에게 조언을 구할 수 있는 ‘자율 Q&A 게시판’ 
+6) 자취 생활에 필요한 지식을 모두 정리한  ‘자취 백과 사전’ 
 
 
 <br>
@@ -15,6 +21,7 @@
 * [스타트 10팀 - 나는가수다 Organization](https://github.com/orgs/MIDUBANG/repositories)
 * [Konlpy와 TF-IDF를 이용한 한국어 문장 유사도 계산 API (React)](https://github.com/MIDUBANG/Korean-Sentence-Similarity-Client)
 * [한글 OCR 모델 - CRNN 모델 Train 및 Test](https://github.com/MIDUBANG/OCR_CRNN)
+* [deep-text-recognition-benchmark를 이용한 OCR 사용자모델 학습](https://github.com/MIDUBANG/ocr_dtrb)
 
 
 
