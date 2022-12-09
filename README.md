@@ -48,24 +48,23 @@ https://www.youtube.com/watch?v=12Gp_7EzfkM
 
 
 # 🚀 팀원 
+
+
 <table border="" cellspacing="0" cellpadding="0" width="100%">
     <tr width="100%">
         <td align="center"><a href= "https://github.com/dy6578ekdbs">정다윤</a></td>
         <td align="center"><a href= "l">박가영</a></td>
-        <td  align="center"><a href= "">한수아</a></td>
-       
+        <td  align="center"><a href= "">한수아</a></td>  
     </tr>
     <tr width="100%">
          <td  align="center"><img src = "https://ifh.cc/g/J8FJYy.jpg" width="80px"/></td>
         <td  align="center"><img src = "https://ifh.cc/g/Vo4n9y.png" width="100px" /></td>
         <td  align="center"><img src = "" width="80%"/></td>
-        
     </tr>
     <tr width="100%">
       <td  align="center"><p>메인 페이지</p><p>카테고리 페이지</p><p>검색 페이지</p><p>유저인증& 로그인유지</p></td>
       <td  align="center"><p>공지사항 작성</p><p>공지사항 수정</p></td>
       <td  align="center"><p>마이페이지(유저/관리자)</p><p>쓰레기통 페이지</p></td>
-    
    </tr>
 </table>
 
