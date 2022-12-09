@@ -25,6 +25,7 @@ https://www.youtube.com/watch?v=12Gp_7EzfkM
 
 
 # 예상 아키텍쳐
+![System Architecture (2)](https://user-images.githubusercontent.com/81161750/206648092-03bbb167-da75-45d4-b1b0-4fad050a60b3.jpg)
 
 # UI 프로토타입 (피그마) 
 ![image](https://user-images.githubusercontent.com/81161750/206647444-8064c796-36ab-4f17-8fbc-3e807875b654.png)
