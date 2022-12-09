@@ -58,12 +58,12 @@ https://www.youtube.com/watch?v=12Gp_7EzfkM
     </tr>
     <tr width="100%">
          <td  align="center"><img src = "https://ifh.cc/g/J8FJYy.jpg" width="80px"/></td>
-        <td  align="center"><img src = "https://ifh.cc/g/Vo4n9y.png" width="100px" /></td>
+        <td  align="center"><img src = "https://velog.velcdn.com/images/goinggoing/post/802427b5-4500-41f4-a5f9-dbf95226ed4c/image.png" width="100px" /></td>
         <td  align="center"><img src = "" width="80%"/></td>
     </tr>
     <tr width="100%">
       <td  align="center"><p>메인 페이지</p><p>카테고리 페이지</p><p>검색 페이지</p><p>유저인증& 로그인유지</p></td>
-      <td  align="center"><p>공지사항 작성</p><p>공지사항 수정</p></td>
+      <td  align="center"><p>백엔드</p><p>OCR 모델 학습</p></td>
       <td  align="center"><p>마이페이지(유저/관리자)</p><p>쓰레기통 페이지</p></td>
    </tr>
 </table>
