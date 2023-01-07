@@ -3,6 +3,7 @@ import Test from "./Test";
 
 import Home from "./pages/Analyze/Home";
 import InputTest from "./InputTest";
+import SimpleNavBar from "./components/NavBar/SimpleNavBar";
 
 const App: React.FC = () => {
   const TestOnClick = () => {
@@ -11,9 +12,10 @@ const App: React.FC = () => {
 
   return (
     <div>
-      <InputTest />
+      <SimpleNavBar />
+      {/* <InputTest />
       <Home name="props" onClick={TestOnClick} />
-      <Test />
+      <Test /> */}
     </div>
   );
 };
