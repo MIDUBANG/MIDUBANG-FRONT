@@ -17,5 +17,6 @@
     "jsx": "react-jsx",
     "jsxImportSource": "@emotion/react" // emotion
   },
+  "extends": "./tsconfig.paths.json", // craco
   "include": ["src"]
 }
