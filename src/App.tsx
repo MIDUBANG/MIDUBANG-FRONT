@@ -1,9 +1,12 @@
-import React, { useState } from "react";
-import Test from "./Test";
+import React from "react";
+import { Routes, Route } from "react-router-dom";
+import loadable from "@loadable/component";
 
-import Home from "./pages/Analyze/Home";
-import InputTest from "./InputTest";
-import SimpleNavBar from "./components/NavBar/SimpleNavBar";
+//import Test from "./Test";
+//import Home from "./pages/Analyze/Home";
+//import InputTest from "./InputTest";
+
+const Upload = loadable(() => import("@pages/Analyze/Upload"));
 
 const App: React.FC = () => {
   const TestOnClick = () => {
@@ -11,13 +14,15 @@ const App: React.FC = () => {
   };
 
   return (
-    <div>
-      <SimpleNavBar />
-      {/* <InputTest />
-      <Home name="props" onClick={TestOnClick} />
-      <Test /> */}
-    </div>
+    <Routes>
+      <Route path="/analyze" element={<Upload />} />
+    </Routes>
   );
 };
 
 export default App;
+{
+  /* <InputTest />
+      <Home name="props" onClick={TestOnClick} />
+      <Test /> */
+}
