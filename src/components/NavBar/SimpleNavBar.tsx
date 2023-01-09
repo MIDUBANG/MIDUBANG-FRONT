@@ -3,6 +3,8 @@ import styled from "@emotion/styled";
 import MiniLogo from "../../assets/logo/MiniLogo.svg";
 import CancleLogo from "../../assets/icon/Cancle.png";
 
+import "@style/font.css";
+
 const SimpleNavBar = () => {
   return (
     <BarDiv>
@@ -24,6 +26,7 @@ const BarDiv = styled.div`
   align-items: center;
 
   p {
+    font-family: "Noto Sans KR", sans-serif;
     font-size: 17px;
     margin-left: 12px;
   }
