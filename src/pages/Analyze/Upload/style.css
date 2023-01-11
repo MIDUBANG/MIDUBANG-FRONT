@@ -1,12 +1,14 @@
 .mySwiper {
-  width: 100%;
-  height: auto;
-  border: 1px solid red;
+  width: auto;
+  height: 90%;
 }
 
+.swiper-pagination {
+  margin-bottom: 10px;
+}
 .swiper-pagination-bullet {
-  background: red !important;
+  background: #d9d9d9 !important;
 }
 .swiper-pagination-bullet-active {
-  background: yellow !important;
+  background: #616161 !important;
 }
