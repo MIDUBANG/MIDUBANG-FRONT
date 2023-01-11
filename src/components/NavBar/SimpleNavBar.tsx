@@ -20,8 +20,9 @@ export default SimpleNavBar;
 const BarDiv = styled.div`
   display: flex;
   width: 100%;
-  margin-top: 23px;
-  margin-bottom: 23px;
+
+  padding-top: 23px;
+  padding-bottom: 23px;
 
   align-items: center;
 
