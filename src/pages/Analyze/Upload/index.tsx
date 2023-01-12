@@ -28,8 +28,6 @@ const Upload = () => {
         <SwiperSlide>
           <UploadFile />
         </SwiperSlide>
-        <SwiperSlide>Slide 4</SwiperSlide>
-        <SwiperSlide>Slide 5</SwiperSlide>
       </Swiper>
     </Div>
   );
