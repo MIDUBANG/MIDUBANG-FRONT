@@ -3,16 +3,16 @@ import cloud from "@assets/icon/cloud.png";
 
 const CloudBtn = () => {
   return (
-    <BtnDiv>
+    <BtnLabel htmlFor="ex_filename" className="select-btn">
       <img src={cloud} />
-    </BtnDiv>
+    </BtnLabel>
   );
 };
 
 export default CloudBtn;
 
-const BtnDiv = styled.div`
-  margin: 30px auto 0 auto;
+const BtnLabel = styled.label`
+  margin: 0 auto 0 auto;
   display: flex;
   justify-content: center;
   align-items: center;
