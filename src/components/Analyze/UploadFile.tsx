@@ -4,8 +4,14 @@ import CloudBtn from "@components/Buttons/CloudBtn";
 import ArrowBtn from "@components/Buttons/ArrowBtn";
 import sampleImg from "@assets/illustration/sampleImg.png";
 import { useState } from "react";
-const UploadFile = () => {
-  const [status, setStatus] = useState("사진 업로드");
+
+type UploadFileProps = {
+  setUpload: React.Dispatch<React.SetStateAction<boolean>>;
+};
+
+const UploadFile = ({ setUpload }: UploadFileProps) => {
+  const [status, setStatus] = useState(false);
+  const [statusMsg, setStatusMsg] = useState("사진 업로드");
   const [explain, setExplain] = useState(
     "믿어방 가이드에 맞는 이미지를 업로드해주세요."
   );
@@ -24,7 +30,8 @@ const UploadFile = () => {
     setFileName(currentFileName);
 
     // 상태 문구 변경
-    setStatus("분석 가능");
+    setStatus(true);
+    setStatusMsg("분석 가능");
     setExplain("버튼을 누르면 분석을 시작합니다.");
   };
 
@@ -35,7 +42,7 @@ const UploadFile = () => {
         <FontGray>{fileName}</FontGray>
       </ImgDiv>
 
-      <FontBig margin="80px auto 0 auto">{status}</FontBig>
+      <FontBig margin="80px auto 0 auto">{statusMsg}</FontBig>
       <FontGray margin="17px auto 0 auto">{explain}</FontGray>
 
       <div className="filebox">
@@ -52,7 +59,7 @@ const UploadFile = () => {
       </div>
       <div className="btn-container">
         <CloudBtn />
-        <ArrowBtn />
+        {status && <ArrowBtn onClick={setUpload} />}
       </div>
     </Div>
   );

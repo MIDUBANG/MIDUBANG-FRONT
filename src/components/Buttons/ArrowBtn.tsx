@@ -1,9 +1,12 @@
 import styled from "@emotion/styled";
 import arrow from "@assets/icon/arrow.png";
 
-const ArrowBtn = () => {
+type BtnProps = {
+  onClick: React.Dispatch<React.SetStateAction<boolean>>;
+};
+const ArrowBtn = ({ onClick }: BtnProps) => {
   return (
-    <BtnDiv>
+    <BtnDiv onClick={() => onClick(true)}>
       <img src={arrow} />
     </BtnDiv>
   );
@@ -20,25 +23,14 @@ const BtnDiv = styled.div`
   height: 63px;
 
   border-radius: 50%;
-  background: linear-gradient(
-    131.54deg,
-    #72acff 20.8%,
-    rgba(193, 143, 255, 0.57) 70.17%,
-    rgba(214, 125, 255, 0.22) 84.35%
-  );
+  background: var(--aurora-bright);
   box-shadow: -3px 4px 6px rgba(0, 0, 0, 0.2);
 
   &:active {
     width: 60px;
     height: 60px;
 
-    background: linear-gradient(0deg, rgba(0, 0, 0, 0.15), rgba(0, 0, 0, 0.15)),
-      linear-gradient(
-        131.54deg,
-        #72acff 20.8%,
-        rgba(193, 143, 255, 0.57) 70.17%,
-        rgba(214, 125, 255, 0.22) 84.35%
-      );
+    background: var(--aurora-bright-shadow);
     box-shadow: -3px 4px 6px rgba(0, 0, 0, 0.35);
   }
 `;
