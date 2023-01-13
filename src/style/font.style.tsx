@@ -38,4 +38,14 @@ const FontGray = styled.p<FontProps>`
   color: #7d7d7d;
 `;
 
-export { FontBig, FontMiddle, FontGray };
+const FontTitle = styled.p<FontProps>`
+  margin: ${(props) => props.margin};
+  font-family: "Noto Sans KR";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 29px;
+  color: #000000;
+`;
+
+export { FontBig, FontMiddle, FontGray, FontTitle };
