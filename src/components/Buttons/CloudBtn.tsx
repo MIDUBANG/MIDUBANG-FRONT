@@ -20,15 +20,14 @@ const BtnLabel = styled.label`
   height: 63px;
 
   border-radius: 50%;
-  background: linear-gradient(94.02deg, #4880ee 5.7%, #b093ee 100%);
+  background: var(--aurora);
   box-shadow: -3px 4px 6px rgba(0, 0, 0, 0.2);
 
   &:active {
     width: 60px;
     height: 60px;
 
-    background: linear-gradient(0deg, rgba(0, 0, 0, 0.15), rgba(0, 0, 0, 0.15)),
-      linear-gradient(94.02deg, #4880ee 5.7%, #b093ee 100%);
+    background: var(--aurora-shadow);
     box-shadow: -3px 4px 6px rgba(0, 0, 0, 0.35);
   }
 `;
