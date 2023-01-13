@@ -2,9 +2,9 @@ import React from "react";
 import { Routes, Route } from "react-router-dom";
 import loadable from "@loadable/component";
 import "@style/font.css";
+import "@style/common.scss";
 
-const Upload = loadable(() => import("@pages/Analyze/Upload"));
-
+const UploadPage = loadable(() => import("@pages/Analyze/Upload"));
 const App: React.FC = () => {
   const TestOnClick = () => {
     console.log("dfd");
@@ -12,7 +12,7 @@ const App: React.FC = () => {
 
   return (
     <Routes>
-      <Route path="/analyze" element={<Upload />} />
+      <Route path="/analyze" element={<UploadPage />} />
     </Routes>
   );
 };
