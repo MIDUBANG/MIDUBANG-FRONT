@@ -7,7 +7,7 @@ type Props = {
   activeColor: string;
 };
 
-const RectangleBtn = ({ text, color, activeColor }: Props) => {
+const ShortBtn = ({ text, color, activeColor }: Props) => {
   console.log(activeColor);
 
   return (
@@ -17,9 +17,9 @@ const RectangleBtn = ({ text, color, activeColor }: Props) => {
   );
 };
 
-export default RectangleBtn;
+export default ShortBtn;
 
-RectangleBtn.defaultProps = {
+ShortBtn.defaultProps = {
   activeColor: "--aurora-shadow",
 };
 

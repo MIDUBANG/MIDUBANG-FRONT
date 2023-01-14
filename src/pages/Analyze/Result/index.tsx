@@ -8,7 +8,7 @@ import { FontTitle, FontDescribed } from "@style/font.style";
 import resultTemp1 from "@assets/temp/resultTemp1.png";
 import alert from "@assets/icon/alert.svg";
 
-import RectangleBtn from "@components/Buttons/RectangleBtn";
+import ShortBtn from "@components/Buttons/ShortBtn";
 
 const Result = () => {
   const results = [
@@ -45,13 +45,13 @@ const Result = () => {
         })}
 
         <BtnsDiv>
-          <RectangleBtn
+          <ShortBtn
             text="관련 기사 보러가기"
             color="--aurora"
             activeColor="--aurora-shadow"
           />
           <div className="gap"></div>
-          <RectangleBtn
+          <ShortBtn
             text="단어 사전 보기"
             color="--skyblue"
             activeColor="--skyblue-shadow"
