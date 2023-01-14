@@ -5,14 +5,12 @@ import "@style/font.css";
 import "@style/common.scss";
 
 const UploadPage = loadable(() => import("@pages/Analyze/Upload"));
+const ResultPage = loadable(() => import("@pages/Analyze/Result"));
 const App: React.FC = () => {
-  const TestOnClick = () => {
-    console.log("dfd");
-  };
-
   return (
     <Routes>
       <Route path="/analyze" element={<UploadPage />} />
+      <Route path="/result" element={<ResultPage />} />
     </Routes>
   );
 };
