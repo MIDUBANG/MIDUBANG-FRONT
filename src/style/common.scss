@@ -24,4 +24,12 @@
       rgba(193, 143, 255, 0.57) 70.17%,
       rgba(214, 125, 255, 0.22) 84.35%
     );
+
+  --skyblue: #83b4f9;
+  --skyblue-shadow: linear-gradient(
+      0deg,
+      rgba(0, 0, 0, 0.05),
+      rgba(0, 0, 0, 0.05)
+    ),
+    #83b4f9;
 }
