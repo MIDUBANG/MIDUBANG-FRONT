@@ -6,11 +6,13 @@ import "@style/common.scss";
 
 const UploadPage = loadable(() => import("@pages/Analyze/Upload"));
 const ResultPage = loadable(() => import("@pages/Analyze/Result"));
+const SignupPage = loadable(() => import("@pages/Auth/Signup"));
 const App: React.FC = () => {
   return (
     <Routes>
       <Route path="/analyze" element={<UploadPage />} />
       <Route path="/result" element={<ResultPage />} />
+      <Route path="/signup" element={<SignupPage />} />
     </Routes>
   );
 };
