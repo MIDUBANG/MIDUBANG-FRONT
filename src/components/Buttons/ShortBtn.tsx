@@ -1,5 +1,4 @@
 import styled from "@emotion/styled";
-import cloud from "@assets/icon/cloud.png";
 
 type Props = {
   text: string;
@@ -8,8 +7,6 @@ type Props = {
 };
 
 const ShortBtn = ({ text, color, activeColor }: Props) => {
-  console.log(activeColor);
-
   return (
     <Btn color={color} activeColor={activeColor}>
       {text}
