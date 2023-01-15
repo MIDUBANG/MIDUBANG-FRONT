@@ -1,4 +1,4 @@
-/* Result 페이지 */
+/* Result 특약사항 페이지 */
 import { useState } from "react";
 import styled from "@emotion/styled";
 
@@ -74,7 +74,7 @@ const BtnsDiv = styled.div`
   bottom: 30px;
 
   .gap {
-    width: 5px;
+    width: 20px;
   }
 `;
 
