@@ -5,13 +5,16 @@ import "@style/font.css";
 import "@style/common.scss";
 
 const UploadPage = loadable(() => import("@pages/Analyze/Upload"));
-const ResultPage = loadable(() => import("@pages/Analyze/Result"));
+const Result1Page = loadable(() => import("@pages/Analyze/Result1"));
+const Result2Page = loadable(() => import("@pages/Analyze/Result2"));
 const SignupPage = loadable(() => import("@pages/Auth/Signup"));
+
 const App: React.FC = () => {
   return (
     <Routes>
       <Route path="/analyze" element={<UploadPage />} />
-      <Route path="/result" element={<ResultPage />} />
+      <Route path="/result1" element={<Result1Page />} />
+      <Route path="/result2" element={<Result2Page />} />
       <Route path="/signup" element={<SignupPage />} />
     </Routes>
   );
