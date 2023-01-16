@@ -1,4 +1,5 @@
 /* Result 등기부등본 페이지 */
+import { useState } from "react";
 import styled from "@emotion/styled";
 import SimpleNavBar from "@components/NavBar/SimpleNavBar";
 
@@ -8,7 +9,11 @@ import alert from "@assets/icon/alert.svg";
 
 import ShortBtn from "@components/Buttons/ShortBtn";
 
+import WordModal from "@components/Modal/WordModal";
+
 const Result = () => {
+  const [modal, setModal] = useState(true);
+
   const results = [
     {
       id: 1,
@@ -40,6 +45,7 @@ const Result = () => {
             <FontDescribed margin="16px 28px 0 28px">{res.text}</FontDescribed>
           );
         })}
+        {modal ? <WordModal setModal={setModal} /> : null}
 
         <BtnsDiv>
           <ShortBtn
