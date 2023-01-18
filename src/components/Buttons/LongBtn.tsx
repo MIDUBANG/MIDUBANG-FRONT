@@ -25,7 +25,7 @@ const Btn = styled.div<{ activeColor: string }>`
   align-items: center;
   justify-content: center;
 
-  width: 294px;
+  width: auto;
   height: 41px;
 
   border-radius: 8px;
