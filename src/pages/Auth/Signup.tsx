@@ -11,16 +11,26 @@ import { FontTitle, FontDescribed } from "@style/font.style";
 import AuthInput from "@components/Input/AuthInput";
 import LongBtn from "@components/Buttons/LongBtn";
 import KakaoBtn from "@components/Buttons/KakaoBtn";
+
+import useInput from "@hooks/useInput";
 const Signup = () => {
+  const [email, setEmail] = useInput("");
+  const [pw, setPw] = useInput("");
+  const [checkPw, setCheckPw] = useInput("");
+
   return (
     <Div>
       <SimpleNavBar text="회원 가입" />
       <Container>
         <Illurstration src={logoperson} />
-        <AuthInput placeholder="이메일" />
-        <AuthInput placeholder="비밀번호" />
+        <AuthInput placeholder="이메일" value={email} onChange={setEmail} />
+        <AuthInput placeholder="비밀번호" value={pw} onChange={setPw} />
         <Box>
-          <AuthInput placeholder="비밀번호 확인" />
+          <AuthInput
+            placeholder="비밀번호 확인"
+            value={checkPw}
+            onChange={setCheckPw}
+          />
           <Check src={greencheck} />
         </Box>
 
@@ -80,6 +90,7 @@ const Container = styled.div`
 
   span {
     text-decoration-line: underline;
+    margin-left: 5px;
   }
 `;
 

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import useInput from "./useInput";
+import useInput from "./hooks/useInput";
 
 const InputTest = () => {
   const [id, onChangeId] = useInput("");

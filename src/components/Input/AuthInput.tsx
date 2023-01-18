@@ -5,8 +5,10 @@ import lock from "@assets/icon/lock.svg";
 
 type Props = {
   placeholder: string;
+  value: string;
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 };
-const AuthInput = ({ placeholder }: Props) => {
+const AuthInput = ({ placeholder, value, onChange }: Props) => {
   var ImgSrc = lock;
   if (placeholder == "이메일") {
     ImgSrc = personAuth;
@@ -15,7 +17,7 @@ const AuthInput = ({ placeholder }: Props) => {
   return (
     <InputBox>
       <img src={ImgSrc} />
-      <input placeholder={placeholder} />
+      <input placeholder={placeholder} value={value} onChange={onChange} />
     </InputBox>
   );
 };
