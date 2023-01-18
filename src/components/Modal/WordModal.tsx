@@ -1,14 +1,21 @@
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
 import styled from "@emotion/styled";
 import smile from "@assets/icon/smile.svg";
 import okay from "@assets/icon/okay.svg";
 import clip from "@assets/icon/clip.svg";
 import modalCancle from "@assets/icon/modalCancle.svg";
+
+import "./style.css";
+
 type Props = {
-  setModal: React.Dispatch<React.SetStateAction<boolean>>;
+  open: boolean;
+  close: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
-const WordModal = ({ setModal }: Props) => {
+const WordModal = (props: Props) => {
+  const { open, close } = props;
+
+  // 스크롤 방지
   useEffect(() => {
     document.body.style.cssText = `
               position: fixed;
@@ -23,40 +30,49 @@ const WordModal = ({ setModal }: Props) => {
   }, []);
 
   return (
-    <Background>
-      <ModalDiv>
-        <Icons>
-          <img src={smile} className="smile" />
-          <p>쉬운 단어 해설</p>
-          <img src={modalCancle} className="cancle" />
-        </Icons>
+    <div
+      className={open ? "openModal modal" : "modal"}
+      onClick={() => close(false)}
+    >
+      {open ? (
+        <Background>
+          <ModalDiv>
+            <Icons>
+              <img src={smile} className="smile" />
+              <p>쉬운 단어 해설</p>
+              <img
+                src={modalCancle}
+                className="cancle"
+                onClick={() => close(false)}
+              />
+            </Icons>
 
-        <Contents>
-          <p className="word">저당권</p>
-          <p className="mean">
-            은행이 돈을 빌려줄 때, 고객이 돈을 갚지 못하는 경우를 대비해 담보를
-            잡아야합니다. 부동산을 담보로 잡아서 나중에 고객이 돈을 갚지 않으면
-            경매로 돈을 받아낼 수 있도록 하는 것이 바로 저당권입니다. 이때
-            은행이 저당권자가 됩니다.
-          </p>
-        </Contents>
+            <Contents>
+              <p className="word">저당권</p>
+              <p className="mean">
+                은행이 돈을 빌려줄 때, 고객이 돈을 갚지 못하는 경우를 대비해
+                담보를 잡아야합니다. 부동산을 담보로 잡아서 나중에 고객이 돈을
+                갚지 않으면 경매로 돈을 받아낼 수 있도록 하는 것이 바로
+                저당권입니다. 이때 은행이 저당권자가 됩니다.
+              </p>
+            </Contents>
 
-        <Btns>
-          <Btn color="--aurora">
-            <img src={clip} />
-            <p>단어 저장</p>
-          </Btn>
-          <Btn color="--skyblue">
-            <img src={okay} />
-            <p>이해했어요</p>
-          </Btn>
-        </Btns>
-      </ModalDiv>
-    </Background>
+            <Btns>
+              <Btn color="--aurora">
+                <img src={clip} />
+                <p>단어 저장</p>
+              </Btn>
+              <Btn color="--skyblue" onClick={() => close(false)}>
+                <img src={okay} />
+                <p>이해했어요</p>
+              </Btn>
+            </Btns>
+          </ModalDiv>
+        </Background>
+      ) : null}
+    </div>
   );
 };
-
-// className={open ? "openModal modal" : "modal"}
 
 export default WordModal;
 
@@ -78,6 +94,8 @@ const ModalDiv = styled.div`
   height: auto;
   background: #ffffff;
   border-radius: 16px;
+
+  animation: modal-show 0.3s;
 `;
 
 const Contents = styled.div`

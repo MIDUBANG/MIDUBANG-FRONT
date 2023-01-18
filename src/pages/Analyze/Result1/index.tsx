@@ -45,7 +45,7 @@ const Result = () => {
         })}
 
         <BtnsDiv>
-          <ShortBtn
+          {/* <ShortBtn
             text="관련 기사 보러가기"
             color="--aurora"
             activeColor="--aurora-shadow"
@@ -55,7 +55,7 @@ const Result = () => {
             text="단어 사전 보기"
             color="--skyblue"
             activeColor="--skyblue-shadow"
-          />
+          /> */}
         </BtnsDiv>
       </Container>
     </Div>

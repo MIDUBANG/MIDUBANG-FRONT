@@ -4,11 +4,16 @@ type Props = {
   text: string;
   color: string;
   activeColor: string;
+  openModal: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
-const ShortBtn = ({ text, color, activeColor }: Props) => {
+const ShortBtn = ({ text, color, activeColor, openModal }: Props) => {
   return (
-    <Btn color={color} activeColor={activeColor}>
+    <Btn
+      color={color}
+      activeColor={activeColor}
+      onClick={() => openModal(true)}
+    >
       {text}
     </Btn>
   );

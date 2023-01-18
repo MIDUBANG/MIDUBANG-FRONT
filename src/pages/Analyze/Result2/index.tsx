@@ -1,5 +1,5 @@
 /* Result 등기부등본 페이지 */
-import { useState } from "react";
+import { useState, useEffect, useCallback } from "react";
 import styled from "@emotion/styled";
 import SimpleNavBar from "@components/NavBar/SimpleNavBar";
 
@@ -12,7 +12,15 @@ import ShortBtn from "@components/Buttons/ShortBtn";
 import WordModal from "@components/Modal/WordModal";
 
 const Result = () => {
-  const [modal, setModal] = useState(true);
+  // 모달 컴포넌트
+  const [modalOpen, setModalOpen] = useState(false);
+
+  const openModal = () => {
+    setModalOpen(true);
+  };
+  const closeModal = () => {
+    setModalOpen(false);
+  };
 
   const results = [
     {
@@ -45,19 +53,22 @@ const Result = () => {
             <FontDescribed margin="16px 28px 0 28px">{res.text}</FontDescribed>
           );
         })}
-        {modal ? <WordModal setModal={setModal} /> : null}
+
+        <WordModal open={modalOpen} close={closeModal} />
 
         <BtnsDiv>
           <ShortBtn
             text="관련 기사 보러가기"
             color="--aurora"
             activeColor="--aurora-shadow"
+            openModal={openModal}
           />
           <div className="gap"></div>
           <ShortBtn
             text="단어 사전 보기"
             color="--skyblue"
             activeColor="--skyblue-shadow"
+            openModal={openModal}
           />
         </BtnsDiv>
       </Container>
