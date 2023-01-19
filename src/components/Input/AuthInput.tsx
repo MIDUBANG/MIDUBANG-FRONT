@@ -29,6 +29,7 @@ const InputBox = styled.div`
 
   height: 41px;
   width: 100%;
+
   background: #f9f9f9;
   border-radius: 8px;
 
