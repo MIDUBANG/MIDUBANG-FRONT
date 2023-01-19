@@ -10,10 +10,24 @@ import "./style.css";
 type Props = {
   open: boolean;
   close: React.Dispatch<React.SetStateAction<boolean>>;
+  text: string;
 };
 
 const WordModal = (props: Props) => {
-  const { open, close } = props;
+  const { open, close, text } = props;
+
+  const meanings = [
+    {
+      id: 1,
+      word: "임대차 계약",
+      mean: "임대차 설명",
+    },
+    {
+      id: 2,
+      word: "저당권",
+      mean: "은행이 돈을 빌려줄 때, 고객이 돈을 갚지 못하는 경우를 대비해 담보를 잡아야합니다. 부동산을 담보로 잡아서 나중에 고객이 돈을 갚지 않으면 경매로 돈을 받아낼 수 있도록 하는 것이 바로 저당권입니다. 이때 은행이 저당권자가 됩니다.",
+    },
+  ];
 
   // 스크롤 방지
   useEffect(() => {
@@ -48,13 +62,13 @@ const WordModal = (props: Props) => {
             </Icons>
 
             <Contents>
-              <p className="word">저당권</p>
-              <p className="mean">
-                은행이 돈을 빌려줄 때, 고객이 돈을 갚지 못하는 경우를 대비해
-                담보를 잡아야합니다. 부동산을 담보로 잡아서 나중에 고객이 돈을
-                갚지 않으면 경매로 돈을 받아낼 수 있도록 하는 것이 바로
-                저당권입니다. 이때 은행이 저당권자가 됩니다.
-              </p>
+              <p className="word">{text}</p>
+
+              {meanings.map((m) => {
+                if (m.word == text) {
+                  return <p className="mean">{m.mean}</p>;
+                }
+              })}
             </Contents>
 
             <Btns>
@@ -63,7 +77,7 @@ const WordModal = (props: Props) => {
                 <p>단어 저장</p>
               </Btn>
               <Btn color="--skyblue" onClick={() => close(false)}>
-                <img src={okay} />
+                <img src={okay} className="smile" />
                 <p>이해했어요</p>
               </Btn>
             </Btns>
@@ -132,6 +146,7 @@ const Icons = styled.div`
 
   .smile {
     margin-left: 3px;
+
     width: 30px;
     height: 30px;
   }
@@ -165,6 +180,10 @@ const Btn = styled.div<BtnProps>`
   justify-content: center;
   align-items: center;
 
+  .smile {
+    margin-top: 2px;
+  }
+
   p {
     font-family: "Noto Sans KR", sans-serif;
     font-style: normal;
@@ -175,29 +194,8 @@ const Btn = styled.div<BtnProps>`
   }
 
   img {
-    margin-right: 7px;
+    margin-right: 5px;
     width: 18px;
     height: 18px;
   }
 `;
-
-/*
-@keyframes modal-show {
-    from {
-      opacity: 0;
-      margin-top: -50px;
-    }
-    to {
-      opacity: 1;
-      margin-top: 0;
-    }
-  }
-  @keyframes modal-bg-show {
-    from {
-      opacity: 0;
-    }
-    to {
-      opacity: 1;
-    }
-  }
-  */

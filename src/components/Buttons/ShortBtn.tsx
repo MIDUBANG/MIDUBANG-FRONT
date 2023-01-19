@@ -5,7 +5,7 @@ type Props = {
   color: string;
   activeColor: string;
   state: boolean;
-  onClick: React.Dispatch<React.SetStateAction<boolean>>;
+  onClick: React.Dispatch<React.SetStateAction<any>>;
 };
 
 const ShortBtn = ({ text, color, activeColor, state, onClick }: Props) => {

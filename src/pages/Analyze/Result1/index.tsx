@@ -9,18 +9,37 @@ import resultTemp1 from "@assets/temp/resultTemp1.png";
 import alert from "@assets/icon/alert.svg";
 
 import ShortBtn from "@components/Buttons/ShortBtn";
+import WordModal from "@components/Modal/WordModal";
 
 const Result = () => {
-  const results = [
-    {
-      id: 1,
-      text: "주택임대차보호법에서 보호하는 임차인의 거주 기간은 2년입니다.",
-    },
-    {
-      id: 2,
-      text: "주택임대차보호법 제 4조에 따르면 기간을 정하지 않거나 2년 미만으로 정한 임대차 계약 기간은 그 기간을 2년으로 봅니다.",
-    },
-  ];
+  // 단어 형광펜
+  const [wordMark, setWordMark] = useState(false);
+  // 모달 컴포넌트
+  const [modalOpen, setModalOpen] = useState(false);
+  const [selectWord, setSelectWord] = useState("");
+
+  const results = {
+    id: 1,
+    text: [
+      "주택임대차보호법 제 4조에 따르면 기간을 정하지 않거나 2년 미만으로 정한 ",
+      "임대차 계약",
+      "기간은 그 기간을 2년으로 봅니다.",
+      "임대차 계약",
+      "기간은 그 기간을 2년으로 봅니다.",
+      "임대차 계약",
+      "테스트",
+      "저당권",
+    ],
+  };
+
+  const openModal = (t: string) => {
+    setSelectWord(t);
+    setModalOpen(true);
+  };
+  const closeModal = () => {
+    setModalOpen(false);
+  };
+
   return (
     <Div>
       <SimpleNavBar text="레포트" />
@@ -38,24 +57,39 @@ const Result = () => {
           <img src={alert} />
         </div>
         <Hr />
-        {results.map((res) => {
-          return (
-            <FontDescribed margin="16px 28px 0 28px">{res.text}</FontDescribed>
-          );
-        })}
+
+        <FontDescribed margin="16px 28px 0 28px">
+          {results.text.map((t, index) => {
+            if (index % 2 == 0) {
+              return t;
+            } else {
+              return (
+                <MarkerSpan onClick={() => openModal(t)}>
+                  <span className={wordMark ? "active" : ""}>{t}</span>
+                </MarkerSpan>
+              );
+            }
+          })}
+        </FontDescribed>
+
+        <WordModal open={modalOpen} close={closeModal} text={selectWord} />
 
         <BtnsDiv>
-          {/* <ShortBtn
+          <ShortBtn
             text="관련 기사 보러가기"
             color="--aurora"
             activeColor="--aurora-shadow"
+            state={modalOpen}
+            onClick={openModal}
           />
           <div className="gap"></div>
           <ShortBtn
             text="단어 사전 보기"
             color="--skyblue"
             activeColor="--skyblue-shadow"
-          /> */}
+            state={wordMark}
+            onClick={setWordMark}
+          />
         </BtnsDiv>
       </Container>
     </Div>
@@ -63,6 +97,26 @@ const Result = () => {
 };
 
 export default Result;
+
+const MarkerSpan = styled.span`
+  position: relative;
+
+  span {
+    position: relative;
+    z-index: 10;
+    background: linear-gradient(
+      to right,
+      rgba(255, 255, 255, 0) 50%,
+      #f3ca00 50%
+    );
+    background-size: 200%;
+    transition: 0.4s;
+  }
+
+  .active {
+    background-position: -100% 0;
+  }
+`;
 
 const BtnsDiv = styled.div`
   margin: 0 auto;

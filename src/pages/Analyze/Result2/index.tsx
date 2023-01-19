@@ -54,9 +54,9 @@ const Result = () => {
           );
         })}
 
-        <WordModal open={modalOpen} close={closeModal} />
+        {/* <WordModal open={modalOpen} close={closeModal} /> */}
 
-        <BtnsDiv>
+        {/* <BtnsDiv>
           <ShortBtn
             text="관련 기사 보러가기"
             color="--aurora"
@@ -70,7 +70,7 @@ const Result = () => {
             activeColor="--skyblue-shadow"
             openModal={openModal}
           />
-        </BtnsDiv>
+        </BtnsDiv> */}
       </Container>
     </Div>
   );
