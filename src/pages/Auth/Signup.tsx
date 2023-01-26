@@ -10,7 +10,6 @@ import { FontTitle, FontDescribed } from "@style/font.style";
 
 import AuthInput from "@components/Input/AuthInput";
 import LongBtn from "@components/Buttons/LongBtn";
-import KakaoBtn from "@components/Buttons/KakaoBtn";
 
 import useInput from "@hooks/useInput";
 const Signup = () => {
@@ -39,7 +38,6 @@ const Signup = () => {
           color="--aurora"
           activeColor="--aurora-shadow"
         />
-        <KakaoBtn />
 
         <p className="description">
           이미 계정이 있나요? <span>로그인</span>

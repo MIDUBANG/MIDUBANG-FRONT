@@ -7,6 +7,7 @@ import logoperson from "@assets/illustration/logo&person.png";
 
 import AuthInput from "@components/Input/AuthInput";
 import LongBtn from "@components/Buttons/LongBtn";
+import KakaoBtn from "@components/Buttons/KakaoBtn";
 
 import useInput from "@hooks/useInput";
 const Login = () => {
@@ -24,6 +25,7 @@ const Login = () => {
         <div className="box"></div>
         <LongBtn text="로그인" color="--aurora" activeColor="--aurora-shadow" />
 
+        <KakaoBtn />
         <p className="description">
           아직 계정이 없나요? <span>회원가입</span>
         </p>
