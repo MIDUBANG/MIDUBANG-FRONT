@@ -1,21 +1,68 @@
 /* 회원가입 페이지 */
 import { useState } from "react";
 import styled from "@emotion/styled";
-
+import axios from "axios";
+// component
 import SimpleNavBar from "@components/NavBar/SimpleNavBar";
 import greencheck from "@assets/icon/greencheck.svg";
 import logoperson from "@assets/illustration/logo&person.png";
-
 import { FontTitle, FontDescribed } from "@style/font.style";
-
 import AuthInput from "@components/Input/AuthInput";
 import LongBtn from "@components/Buttons/LongBtn";
-
+// hooks
 import useInput from "@hooks/useInput";
+
 const Signup = () => {
   const [email, setEmail] = useInput("");
   const [pw, setPw] = useInput("");
   const [checkPw, setCheckPw] = useInput("");
+
+  // 회원가입
+  // response 뭐임?
+  const handleSignUp = () => {
+    axios.post("http://{{ip}}:8080/member/signup", {
+      email: email,
+      password: pw,
+    });
+  };
+
+  // 로그인 연장 (토큰 재발급)
+  // Authorization이라는 이름 맞는지?
+
+  const handleRefresh = () => {
+    const refreshToken = "refresh";
+
+    axios.put("http://{{ip}}:8080/api/member/refresh/gy5027@naver.com?=", {
+      headers: {
+        Authorization: `Bearer ${refreshToken}`,
+      },
+    });
+  };
+
+  // response
+  //   {
+  //     "accessToken": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJneTUwMjdAbmF2ZXIuY29tIiwiZXhwIjoxNjc0ODkxNzkxLCJpZCI6MSwiZW1haWwiOiJneTUwMjdAbmF2ZXIuY29tIn0.omreDGCPOXYLiUZRYeIFvLv49Frob3gC1N6UIsyLu1ce0kLWjjOvTPabTJYSvdQbGmfSyCQL0VDguXQbSCnkBg",
+  //     "refreshToken": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJneTUwMjdAbmF2ZXIuY29tIiwiZXhwIjoxNjc0OTMwODQwLCJpZCI6MSwiZW1haWwiOiJneTUwMjdAbmF2ZXIuY29tIn0.nf5EzyGGow_Fys3afspV9XR1FphqXrOWAzgTb-_QPwGE6Kf5EbFMxf5_ZD7igHTAlhcbn_tdzEl1-GK-pGB_rQ"
+  // }
+
+  /* 예시
+  export const refreshHttp = axios.create({
+    baseURL: API_END_POINT,
+    timeout: 180000,
+    withCredentials: false,
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${localStorage.getItem(ACCESS_TOKEN)}`
+    }
+  });
+
+  accessClient.interceptors.request.use(function (config) {
+    const token = localStorage.getItem(ACCESS_TOKEN);
+    config.headers.Authorization = "Bearer " + token;
+  
+    return config;
+  });
+  */
 
   return (
     <Div>
@@ -37,6 +84,7 @@ const Signup = () => {
           text="회원가입"
           color="--aurora"
           activeColor="--aurora-shadow"
+          onClick={handleSignUp}
         />
 
         <p className="description">
