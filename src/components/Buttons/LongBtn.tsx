@@ -4,11 +4,12 @@ type Props = {
   text: string;
   color: string;
   activeColor: string;
+  onClick?: () => void;
 };
 
-const LongBtn = ({ text, color, activeColor }: Props) => {
+const LongBtn = ({ text, color, activeColor, onClick }: Props) => {
   return (
-    <Btn color={color} activeColor={activeColor}>
+    <Btn color={color} activeColor={activeColor} onClick={onClick}>
       {text}
     </Btn>
   );
