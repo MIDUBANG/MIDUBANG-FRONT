@@ -1,18 +1,29 @@
 /* 회원가입 페이지 */
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import styled from "@emotion/styled";
-
+// componnet
 import SimpleNavBar from "@components/NavBar/SimpleNavBar";
-import logoperson from "@assets/illustration/logo&person.png";
-
 import AuthInput from "@components/Input/AuthInput";
 import LongBtn from "@components/Buttons/LongBtn";
 import KakaoBtn from "@components/Buttons/KakaoBtn";
-
+// asset
+import logoperson from "@assets/illustration/logo&person.png";
+// hooks/utils
 import useInput from "@hooks/useInput";
+
 const Login = () => {
+  const REST_API_KEY = "0f6448ff8ab726d19810692f223972fb";
+  const REDIRECT_URI = "http://localhost:3000/KakaoLogin";
+
+  const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`;
+
   const [email, setEmail] = useInput("");
   const [pw, setPw] = useInput("");
+
+  const handleKakaoLogin = () => {
+    window.location.href = KAKAO_AUTH_URL;
+  };
 
   return (
     <Div>
@@ -25,7 +36,8 @@ const Login = () => {
         <div className="box"></div>
         <LongBtn text="로그인" color="--aurora" activeColor="--aurora-shadow" />
 
-        <KakaoBtn />
+        <KakaoBtn onClick={handleKakaoLogin} />
+
         <p className="description">
           아직 계정이 없나요? <span>회원가입</span>
         </p>
