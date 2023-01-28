@@ -9,6 +9,7 @@ const Result1Page = loadable(() => import("@pages/Analyze/Result1"));
 const Result2Page = loadable(() => import("@pages/Analyze/Result2"));
 const SignupPage = loadable(() => import("@pages/Auth/Signup"));
 const LoginPage = loadable(() => import("@pages/Auth/Login"));
+const KakoLoginPage = loadable(() => import("@pages/Auth/KakaoLogin"));
 
 const App: React.FC = () => {
   return (
@@ -18,6 +19,8 @@ const App: React.FC = () => {
       <Route path="/result2" element={<Result2Page />} />
       <Route path="/signup" element={<SignupPage />} />
       <Route path="/login" element={<LoginPage />} />
+      <Route path="/login" element={<LoginPage />} />
+      <Route path="/KakaoLogin" element={<KakoLoginPage />} />
     </Routes>
   );
 };

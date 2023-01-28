@@ -7,7 +7,7 @@ type Props = {
 
 const KakaoBtn = ({ onClick }: Props) => {
   return (
-    <Btn>
+    <Btn onClick={onClick}>
       <img src={kakao} />
       <p>카카오 로그인</p>
     </Btn>
