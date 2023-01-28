@@ -13,7 +13,7 @@ import logoperson from "@assets/illustration/logo&person.png";
 import useInput from "@hooks/useInput";
 
 const Login = () => {
-  const REST_API_KEY = "0f6448ff8ab726d19810692f223972fb";
+  const REST_API_KEY = process.env.REACT_APP_REST_API_KEY;
   const REDIRECT_URI = "http://localhost:3000/KakaoLogin";
 
   const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`;
@@ -22,7 +22,8 @@ const Login = () => {
   const [pw, setPw] = useInput("");
 
   const handleKakaoLogin = () => {
-    window.location.href = KAKAO_AUTH_URL;
+    console.log(REST_API_KEY);
+    //window.location.href = KAKAO_AUTH_URL;
   };
 
   return (
