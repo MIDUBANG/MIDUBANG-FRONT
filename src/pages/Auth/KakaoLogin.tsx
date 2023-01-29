@@ -2,24 +2,30 @@
 import styled from "@emotion/styled";
 import { useLocation } from "react-router-dom";
 import axios from "axios";
+import { useCookies } from "react-cookie";
+import { useNavigate } from "react-router-dom";
 
 const KakaoLogin = () => {
   const location = useLocation();
-  const KAKAO_CODE = location.search.split("=")[1]; // 인가코드드
+  const KAKAO_CODE = location.search.split("=")[1]; // 인가코드
+  const Spring = `http://34.64.177.249:8080/api/member/login/oauth/kakao?code=${KAKAO_CODE}`; // 토큰 요청
 
-  const Spring = `http://{{ip}}:8080/api/member/login/oauth/kakao?code=${KAKAO_CODE}`; // 토큰 요청
+  const [cookies, setCookie] = useCookies(["refreshToken"]);
 
+  const navigate = useNavigate();
+
+  axios.defaults.withCredentials = true;
   axios
     .post(Spring)
-    .then((res) => console.log(res.data.accessToken, res.data.refreshToken)) //access는 http의 디폴트로 설정, 리프레시는 쿠키에 넣기
-    .catch((err) => console.log(err));
+    .then((res) => {
+      const accessToken = res.data.accessToken;
+      localStorage.setItem("token", accessToken);
 
-  // {
-  //     "grantType": "bearer",
-  //     "accessToken": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJneTUwMjdAbmF2ZXIuY29tIiwiZXhwIjoxNjc0ODQ2MjQwLCJpZCI6MSwiZW1haWwiOiJneTUwMjdAbmF2ZXIuY29tIn0.-vPR-Z7RTOkazfOhJhdCztVfzA3I71tHnHn36571TUXe9LOeXi01i1kHLC_imKSEwgodNSjtZp1OW-Z4JTmJDA",
-  //     "tokenExpiresIn": 1674846240175,
-  //     "refreshToken": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJneTUwMjdAbmF2ZXIuY29tIiwiZXhwIjoxNjc0OTMwODQwLCJpZCI6MSwiZW1haWwiOiJneTUwMjdAbmF2ZXIuY29tIn0.nf5EzyGGow_Fys3afspV9XR1FphqXrOWAzgTb-_QPwGE6Kf5EbFMxf5_ZD7igHTAlhcbn_tdzEl1-GK-pGB_rQ"
-  // }
+      const refreshToken = res.data.refreshToken;
+      setCookie("refreshToken", refreshToken, { path: "/" });
+      navigate("/");
+    })
+    .catch((err) => console.log("에러입니다.", err));
 
   return (
     <Div>
@@ -34,3 +40,20 @@ const Div = styled.div`
   width: 100%;
   height: 100%;
 `;
+
+// axios({
+//   method: "POST",
+//   url: "http://34.64.177.249:8080/api/member/login/oauth/kakao",
+//   params: {
+//     code: KAKAO_CODE,
+//   },
+//   withCredentials: true,
+// })
+//   .then((Response) => {
+//     console.log(KAKAO_CODE);
+//     console.log(Response.data);
+//   })
+//   .catch((Error) => {
+//     console.log(KAKAO_CODE);
+//     console.log("에러데스네", Error);
+//   });

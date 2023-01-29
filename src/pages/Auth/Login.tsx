@@ -22,8 +22,7 @@ const Login = () => {
   const [pw, setPw] = useInput("");
 
   const handleKakaoLogin = () => {
-    console.log(REST_API_KEY);
-    //window.location.href = KAKAO_AUTH_URL;
+    window.location.href = KAKAO_AUTH_URL;
   };
 
   return (
