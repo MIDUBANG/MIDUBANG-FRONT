@@ -2,6 +2,8 @@
 import { useState } from "react";
 import styled from "@emotion/styled";
 import axios from "axios";
+import { useCookies } from "react-cookie";
+import { useNavigate } from "react-router-dom";
 // component
 import SimpleNavBar from "@components/NavBar/SimpleNavBar";
 import greencheck from "@assets/icon/greencheck.svg";
@@ -13,56 +15,56 @@ import LongBtn from "@components/Buttons/LongBtn";
 import useInput from "@hooks/useInput";
 
 const Signup = () => {
+  const navigate = useNavigate();
+  const [cookies, setCookie, removeCookie] = useCookies(["refreshToken"]);
+
   const [email, setEmail] = useInput("");
   const [pw, setPw] = useInput("");
   const [checkPw, setCheckPw] = useInput("");
 
-  // 회원가입
-  // response 뭐임?
   const handleSignUp = () => {
-    axios.post("http://{{ip}}:8080/member/signup", {
-      email: email,
-      password: pw,
-    });
+    axios.defaults.withCredentials = true;
+    axios
+      .post("http://34.64.177.249:8080/api/member/signup", {
+        email: "erewr@gmail.com",
+        password: "1234",
+      })
+      .then(function (response) {
+        console.log(response);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
   };
 
   // 로그인 연장 (토큰 재발급)
   // Authorization이라는 이름 맞는지?
-
   const handleRefresh = () => {
-    const refreshToken = "refresh";
+    //console.log(cookies.refreshToken);
+    axios
+      .get(
+        "http://34.64.177.249:8080/api/member/refresh/dy6578ekdbs@naver.com",
+        {
+          headers: {
+            refreshToken: `Bearer ${cookies.refreshToken}`,
+          },
+        }
+      )
+      .then((res) => {
+        // access 토큰 재설정
+        const accessToken = res.data.accessToken;
+        localStorage.setItem("token", accessToken);
+        // refresh 토큰 쿠키에 재설정
+        const refreshToken = res.data.refreshToken;
+        setCookie("refreshToken", refreshToken, { path: "/" });
+        navigate("/");
 
-    axios.put("http://{{ip}}:8080/api/member/refresh/gy5027@naver.com?=", {
-      headers: {
-        Authorization: `Bearer ${refreshToken}`,
-      },
-    });
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
-
-  // response
-  //   {
-  //     "accessToken": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJneTUwMjdAbmF2ZXIuY29tIiwiZXhwIjoxNjc0ODkxNzkxLCJpZCI6MSwiZW1haWwiOiJneTUwMjdAbmF2ZXIuY29tIn0.omreDGCPOXYLiUZRYeIFvLv49Frob3gC1N6UIsyLu1ce0kLWjjOvTPabTJYSvdQbGmfSyCQL0VDguXQbSCnkBg",
-  //     "refreshToken": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJneTUwMjdAbmF2ZXIuY29tIiwiZXhwIjoxNjc0OTMwODQwLCJpZCI6MSwiZW1haWwiOiJneTUwMjdAbmF2ZXIuY29tIn0.nf5EzyGGow_Fys3afspV9XR1FphqXrOWAzgTb-_QPwGE6Kf5EbFMxf5_ZD7igHTAlhcbn_tdzEl1-GK-pGB_rQ"
-  // }
-
-  /* 예시
-  export const refreshHttp = axios.create({
-    baseURL: API_END_POINT,
-    timeout: 180000,
-    withCredentials: false,
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${localStorage.getItem(ACCESS_TOKEN)}`
-    }
-  });
-
-  accessClient.interceptors.request.use(function (config) {
-    const token = localStorage.getItem(ACCESS_TOKEN);
-    config.headers.Authorization = "Bearer " + token;
-  
-    return config;
-  });
-  */
 
   return (
     <Div>
@@ -85,6 +87,13 @@ const Signup = () => {
           color="--aurora"
           activeColor="--aurora-shadow"
           onClick={handleSignUp}
+        />
+
+        <LongBtn
+          text="로그인 연장"
+          color="--aurora"
+          activeColor="--aurora-shadow"
+          onClick={handleRefresh}
         />
 
         <p className="description">
