@@ -1,6 +1,7 @@
 /* 회원가입 페이지 */
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
 import styled from "@emotion/styled";
 // componnet
 import SimpleNavBar from "@components/NavBar/SimpleNavBar";
@@ -11,8 +12,13 @@ import KakaoBtn from "@components/Buttons/KakaoBtn";
 import logoperson from "@assets/illustration/logo&person.png";
 // hooks/utils
 import useInput from "@hooks/useInput";
+import { useCookies } from "react-cookie";
 
 const Login = () => {
+  const [cookies, setCookie] = useCookies(["refreshToken"]);
+
+  const navigate = useNavigate();
+
   const REST_API_KEY = process.env.REACT_APP_REST_API_KEY;
   const REDIRECT_URI = "http://localhost:3000/KakaoLogin";
 
@@ -25,6 +31,28 @@ const Login = () => {
     window.location.href = KAKAO_AUTH_URL;
   };
 
+  const _handleLogin = () => {
+    axios.defaults.withCredentials = true;
+    axios
+      .post("http://34.64.177.249:8080/api/member/login", {
+        email: email,
+        password: pw,
+      })
+      .then((res) => {
+        const accessToken = res.data.accessToken;
+        localStorage.setItem("token", accessToken);
+        const refreshToken = res.data.refreshToken;
+        setCookie("refreshToken", refreshToken, { path: "/" });
+        navigate("/");
+      })
+      .catch((err) => {
+        if (err.response.data.message == "비밀번호가 일치하지 않습니다.") {
+          alert("비밀번호 불일치");
+        } else if (err.response.data.message == "가입하지 않은 계정입니다.") {
+          alert("가입하지 않은 계정입니다.");
+        }
+      });
+  };
   return (
     <Div>
       <SimpleNavBar text="회원 가입" />
@@ -34,12 +62,18 @@ const Login = () => {
         <AuthInput placeholder="비밀번호" value={pw} onChange={setPw} />
 
         <div className="box"></div>
-        <LongBtn text="로그인" color="--aurora" activeColor="--aurora-shadow" />
+        <LongBtn
+          onClick={_handleLogin}
+          text="로그인"
+          color="--aurora"
+          activeColor="--aurora-shadow"
+        />
 
         <KakaoBtn onClick={handleKakaoLogin} />
 
         <p className="description">
-          아직 계정이 없나요? <span>회원가입</span>
+          아직 계정이 없나요?{" "}
+          <span onClick={() => navigate("/signup")}>회원가입</span>
         </p>
       </Container>
     </Div>
