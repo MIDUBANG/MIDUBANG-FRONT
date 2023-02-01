@@ -26,30 +26,31 @@ const Signup = () => {
     axios.defaults.withCredentials = true;
     axios
       .post("http://34.64.177.249:8080/api/member/signup", {
-        email: "erewr@gmail.com",
-        password: "1234",
+        email: email,
+        password: pw,
       })
-      .then(function (response) {
-        console.log(response);
+      .then((res) => {
+        console.log(res);
+        if (res.data.status === "OK") {
+          navigate("/");
+        }
       })
-      .catch(function (error) {
-        console.log(error);
+      .catch((err) => {
+        if (err.response.data.message === "이미 존재하는 계정입니다.") {
+          alert("이미 존재하는 계정입니다.");
+        }
       });
   };
 
   // 로그인 연장 (토큰 재발급)
   // Authorization이라는 이름 맞는지?
   const handleRefresh = () => {
-    //console.log(cookies.refreshToken);
     axios
-      .get(
-        "http://34.64.177.249:8080/api/member/refresh/dy6578ekdbs@naver.com",
-        {
-          headers: {
-            refreshToken: `Bearer ${cookies.refreshToken}`,
-          },
-        }
-      )
+      .get("http://34.64.177.249:8080/api/member/refresh/gy5027@naver.com", {
+        headers: {
+          refreshToken: `Bearer ${cookies.refreshToken}`,
+        },
+      })
       .then((res) => {
         // access 토큰 재설정
         const accessToken = res.data.accessToken;
@@ -62,7 +63,9 @@ const Signup = () => {
         console.log(res);
       })
       .catch((err) => {
-        console.log(err);
+        if (err.response.data.message == "가입되지 않은 이메일입니다.") {
+          alert("가입되지 않은 이메일입니다.");
+        }
       });
   };
 
