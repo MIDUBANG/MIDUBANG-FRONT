@@ -4,9 +4,12 @@ import loadable from "@loadable/component";
 import "@style/font.css";
 import "@style/common.scss";
 
+const HomePage = loadable(() => import("@pages/Main/Home"));
+
 const UploadPage = loadable(() => import("@pages/Analyze/Upload"));
-const Result1Page = loadable(() => import("@pages/Analyze/Result1"));
-const Result2Page = loadable(() => import("@pages/Analyze/Result2"));
+const ResultPage = loadable(() => import("@pages/Analyze/Result"));
+const FeedbackPage = loadable(() => import("@pages/Analyze/Feedback"));
+
 const SignupPage = loadable(() => import("@pages/Auth/Signup"));
 const LoginPage = loadable(() => import("@pages/Auth/Login"));
 const KakoLoginPage = loadable(() => import("@pages/Auth/KakaoLogin"));
@@ -14,13 +17,15 @@ const KakoLoginPage = loadable(() => import("@pages/Auth/KakaoLogin"));
 const App: React.FC = () => {
   return (
     <Routes>
-      <Route path="/analyze" element={<UploadPage />} />
-      <Route path="/result1" element={<Result1Page />} />
-      <Route path="/result2" element={<Result2Page />} />
+      <Route path="/home" element={<HomePage />} />
+
       <Route path="/signup" element={<SignupPage />} />
       <Route path="/login" element={<LoginPage />} />
-      <Route path="/login" element={<LoginPage />} />
       <Route path="/KakaoLogin" element={<KakoLoginPage />} />
+
+      <Route path="/analyze" element={<UploadPage />} />
+      <Route path="/result" element={<ResultPage />} />
+      <Route path="/feedback" element={<FeedbackPage />} />
     </Routes>
   );
 };

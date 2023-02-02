@@ -17,6 +17,7 @@ import { useCookies } from "react-cookie";
 
 const Login = () => {
   const navigate = useNavigate();
+  const [cookies, setCookie] = useCookies(["refreshToken"]);
 
   const REST_API_KEY = process.env.REACT_APP_REST_API_KEY;
   const REDIRECT_URI = "http://localhost:3000/KakaoLogin";
@@ -26,16 +27,11 @@ const Login = () => {
   const [email, setEmail] = useInput("");
   const [pw, setPw] = useInput("");
 
-  const handleKakaoLogin = () => {
+  const _handleKakaoLogin = () => {
     window.location.href = KAKAO_AUTH_URL;
   };
 
-  const onNavigate = () => {
-    navigate("/");
-  };
-
-  const [cookies, setCookie] = useCookies(["refreshToken"]);
-
+  /**access, refresh 토큰 저장 */
   const onCookie = (res: any) => {
     console.log("쿠키");
     const accessToken = res.data.accessToken;
@@ -44,10 +40,9 @@ const Login = () => {
     setCookie("refreshToken", refreshToken, { path: "/" });
   };
 
-  /**일반 로그인 */
+  /**일반 로그인  */
   const _handleLogin = () => {
-    console.log("왜안돼");
-    LoginApi(email, pw, onNavigate, onCookie);
+    LoginApi(email, pw, onCookie, cookies.refreshToken);
   };
 
   return (
@@ -66,7 +61,7 @@ const Login = () => {
           activeColor="--aurora-shadow"
         />
 
-        <KakaoBtn onClick={handleKakaoLogin} />
+        <KakaoBtn onClick={_handleKakaoLogin} />
 
         <p className="description">
           아직 계정이 없나요?{" "}

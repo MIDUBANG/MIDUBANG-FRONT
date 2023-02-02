@@ -14,6 +14,8 @@ import LongBtn from "@components/Buttons/LongBtn";
 // hooks
 import useInput from "@hooks/useInput";
 
+import { SignUpApi } from "@api/auth";
+
 const Signup = () => {
   const navigate = useNavigate();
   const [cookies, setCookie, removeCookie] = useCookies(["refreshToken"]);
@@ -22,52 +24,21 @@ const Signup = () => {
   const [pw, setPw] = useInput("");
   const [checkPw, setCheckPw] = useInput("");
 
-  const handleSignUp = () => {
-    axios.defaults.withCredentials = true;
-    axios
-      .post("http://34.64.177.249:8080/api/member/signup", {
-        email: email,
-        password: pw,
-      })
-      .then((res) => {
-        console.log(res);
-        if (res.data.status === "OK") {
-          navigate("/");
-        }
-      })
-      .catch((err) => {
-        if (err.response.data.message === "이미 존재하는 계정입니다.") {
-          alert("이미 존재하는 계정입니다.");
-        }
-      });
+  const onCookie = (res: any) => {
+    console.log("쿠키");
+    const accessToken = res.data.accessToken;
+    localStorage.setItem("token", accessToken);
+    const refreshToken = res.data.refreshToken;
+    setCookie("refreshToken", refreshToken, { path: "/" });
   };
 
-  // 로그인 연장 (토큰 재발급)
-  // Authorization이라는 이름 맞는지?
-  const handleRefresh = () => {
-    axios
-      .get("http://34.64.177.249:8080/api/member/refresh/gy5027@naver.com", {
-        headers: {
-          refreshToken: `Bearer ${cookies.refreshToken}`,
-        },
-      })
-      .then((res) => {
-        // access 토큰 재설정
-        const accessToken = res.data.accessToken;
-        localStorage.setItem("token", accessToken);
-        // refresh 토큰 쿠키에 재설정
-        const refreshToken = res.data.refreshToken;
-        setCookie("refreshToken", refreshToken, { path: "/" });
-        navigate("/");
-
-        console.log(res);
-      })
-      .catch((err) => {
-        if (err.response.data.message == "가입되지 않은 이메일입니다.") {
-          alert("가입되지 않은 이메일입니다.");
-        }
-      });
+  /**회원가입 */
+  const _handleSignUp = () => {
+    SignUpApi(email, pw, onCookie, cookies.refreshToken);
   };
+
+  /** 토큰 연장 */
+  const _handleRefresh = () => {};
 
   return (
     <Div>
@@ -89,14 +60,14 @@ const Signup = () => {
           text="회원가입"
           color="--aurora"
           activeColor="--aurora-shadow"
-          onClick={handleSignUp}
+          onClick={_handleSignUp}
         />
 
         <LongBtn
           text="로그인 연장"
           color="--aurora"
           activeColor="--aurora-shadow"
-          onClick={handleRefresh}
+          onClick={_handleRefresh}
         />
 
         <p className="description">
