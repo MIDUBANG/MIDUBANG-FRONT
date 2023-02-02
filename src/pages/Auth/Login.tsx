@@ -12,11 +12,10 @@ import KakaoBtn from "@components/Buttons/KakaoBtn";
 import logoperson from "@assets/illustration/logo&person.png";
 // hooks/utils
 import useInput from "@hooks/useInput";
+import { LoginApi } from "@api/auth";
 import { useCookies } from "react-cookie";
 
 const Login = () => {
-  const [cookies, setCookie] = useCookies(["refreshToken"]);
-
   const navigate = useNavigate();
 
   const REST_API_KEY = process.env.REACT_APP_REST_API_KEY;
@@ -31,28 +30,26 @@ const Login = () => {
     window.location.href = KAKAO_AUTH_URL;
   };
 
-  const _handleLogin = () => {
-    axios.defaults.withCredentials = true;
-    axios
-      .post("http://34.64.177.249:8080/api/member/login", {
-        email: email,
-        password: pw,
-      })
-      .then((res) => {
-        const accessToken = res.data.accessToken;
-        localStorage.setItem("token", accessToken);
-        const refreshToken = res.data.refreshToken;
-        setCookie("refreshToken", refreshToken, { path: "/" });
-        navigate("/");
-      })
-      .catch((err) => {
-        if (err.response.data.message == "비밀번호가 일치하지 않습니다.") {
-          alert("비밀번호 불일치");
-        } else if (err.response.data.message == "가입하지 않은 계정입니다.") {
-          alert("가입하지 않은 계정입니다.");
-        }
-      });
+  const onNavigate = () => {
+    navigate("/");
   };
+
+  const [cookies, setCookie] = useCookies(["refreshToken"]);
+
+  const onCookie = (res: any) => {
+    console.log("쿠키");
+    const accessToken = res.data.accessToken;
+    localStorage.setItem("token", accessToken);
+    const refreshToken = res.data.refreshToken;
+    setCookie("refreshToken", refreshToken, { path: "/" });
+  };
+
+  /**일반 로그인 */
+  const _handleLogin = () => {
+    console.log("왜안돼");
+    LoginApi(email, pw, onNavigate, onCookie);
+  };
+
   return (
     <Div>
       <SimpleNavBar text="회원 가입" />
