@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 // component
 import SimpleNavBar from "@components/NavBar/SimpleNavBar";
 import greencheck from "@assets/icon/greencheck.svg";
+import graycheck from "@assets/icon/graycheck.svg";
 import logoperson from "@assets/illustration/logo&person.png";
 import { FontTitle, FontDescribed } from "@style/font.style";
 import AuthInput from "@components/Input/AuthInput";
@@ -53,7 +54,11 @@ const Signup = () => {
             value={checkPw}
             onChange={setCheckPw}
           />
-          <Check src={greencheck} />
+          {pw === checkPw && checkPw != "" ? (
+            <Check src={greencheck} />
+          ) : (
+            <Check src={graycheck} />
+          )}
         </Box>
 
         <LongBtn
@@ -95,6 +100,7 @@ const Illurstration = styled.img`
 const Check = styled.img`
   margin-left: 14px;
   margin-right: 9px;
+  margin-bottom: 20px;
 `;
 
 const Container = styled.div`
