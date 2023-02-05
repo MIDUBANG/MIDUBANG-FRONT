@@ -14,6 +14,8 @@ const SignupPage = loadable(() => import("@pages/Auth/Signup"));
 const LoginPage = loadable(() => import("@pages/Auth/Login"));
 const KakoLoginPage = loadable(() => import("@pages/Auth/KakaoLogin"));
 
+const WordListPage = loadable(() => import("@pages/User/Word/WordList"));
+
 const App: React.FC = () => {
   return (
     <Routes>
@@ -26,6 +28,8 @@ const App: React.FC = () => {
       <Route path="/analyze" element={<UploadPage />} />
       <Route path="/result" element={<ResultPage />} />
       <Route path="/feedback" element={<FeedbackPage />} />
+
+      <Route path="/wordlist" element={<WordListPage />} />
     </Routes>
   );
 };

@@ -1,4 +1,4 @@
-/* Upload 페이지 */
+/* 오타 수정 페이지 */
 import { useState } from "react";
 import styled from "@emotion/styled";
 

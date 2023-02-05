@@ -6,7 +6,6 @@ import SimpleNavBar from "@components/NavBar/SimpleNavBar";
 import { Swiper, SwiperSlide } from "swiper/react";
 import SwiperCore, { Pagination, Autoplay } from "swiper";
 import "swiper/swiper.min.css";
-import "./style.css";
 import "swiper/components/pagination/pagination.scss";
 
 import First from "@components/Analyze/First";
@@ -50,6 +49,21 @@ export default Upload;
 const Div = styled.div`
   width: 100%;
   height: 100%;
+
+  .mySwiper {
+    width: auto;
+    height: 90%;
+  }
+
+  .swiper-pagination {
+    margin-bottom: 10px;
+  }
+  .swiper-pagination-bullet {
+    background: #d9d9d9 !important;
+  }
+  .swiper-pagination-bullet-active {
+    background: #616161 !important;
+  }
 `;
 
 const IlluImg = styled.img`

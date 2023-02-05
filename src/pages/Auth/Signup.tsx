@@ -25,7 +25,7 @@ const Signup = () => {
   const [checkPw, setCheckPw] = useInput("");
 
   const onCookie = (res: any) => {
-    console.log("쿠키");
+    console.log("쿠키", res);
     const accessToken = res.data.accessToken;
     localStorage.setItem("token", accessToken);
     const refreshToken = res.data.refreshToken;
@@ -34,7 +34,7 @@ const Signup = () => {
 
   /**회원가입 */
   const _handleSignUp = () => {
-    SignUpApi(email, pw, onCookie, cookies.refreshToken);
+    SignUpApi(email, pw, onCookie);
   };
 
   /** 토큰 연장 */
@@ -64,7 +64,7 @@ const Signup = () => {
         />
 
         <LongBtn
-          text="로그인 연장"
+          text="로그인 연장 임시 버튼"
           color="--aurora"
           activeColor="--aurora-shadow"
           onClick={_handleRefresh}

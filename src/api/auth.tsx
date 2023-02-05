@@ -2,11 +2,11 @@ import client from "@api/common/client";
 import exp from "constants";
 import { useCookies } from "react-cookie";
 
+// 회원가입
 export const SignUpApi = (
   email: string,
   pw: string,
-  cookie: (res: any) => void,
-  refreshtoken: string
+  cookie: (res: any) => void
 ) => {
   client
     .post("member/signup", {
@@ -14,26 +14,22 @@ export const SignUpApi = (
       password: pw,
     })
     .then((res) => {
-      console.log(res);
-      if (res.data.status === "OK") {
-        cookie(res);
-      }
+      console.log("쿠키 저장!!");
+      cookie(res);
     })
     .catch((err) => {
-      window.location.href = "http://localhost:3000/login";
       if (err.response.data.message === "이미 존재하는 계정입니다.") {
         alert("이미 존재하는 계정입니다.");
-      } else if (err.response.data.message == "토큰 만료") {
-        RefreshApi(refreshtoken, cookie);
+        window.location.href = "http://localhost:3000/login";
       }
     });
 };
 
+// 로그인
 export const LoginApi = (
   email: string,
   pw: string,
-  cookie: (res: any) => void,
-  refreshtoken: string
+  cookie: (res: any) => void
 ) => {
   client
     .post("member/login", {
@@ -45,16 +41,16 @@ export const LoginApi = (
       window.location.href = "http://localhost:3000/";
     })
     .catch((err) => {
-      if (err.response.data.message == "비밀번호가 일치하지 않습니다.") {
-        alert("비밀번호 불일치");
-      } else if (err.response.data.message == "가입하지 않은 계정입니다.") {
-        alert("가입하지 않은 계정입니다.");
-      } else if (err.response.data.message == "토큰 만료") {
-        RefreshApi(refreshtoken, cookie);
-      }
+      alert(err.response.data.message);
+      // if (err.response.data.message == "비밀번호가 일치하지 않습니다.") {
+      //   alert("비밀번호 불일치");
+      // } else if (err.response.data.message == "가입하지 않은 계정입니다.") {
+      //   alert("가입하지 않은 계정입니다.");
+      // }
     });
 };
 
+// access 토큰 재발급
 export const RefreshApi = (
   refreshToken: string,
   cookie: (res: any) => void
@@ -66,15 +62,17 @@ export const RefreshApi = (
       },
     })
     .then((res) => {
-      console.log(res);
+      console.log("토큰 재발급 완료", res);
       cookie(res); // 토큰 2개 재설정
-      window.location.href = "http://localhost:3000/login";
-
-      //navigate();
     })
     .catch((err) => {
-      if (err.response.data.message == "가입되지 않은 이메일입니다.") {
-        alert("가입되지 않은 이메일입니다.");
+      // 아직 수정 안됨
+      console.log("토큰 재발급 실패", err);
+
+      if (err.response.data.message === "expired token") {
+        // 로그인
+        alert("토큰 만료 : 다시 로그인 해주세요.");
+        window.location.href = "http://localhost:3000/login";
       }
     });
 };

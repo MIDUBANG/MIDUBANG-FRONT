@@ -42,7 +42,7 @@ const Login = () => {
 
   /**일반 로그인  */
   const _handleLogin = () => {
-    LoginApi(email, pw, onCookie, cookies.refreshToken);
+    LoginApi(email, pw, onCookie);
   };
 
   return (

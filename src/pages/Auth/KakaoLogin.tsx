@@ -19,19 +19,19 @@ const KakaoLogin = () => {
     .post(Spring)
     .then((res) => {
       const accessToken = res.data.accessToken;
+      console.log(accessToken);
       localStorage.setItem("token", accessToken);
 
       const refreshToken = res.data.refreshToken;
       setCookie("refreshToken", refreshToken, { path: "/" });
       navigate("/");
     })
-    .catch((err) => console.log("에러입니다.", err));
+    .catch((err) => {
+      console.log("카카오 로그인 에러.", err);
+      navigate("/login");
+    });
 
-  return (
-    <Div>
-      <p>로그인</p>
-    </Div>
-  );
+  return <Div></Div>;
 };
 
 export default KakaoLogin;
@@ -40,20 +40,3 @@ const Div = styled.div`
   width: 100%;
   height: 100%;
 `;
-
-// axios({
-//   method: "POST",
-//   url: "http://34.64.177.249:8080/api/member/login/oauth/kakao",
-//   params: {
-//     code: KAKAO_CODE,
-//   },
-//   withCredentials: true,
-// })
-//   .then((Response) => {
-//     console.log(KAKAO_CODE);
-//     console.log(Response.data);
-//   })
-//   .catch((Error) => {
-//     console.log(KAKAO_CODE);
-//     console.log("에러데스네", Error);
-//   });
