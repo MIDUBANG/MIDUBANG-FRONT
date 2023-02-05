@@ -1,6 +1,6 @@
 import { useState } from "react";
 import styled from "@emotion/styled";
-import { GetWordList, PostSaveWord } from "@api/word";
+import { GetWordList, PostSaveWord, DeleteWord } from "@api/word";
 import { useCookies } from "react-cookie";
 
 const WordList = () => {
@@ -19,13 +19,20 @@ const WordList = () => {
     { word_id: number; word: string; meaning: string }[]
   >([]);
 
-  const _handleSaveWord = (id: number) => {
-    PostSaveWord(wordId, cookies.refreshToken, onCookie);
+  const _handleSaveWord = async (id: number) => {
+    await PostSaveWord(wordId, cookies.refreshToken, onCookie);
+    _handleWordList();
   };
 
   const _handleWordList = async () => {
     const words = await GetWordList(cookies.refreshToken, onCookie);
     setWordList(words);
+  };
+
+  const _handleDeleteWord = async () => {
+    await DeleteWord(wordId, cookies.refreshToken, onCookie);
+    // setWordList([]);
+    _handleWordList();
   };
 
   return (
@@ -36,6 +43,7 @@ const WordList = () => {
       <button onClick={() => setWordId(wordId + 1)}>{wordId}</button>
 
       <button onClick={() => _handleWordList()}>저장한 단어 불러오기</button>
+      <button onClick={() => _handleDeleteWord()}>저장한 단어 삭제</button>
 
       <WordListBox>
         {wordList.map((word) => {
