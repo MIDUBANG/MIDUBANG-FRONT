@@ -3,6 +3,9 @@ import styled from "@emotion/styled";
 import { GetWordList, PostSaveWord, DeleteWord } from "@api/word";
 import { useCookies } from "react-cookie";
 
+// componnet
+import SimpleNavBar from "@components/NavBar/SimpleNavBar";
+import ShortBtn from "@components/Buttons/ShortBtn";
 const WordList = () => {
   const [cookies, setCookie, removeCookie] = useCookies(["refreshToken"]);
 
@@ -15,9 +18,24 @@ const WordList = () => {
   };
 
   const [wordId, setWordId] = useState(1);
+
   const [wordList, setWordList] = useState<
-    { word_id: number; word: string; meaning: string }[]
+    { word_id: number; word: string; meaning: string; date: string }[]
   >([]);
+
+  const [activeWord, setActiveWord] = useState<
+    { word_id: number; word: string; meaning: string; date: string }[]
+  >([
+    {
+      word_id: 1,
+      word: "근저당",
+      meaning: "근저당 설명 블라블라",
+      date: "2022-01-21",
+    },
+  ]);
+
+  // 선택한 날짜
+  const [date, setDate] = useState("");
 
   const _handleSaveWord = async (id: number) => {
     await PostSaveWord(wordId, cookies.refreshToken, onCookie);
@@ -35,15 +53,36 @@ const WordList = () => {
     _handleWordList();
   };
 
+  // 작업 필요
+  const _handleSetDate = () => {
+    // 날짜 정하면, 그거랑 맞는 wordList만 출력
+  };
+
   return (
     <Div>
-      <button onClick={() => _handleSaveWord(wordId)}>
-        단어 저장 테스트 버튼
-      </button>
-      <button onClick={() => setWordId(wordId + 1)}>{wordId}</button>
+      <SimpleNavBar text="단어장" />
 
-      <button onClick={() => _handleWordList()}>저장한 단어 불러오기</button>
-      <button onClick={() => _handleDeleteWord()}>저장한 단어 삭제</button>
+      <div>달력 아이콘</div>
+
+      <div>
+        <button onClick={() => _handleWordList()}>전체</button>
+        <button onClick={() => _handleSaveWord(wordId)}>오늘(저장)</button>
+      </div>
+
+      {activeWord.map((word) => (
+        <div key={word.word_id}>
+          <div>
+            <p>{word.word}</p>
+            <p>{word.date}</p>
+          </div>
+
+          <p>{word.meaning}</p>
+          <div>북마크로고</div>
+        </div>
+      ))}
+
+      {/* <button onClick={() => setWordId(wordId + 1)}>{wordId}</button>
+      <button onClick={() => _handleDeleteWord()}>저장한 단어 삭제</button> */}
 
       <WordListBox>
         {wordList.map((word) => {
