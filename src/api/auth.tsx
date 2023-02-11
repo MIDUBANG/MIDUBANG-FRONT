@@ -1,4 +1,5 @@
 import client from "@api/common/client";
+import axios from "axios";
 import exp from "constants";
 import { useCookies } from "react-cookie";
 
@@ -79,25 +80,29 @@ export const RefreshApi = (
   refreshToken: string,
   cookie: (res: any) => void
 ) => {
-  client
-    .get("member/refresh/", {
+  axios
+    .get("http://34.64.177.249:8080/api/member/refresh/", {
       headers: {
-        refreshToken: `Bearer ${refreshToken}`,
+        Authorization: `Bearer ${refreshToken}`,
       },
     })
     .then((res) => {
+      alert("토큰 재발급 완료");
       console.log("토큰 재발급 완료", res);
       cookie(res); // 토큰 2개 재설정
     })
     .catch((err) => {
+      alert("토큰 재발급 실패");
       console.log("토큰 재발급 실패", err);
 
       if (err.response.data.message === "expired token") {
         // 로그인
         alert("토큰 만료 : 다시 로그인 해주세요.");
         window.location.href = "http://localhost:3000/login";
+      } else if (err.response.data.message === "empty token") {
+        alert("토큰이 없습니다.");
+        window.location.href = "http://localhost:3000/login";
       }
-
       window.location.href = "http://localhost:3000/login";
     });
 };
