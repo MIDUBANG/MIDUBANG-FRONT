@@ -12,7 +12,10 @@ export const GetWordList = async (
     return res.data.wordList;
   } catch (err: any) {
     if (err.response.data.message === "expired token") {
-      console.log("토큰 만료");
+      alert("토큰 만료");
+      RefreshApi(refreshToken, cookie);
+    } else if (err.response.data.message === "empty token") {
+      alert("빈 토큰");
       RefreshApi(refreshToken, cookie);
     }
   }
@@ -34,8 +37,11 @@ export const PostSaveWord = async (
       alert("존재하지 않는 단어 id");
     } else if (message === "이미 저장된 단어입니다.") {
       alert("이미 저장된 단어입니다.");
-    } else if (message === "expired token") {
+    } else if (err.response.data.message === "expired token") {
       alert("토큰 만료");
+      RefreshApi(refreshToken, cookie);
+    } else if (err.response.data.message === "empty token") {
+      alert("빈 토큰");
       RefreshApi(refreshToken, cookie);
     }
   }
@@ -54,6 +60,9 @@ export const DeleteWord = async (
     console.log(err);
     if (err.response.data.message === "expired token") {
       alert("토큰 만료");
+      RefreshApi(refreshToken, cookie);
+    } else if (err.response.data.message === "empty token") {
+      alert("빈 토큰");
       RefreshApi(refreshToken, cookie);
     }
   }

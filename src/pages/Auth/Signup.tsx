@@ -15,7 +15,7 @@ import LongBtn from "@components/Buttons/LongBtn";
 // hooks
 import useInput from "@hooks/useInput";
 
-import { SignUpApi } from "@api/auth";
+import { SignUpApi, RefreshApi } from "@api/auth";
 
 const Signup = () => {
   const navigate = useNavigate();
@@ -36,10 +36,13 @@ const Signup = () => {
   /**회원가입 */
   const _handleSignUp = () => {
     SignUpApi(email, pw, onCookie);
+    navigate("/");
   };
 
   /** 토큰 연장 */
-  const _handleRefresh = () => {};
+  const _handleRefresh = () => {
+    RefreshApi(cookies.refreshToken, onCookie);
+  };
 
   return (
     <Div>
