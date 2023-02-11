@@ -15,6 +15,7 @@ const LoginPage = loadable(() => import("@pages/Auth/Login"));
 const KakoLoginPage = loadable(() => import("@pages/Auth/KakaoLogin"));
 
 const WordListPage = loadable(() => import("@pages/User/Word/WordList"));
+const WordMeanPage = loadable(() => import("@pages/User/Word/WordMean"));
 
 const App: React.FC = () => {
   return (
@@ -30,6 +31,7 @@ const App: React.FC = () => {
       <Route path="/feedback" element={<FeedbackPage />} />
 
       <Route path="/wordlist" element={<WordListPage />} />
+      <Route path="/wordmean/:id" element={<WordMeanPage />} />
     </Routes>
   );
 };
