@@ -1,65 +1,71 @@
 import client from "@api/common/client";
-
 import { RefreshApi } from "./auth";
 
-// 저장한 단어 목록 불러오기
-export const GetWordList = async (
+// 특약 분석&저장
+export const PostAnalyze = async (
+  commission: number,
+  answer_commission: number,
+  is_expensive: boolean,
+  contract_type: string,
+  image_url: string,
+  inclusions: number[],
+  omissions: number[],
   refreshToken: string,
   cookie: (res: any) => void
 ): Promise<any> => {
   try {
-    const res = await client.get("word/list");
-    return res.data.wordList;
-  } catch (err: any) {
-    if (err.response.data.message === "expired token") {
-      alert("토큰 만료");
-      RefreshApi(refreshToken, cookie);
-    } else if (err.response.data.message === "empty token") {
-      alert("빈 토큰");
-      RefreshApi(refreshToken, cookie);
-    }
-  }
-};
-
-// 개별 단어 조회
-export const GetWord = async (
-  wordId: number,
-  refreshToken: string,
-  cookie: (res: any) => void
-): Promise<any> => {
-  try {
-    const res = await client.get(`/word/my/${wordId}`);
+    const res = await client.post("analysis");
+    console.log("성공", res);
     return res.data;
   } catch (err: any) {
-    console.log(err);
+    console.log("에러", err);
+
     if (err.response.data.message === "expired token") {
       alert("토큰 만료");
       RefreshApi(refreshToken, cookie);
     } else if (err.response.data.message === "empty token") {
       alert("빈 토큰");
       RefreshApi(refreshToken, cookie);
-    } else if (err.response.data.message === "word not exist") {
-      alert("존재하지 않는 단어입니다.");
     }
   }
 };
 
-// 단어 저장하기
-export const PostSaveWord = async (
-  wordId: number,
+// 분석 리스트 불러오기
+export const GetAnalyzeList = async (
   refreshToken: string,
   cookie: (res: any) => void
-) => {
+): Promise<any> => {
   try {
-    const res = await client.post(`/word/${wordId}`);
-    console.log(res);
+    const res = await client.get("analysis/list");
+    console.log("성공", res);
+    return res.data;
   } catch (err: any) {
-    console.log(err);
-    const message = err.response.data.message;
-    if (message === "존재하지 않는 단어 id") {
-      alert("존재하지 않는 단어 id");
-    } else if (message === "이미 저장된 단어입니다.") {
-      alert("이미 저장된 단어입니다.");
+    console.log("에러", err);
+
+    if (err.response.data.message === "expired token") {
+      alert("토큰 만료");
+      RefreshApi(refreshToken, cookie);
+    } else if (err.response.data.message === "empty token") {
+      alert("빈 토큰");
+      RefreshApi(refreshToken, cookie);
+    }
+  }
+};
+// 분석 하나 불러오기
+export const GetAnalyze = async (
+  record_id: number,
+  refreshToken: string,
+  cookie: (res: any) => void
+): Promise<any> => {
+  try {
+    const res = await client.get(`analysis?record_id=${record_id}`);
+    console.log("성공", res);
+    return res.data;
+  } catch (err: any) {
+    console.log("에러", err);
+
+    if (err.response.data.message === "record_id not exist") {
+      alert("record_id not exist");
     } else if (err.response.data.message === "expired token") {
       alert("토큰 만료");
       RefreshApi(refreshToken, cookie);
@@ -70,18 +76,23 @@ export const PostSaveWord = async (
   }
 };
 
-// 단어 삭제하기
-export const DeleteWord = async (
-  wordId: number,
+// 분석 삭제
+export const DeleteAnalyze = async (
+  record_id: number,
   refreshToken: string,
   cookie: (res: any) => void
 ) => {
   try {
-    const res = await client.delete(`/word/${wordId}`);
+    const res = await client.delete(`analysis?record_id=${record_id}`);
     console.log(res);
   } catch (err: any) {
     console.log(err);
-    if (err.response.data.message === "expired token") {
+
+    const message = err.response.data.message;
+
+    if (message === "record_id not exist") {
+      alert("record_id not exist");
+    } else if (err.response.data.message === "expired token") {
       alert("토큰 만료");
       RefreshApi(refreshToken, cookie);
     } else if (err.response.data.message === "empty token") {

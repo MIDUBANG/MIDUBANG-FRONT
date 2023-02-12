@@ -2,19 +2,53 @@ import { useParams } from "react-router-dom";
 // conponents
 import SimpleNavBar from "@components/NavBar/SimpleNavBar";
 import styled from "@emotion/styled";
-
 // imgs
 import bookmark from "@assets/wordlist/bookmark.svg";
+// api
+import { GetWord } from "@api/word";
+import { useEffect, useState } from "react";
+import { useCookies } from "react-cookie";
 
 const WordMean = () => {
-  let { id } = useParams();
-  console.log(id);
+  const { id } = useParams();
+
+  const [word, setWord] = useState<{
+    word_id: number;
+    word: string;
+    meaning: string;
+    word_date: string;
+  }>({
+    word_id: 0,
+    word: "",
+    meaning: "",
+    word_date: "",
+  });
+
+  const [cookies, setCookie, removeCookie] = useCookies(["refreshToken"]);
+
+  const onCookie = (res: any) => {
+    console.log("쿠키");
+    const accessToken = res.data.accessToken;
+    localStorage.setItem("token", accessToken);
+    const refreshToken = res.data.refreshToken;
+    setCookie("refreshToken", refreshToken, { path: "/" });
+  };
+
+  const _handleGetWord = async () => {
+    const data = await GetWord(Number(id), cookies.refreshToken, onCookie);
+    console.log(data);
+    setWord(data);
+  };
+
+  useEffect(() => {
+    _handleGetWord();
+  }, []);
 
   return (
     <Div>
       <SimpleNavBar text="단어" />
       <WordBox>
-        <p className="word">근저당권</p>
+        <p className="word">{word?.word}</p>
         <p className="date">2022.02.02 저장</p>
       </WordBox>
 
@@ -22,13 +56,8 @@ const WordMean = () => {
       <Container>
         <MeanBox>
           <p className="midubang">[믿어방 해설]</p>
-          <p className="word">근저당권</p>
-          <p className="des">
-            임대인 또는 임차인이 임대차기간이 만료되.임대인 또는 임차인이
-            임대차기간이 만료되..임대인 또는 임차인이 임대차기간이
-            만료되..임대인 또는 임차인이 임대차기간이 만료되..임대인 또는
-            임차인이 임대차기간이 만료되...
-          </p>
+          <p className="word">{word?.word}</p>
+          <p className="des">{word?.meaning}</p>
         </MeanBox>
 
         <MeanBox>

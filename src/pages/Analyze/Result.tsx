@@ -36,6 +36,7 @@ const Result = () => {
     setSelectWord(t);
     setModalOpen(true);
   };
+
   const closeModal = () => {
     setModalOpen(false);
   };

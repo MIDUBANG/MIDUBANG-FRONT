@@ -44,6 +44,7 @@ const WordList = () => {
   };
 
   const _handleWordList = async () => {
+    console.log("다시 불러옴");
     const words = await GetWordList(cookies.refreshToken, onCookie);
     const newWords = words.map((w: any) => {
       let date = w.word_date.replaceAll("-", ".");
@@ -79,7 +80,9 @@ const WordList = () => {
         <Calendar src={calendar} />
 
         <BtnBox>
-          <Button active={true}>전체</Button>
+          <Button active={true} onClick={_handleWordList}>
+            전체
+          </Button>
           <Button active={false}>오늘</Button>
         </BtnBox>
 
