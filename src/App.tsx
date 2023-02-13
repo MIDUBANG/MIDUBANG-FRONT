@@ -26,7 +26,7 @@ const App: React.FC = () => {
       <Route path="/login" element={<LoginPage />} />
       <Route path="/KakaoLogin" element={<KakoLoginPage />} />
 
-      <Route path="/analyze" element={<UploadPage />} />
+      <Route path="/upload" element={<UploadPage />} />
       <Route path="/result" element={<ResultPage />} />
       <Route path="/feedback" element={<FeedbackPage />} />
 

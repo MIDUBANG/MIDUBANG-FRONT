@@ -15,7 +15,10 @@ import loadingPerson from "@assets/illustration/loadingPerson.png";
 
 const Upload = () => {
   const [upload, setUpload] = useState<boolean>(false);
-  SwiperCore.use([Pagination, Autoplay]);
+
+  // 이미지 url은 전역 상태로 관리 필요
+  const [imgUrl, setImgUrl] = useState<string>("");
+  const [result, setResult] = useState<string[]>([]);
 
   return (
     <Div>
@@ -25,19 +28,25 @@ const Upload = () => {
           <SwiperSlide>
             <First />
           </SwiperSlide>
+
           <SwiperSlide>업로드 예시</SwiperSlide>
+
           <SwiperSlide>
-            <UploadFile setUpload={setUpload} />
+            <UploadFile
+              setUpload={setUpload}
+              setImgUrl={setImgUrl}
+              setResult={setResult}
+            />
           </SwiperSlide>
         </Swiper>
       ) : (
         <div>
-          <FontTitle margin="20px 0 0 37px">임대차계약서 분석 결과</FontTitle>
+          <FontTitle margin="20px 0 0 37px">특약 텍스트 추출 중</FontTitle>
           <div style={{ display: "flex", justifyContent: "center" }}>
             <IlluImg src={loadingPerson} />
           </div>
           <ProgressFont>65%</ProgressFont>
-          <WatingFont>분석 중...</WatingFont>
+          <WatingFont>추출 중...</WatingFont>
         </div>
       )}
     </Div>

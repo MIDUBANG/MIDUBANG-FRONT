@@ -50,8 +50,10 @@ const Login = () => {
       <SimpleNavBar text="회원 가입" />
       <Container>
         <Illurstration src={logoperson} />
-        <AuthInput placeholder="이메일" value={email} onChange={setEmail} />
-        <AuthInput placeholder="비밀번호" value={pw} onChange={setPw} />
+        <form onSubmit={_handleLogin}>
+          <AuthInput placeholder="이메일" value={email} onChange={setEmail} />
+          <AuthInput placeholder="비밀번호" value={pw} onChange={setPw} />
+        </form>
 
         <div className="box"></div>
         <LongBtn

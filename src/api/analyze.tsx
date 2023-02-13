@@ -1,6 +1,46 @@
 import client from "@api/common/client";
 import { RefreshApi } from "./auth";
 
+/** 특약 이미지 업로드 */
+export const PostContractImg = async (
+  file: File,
+  refreshToken: string,
+  cookie: (res: any) => void
+): Promise<any> => {
+  try {
+    const formData = new FormData();
+    formData.append("image", file);
+
+    const res = await client.post("/플라스크이미지", formData, {
+      headers: { "content-type": "multipart/form-data" },
+    });
+
+    console.log("성공", res);
+
+    // response = url과 추출 텍스트 결과
+    return res.data;
+
+    // .post("/upload", formData, {
+    //   headers: {
+    //     "Content-Type": "multipart/form-data",
+    //   },
+    //   onUploadProgress,
+    // });
+
+    // S3 이미지 url 응답으로 받음
+  } catch (err: any) {
+    console.log("에러", err);
+
+    if (err.response.data.message === "expired token") {
+      alert("토큰 만료");
+      RefreshApi(refreshToken, cookie);
+    } else if (err.response.data.message === "empty token") {
+      alert("빈 토큰");
+      RefreshApi(refreshToken, cookie);
+    }
+  }
+};
+
 // 특약 분석&저장
 export const PostAnalyze = async (
   commission: number,
