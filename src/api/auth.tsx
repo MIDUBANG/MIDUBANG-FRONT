@@ -90,6 +90,7 @@ export const RefreshApi = (
       alert("토큰 재발급 완료");
       console.log("토큰 재발급 완료", res);
       cookie(res); // 토큰 2개 재설정
+      window.location.reload();
     })
     .catch((err) => {
       alert("토큰 재발급 실패");
