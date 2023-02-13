@@ -1,7 +1,7 @@
 import client from "@api/common/client";
 import { RefreshApi } from "./auth";
 
-/** 특약 이미지 업로드 */
+/** (1) OCR 특약 이미지 업로드 */
 export const PostContractImg = async (
   file: File,
   refreshToken: string,
@@ -11,11 +11,12 @@ export const PostContractImg = async (
     const formData = new FormData();
     formData.append("image", file);
 
+    // 5000포트 axios로 변경 필요
     const res = await client.post("/플라스크이미지", formData, {
       headers: { "content-type": "multipart/form-data" },
     });
 
-    console.log("성공", res);
+    console.log("OCR 성공", res);
 
     // response = url과 추출 텍스트 결과
     return res.data;
@@ -29,7 +30,7 @@ export const PostContractImg = async (
 
     // S3 이미지 url 응답으로 받음
   } catch (err: any) {
-    console.log("에러", err);
+    console.log("OCR 에러", err);
 
     if (err.response.data.message === "expired token") {
       alert("토큰 만료");
@@ -41,7 +42,31 @@ export const PostContractImg = async (
   }
 };
 
-// 특약 분석&저장
+/** (2) NLP case 분석 */
+export const PostContractCase = async (
+  resultArray: string[],
+  refreshToken: string,
+  cookie: (res: any) => void
+): Promise<any> => {
+  try {
+    // 5000포트 axios로 변경 필요
+    const res = await client.post("nlp", resultArray);
+    console.log("NLP 성공", res);
+    return res.data;
+  } catch (err: any) {
+    console.log("NLP 에러", err);
+
+    if (err.response.data.message === "expired token") {
+      alert("토큰 만료");
+      RefreshApi(refreshToken, cookie);
+    } else if (err.response.data.message === "empty token") {
+      alert("빈 토큰");
+      RefreshApi(refreshToken, cookie);
+    }
+  }
+};
+
+/** (3) Spring 특약 분석&저장 */
 export const PostAnalyze = async (
   commission: number,
   answer_commission: number,
@@ -54,11 +79,20 @@ export const PostAnalyze = async (
   cookie: (res: any) => void
 ): Promise<any> => {
   try {
-    const res = await client.post("analysis");
-    console.log("성공", res);
+    const res = await client.post("analysis", {
+      commission: commission,
+      answer_commission: answer_commission,
+      is_expensive: is_expensive,
+      contract_type: contract_type,
+      image_url: image_url,
+      inclusions: inclusions,
+      omissions: omissions,
+    });
+
+    console.log("Spring 성공", res);
     return res.data;
   } catch (err: any) {
-    console.log("에러", err);
+    console.log("Spring 에러", err);
 
     if (err.response.data.message === "expired token") {
       alert("토큰 만료");

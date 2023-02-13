@@ -7,15 +7,23 @@ import SimpleNavBar from "@components/NavBar/SimpleNavBar";
 import loadingPerson from "@assets/illustration/loadingPerson.png";
 
 import { FontGray, FontDescribed } from "@style/font.style";
-import { PostAnalyze } from "@api/analyze";
+import { PostContractCase, PostAnalyze } from "@api/analyze";
 import { useCookies } from "react-cookie";
 
 const Feedback = () => {
+  // 전역 상태 관리에서 뽑아와야함
   const contracts = [
     { id: 1, contract: "보증금과 월세는 1년마다 시세에 맞게 올릴 수 있다" },
     { id: 1, contract: "보증금과 월세는 1년마다 시세에 맞게 올릴 수 있다" },
     { id: 1, contract: "보증금과 월세는 1년마다 시세에 맞게 올릴 수 있다" },
     { id: 1, contract: "보증금과 월세는 1년마다 시세에 맞게 올릴 수 있다" },
+  ];
+
+  // 임시
+  const resultArray = [
+    "보증금과 월세는 1년마다 시세에 맞게 올릴 수 있다",
+    "보증금과 월세는 1년마다 시세에 맞게 올릴 수 있다",
+    "보증금과 월세는 1년마다 시세에 맞게 올릴 수 있다",
   ];
 
   const [cookies, setCookie, removeCookie] = useCookies(["refreshToken"]);
@@ -29,18 +37,35 @@ const Feedback = () => {
   };
 
   const _handlePostAnalyze = async () => {
-    console.log("요청");
+    // NLP에서 case in, out 받아오기
+    // const caseResult = await PostContractCase(
+    //   resultArray,
+    //   cookies.refreshToken,
+    //   onCookie
+    // );
+
+    const caseResult = { in: [1, 2, 3], out: [4, 5, 6] };
+
+    // Spring에서 최종 분석 받아오기
     const res = await PostAnalyze(
       30000,
       50000,
       true,
       "JEONSE",
       "https/",
-      [1, 2, 3],
-      [4, 5, 6],
+      caseResult.in,
+      caseResult.out,
       cookies.refreshToken,
       onCookie
     );
+
+    const myCase = res.myCaseDto;
+    const record = res.record;
+    const word = res.simpleWordDtos;
+
+    console.log("케이스", myCase);
+    console.log("그 외 정보", record);
+    console.log("단어", word);
   };
 
   return (
