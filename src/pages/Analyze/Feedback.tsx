@@ -44,15 +44,20 @@ const Feedback = () => {
     //   onCookie
     // );
 
-    const caseResult = { in: [1, 2, 3], out: [4, 5, 6] };
+    const caseResult = {
+      answer_commission: 40000,
+      is_expensive: true,
+      in: [1, 2, 3],
+      out: [4, 5, 6],
+    };
 
     // Spring에서 최종 분석 받아오기
     const res = await PostAnalyze(
-      30000,
-      50000,
-      true,
-      "JEONSE",
-      "https/",
+      30000, // 내 복비
+      caseResult.answer_commission, // 적정 복비
+      caseResult.is_expensive, // 바가지 유무
+      "JEONSE", // 전세 월세 유무 (이것도 전역)
+      "https/", // 전역에서 뽑아와,,
       caseResult.in,
       caseResult.out,
       cookies.refreshToken,

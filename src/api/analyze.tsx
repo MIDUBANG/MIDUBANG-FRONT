@@ -53,6 +53,13 @@ export const PostContractCase = async (
     const res = await client.post("nlp", resultArray);
     console.log("NLP 성공", res);
     return res.data;
+
+    //   {
+    //     "in": answer_in,
+    //     "out": answer_out,
+    //     "answer_commission": answer_commission,
+    //     "is_expensive": is_expensive,
+    // }
   } catch (err: any) {
     console.log("NLP 에러", err);
 
