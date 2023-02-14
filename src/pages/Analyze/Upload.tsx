@@ -11,23 +11,19 @@ import "swiper/components/pagination/pagination.scss";
 import First from "@components/Analyze/First";
 import Condition1 from "@pages/Analyze/Slide/Condition1";
 import Condition2 from "@pages/Analyze/Slide/Condition2";
+import Condition3 from "@pages/Analyze/Slide/Condition3";
+import Condition4 from "@pages/Analyze/Slide/Condition4";
+import Condition5 from "@pages/Analyze/Slide/Condition5";
+import Condition6 from "@pages/Analyze/Slide/Condition6";
+import Condition7 from "@pages/Analyze/Slide/Condition7";
 
 import UploadFile from "@components/Analyze/UploadFile";
 import { FontTitle } from "@style/font.style";
 import loadingPerson from "@assets/illustration/loadingPerson.png";
 
-const Upload = () => {
-  type PropsExtra = {
-    monthly: boolean;
-    lumpSumMoney: number; // 전세금
-    commission: number; //복비,
-    deposit: number; //보증금
-    monthlyMoney: number; // 월세(차임)
-    pet: boolean; // 반려동물
-    loan: boolean; // 전세대출 (case (유효-필수 20번))
-    substitute: boolean; // 대리인
-  };
+import { PropsExtra } from "@assets/types";
 
+const Upload = () => {
   const [upload, setUpload] = useState<boolean>(false);
 
   // 이미지 url은 전역 상태로 관리 필요
@@ -37,18 +33,12 @@ const Upload = () => {
   // extra condition
   const [extraInfo, setExtraInfo] = useState<PropsExtra>({
     monthly: true, // false면 전세
-
     lumpSumMoney: 0, // 전세금
     deposit: 0, //보증금
-
     monthlyMoney: 0, // 월세(차임)
-
     commission: 0, //복비,
-
     pet: true, // 반려동물
-
     loan: true, // 전세대출 (case (유효-필수 20번))
-
     substitute: true, // 대리인
   });
 
@@ -71,6 +61,26 @@ const Upload = () => {
 
           <SwiperSlide>
             <Condition2 extraInfo={extraInfo} setExtraInfo={setExtraInfo} />
+          </SwiperSlide>
+
+          <SwiperSlide>
+            <Condition3 extraInfo={extraInfo} setExtraInfo={setExtraInfo} />
+          </SwiperSlide>
+
+          <SwiperSlide>
+            <Condition4 extraInfo={extraInfo} setExtraInfo={setExtraInfo} />
+          </SwiperSlide>
+
+          <SwiperSlide>
+            <Condition5 extraInfo={extraInfo} setExtraInfo={setExtraInfo} />
+          </SwiperSlide>
+
+          <SwiperSlide>
+            <Condition6 extraInfo={extraInfo} setExtraInfo={setExtraInfo} />
+          </SwiperSlide>
+
+          <SwiperSlide>
+            <Condition7 extraInfo={extraInfo} setExtraInfo={setExtraInfo} />
           </SwiperSlide>
 
           <SwiperSlide>

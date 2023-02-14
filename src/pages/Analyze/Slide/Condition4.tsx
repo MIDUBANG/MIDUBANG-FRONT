@@ -19,34 +19,33 @@ type Props = {
   setExtraInfo: (extraInfo: PropsExtra) => void;
 };
 
-const Condition2 = ({ extraInfo, setExtraInfo }: Props) => {
+const Condition4 = ({ extraInfo, setExtraInfo }: Props) => {
   const [money, setMoney] = useState<any>(null);
 
   const _handleChageInput = (money: number) => {
     setMoney(money);
-
-    setExtraInfo({ ...extraInfo, deposit: money, lumpSumMoney: money });
+    setExtraInfo({ ...extraInfo, commission: money });
   };
 
   return (
     <Div>
-      <Title>계약금을 입력해주세요.</Title>
-      <Des>월세 보증금, 또는 전세금</Des>
+      <Title>복비를 입력해주세요</Title>
+      <Des>부동산 계약 중계 수수료</Des>
 
       <ConditionInput
         value={money}
         setValue={_handleChageInput}
-        placeholder="월세 또는 전세금 입력 (만원)"
+        placeholder="복비를 입력해주세요. (만원)"
       />
 
       <p>{money} 만원</p>
 
-      <p>설명</p>
+      <p>! 복비란?</p>
     </Div>
   );
 };
 
-export default Condition2;
+export default Condition4;
 
 const Div = styled.div`
   width: 100%;

@@ -19,34 +19,33 @@ type Props = {
   setExtraInfo: (extraInfo: PropsExtra) => void;
 };
 
-const Condition2 = ({ extraInfo, setExtraInfo }: Props) => {
+const Condition3 = ({ extraInfo, setExtraInfo }: Props) => {
   const [money, setMoney] = useState<any>(null);
 
   const _handleChageInput = (money: number) => {
     setMoney(money);
-
-    setExtraInfo({ ...extraInfo, deposit: money, lumpSumMoney: money });
+    setExtraInfo({ ...extraInfo, monthlyMoney: money });
   };
 
   return (
     <Div>
-      <Title>계약금을 입력해주세요.</Title>
-      <Des>월세 보증금, 또는 전세금</Des>
+      <Title>차임(월세)를 입력해주세요</Title>
+      <Des>달마다 내는 임대료</Des>
 
       <ConditionInput
         value={money}
         setValue={_handleChageInput}
-        placeholder="월세 또는 전세금 입력 (만원)"
+        placeholder="월세를 입력해주세요. (만원)"
       />
 
       <p>{money} 만원</p>
 
-      <p>설명</p>
+      <p>! 전세의 경우 공란 제출</p>
     </Div>
   );
 };
 
-export default Condition2;
+export default Condition3;
 
 const Div = styled.div`
   width: 100%;

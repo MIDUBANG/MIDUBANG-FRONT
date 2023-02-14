@@ -43,5 +43,7 @@ const Input = styled.input`
   line-height: 19px;
   text-align: center;
 
+  border: 1px solid #d9d9d9;
+
   border-radius: 20.5px;
 `;

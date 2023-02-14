@@ -10,7 +10,6 @@ import { FontTitle, FontGray } from "@style/font.style";
 import { PostContractCase, PostAnalyze } from "@api/analyze";
 import { useCookies } from "react-cookie";
 import ConditionBtn from "@components/Buttons/Condition/ConditionBtn";
-import ConditionInput from "@components/Input/Condition/ConditionInput";
 
 import { PropsExtra } from "@assets/types";
 
@@ -19,34 +18,41 @@ type Props = {
   setExtraInfo: (extraInfo: PropsExtra) => void;
 };
 
-const Condition2 = ({ extraInfo, setExtraInfo }: Props) => {
-  const [money, setMoney] = useState<any>(null);
-
-  const _handleChageInput = (money: number) => {
-    setMoney(money);
-
-    setExtraInfo({ ...extraInfo, deposit: money, lumpSumMoney: money });
+const Condition5 = ({ extraInfo, setExtraInfo }: Props) => {
+  const _handleClickBtn = (value: boolean) => {
+    if (value === true) {
+      // 네
+      setExtraInfo({ ...extraInfo, pet: true });
+      setIsSelected([true, false]);
+    } else {
+      //아니오
+      setExtraInfo({ ...extraInfo, pet: false });
+      setIsSelected([false, true]);
+    }
   };
+
+  const [isSelected, setIsSelected] = useState([true, false]);
 
   return (
     <Div>
-      <Title>계약금을 입력해주세요.</Title>
-      <Des>월세 보증금, 또는 전세금</Des>
+      <Title>반려동물을 키우실 예정인가요?</Title>
+      <Des>멍멍 나용</Des>
 
-      <ConditionInput
-        value={money}
-        setValue={_handleChageInput}
-        placeholder="월세 또는 전세금 입력 (만원)"
+      <ConditionBtn
+        text="예"
+        selected={isSelected[0]}
+        onClick={() => _handleClickBtn(true)}
       />
-
-      <p>{money} 만원</p>
-
-      <p>설명</p>
+      <ConditionBtn
+        text="아니오"
+        selected={isSelected[1]}
+        onClick={() => _handleClickBtn(false)}
+      />
     </Div>
   );
 };
 
-export default Condition2;
+export default Condition5;
 
 const Div = styled.div`
   width: 100%;
