@@ -1,5 +1,5 @@
 /* Upload 페이지 */
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styled from "@emotion/styled";
 
 import SimpleNavBar from "@components/NavBar/SimpleNavBar";
@@ -9,16 +9,52 @@ import "swiper/swiper.min.css";
 import "swiper/components/pagination/pagination.scss";
 
 import First from "@components/Analyze/First";
+import Condition1 from "@pages/Analyze/Slide/Condition1";
+import Condition2 from "@pages/Analyze/Slide/Condition2";
+
 import UploadFile from "@components/Analyze/UploadFile";
 import { FontTitle } from "@style/font.style";
 import loadingPerson from "@assets/illustration/loadingPerson.png";
 
 const Upload = () => {
+  type PropsExtra = {
+    monthly: boolean;
+    lumpSumMoney: number; // 전세금
+    commission: number; //복비,
+    deposit: number; //보증금
+    monthlyMoney: number; // 월세(차임)
+    pet: boolean; // 반려동물
+    loan: boolean; // 전세대출 (case (유효-필수 20번))
+    substitute: boolean; // 대리인
+  };
+
   const [upload, setUpload] = useState<boolean>(false);
 
   // 이미지 url은 전역 상태로 관리 필요
   const [imgUrl, setImgUrl] = useState<string>("");
   const [result, setResult] = useState<string[]>([]);
+
+  // extra condition
+  const [extraInfo, setExtraInfo] = useState<PropsExtra>({
+    monthly: true, // false면 전세
+
+    lumpSumMoney: 0, // 전세금
+    deposit: 0, //보증금
+
+    monthlyMoney: 0, // 월세(차임)
+
+    commission: 0, //복비,
+
+    pet: true, // 반려동물
+
+    loan: true, // 전세대출 (case (유효-필수 20번))
+
+    substitute: true, // 대리인
+  });
+
+  useEffect(() => {
+    console.log("변함", extraInfo);
+  }, [extraInfo]);
 
   return (
     <Div>
@@ -29,7 +65,13 @@ const Upload = () => {
             <First />
           </SwiperSlide>
 
-          <SwiperSlide>업로드 예시</SwiperSlide>
+          <SwiperSlide>
+            <Condition1 extraInfo={extraInfo} setExtraInfo={setExtraInfo} />
+          </SwiperSlide>
+
+          <SwiperSlide>
+            <Condition2 extraInfo={extraInfo} setExtraInfo={setExtraInfo} />
+          </SwiperSlide>
 
           <SwiperSlide>
             <UploadFile
