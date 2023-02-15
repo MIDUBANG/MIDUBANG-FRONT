@@ -130,6 +130,8 @@ const UploadFile = ({ setUpload, setImgUrl, setResult }: UploadFileProps) => {
         <CloudBtn />
         {status && <ArrowBtn onClick={_handleUploadImg} />}
       </div>
+
+      <p>사진 업로드 예시 보기</p>
     </Div>
   );
 };

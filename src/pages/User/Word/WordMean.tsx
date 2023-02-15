@@ -3,13 +3,18 @@ import { useParams } from "react-router-dom";
 import SimpleNavBar from "@components/NavBar/SimpleNavBar";
 import styled from "@emotion/styled";
 // imgs
+import blur from "@assets/illustration/blur.png";
 import bookmark from "@assets/wordlist/bookmark.svg";
+import unbookmark from "@assets/wordlist/unbookmark.svg";
+
 // api
-import { GetWord } from "@api/word";
+import { GetWord, DeleteWord } from "@api/word";
 import { useEffect, useState } from "react";
 import { useCookies } from "react-cookie";
 
 const WordMean = () => {
+  const [isSave, setIsSave] = useState(true);
+
   const { id } = useParams();
 
   const [word, setWord] = useState<{
@@ -35,9 +40,17 @@ const WordMean = () => {
   };
 
   const _handleGetWord = async () => {
-    const data = await GetWord(Number(id), cookies.refreshToken, onCookie);
-    console.log(data);
-    setWord(data);
+    let word = await GetWord(Number(id), cookies.refreshToken, onCookie);
+    const date = word.word_date.replaceAll("-", ".");
+
+    word.word_date = date;
+
+    console.log("고친거", word);
+    setWord(word);
+  };
+
+  const _handleBookMark = () => {
+    //DeleteWord()
   };
 
   useEffect(() => {
@@ -49,7 +62,8 @@ const WordMean = () => {
       <SimpleNavBar text="단어" />
       <WordBox>
         <p className="word">{word?.word}</p>
-        <p className="date">2022.02.02 저장</p>
+        <p className="date">{word.word_date} 저장</p>
+        <img src={blur} />
       </WordBox>
 
       <Hr />
@@ -73,12 +87,7 @@ const WordMean = () => {
       </Container>
 
       <MeanFooter>
-        <img src={bookmark} />
-        <img src={bookmark} />
-
-        <img src={bookmark} />
-
-        <img src={bookmark} />
+        {isSave ? <img src={bookmark} /> : <img src={unbookmark} />}
       </MeanFooter>
     </Div>
   );
@@ -119,6 +128,19 @@ const WordBox = styled.div`
     position: absolute;
     bottom: 5px;
     right: 10px;
+  }
+
+  img {
+    width: 20vh;
+    height: 20vh;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+
+    transform: translate(-50%, -50%);
+
+    z-index: -1;
+    opacity: 0.8;
   }
 `;
 

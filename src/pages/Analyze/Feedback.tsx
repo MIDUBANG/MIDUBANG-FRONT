@@ -6,9 +6,11 @@ import SimpleNavBar from "@components/NavBar/SimpleNavBar";
 
 import loadingPerson from "@assets/illustration/loadingPerson.png";
 
-import { FontGray, FontDescribed } from "@style/font.style";
+import { FontGray, FontDescribed, FontBig } from "@style/font.style";
 import { PostContractCase, PostAnalyze } from "@api/analyze";
 import { useCookies } from "react-cookie";
+
+// component
 
 const Feedback = () => {
   // 전역 상태 관리에서 뽑아와야함
@@ -17,6 +19,11 @@ const Feedback = () => {
     { id: 1, contract: "보증금과 월세는 1년마다 시세에 맞게 올릴 수 있다" },
     { id: 1, contract: "보증금과 월세는 1년마다 시세에 맞게 올릴 수 있다" },
     { id: 1, contract: "보증금과 월세는 1년마다 시세에 맞게 올릴 수 있다" },
+    {
+      id: 1,
+      contract:
+        "보증금과 월세는 1년마다 시세에 맞게 올릴 수 있보세는 1년마다 시세에 맞게 올릴 수 세는 1년마다 시세에 맞게 올릴 수 증금과 월세는 1년마다 시세에 맞게 올릴 수 있다",
+    },
   ];
 
   // 임시
@@ -76,6 +83,9 @@ const Feedback = () => {
   return (
     <Div>
       <SimpleNavBar text="레포트" />
+
+      <Title>총 N개의 특약조항 검출</Title>
+
       <div style={{ display: "flex", justifyContent: "center" }}>
         <IlluImg src={loadingPerson} style={{ width: "60%" }} />
       </div>
@@ -93,7 +103,10 @@ const Feedback = () => {
         );
       })}
 
-      <button onClick={_handlePostAnalyze}>분석 테스트</button>
+      <BtnBox>
+        <AddBtn>추가</AddBtn>
+        <DoneBtn>완료</DoneBtn>
+      </BtnBox>
     </Div>
   );
 };
@@ -110,14 +123,71 @@ const IlluImg = styled.img`
 `;
 
 const Contract = styled.div`
+  margin: 23px auto 0 29px;
   display: flex;
-  justify-content: start;
   align-items: center;
+
+  width: 90%;
+
+  p {
+    margin: 0;
+  }
 `;
 const Dot = styled.div`
   width: 14px;
   height: 14px;
+
   border-radius: 50%;
   background-color: #4880ee;
-  margin-top: 1px;
+  flex-shrink: 0;
+
+  margin-right: 14px;
+  margin-bottom: auto;
+  margin-top: 4px;
+`;
+
+const Title = styled.p`
+  font-family: "Noto Sans KR";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 29px;
+  color: #000000;
+
+  margin-left: 31px;
+`;
+
+const BtnBox = styled.div`
+  display: flex;
+  width: 100%;
+
+  border: 1px solid red;
+
+  padding: 0 30px;
+  box-sizing: border-box;
+
+  position: fixed;
+  bottom: 33px;
+`;
+const AddBtn = styled.div`
+  width: 100%;
+  height: 41px;
+  border: 1px solid #4880ee;
+  border-radius: 8px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+const DoneBtn = styled.div`
+  margin-left: 14px;
+  width: 100%;
+  height: 41px;
+  border: 1px solid #4880ee;
+  border-radius: 8px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
