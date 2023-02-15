@@ -111,17 +111,22 @@ export const PostAnalyze = async (
   }
 };
 
-// 분석 리스트 불러오기
+// 분석 리스트 불러오기 ✅
 export const GetAnalyzeList = async (
   refreshToken: string,
   cookie: (res: any) => void
 ): Promise<any> => {
   try {
     const res = await client.get("analysis/list");
-    console.log("성공", res);
-    return res.data;
+    console.log("분석 불러오기 성공", res);
+
+    if (res.data.noRecord === true) {
+      return false; //분석 없음
+    } else {
+      return res.data;
+    }
   } catch (err: any) {
-    console.log("에러", err);
+    console.log("분석 불러오기 에러", err);
 
     if (err.response.data.message === "expired token") {
       alert("토큰 만료");
@@ -132,7 +137,8 @@ export const GetAnalyzeList = async (
     }
   }
 };
-// 분석 하나 불러오기
+
+// 개별 분석 불러오기
 export const GetAnalyze = async (
   record_id: number,
   refreshToken: string,

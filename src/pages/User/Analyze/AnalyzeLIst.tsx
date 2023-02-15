@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import styled from "@emotion/styled";
-import { DeleteAnalyze } from "@api/analyze";
+import { GetAnalyzeList, GetAnalyze, DeleteAnalyze } from "@api/analyze";
 import { useCookies } from "react-cookie";
 
 // componnet
@@ -20,17 +20,33 @@ const AnalyzeList = () => {
 
   const navigate = useNavigate();
 
-  const _handleDeleteAnalyze = () => {
-    console.log("분석 삭제");
+  const _handleGetAnalyzeList = async () => {
+    const res = await GetAnalyzeList(cookies.refreshToken, onCookie);
+
+    console.log("분석 리스트", res);
+  };
+
+  const _handleGetAnalyze = async () => {
+    const res = await GetAnalyze(37, cookies.refreshToken, onCookie);
+
+    console.log("개별 분석", res);
+  };
+
+  const _handleDeleteAnalyze = async () => {
+    const res = await DeleteAnalyze(37, cookies.refreshToken, onCookie);
+
+    console.log("분석 삭제", res);
   };
 
   useEffect(() => {}, []);
 
   return (
     <Div>
-      <SimpleNavBar text="단어장" />
+      <SimpleNavBar text="분석 목록" />
 
       <Container>
+        <button onClick={_handleGetAnalyzeList}>리스트불러오기</button>
+        <button onClick={_handleGetAnalyze}>개별 불러오기</button>
         <button onClick={_handleDeleteAnalyze}>삭제</button>
       </Container>
     </Div>
