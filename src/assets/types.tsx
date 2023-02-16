@@ -8,3 +8,11 @@ export type PropsExtra = {
   loan: boolean; // 전세대출 (case (유효-필수 20번))
   substitute: boolean; // 대리인
 };
+
+export type PropsContracts = {
+  id: number;
+  contract: string;
+  done: boolean;
+  selected: boolean;
+  edit: boolean;
+};

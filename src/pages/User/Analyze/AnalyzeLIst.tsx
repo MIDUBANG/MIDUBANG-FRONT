@@ -38,13 +38,51 @@ const AnalyzeList = () => {
     console.log("분석 삭제", res);
   };
 
-  useEffect(() => {}, []);
+  const _test = () => {
+    console.log("요청");
+
+    const data = {
+      contents: [
+        "입주 후 생긴 하자는 세입자가 수리한다.",
+        "반려동물을 키우지 않는다. 금지",
+        "문장1",
+        "문장1",
+      ],
+      extraInfo: {
+        monthly: true,
+        lumpSumMoney: 0,
+        commission: 300000,
+        deposit: 300,
+        monthlyMoney: 0,
+        pet: true,
+        loan: true,
+        substitute: true,
+      },
+    };
+
+    fetch("http://34.64.177.249:5000/api/nlp", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application / json",
+      },
+      body: JSON.stringify(data),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.table("분석 결과", data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
   return (
     <Div>
       <SimpleNavBar text="분석 목록" />
 
       <Container>
+        <button onClick={_test}>nlp 테스트 </button>
         <button onClick={_handleGetAnalyzeList}>리스트불러오기</button>
         <button onClick={_handleGetAnalyze}>개별 불러오기</button>
         <button onClick={_handleDeleteAnalyze}>삭제</button>
