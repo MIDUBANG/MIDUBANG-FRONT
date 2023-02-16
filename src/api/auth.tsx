@@ -107,3 +107,24 @@ export const RefreshApi = (
       window.location.href = "http://localhost:3000/login";
     });
 };
+
+// 유저 정보 조회
+export const GetUserInfo = async (
+  refreshToken: string,
+  cookie: (res: any) => void
+): Promise<any> => {
+  try {
+    const res = await client.get("member/info");
+    return res.data;
+  } catch (err: any) {
+    console.log(err);
+
+    if (err.response.data.message === "expired token") {
+      alert("토큰 만료");
+      RefreshApi(refreshToken, cookie);
+    } else if (err.response.data.message === "empty token") {
+      alert("빈 토큰");
+      RefreshApi(refreshToken, cookie);
+    }
+  }
+};
