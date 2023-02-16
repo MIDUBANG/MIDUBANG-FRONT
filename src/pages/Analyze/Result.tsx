@@ -8,10 +8,24 @@ import { FontTitle, FontDescribed } from "@style/font.style";
 import resultTemp1 from "@assets/temp/resultTemp1.png";
 import alert from "@assets/icon/alert.svg";
 
+// component
+import ResultBox from "@components/Result/ResultBox";
 import ShortBtn from "@components/Buttons/ShortBtn";
 import WordModal from "@components/Modal/WordModal";
+import { PostContractCase, PostAnalyze } from "@api/analyze";
+import { useCookies } from "react-cookie";
 
 const Result = () => {
+  const [cookies, setCookie, removeCookie] = useCookies(["refreshToken"]);
+
+  const onCookie = (res: any) => {
+    console.log("쿠키");
+    const accessToken = res.data.accessToken;
+    localStorage.setItem("token", accessToken);
+    const refreshToken = res.data.refreshToken;
+    setCookie("refreshToken", refreshToken, { path: "/" });
+  };
+
   // 단어 형광펜
   const [wordMark, setWordMark] = useState(false);
   // 모달 컴포넌트
@@ -30,6 +44,43 @@ const Result = () => {
       "테스트",
       "저당권",
     ],
+  };
+
+  const _handlePostAnalyze = async () => {
+    // NLP에서 case in, out 받아오기
+    // const caseResult = await PostContractCase(
+    //   resultArray,
+    //   cookies.refreshToken,
+    //   onCookie
+    // );
+
+    const caseResult = {
+      answer_commission: 40000,
+      is_expensive: true,
+      in: [1, 2, 3],
+      out: [4, 5, 6],
+    };
+
+    // Spring에서 최종 분석 받아오기
+    const res = await PostAnalyze(
+      30000, // 내 복비
+      caseResult.answer_commission, // 적정 복비
+      caseResult.is_expensive, // 바가지 유무
+      "JEONSE", // 전세 월세 유무 (이것도 전역)
+      "https/", // 전역에서 뽑아와,,
+      caseResult.in,
+      caseResult.out,
+      cookies.refreshToken,
+      onCookie
+    );
+
+    const myCase = res.myCaseDto;
+    const record = res.record;
+    const word = res.simpleWordDtos;
+
+    console.log("케이스", myCase);
+    console.log("그 외 정보", record);
+    console.log("단어", word);
   };
 
   const openModal = (t: string) => {
@@ -53,29 +104,16 @@ const Result = () => {
           style={{ margin: "0 auto", display: "block", width: "90%" }}
         />
 
-        <div style={{ display: "flex", margin: "20px 0 0 0" }}>
-          <FontTitle margin="0 9px 0 28px">해설</FontTitle>
-          <img src={alert} />
-        </div>
-        <Hr />
+        <p>특약 조항 해설</p>
 
-        <FontDescribed margin="16px 28px 0 28px">
-          {results.text.map((t, index) => {
-            if (index % 2 == 0) {
-              return t;
-            } else {
-              return (
-                <MarkerSpan onClick={() => openModal(t)}>
-                  <span className={wordMark ? "active" : ""}>{t}</span>
-                </MarkerSpan>
-              );
-            }
-          })}
-        </FontDescribed>
+        <ResultBox />
+        <ResultBox />
+
+        <ResultBox />
 
         <WordModal open={modalOpen} close={closeModal} text={selectWord} />
 
-        <BtnsDiv>
+        {/* <BtnsDiv>
           <ShortBtn
             text="관련 기사 보러가기"
             color="--aurora"
@@ -91,7 +129,7 @@ const Result = () => {
             state={wordMark}
             onClick={setWordMark}
           />
-        </BtnsDiv>
+        </BtnsDiv> */}
       </Container>
     </Div>
   );
@@ -99,53 +137,13 @@ const Result = () => {
 
 export default Result;
 
-const MarkerSpan = styled.span`
-  position: relative;
-
-  span {
-    position: relative;
-    z-index: 10;
-    background: linear-gradient(
-      to right,
-      rgba(255, 255, 255, 0) 50%,
-      #f3ca00 50%
-    );
-    background-size: 200%;
-    transition: 0.4s;
-  }
-
-  .active {
-    background-position: -100% 0;
-  }
-`;
-
-const BtnsDiv = styled.div`
-  margin: 0 auto;
-  width: 100%;
-  display: flex;
-  justify-content: center;
-
-  position: fixed;
-  bottom: 30px;
-
-  .gap {
-    width: 20px;
-  }
-`;
-
 const Div = styled.div`
   width: 100%;
   height: 100%;
+
+  overflow-y: scroll;
 `;
 
 const Container = styled.div`
   padding-bottom: 100px;
-`;
-
-const Hr = styled.hr`
-  margin: 10px 28px 0 28px;
-  height: 1px;
-
-  border: none;
-  background: rgba(217, 217, 217, 0.5);
 `;
