@@ -7,14 +7,12 @@ import { persistReducer } from "redux-persist";
 
 import thunk from "redux-thunk";
 
+import resultReducer from "./resultSlice";
 import extraInfoReducer from "./extraInfoSlice";
-import urlReducer from "./urlSlice";
-import contentsReducer from "./resultSlice";
 
 const reducers = combineReducers({
+  result: resultReducer,
   extraInfo: extraInfoReducer,
-  url: urlReducer,
-  contents: contentsReducer,
 });
 
 const persistConfig = {
@@ -33,4 +31,5 @@ export const store = configureStore({
 export const useAppDispatch = () => useDispatch();
 export const useAppSelector = useSelector;
 // React에서 사용할 수 있도록 타입을 만들어 export 해준다.
+
 export type RootState = ReturnType<typeof reducers>;

@@ -17,8 +17,10 @@ import { RootState } from "@store/store";
 import { useAppDispatch, useAppSelector } from "@store/store";
 
 const Feedback = () => {
-  const contents = useAppSelector((state: RootState) => state.contents);
-  const url = useAppSelector((state: RootState) => state.url);
+  const { contents } = useAppSelector((state: RootState) => state.extraInfo);
+  const { extraInfo } = useAppSelector((state: RootState) => state.extraInfo);
+
+  //const url = useAppSelector((state: RootState) => state.image_url);
 
   // let obj = {};
   // arr.forEach((element, index) => {
@@ -26,13 +28,16 @@ const Feedback = () => {
   // });
   // console.log(obj);
 
-  // contents.map(c =>
-  //   return({...c, done: false,
-  //   selected: false,
-  //   edit: false, }))
+  let processedContents: PropsContracts[] = [];
 
-  const processedContents = contents.contents.map((con) => {
-    return { ...con, done: false, selected: false, edit: false };
+  contents.forEach((element, index) => {
+    processedContents.push({
+      id: index,
+      contract: element,
+      done: false,
+      selected: false,
+      edit: false,
+    });
   });
 
   const [cookies, setCookie, removeCookie] = useCookies(["refreshToken"]);
@@ -119,20 +124,18 @@ const Feedback = () => {
 
   const _handlePostAnalyze = async () => {
     // (1) NLP 업로드 -> case 번호 (in, out )
+    let valueContents: string[] = [];
+
+    contracts.map((c) => {
+      valueContents.push(c.contract);
+    });
+
     const NLP = {
-      contents: ["문장1", "문장1", "문장1", "문장1"],
-      extraInfo: {
-        monthly: true,
-        lumpSumMoney: 0,
-        commission: 300000,
-        deposit: 300,
-        monthlyMoney: 0,
-        pet: true,
-        loan: true,
-        substitute: true,
-      },
+      contents: valueContents,
+      extraInfo: extraInfo,
     };
 
+    console.log("왜", NLP);
     // {in, out, answer_commission, is_expensive}
     const res_case = await PostContractCase(
       NLP,
@@ -141,18 +144,18 @@ const Feedback = () => {
     );
 
     // (2) Spring 업로드 -> 최종 결과 (result로 옮길까?)
-    const res = await PostAnalyze(
-      0,
-      0,
-      false,
-      "전세",
-      "url",
-      [1],
-      [2],
-      cookies.refreshToken,
-      onCookie
-    );
-    console.log("스프링 요청");
+    // const res = await PostAnalyze(
+    //   0,
+    //   0,
+    //   false,
+    //   "전세",
+    //   "url",
+    //   [1],
+    //   [2],
+    //   cookies.refreshToken,
+    //   onCookie
+    // );
+    // console.log("스프링 요청");
   };
 
   return (

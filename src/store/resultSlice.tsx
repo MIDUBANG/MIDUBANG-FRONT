@@ -23,7 +23,7 @@ const initialState: stateType = {
   omissions: [],
 };
 
-export const contentsSlice = createSlice({
+export const resultSlice = createSlice({
   name: name,
   initialState,
   reducers: {
@@ -39,7 +39,7 @@ export const contentsSlice = createSlice({
     setContractType: (state, action) => {
       state.contract_type = action.payload.contract_type;
     },
-    setImgUrl: (state, action) => {
+    setImgUrlReducer: (state, action) => {
       state.image_url = action.payload.image_url;
     },
     setNlpReult: (state, action) => {
@@ -55,7 +55,7 @@ export const contentsSlice = createSlice({
   },
 });
 
-export const { initContents, setContractType, setImgUrl, setNlpReult } =
-  contentsSlice.actions;
+export const { initContents, setContractType, setImgUrlReducer, setNlpReult } =
+  resultSlice.actions;
 
-export default contentsSlice.reducer;
+export default resultSlice.reducer;

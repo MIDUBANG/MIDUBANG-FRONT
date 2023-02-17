@@ -24,17 +24,13 @@ import loadingPerson from "@assets/illustration/loadingPerson.png";
 import { PropsExtra } from "@assets/types";
 
 import { useAppDispatch } from "@store/store";
-import { setExtraInfo } from "@store/extraInfoSlice";
-import { setUrl } from "@store/urlSlice";
-import { setImgUrl, setNlpReult } from "@store/resultSlice";
+
+import { setExtraInfo, setContents } from "@store/extraInfoSlice";
+import { setContractType, setImgUrlReducer } from "@store/resultSlice";
 
 // hooks
 import { useNavigate } from "react-router-dom";
 
-type contentType = {
-  id: number;
-  contract: string;
-};
 const Upload = () => {
   const navigate = useNavigate();
 
@@ -44,7 +40,7 @@ const Upload = () => {
 
   // 이미지 url은 전역 상태로 관리 필요
   const [imgUrl, setImgUrl] = useState<string>("");
-  const [result, setResult] = useState<contentType[]>([]);
+  const [result, setResult] = useState<string[]>([]);
 
   // extra condition
   const [extraInfo, setExtraInfostate] = useState<PropsExtra>({
@@ -63,6 +59,10 @@ const Upload = () => {
 
     console.log(extraInfo);
 
+    if (extraInfo.monthly === true) {
+      dispatch(setContractType({ contract_type: "JEONSE" }));
+    }
+
     dispatch(
       setExtraInfo({
         monthly: extraInfo.monthly,
@@ -78,25 +78,11 @@ const Upload = () => {
   }, [upload]);
 
   useEffect(() => {
-    console.log("변경 감지", extraInfo);
-  }, [extraInfo]);
-
-  useEffect(() => {
     console.log("S3 url과 1차 text 결과 저장");
 
-    dispatch(
-      setUrl({
-        image_url: imgUrl,
-      })
-    );
+    dispatch(setImgUrlReducer({ image_url: imgUrl }));
 
-    dispatch(
-      setContents({
-        contents: result,
-      })
-    );
-
-    console.log("왜안돼", result);
+    dispatch(setContents({ contents: result }));
 
     if (imgUrl != "" && result.length != 0) navigate("/feedback");
   }, [imgUrl, result]);

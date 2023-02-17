@@ -3,7 +3,7 @@ import { PURGE } from "redux-persist";
 
 const name = "extraInfoSlice";
 
-type stateType = {
+type extraInfoType = {
   monthly: boolean;
   lumpSumMoney: number;
   commission: number;
@@ -14,15 +14,23 @@ type stateType = {
   substitute: boolean;
 };
 
+type stateType = {
+  contents: string[];
+  extraInfo: extraInfoType;
+};
+
 const initialState: stateType = {
-  monthly: true,
-  lumpSumMoney: 0,
-  commission: 0,
-  deposit: 0,
-  monthlyMoney: 0,
-  pet: true,
-  loan: true,
-  substitute: false,
+  contents: [],
+  extraInfo: {
+    monthly: true,
+    lumpSumMoney: 0,
+    commission: 0,
+    deposit: 0,
+    monthlyMoney: 0,
+    pet: false,
+    loan: false,
+    substitute: false,
+  },
 };
 
 export const extraInfoSlice = createSlice({
@@ -30,24 +38,28 @@ export const extraInfoSlice = createSlice({
   initialState,
   reducers: {
     initExtraInfo: (state) => {
-      state.monthly = initialState.monthly;
-      state.lumpSumMoney = initialState.lumpSumMoney;
-      state.commission = initialState.commission;
-      state.deposit = initialState.deposit;
-      state.monthlyMoney = initialState.monthlyMoney;
-      state.pet = initialState.pet;
-      state.loan = initialState.loan;
-      state.substitute = initialState.substitute;
+      state.contents = initialState.contents;
+      state.extraInfo.monthly = initialState.extraInfo.monthly;
+      state.extraInfo.lumpSumMoney = initialState.extraInfo.lumpSumMoney;
+      state.extraInfo.commission = initialState.extraInfo.commission;
+      state.extraInfo.deposit = initialState.extraInfo.deposit;
+      state.extraInfo.monthlyMoney = initialState.extraInfo.monthlyMoney;
+      state.extraInfo.pet = initialState.extraInfo.pet;
+      state.extraInfo.loan = initialState.extraInfo.loan;
+      state.extraInfo.substitute = initialState.extraInfo.substitute;
+    },
+    setContents: (state, action) => {
+      state.contents = action.payload.contents;
     },
     setExtraInfo: (state, action) => {
-      state.monthly = action.payload.monthly;
-      state.lumpSumMoney = action.payload.lumpSumMoney;
-      state.commission = action.payload.commission;
-      state.deposit = action.payload.deposit;
-      state.monthlyMoney = action.payload.monthlyMoney;
-      state.pet = action.payload.pet;
-      state.loan = action.payload.loan;
-      state.substitute = action.payload.substitute;
+      state.extraInfo.monthly = action.payload.monthly;
+      state.extraInfo.lumpSumMoney = action.payload.lumpSumMoney;
+      state.extraInfo.commission = action.payload.commission;
+      state.extraInfo.deposit = action.payload.deposit;
+      state.extraInfo.monthlyMoney = action.payload.monthlyMoney;
+      state.extraInfo.pet = action.payload.pet;
+      state.extraInfo.loan = action.payload.loan;
+      state.extraInfo.substitute = action.payload.substitute;
     },
   },
   extraReducers: (builder) => {
@@ -55,6 +67,7 @@ export const extraInfoSlice = createSlice({
   },
 });
 
-export const { initExtraInfo, setExtraInfo } = extraInfoSlice.actions;
+export const { initExtraInfo, setContents, setExtraInfo } =
+  extraInfoSlice.actions;
 
 export default extraInfoSlice.reducer;

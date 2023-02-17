@@ -1,6 +1,8 @@
 import client from "@api/common/client";
 import { RefreshApi } from "./auth";
 
+import axios from "axios";
+
 /** (1) OCR 특약 이미지 업로드 */
 export const PostContractImg = async (
   user_id: number,
@@ -23,41 +25,16 @@ export const PostContractImg = async (
     return {
       imgUrl: "https/블라블라 결과물",
       resultArray: [
-        {
-          id: 1,
-          contract:
-            "보증금과 월세는 1년마다 시세에 맞게증금과 월세는 1년마다 시세에 맞게증금과 월세는 1년마다 시세에 맞게증금과 월세는 1년마다 시세에 맞게 올릴 수 있다",
-        },
-        {
-          id: 2,
-          contract:
-            "보증금과 월세는 1년마다 시세에 맞게증금과 월세는 1년마다 시세에 맞게증금과 월세는 1년마다 시세에 맞게증금과 월세는 1년마다 시세에 맞게 올릴 수 있다",
-        },
+        "보증금과 월세는 1년마다 시세에 맞게증금과 월세는 1년마다 시세에 맞게증금과 월세는 1년마다 시세에 맞게증금과 월세는 1년마다 시세에 맞게 올릴 수 있다",
+        "보증금과 월세는 1년마다 시세에 맞게증금과 월세는 1년마다 시세에 맞게증금과 월세는 1년마다 시세에 맞게증금과 월세는 1년마다 시세에 맞게 올릴 수 있다",
       ],
     };
-
-    // .post("/upload", formData, {
-    //   headers: {
-    //     "Content-Type": "multipart/form-data",
-    //   },
-    //   onUploadProgress,
-    // });
-
-    // S3 이미지 url 응답으로 받음
   } catch (err: any) {
     return {
       imgUrl: "https/블라블라 결과물",
       resultArray: [
-        {
-          id: 1,
-          contract:
-            "보증금과 월세는 1년마다 시세에 맞게증금과 월세는 1년마다 시세에 맞게증금과 월세는 1년마다 시세에 맞게증금과 월세는 1년마다 시세에 맞게 올릴 수 있다",
-        },
-        {
-          id: 2,
-          contract:
-            "보증금과 월세는 1년마다 시세에 맞게증금과 월세는 1년마다 시세에 맞게증금과 월세는 1년마다 시세에 맞게증금과 월세는 1년마다 시세에 맞게 올릴 수 있다",
-        },
+        "보증금과 월세는 1년마다 시세에 맞게증금과 월세는 1년마다 시세에 맞게증금과 월세는 1년마다 시세에 맞게증금과 월세는 1년마다 시세에 맞게 올릴 수 있다",
+        "보증금과 월세는 1년마다 시세에 맞게증금과 월세는 1년마다 시세에 맞게증금과 월세는 1년마다 시세에 맞게증금과 월세는 1년마다 시세에 맞게 올릴 수 있다",
       ],
     };
 
@@ -95,9 +72,8 @@ export const PostContractCase = async (
   cookie: (res: any) => void
 ): Promise<any> => {
   try {
-    // 5000포트 axios로 변경 필요
-    client.defaults.baseURL = "http://34.64.177.249:5000/api/";
-    const res = await client.post("/nlp", result);
+    const res = await axios.post("http://34.64.177.249:5000/api/nlp", result);
+
     console.log("NLP 성공", res);
     return res.data;
   } catch (err: any) {
