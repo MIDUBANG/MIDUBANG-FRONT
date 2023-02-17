@@ -7,26 +7,23 @@ import pencil from "@assets/icon/pencil.svg";
 // component
 import BottomModal from "@components/Modal/BottomModal";
 import SimpleNavBar from "@components/NavBar/SimpleNavBar";
-import { FontGray, FontDescribed, FontBig } from "@style/font.style";
+import { FontGray, FontDescribed } from "@style/font.style";
 import { PropsContracts } from "@assets/types";
 // api & hook
-import { PostContractCase, PostAnalyze } from "@api/analyze";
+import { PostContractCase } from "@api/analyze";
 import { useCookies } from "react-cookie";
+import { useNavigate } from "react-router-dom";
 // store
 import { RootState } from "@store/store";
 import { useAppDispatch, useAppSelector } from "@store/store";
+import { setNlpReult } from "@store/resultSlice";
 
 const Feedback = () => {
+  const navigate = useNavigate();
+  const dispatch = useAppDispatch();
+
   const { contents } = useAppSelector((state: RootState) => state.extraInfo);
   const { extraInfo } = useAppSelector((state: RootState) => state.extraInfo);
-
-  //const url = useAppSelector((state: RootState) => state.image_url);
-
-  // let obj = {};
-  // arr.forEach((element, index) => {
-  //   obj['key' + index] = element;
-  // });
-  // console.log(obj);
 
   let processedContents: PropsContracts[] = [];
 
@@ -135,27 +132,26 @@ const Feedback = () => {
       extraInfo: extraInfo,
     };
 
-    console.log("왜", NLP);
     // {in, out, answer_commission, is_expensive}
-    const res_case = await PostContractCase(
+    const nlpresult = await PostContractCase(
       NLP,
       cookies.refreshToken,
       onCookie
     );
 
-    // (2) Spring 업로드 -> 최종 결과 (result로 옮길까?)
-    // const res = await PostAnalyze(
-    //   0,
-    //   0,
-    //   false,
-    //   "전세",
-    //   "url",
-    //   [1],
-    //   [2],
-    //   cookies.refreshToken,
-    //   onCookie
-    // );
-    // console.log("스프링 요청");
+    console.log(nlpresult);
+
+    dispatch(
+      setNlpReult({
+        commission: extraInfo.commission,
+        answer_commission: nlpresult.answer_commission,
+        is_expensive: nlpresult.is_expensive,
+        inclusions: nlpresult.in,
+        omissions: nlpresult.out,
+      })
+    );
+
+    navigate("/result");
   };
 
   return (

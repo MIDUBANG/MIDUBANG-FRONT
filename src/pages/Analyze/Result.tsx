@@ -1,5 +1,5 @@
 /* Result 특약사항 페이지 */
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import styled from "@emotion/styled";
 
 import SimpleNavBar from "@components/NavBar/SimpleNavBar";
@@ -8,18 +8,29 @@ import { FontTitle, FontDescribed } from "@style/font.style";
 import resultTemp1 from "@assets/temp/resultTemp1.png";
 import alert from "@assets/icon/alert.svg";
 
-// component
-import ResultBox from "@components/Result/ResultBox";
-import ShortBtn from "@components/Buttons/ShortBtn";
-import WordModal from "@components/Modal/WordModal";
-import { PostContractCase, PostAnalyze } from "@api/analyze";
 import { useCookies } from "react-cookie";
 
+// component
+import ResultBox from "@components/Result/ResultBox";
+import WordModal from "@components/Modal/WordModal";
+
+//api
+import { PostAnalyze } from "@api/analyze";
+import { RootState } from "@store/store";
+import { useAppSelector } from "@store/store";
+// asset
+import { resultsType, CasesType, WordsType } from "@assets/types";
+
 const Result = () => {
+  const requestData = useAppSelector((state: RootState) => state.result);
+
+  const [results, setResults] = useState<resultsType>();
+  const [cases, setCases] = useState<CasesType[]>();
+  const [words, setWords] = useState<WordsType[]>();
+
   const [cookies, setCookie, removeCookie] = useCookies(["refreshToken"]);
 
   const onCookie = (res: any) => {
-    console.log("쿠키");
     const accessToken = res.data.accessToken;
     localStorage.setItem("token", accessToken);
     const refreshToken = res.data.refreshToken;
@@ -32,55 +43,24 @@ const Result = () => {
   const [modalOpen, setModalOpen] = useState(false);
   const [selectWord, setSelectWord] = useState("");
 
-  const results = {
-    id: 1,
-    text: [
-      "주택임대차보호법 제 4조에 따르면 기간을 정하지 않거나 2년 미만으로 정한 ",
-      "임대차 계약",
-      "기간은 그 기간을 2년으로 봅니다.",
-      "임대차 계약",
-      "기간은 그 기간을 2년으로 봅니다.",
-      "임대차 계약",
-      "테스트",
-      "저당권",
-    ],
-  };
-
   const _handlePostAnalyze = async () => {
-    // NLP에서 case in, out 받아오기
-    // const caseResult = await PostContractCase(
-    //   resultArray,
-    //   cookies.refreshToken,
-    //   onCookie
-    // );
-
-    const caseResult = {
-      answer_commission: 40000,
-      is_expensive: true,
-      in: [1, 2, 3],
-      out: [4, 5, 6],
-    };
-
-    // Spring에서 최종 분석 받아오기
-    const res = await PostAnalyze(
-      30000, // 내 복비
-      caseResult.answer_commission, // 적정 복비
-      caseResult.is_expensive, // 바가지 유무
-      "JEONSE", // 전세 월세 유무 (이것도 전역)
-      "https/", // 전역에서 뽑아와,,
-      caseResult.in,
-      caseResult.out,
+    // Spring 업로드 -> 최종 결과 (result로 옮길까?)
+    const analyzeResult = await PostAnalyze(
+      requestData.commission,
+      requestData.answer_commission,
+      requestData.is_expensive,
+      requestData.contract_type,
+      requestData.image_url,
+      requestData.inclusions,
+      requestData.omissions,
       cookies.refreshToken,
       onCookie
     );
 
-    const myCase = res.myCaseDto;
-    const record = res.record;
-    const word = res.simpleWordDtos;
-
-    console.log("케이스", myCase);
-    console.log("그 외 정보", record);
-    console.log("단어", word);
+    const resultRecord = analyzeResult.record;
+    const resultCase = analyzeResult.myCaseDto;
+    const resultWord = analyzeResult.simpleWordDtos;
+    console.log(resultRecord, resultCase, resultWord);
   };
 
   const openModal = (t: string) => {
@@ -91,6 +71,10 @@ const Result = () => {
   const closeModal = () => {
     setModalOpen(false);
   };
+
+  useEffect(() => {
+    _handlePostAnalyze();
+  }, []);
 
   return (
     <Div>

@@ -16,3 +16,33 @@ export type PropsContracts = {
   selected: boolean;
   edit: boolean;
 };
+
+export type resultsType = {
+  record_id: number;
+  is_expensive: boolean;
+  commission: number;
+  answer_commission: number;
+  contract_type: string;
+  image_url: string;
+  record_date: string;
+};
+
+export type CasesType = {
+  record_id: number;
+  is_expensive: boolean;
+  commission: number;
+  answer_commission: number;
+  contract_type: string;
+  image_url: string;
+  record_date: string;
+};
+
+export type WordsType = {
+  record_id: number;
+  is_expensive: boolean;
+  commission: number;
+  answer_commission: number;
+  contract_type: string;
+  image_url: string;
+  record_date: string;
+};

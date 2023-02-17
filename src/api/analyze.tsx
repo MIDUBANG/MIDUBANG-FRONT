@@ -65,6 +65,7 @@ type NLPtype = {
   contents: string[];
   extraInfo: extrainfoType;
 };
+
 /** (2) NLP case 분석 */
 export const PostContractCase = async (
   result: NLPtype,
