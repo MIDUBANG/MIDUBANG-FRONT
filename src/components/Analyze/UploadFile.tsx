@@ -12,10 +12,14 @@ import { useCookies } from "react-cookie";
 
 import { useNavigate } from "react-router-dom";
 
+type contentType = {
+  id: number;
+  contract: string;
+};
 type UploadFileProps = {
   setUpload: React.Dispatch<React.SetStateAction<boolean>>;
   setImgUrl: (url: string) => void;
-  setResult: (result: string[]) => void;
+  setResult: (result: contentType[]) => void;
 };
 
 const UploadFile = ({ setUpload, setImgUrl, setResult }: UploadFileProps) => {

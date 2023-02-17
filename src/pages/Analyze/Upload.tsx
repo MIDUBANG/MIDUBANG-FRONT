@@ -23,18 +23,20 @@ import loadingPerson from "@assets/illustration/loadingPerson.png";
 
 import { PropsExtra } from "@assets/types";
 
-import { useAppDispatch, useAppSelector } from "@store/store";
+import { useAppDispatch } from "@store/store";
 import { setExtraInfo } from "@store/extraInfoSlice";
 import { setUrl } from "@store/urlSlice";
-import { setContents } from "@store/contentsSlice";
+import { setImgUrl, setNlpReult } from "@store/resultSlice";
 
 // hooks
 import { useNavigate } from "react-router-dom";
 
+type contentType = {
+  id: number;
+  contract: string;
+};
 const Upload = () => {
   const navigate = useNavigate();
-
-  // const { day, location, page } = useAppSelector(state => state.page);
 
   const dispatch = useAppDispatch();
 
@@ -42,7 +44,7 @@ const Upload = () => {
 
   // 이미지 url은 전역 상태로 관리 필요
   const [imgUrl, setImgUrl] = useState<string>("");
-  const [result, setResult] = useState<string[]>([]);
+  const [result, setResult] = useState<contentType[]>([]);
 
   // extra condition
   const [extraInfo, setExtraInfostate] = useState<PropsExtra>({
@@ -93,6 +95,8 @@ const Upload = () => {
         contents: result,
       })
     );
+
+    console.log("왜안돼", result);
 
     if (imgUrl != "" && result.length != 0) navigate("/feedback");
   }, [imgUrl, result]);

@@ -22,7 +22,18 @@ export const PostContractImg = async (
     // response = url과 text 결과
     return {
       imgUrl: "https/블라블라 결과물",
-      resultArray: ["문장", "문장", "문장"],
+      resultArray: [
+        {
+          id: 1,
+          contract:
+            "보증금과 월세는 1년마다 시세에 맞게증금과 월세는 1년마다 시세에 맞게증금과 월세는 1년마다 시세에 맞게증금과 월세는 1년마다 시세에 맞게 올릴 수 있다",
+        },
+        {
+          id: 2,
+          contract:
+            "보증금과 월세는 1년마다 시세에 맞게증금과 월세는 1년마다 시세에 맞게증금과 월세는 1년마다 시세에 맞게증금과 월세는 1년마다 시세에 맞게 올릴 수 있다",
+        },
+      ],
     };
 
     // .post("/upload", formData, {
@@ -36,7 +47,18 @@ export const PostContractImg = async (
   } catch (err: any) {
     return {
       imgUrl: "https/블라블라 결과물",
-      resultArray: ["문장", "문장", "문장"],
+      resultArray: [
+        {
+          id: 1,
+          contract:
+            "보증금과 월세는 1년마다 시세에 맞게증금과 월세는 1년마다 시세에 맞게증금과 월세는 1년마다 시세에 맞게증금과 월세는 1년마다 시세에 맞게 올릴 수 있다",
+        },
+        {
+          id: 2,
+          contract:
+            "보증금과 월세는 1년마다 시세에 맞게증금과 월세는 1년마다 시세에 맞게증금과 월세는 1년마다 시세에 맞게증금과 월세는 1년마다 시세에 맞게 올릴 수 있다",
+        },
+      ],
     };
 
     console.log("OCR 에러", err);
@@ -51,24 +73,33 @@ export const PostContractImg = async (
   }
 };
 
+type extrainfoType = {
+  monthly: boolean;
+  lumpSumMoney: number;
+  commission: number;
+  deposit: number;
+  monthlyMoney: number;
+  pet: boolean;
+  loan: boolean;
+  substitute: boolean;
+};
+
+type NLPtype = {
+  contents: string[];
+  extraInfo: extrainfoType;
+};
 /** (2) NLP case 분석 */
 export const PostContractCase = async (
-  resultArray: string[],
+  result: NLPtype,
   refreshToken: string,
   cookie: (res: any) => void
 ): Promise<any> => {
   try {
     // 5000포트 axios로 변경 필요
-    const res = await client.post("nlp", resultArray);
+    client.defaults.baseURL = "http://34.64.177.249:5000/api/";
+    const res = await client.post("/nlp", result);
     console.log("NLP 성공", res);
     return res.data;
-
-    //   {
-    //     "in": answer_in,
-    //     "out": answer_out,
-    //     "answer_commission": answer_commission,
-    //     "is_expensive": is_expensive,
-    // }
   } catch (err: any) {
     console.log("NLP 에러", err);
 

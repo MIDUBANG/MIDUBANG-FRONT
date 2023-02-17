@@ -9,7 +9,7 @@ import thunk from "redux-thunk";
 
 import extraInfoReducer from "./extraInfoSlice";
 import urlReducer from "./urlSlice";
-import contentsReducer from "./contentsSlice";
+import contentsReducer from "./resultSlice";
 
 const reducers = combineReducers({
   extraInfo: extraInfoReducer,
@@ -32,3 +32,5 @@ export const store = configureStore({
 
 export const useAppDispatch = () => useDispatch();
 export const useAppSelector = useSelector;
+// React에서 사용할 수 있도록 타입을 만들어 export 해준다.
+export type RootState = ReturnType<typeof reducers>;
