@@ -6,6 +6,8 @@ import sampleImg from "@assets/illustration/sampleImg.png";
 import { useState } from "react";
 
 import { PostContractImg } from "@api/analyze";
+import { GetUserInfo } from "@api/auth";
+
 import { useCookies } from "react-cookie";
 
 import { useNavigate } from "react-router-dom";
@@ -87,8 +89,14 @@ const UploadFile = ({ setUpload, setImgUrl, setResult }: UploadFileProps) => {
     // 업로드 중 화면으로 전환
     setUpload(true);
 
+    // 유저 아이디 요청
+    const { member_id } = await GetUserInfo(cookies.refreshToken, onCookie);
+
+    console.log("member_id", member_id);
+
     // 이미지 업로드 -> 오류나면 어찌되는겨??
     const { imgUrl, resultArray } = await PostContractImg(
+      member_id,
       uploadfile,
       cookies.refreshToken,
       onCookie
@@ -98,10 +106,10 @@ const UploadFile = ({ setUpload, setImgUrl, setResult }: UploadFileProps) => {
     setImgUrl(imgUrl);
     setResult(resultArray);
 
-    setTimeout(() => {
-      // 피드백 페이지 이동
-      navigate("/feedback");
-    }, 1000);
+    // setTimeout(() => {
+    //   // 피드백 페이지 이동
+    //   navigate("/feedback");
+    // }, 1000);
   };
 
   return (

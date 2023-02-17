@@ -5,15 +5,16 @@ import { useDispatch, useSelector } from "react-redux";
 import storage from "redux-persist/lib/storage";
 import { persistReducer } from "redux-persist";
 
-// import thunk from "redux-thunk";
-// import userReducer from "./userSlice";
-// import pageReducer from "./pageSlice";
-// import noticeReducer from "./noticeSlice";
+import thunk from "redux-thunk";
+
+import extraInfoReducer from "./extraInfoSlice";
+import urlReducer from "./urlSlice";
+import contentsReducer from "./contentsSlice";
 
 const reducers = combineReducers({
-  //   user: userReducer,
-  //   page: pageReducer,
-  //   notice: noticeReducer,
+  extraInfo: extraInfoReducer,
+  url: urlReducer,
+  contents: contentsReducer,
 });
 
 const persistConfig = {
@@ -26,7 +27,7 @@ const persistedReducer = persistReducer(persistConfig, reducers);
 export const store = configureStore({
   reducer: persistedReducer,
   devTools: process.env.NODE_ENV !== "production",
-  // middleware: [thunk],
+  middleware: [thunk],
 });
 
 export const useAppDispatch = () => useDispatch();

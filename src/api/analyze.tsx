@@ -3,6 +3,7 @@ import { RefreshApi } from "./auth";
 
 /** (1) OCR 특약 이미지 업로드 */
 export const PostContractImg = async (
+  user_id: number,
   file: File,
   refreshToken: string,
   cookie: (res: any) => void
@@ -18,8 +19,11 @@ export const PostContractImg = async (
 
     console.log("OCR 성공", res);
 
-    // response = url과 추출 텍스트 결과
-    return res.data;
+    // response = url과 text 결과
+    return {
+      imgUrl: "https/블라블라 결과물",
+      resultArray: ["문장", "문장", "문장"],
+    };
 
     // .post("/upload", formData, {
     //   headers: {
@@ -30,6 +34,11 @@ export const PostContractImg = async (
 
     // S3 이미지 url 응답으로 받음
   } catch (err: any) {
+    return {
+      imgUrl: "https/블라블라 결과물",
+      resultArray: ["문장", "문장", "문장"],
+    };
+
     console.log("OCR 에러", err);
 
     if (err.response.data.message === "expired token") {

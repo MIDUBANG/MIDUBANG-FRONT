@@ -23,7 +23,21 @@ import loadingPerson from "@assets/illustration/loadingPerson.png";
 
 import { PropsExtra } from "@assets/types";
 
+import { useAppDispatch, useAppSelector } from "@store/store";
+import { setExtraInfo } from "@store/extraInfoSlice";
+import { setUrl } from "@store/urlSlice";
+import { setContents } from "@store/contentsSlice";
+
+// hooks
+import { useNavigate } from "react-router-dom";
+
 const Upload = () => {
+  const navigate = useNavigate();
+
+  // const { day, location, page } = useAppSelector(state => state.page);
+
+  const dispatch = useAppDispatch();
+
   const [upload, setUpload] = useState<boolean>(false);
 
   // 이미지 url은 전역 상태로 관리 필요
@@ -31,20 +45,57 @@ const Upload = () => {
   const [result, setResult] = useState<string[]>([]);
 
   // extra condition
-  const [extraInfo, setExtraInfo] = useState<PropsExtra>({
-    monthly: true, // false면 전세
-    lumpSumMoney: 0, // 전세금
-    deposit: 0, //보증금
-    monthlyMoney: 0, // 월세(차임)
-    commission: 0, //복비,
-    pet: true, // 반려동물
-    loan: true, // 전세대출 (case (유효-필수 20번))
-    substitute: true, // 대리인
+  const [extraInfo, setExtraInfostate] = useState<PropsExtra>({
+    monthly: true,
+    lumpSumMoney: 0,
+    deposit: 0,
+    monthlyMoney: 0,
+    commission: 0,
+    pet: true,
+    loan: true,
+    substitute: true,
   });
 
   useEffect(() => {
-    console.log("변함", extraInfo);
+    console.log("사진과 extrainfo 업로드");
+
+    console.log(extraInfo);
+
+    dispatch(
+      setExtraInfo({
+        monthly: extraInfo.monthly,
+        lumpSumMoney: extraInfo.lumpSumMoney,
+        deposit: extraInfo.deposit,
+        monthlyMoney: extraInfo.monthlyMoney,
+        commission: extraInfo.commission,
+        pet: extraInfo.pet,
+        loan: extraInfo.loan,
+        substitute: extraInfo.substitute,
+      })
+    );
+  }, [upload]);
+
+  useEffect(() => {
+    console.log("변경 감지", extraInfo);
   }, [extraInfo]);
+
+  useEffect(() => {
+    console.log("S3 url과 1차 text 결과 저장");
+
+    dispatch(
+      setUrl({
+        image_url: imgUrl,
+      })
+    );
+
+    dispatch(
+      setContents({
+        contents: result,
+      })
+    );
+
+    if (imgUrl != "" && result.length != 0) navigate("/feedback");
+  }, [imgUrl, result]);
 
   return (
     <Div>
@@ -56,31 +107,52 @@ const Upload = () => {
           </SwiperSlide>
 
           <SwiperSlide>
-            <Condition1 extraInfo={extraInfo} setExtraInfo={setExtraInfo} />
+            <Condition1
+              extraInfo={extraInfo}
+              setExtraInfo={setExtraInfostate}
+            />
           </SwiperSlide>
 
           <SwiperSlide>
-            <Condition2 extraInfo={extraInfo} setExtraInfo={setExtraInfo} />
+            <Condition2
+              extraInfo={extraInfo}
+              setExtraInfo={setExtraInfostate}
+            />
           </SwiperSlide>
 
           <SwiperSlide>
-            <Condition3 extraInfo={extraInfo} setExtraInfo={setExtraInfo} />
+            <Condition3
+              extraInfo={extraInfo}
+              setExtraInfo={setExtraInfostate}
+            />
           </SwiperSlide>
 
           <SwiperSlide>
-            <Condition4 extraInfo={extraInfo} setExtraInfo={setExtraInfo} />
+            <Condition4
+              extraInfo={extraInfo}
+              setExtraInfo={setExtraInfostate}
+            />
           </SwiperSlide>
 
           <SwiperSlide>
-            <Condition5 extraInfo={extraInfo} setExtraInfo={setExtraInfo} />
+            <Condition5
+              extraInfo={extraInfo}
+              setExtraInfo={setExtraInfostate}
+            />
           </SwiperSlide>
 
           <SwiperSlide>
-            <Condition6 extraInfo={extraInfo} setExtraInfo={setExtraInfo} />
+            <Condition6
+              extraInfo={extraInfo}
+              setExtraInfo={setExtraInfostate}
+            />
           </SwiperSlide>
 
           <SwiperSlide>
-            <Condition7 extraInfo={extraInfo} setExtraInfo={setExtraInfo} />
+            <Condition7
+              extraInfo={extraInfo}
+              setExtraInfo={setExtraInfostate}
+            />
           </SwiperSlide>
 
           <SwiperSlide>
