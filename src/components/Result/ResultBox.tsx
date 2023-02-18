@@ -5,6 +5,12 @@ import alert from "@assets/icon/alert.svg";
 
 import arrow from "@assets/icon/rightarrow.svg";
 
+import { CasesType, WordsType } from "@assets/types";
+
+type Props = {
+  caseData: CasesType;
+  wordData: WordsType[];
+};
 const ResultBox = () => {
   const description =
     "주택임대차보호법에서 보호하는 임차인의 거주 기간은 2년입니다.@주택임대차보호법 제 4조에 따르면 기간을 정하지 않거나 2년 미만으로 정한 임대차 계약 기간은 그 기간을  2년으로 봅니다.";

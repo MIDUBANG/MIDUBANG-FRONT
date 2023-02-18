@@ -28,21 +28,17 @@ export type resultsType = {
 };
 
 export type CasesType = {
-  record_id: number;
-  is_expensive: boolean;
-  commission: number;
-  answer_commission: number;
+  case_id: number;
+  case_detail: string;
+  desc: string;
+  caseType: string;
   contract_type: string;
-  image_url: string;
-  record_date: string;
+  case_exists: boolean;
+  word_ref: number[];
 };
 
 export type WordsType = {
-  record_id: number;
-  is_expensive: boolean;
-  commission: number;
-  answer_commission: number;
-  contract_type: string;
-  image_url: string;
-  record_date: string;
+  word_id: number;
+  word: string;
+  meaning: string;
 };
