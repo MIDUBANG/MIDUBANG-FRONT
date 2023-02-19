@@ -1,5 +1,5 @@
 export type PropsExtra = {
-  monthly: boolean;
+  monthly: string; //전세,월세,반전세
   lumpSumMoney: number; // 전세금
   commission: number; //복비,
   deposit: number; //보증금
@@ -35,6 +35,7 @@ export type CasesType = {
   contract_type: string;
   case_exists: boolean;
   word_ref: number[];
+  article_url: string;
 };
 
 export type WordsType = {

@@ -1,53 +1,130 @@
 import styled from "@emotion/styled";
-
+// asset
 import ill from "@assets/illustration/loadingPerson.png";
 import alert from "@assets/icon/alert.svg";
-
 import arrow from "@assets/icon/rightarrow.svg";
-
 import { CasesType, WordsType } from "@assets/types";
+// hooks
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 type Props = {
   caseData: CasesType;
   wordData: WordsType[];
 };
-const ResultBox = () => {
-  const description =
-    "주택임대차보호법에서 보호하는 임차인의 거주 기간은 2년입니다.@주택임대차보호법 제 4조에 따르면 기간을 정하지 않거나 2년 미만으로 정한 임대차 계약 기간은 그 기간을  2년으로 봅니다.";
+const ResultBox = ({ caseData, wordData }: Props) => {
+  const {
+    caseType,
+    case_detail,
+    case_exists,
+    case_id,
+    desc,
+    article_url,
+    word_ref,
+  } = caseData;
 
-  let desArray = description.split("@");
+  console.log(word_ref, wordData);
+
+  // 포함되는 단어만 뽑기
+  //let words = wordData.filter((word) => word_ref.includes(word.word_id));
+
+  const [caseTypeState, setCaseTypeState] = useState<string>("");
+
+  const [finalDesc, setFinalDesc] = useState<string>("");
+
+  let paragraph = desc.split("@");
+  let final = "";
+  let temp =
+    "임차인이 주택을 인도받을 때까지 근저당권 등의 권리 설정을 하지 않겠다는 내용입니다. 만약 임차인이 전입 신고 하기 전에 근저당권 등의 권리 설정이 이루어지면, 임차권이 그 권리보다 후순위가 되어 문제가 발생했을 시 임차보증금을 돌려받는데 문제가 생길 수 있기 때문입니다";
+
+  let words = [
+    { word: "임차보증금" },
+    { word: "임차권" },
+    { word: "문제" },
+    { word: "후순위" },
+  ];
+  let wordIndex = [[0, 0]];
+
+  words.map((w) => {
+    let searchvalue = w.word;
+
+    let pos = 0;
+    while (true) {
+      let foundPos = desc.indexOf(searchvalue, pos);
+      if (foundPos == -1) break;
+
+      console.log("찾은 인덱스", foundPos, searchvalue);
+      wordIndex.push([foundPos, foundPos + searchvalue.length]);
+
+      pos = foundPos + searchvalue.length;
+    }
+
+    // paragraph.map((para) => {
+    //   let pos = 0;
+    //   while (true) {
+    //     let foundPos = para.indexOf(searchvalue, pos);
+    //     if (foundPos == -1) break;
+
+    //     console.log("찾은 인덱스", foundPos, searchvalue);
+    //     wordIndex.push([foundPos, foundPos + searchvalue.length]);
+
+    //     pos = foundPos + searchvalue.length;
+    //   }
+    // });
+  });
+
+  console.log("결과물", wordIndex);
+
+  let finalText: string[] = [];
+
+  wordIndex.sort((a, b) => a[0] - b[0]);
+  console.log("정렬", wordIndex);
+
+  //[0, 0] [121, 126] [90, 93]
+
+  for (let i = 1; i < wordIndex.length; i++) {
+    let pre = desc.slice(wordIndex[i - 1][1], wordIndex[i][0] - 1);
+    let now_t = desc.slice(wordIndex[i][0], wordIndex[i][1]);
+
+    finalText.push(pre);
+    finalText.push(now_t);
+  }
+
+  finalText.push(desc.slice(wordIndex[wordIndex.length - 1][1], desc.length));
+
+  console.log("찐 최종", finalText);
+
+  const _handleReadNews = () => {
+    window.location.href = article_url;
+  };
+
+  useEffect(() => {
+    if (caseType === "INVALID") {
+      setCaseTypeState("무효");
+    } else if (caseType === "VALID_MUST") {
+      setCaseTypeState("유효 필수");
+    } else {
+      setCaseTypeState("유효 주의");
+    }
+  }, []);
+
   return (
     <Block>
       <Contract>
         <div></div>
-        <p> 보증금과 월세는 1년마다 시세에 맞게 올릴 수 있다?</p>
+        <p> "{case_detail}"</p>
       </Contract>
+      {case_exists ? <p>검출</p> : <p>누락</p>}
+      <p>{caseTypeState}</p>
 
       <img src={ill} />
       <Describe>
-        <p>
-          특약에 관련 내용을 넣었고, 주변 전·월세 시세가 단기간에 아무리
-          급등했어도 집주인이 맘대로 올릴 수 없습니다. 주택임대차보호법에서
-          임대료는 2년마다 연 5% 한도로 증액할 수 있다고 규정하고 있습니다.
-          그것도 임차인이 동의할 경우에만 가능하다는 것이 국토부의 유권
-          해석입니다.
-        </p>
-        <p>
-          임차인이 5% 증액에 동의하지 않을 경우, 집주인은 임차주택에 대한
-          조세·공과금 증감, 경제사정 변동 등 임대료를 올려야 하는 이유를
-          증명해야 증액 청구가 가능합니다. 따라서 특약으로 이러한 조항을 넣어도
-          효력이 없고, 임대차 보호법에 나온 한도 내에서 증액할 수 있습니다.
-        </p>
-        <p>
-          전월세계약이 만기시에, 임차인은 만기 2개월전까지 임대인에게
-          갱신청구권을 행사할 수 있습니다. 이때는 임대인은 이를 거절할 수 없고,
-          전임대차와 같은 조건으로 2년간 재계약 연장됩니다. 다만, 임대인은
-          전임대차의 차임의 5%이내에서만 증액을 요청할 수 있습니다. 보증금과
-          월차임 각각에 대하여 5%증액이 그 한도액이 됩니다.
-        </p>
+        {desc.split("@").map((des) => (
+          <p key={des}>{des}</p>
+        ))}
       </Describe>
 
-      <NewsBtn>
+      <NewsBtn onClick={_handleReadNews}>
         <p>기사보기</p>
 
         <img src={arrow} />

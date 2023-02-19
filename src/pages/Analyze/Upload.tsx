@@ -44,7 +44,7 @@ const Upload = () => {
 
   // extra condition
   const [extraInfo, setExtraInfostate] = useState<PropsExtra>({
-    monthly: true,
+    monthly: "",
     lumpSumMoney: 0,
     deposit: 0,
     monthlyMoney: 0,
@@ -59,9 +59,16 @@ const Upload = () => {
 
     console.log(extraInfo);
 
-    if (extraInfo.monthly === true) {
-      dispatch(setContractType({ contract_type: "JEONSE" }));
-    }
+    // Contract type (전세, 월세, 반전세)
+    dispatch(setContractType({ contract_type: extraInfo.monthly }));
+
+    // if (extraInfo.monthly === true) {
+    //   dispatch(setContractType({ contract_type: "MONTHLY_RENT" }));
+    // } else if (extraInfo.monthly === false) {
+    //   dispatch(setContractType({ contract_type: "JEONSE" }));
+    // } else {
+    //   dispatch(setContractType({ contract_type: "HALF_JEONSE" }));
+    // }
 
     dispatch(
       setExtraInfo({

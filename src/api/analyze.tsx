@@ -23,7 +23,7 @@ export const PostContractImg = async (
 
     // response = url과 text 결과
     return {
-      imgUrl: "https/블라블라 결과물",
+      imgUrl: "https://tempimgurl",
       resultArray: [
         "보증금과 월세는 1년마다 시세에 맞게증금과 월세는 1년마다 시세에 맞게증금과 월세는 1년마다 시세에 맞게증금과 월세는 1년마다 시세에 맞게 올릴 수 있다",
         "보증금과 월세는 1년마다 시세에 맞게증금과 월세는 1년마다 시세에 맞게증금과 월세는 1년마다 시세에 맞게증금과 월세는 1년마다 시세에 맞게 올릴 수 있다",
@@ -31,7 +31,7 @@ export const PostContractImg = async (
     };
   } catch (err: any) {
     return {
-      imgUrl: "https/블라블라 결과물",
+      imgUrl: "https://tempimgurl",
       resultArray: [
         "보증금과 월세는 1년마다 시세에 맞게증금과 월세는 1년마다 시세에 맞게증금과 월세는 1년마다 시세에 맞게증금과 월세는 1년마다 시세에 맞게 올릴 수 있다",
         "보증금과 월세는 1년마다 시세에 맞게증금과 월세는 1년마다 시세에 맞게증금과 월세는 1년마다 시세에 맞게증금과 월세는 1년마다 시세에 맞게 올릴 수 있다",

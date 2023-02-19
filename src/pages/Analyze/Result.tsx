@@ -33,9 +33,11 @@ const Result = () => {
   //     "record_date": "2023-02-17"
   // },
 
-  const [cases, setCases] = useState<CasesType[]>();
+  const [cases, setCases] = useState<CasesType[]>([]);
   //   "myCaseDto": [
   //     {
+  // ++ article_url
+
   //         "case_id": 2,
   //         "case_detail": "임대인은 임차인이 잔금을 지급하는 다음 날까지 해당 목적물에 대하여 근저당권 및 기타 제한물권 설정을 하지 않는다. 이를 위반 시 계약은 즉시 무효가 되며 임대인은 임차인에게 위약금을 지불한다.",
   //         "desc": "임차인이 주택을 인도받을 때까지 근저당권 등의 권리 설정을 하지 않겠다는 내용입니다. 만약 임차인이 전입 신고 하기 전에 근저당권 등의 권리 설정이 이루어지면, 임차권이 그 권리보다 후순위가 되어 문제가 발생했을 시 임차보증금을 돌려받는데 문제가 생길 수 있기 때문입니다",
@@ -48,7 +50,7 @@ const Result = () => {
   //     }
   // ],
 
-  const [words, setWords] = useState<WordsType[]>();
+  const [words, setWords] = useState<WordsType[]>([]);
   //   "simpleWordDtos": [
   //     {
   //         "word_id": 2,
@@ -79,14 +81,22 @@ const Result = () => {
 
   const _handlePostAnalyze = async () => {
     // Spring 업로드 -> 최종 result data
+
+    console.log(
+      "스프링 업로드 테스트",
+      requestData.inclusions,
+      requestData.omissions,
+      requestData.image_url
+    );
+
     const analyzeResult = await PostAnalyze(
       requestData.commission,
       requestData.answer_commission,
       requestData.is_expensive,
       requestData.contract_type,
       requestData.image_url,
-      requestData.inclusions,
-      requestData.omissions,
+      [],
+      [2],
       cookies.refreshToken,
       onCookie
     );
@@ -99,7 +109,7 @@ const Result = () => {
     setCases(resultCase);
     setWords(resultWord);
 
-    console.log(resultRecord, resultCase, resultWord);
+    console.log("결과", results, words, cases);
   };
 
   const openModal = (t: string) => {
@@ -115,6 +125,9 @@ const Result = () => {
     _handlePostAnalyze();
   }, []);
 
+  useEffect(() => {
+    console.log("결과2", results, words, cases);
+  }, [results, cases, words]);
   return (
     <Div>
       <SimpleNavBar text="레포트" />
@@ -144,7 +157,9 @@ const Result = () => {
         <img src={temp} />
 
         {/* 보내야하는 것 : case 정보, word 통채로 */}
-        <ResultBox />
+        {cases.map((c) => {
+          return <ResultBox caseData={c} wordData={words} />;
+        })}
 
         <WordModal open={modalOpen} close={closeModal} text={selectWord} />
       </Container>

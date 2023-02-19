@@ -21,16 +21,18 @@ type Props = {
 const Condition1 = ({ extraInfo, setExtraInfo }: Props) => {
   const _handleClickBtn = (text: string) => {
     if (text === "월세") {
-      setExtraInfo({ ...extraInfo, monthly: true });
-      setIsSelected([true, false]);
+      setExtraInfo({ ...extraInfo, monthly: "MONTHLY_RENT" });
+      setIsSelected([true, false, false]);
+    } else if (text === "전세") {
+      setExtraInfo({ ...extraInfo, monthly: "JEONSE" });
+      setIsSelected([false, true, false]);
     } else {
-      //전세
-      setExtraInfo({ ...extraInfo, monthly: false });
-      setIsSelected([false, true]);
+      setExtraInfo({ ...extraInfo, monthly: "HALF_JEONSE" });
+      setIsSelected([false, false, true]);
     }
   };
 
-  const [isSelected, setIsSelected] = useState([true, false]);
+  const [isSelected, setIsSelected] = useState([true, false, false]);
 
   return (
     <Div>
@@ -46,6 +48,12 @@ const Condition1 = ({ extraInfo, setExtraInfo }: Props) => {
         text="전세"
         selected={isSelected[1]}
         onClick={() => _handleClickBtn("전세")}
+      />
+
+      <ConditionBtn
+        text="반전세"
+        selected={isSelected[2]}
+        onClick={() => _handleClickBtn("반전세")}
       />
     </Div>
   );
