@@ -26,61 +26,31 @@ const ResultBox = ({ caseData, wordData }: Props) => {
   console.log(word_ref, wordData);
 
   // 포함되는 단어만 뽑기
-  //let words = wordData.filter((word) => word_ref.includes(word.word_id));
+  let words = wordData.filter((word) => word_ref.includes(word.word_id));
+  //let words = [{ word: "임차보증금" }, { word: "임차권" }];
 
   const [caseTypeState, setCaseTypeState] = useState<string>("");
 
-  const [finalDesc, setFinalDesc] = useState<string>("");
-
-  let paragraph = desc.split("@");
-  let final = "";
+  // desc의 임시
   let temp =
-    "임차인이 주택을 인도받을 때까지 근저당권 등의 권리 설정을 하지 않겠다는 내용입니다. 만약 임차인이 전입 신고 하기 전에 근저당권 등의 권리 설정이 이루어지면, 임차권이 그 권리보다 후순위가 되어 문제가 발생했을 시 임차보증금을 돌려받는데 문제가 생길 수 있기 때문입니다";
+    "임차인이 주택을 인도받을 때까지 근저당권 등의 권리 설정을 하지 않겠다는 내용입니다. 만약 임차인이 전입 신고 하기 전에 근저당권 등의 권리 설정이 이루어지면, 임차권이 그 권리보다 후순위가 되어 문제가 발생했을 시 임차보증금을 돌려받는데 문제가 생길 수 있기 때문입니다.@임차인이 주택을 인도받을 때까지 근저당권 등의 권리 설정을 하지 않겠다는 내용입니다. 만약 임차인이 전입 신고 하기 전에 근저당권 등의 권리 설정이 이루어지면, 임차권이 그 권리보다 후순위가 되어 문제가 발생했을 시 임차보증금을 돌려받는데 문제가 생길 수 있기 때문입니다.@임차인이 주택을 인도받을 때까지 근저당권 등의 권리 설정을 하지 않겠다는 내용입니다. 만약 임차인이 전입 신고 하기 전에 근저당권 등의 권리 설정이 이루어지면, 임차권이 그 권리보다 후순위가 되어 문제가 발생했을 시 임차보증금을 돌려받는데 문제가 생길 수 있기 때문입니다.";
 
-  let words = [
-    { word: "임차보증금" },
-    { word: "임차권" },
-    { word: "문제" },
-    { word: "후순위" },
-  ];
   let wordIndex = [[0, 0]];
 
   words.map((w) => {
     let searchvalue = w.word;
-
     let pos = 0;
     while (true) {
       let foundPos = desc.indexOf(searchvalue, pos);
       if (foundPos == -1) break;
-
-      console.log("찾은 인덱스", foundPos, searchvalue);
       wordIndex.push([foundPos, foundPos + searchvalue.length]);
-
       pos = foundPos + searchvalue.length;
     }
-
-    // paragraph.map((para) => {
-    //   let pos = 0;
-    //   while (true) {
-    //     let foundPos = para.indexOf(searchvalue, pos);
-    //     if (foundPos == -1) break;
-
-    //     console.log("찾은 인덱스", foundPos, searchvalue);
-    //     wordIndex.push([foundPos, foundPos + searchvalue.length]);
-
-    //     pos = foundPos + searchvalue.length;
-    //   }
-    // });
   });
-
-  console.log("결과물", wordIndex);
 
   let finalText: string[] = [];
 
   wordIndex.sort((a, b) => a[0] - b[0]);
-  console.log("정렬", wordIndex);
-
-  //[0, 0] [121, 126] [90, 93]
 
   for (let i = 1; i < wordIndex.length; i++) {
     let pre = desc.slice(wordIndex[i - 1][1], wordIndex[i][0] - 1);
@@ -92,10 +62,27 @@ const ResultBox = ({ caseData, wordData }: Props) => {
 
   finalText.push(desc.slice(wordIndex[wordIndex.length - 1][1], desc.length));
 
-  console.log("찐 최종", finalText);
+  let finalResultText: string[] = [];
 
+  finalText.forEach((text, index) => {
+    if (text.includes("@")) {
+      let temps = text.split("@");
+      finalResultText.push(temps[0]);
+      finalResultText.push("#");
+      finalResultText.push(temps[1]);
+    } else {
+      finalResultText.push(text);
+    }
+  });
+
+  /**기사 보기 함수 */
   const _handleReadNews = () => {
     window.location.href = article_url;
+  };
+
+  /**단어 뜻 보기 함수 */
+  const _handleClickWord = (word: string) => {
+    console.log(word);
   };
 
   useEffect(() => {
@@ -118,10 +105,27 @@ const ResultBox = ({ caseData, wordData }: Props) => {
       <p>{caseTypeState}</p>
 
       <img src={ill} />
+
       <Describe>
-        {desc.split("@").map((des) => (
-          <p key={des}>{des}</p>
-        ))}
+        <p>
+          {finalResultText.map((f, index) => {
+            if (f === "#") {
+              return <div className="spacing"></div>;
+            } else if (index % 2 == 1) {
+              return (
+                <span
+                  key={f}
+                  className="word"
+                  onClick={() => _handleClickWord(f)}
+                >
+                  {f}
+                </span>
+              );
+            } else {
+              return <span key={f}>{f}</span>;
+            }
+          })}
+        </p>
       </Describe>
 
       <NewsBtn onClick={_handleReadNews}>
@@ -178,6 +182,14 @@ const Describe = styled.div`
     font-weight: 300;
     font-size: 15px;
     line-height: 20px;
+  }
+
+  .word {
+    color: red;
+  }
+
+  .spacing {
+    height: 20px;
   }
 `;
 
