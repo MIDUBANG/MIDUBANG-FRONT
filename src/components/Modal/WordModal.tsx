@@ -7,27 +7,19 @@ import modalCancle from "@assets/icon/modalCancle.svg";
 
 import "./style.css";
 
+import { WordsType } from "@assets/types";
+
 type Props = {
   open: boolean;
   close: React.Dispatch<React.SetStateAction<boolean>>;
   text: string;
+  wordsData: WordsType[];
 };
 
 const WordModal = (props: Props) => {
-  const { open, close, text } = props;
+  const { open, close, text, wordsData } = props;
 
-  const meanings = [
-    {
-      id: 1,
-      word: "임대차 계약",
-      mean: "임대차 설명",
-    },
-    {
-      id: 2,
-      word: "저당권",
-      mean: "은행이 돈을 빌려줄 때, 고객이 돈을 갚지 못하는 경우를 대비해 담보를 잡아야합니다. 부동산을 담보로 잡아서 나중에 고객이 돈을 갚지 않으면 경매로 돈을 받아낼 수 있도록 하는 것이 바로 저당권입니다. 이때 은행이 저당권자가 됩니다.",
-    },
-  ];
+  console.log("단어들", wordsData);
 
   // 스크롤 방지
   useEffect(() => {
@@ -64,9 +56,9 @@ const WordModal = (props: Props) => {
             <Contents>
               <p className="word">{text}</p>
 
-              {meanings.map((m) => {
-                if (m.word == text) {
-                  return <p className="mean">{m.mean}</p>;
+              {wordsData.map((m) => {
+                if (m.word === text) {
+                  return <p className="mean">{m.meaning}</p>;
                 }
               })}
             </Contents>

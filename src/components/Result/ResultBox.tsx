@@ -11,14 +11,16 @@ import { useNavigate } from "react-router-dom";
 type Props = {
   caseData: CasesType;
   wordData: WordsType[];
+  highlight: boolean;
+  openWordModal: (word: string) => void;
 };
-const ResultBox = ({ caseData, wordData }: Props) => {
+const ResultBox = ({ caseData, wordData, highlight, openWordModal }: Props) => {
   const {
     caseType,
     case_detail,
     case_exists,
     case_id,
-    desc,
+    // desc,
     article_url,
     word_ref,
   } = caseData;
@@ -26,13 +28,13 @@ const ResultBox = ({ caseData, wordData }: Props) => {
   console.log(word_ref, wordData);
 
   // 포함되는 단어만 뽑기
-  let words = wordData.filter((word) => word_ref.includes(word.word_id));
-  //let words = [{ word: "임차보증금" }, { word: "임차권" }];
+  //let words = wordData.filter((word) => word_ref.includes(word.word_id));
+  let words = [{ word: "임차보증금" }, { word: "임차권" }];
 
   const [caseTypeState, setCaseTypeState] = useState<string>("");
 
   // desc의 임시
-  let temp =
+  let desc =
     "임차인이 주택을 인도받을 때까지 근저당권 등의 권리 설정을 하지 않겠다는 내용입니다. 만약 임차인이 전입 신고 하기 전에 근저당권 등의 권리 설정이 이루어지면, 임차권이 그 권리보다 후순위가 되어 문제가 발생했을 시 임차보증금을 돌려받는데 문제가 생길 수 있기 때문입니다.@임차인이 주택을 인도받을 때까지 근저당권 등의 권리 설정을 하지 않겠다는 내용입니다. 만약 임차인이 전입 신고 하기 전에 근저당권 등의 권리 설정이 이루어지면, 임차권이 그 권리보다 후순위가 되어 문제가 발생했을 시 임차보증금을 돌려받는데 문제가 생길 수 있기 때문입니다.@임차인이 주택을 인도받을 때까지 근저당권 등의 권리 설정을 하지 않겠다는 내용입니다. 만약 임차인이 전입 신고 하기 전에 근저당권 등의 권리 설정이 이루어지면, 임차권이 그 권리보다 후순위가 되어 문제가 발생했을 시 임차보증금을 돌려받는데 문제가 생길 수 있기 때문입니다.";
 
   let wordIndex = [[0, 0]];
@@ -108,21 +110,21 @@ const ResultBox = ({ caseData, wordData }: Props) => {
 
       <Describe>
         <p>
-          {finalResultText.map((f, index) => {
-            if (f === "#") {
+          {finalResultText.map((word, index) => {
+            if (word === "#") {
               return <div className="spacing"></div>;
             } else if (index % 2 == 1) {
               return (
                 <span
-                  key={f}
-                  className="word"
-                  onClick={() => _handleClickWord(f)}
+                  key={word}
+                  className={highlight ? "word" : ""}
+                  onClick={() => openWordModal(word)}
                 >
-                  {f}
+                  {word}
                 </span>
               );
             } else {
-              return <span key={f}>{f}</span>;
+              return <span key={word}>{word}</span>;
             }
           })}
         </p>
