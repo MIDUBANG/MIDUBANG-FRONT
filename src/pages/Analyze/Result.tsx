@@ -13,6 +13,7 @@ import { useAppSelector } from "@store/store";
 // asset
 import { resultsType, CasesType, WordsType } from "@assets/types";
 import temp from "@assets/result/temp.png";
+import CommissionBox from "@components/Result/CommissionBox";
 
 const Result = () => {
   const requestData = useAppSelector((state: RootState) => state.result);
@@ -95,6 +96,8 @@ const Result = () => {
           <ContractImg src={temp} />
           <div>{contractType}</div>
         </ImgBox>
+
+        <CommissionBox />
 
         {cases.map((c) => {
           return (
