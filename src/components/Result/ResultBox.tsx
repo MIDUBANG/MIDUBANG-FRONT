@@ -143,6 +143,7 @@ const ResultBox = ({ caseData, wordData, openWordModal }: Props) => {
       <Describe>
         <p>
           {finalResultText.map((word, index) => {
+          
             if (word === "#") {
               return <div className="spacing"></div>;
             } else if (index % 2 == 1) {

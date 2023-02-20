@@ -1,13 +1,18 @@
+// hooks
 import { useState, useEffect } from "react";
 import styled from "@emotion/styled";
+import { useCookies } from "react-cookie";
+
+// style
+import "./style.css";
+// asset
 import smile from "@assets/icon/smile.svg";
 import okay from "@assets/icon/okay.svg";
 import clip from "@assets/icon/clip.svg";
 import modalCancle from "@assets/icon/modalCancle.svg";
-
-import "./style.css";
-
 import { WordsType } from "@assets/types";
+// api
+import {PostSaveWord} from "@api/word";
 
 type Props = {
   open: boolean;
@@ -32,6 +37,23 @@ const WordModal = (props: Props) => {
       window.scrollTo(0, parseInt(scrollY || "0", 10) * -1);
     };
   }, []);
+
+  const [cookies, setCookie, removeCookie] = useCookies(["refreshToken"]);
+  const onCookie = (res: any) => {
+    const accessToken = res.data.accessToken;
+    localStorage.setItem("token", accessToken);
+    const refreshToken = res.data.refreshToken;
+    setCookie("refreshToken", refreshToken, { path: "/" });
+  };
+
+  /** 단어 저장 함수 */
+  const _handleClickSaveBtn = (text:string) => {
+    wordsData.map((word) => {
+      if(word.word === text){
+        PostSaveWord(word.word_id, cookies.refreshToken, onCookie)
+      }
+          })
+  }
 
   return (
     <div
@@ -62,7 +84,7 @@ const WordModal = (props: Props) => {
             </Contents>
 
             <Btns>
-              <Btn color="--aurora">
+              <Btn color="--aurora" onClick={() => _handleClickSaveBtn(text)}>
                 <img src={clip} />
                 <p>단어 저장</p>
               </Btn>
