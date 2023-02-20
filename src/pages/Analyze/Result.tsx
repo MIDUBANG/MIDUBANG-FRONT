@@ -29,11 +29,13 @@ const Result = () => {
       requestData.is_expensive,
       requestData.contract_type,
       requestData.image_url,
-      [],
+      [0, 1, 2, 3, 4],
       [2],
       cookies.refreshToken,
       onCookie
     );
+
+    console.log("spring 결과물", analyzeResult);
 
     const resultRecord = analyzeResult.record;
     const resultCase = analyzeResult.myCaseDto;
@@ -56,18 +58,8 @@ const Result = () => {
     setCookie("refreshToken", refreshToken, { path: "/" });
   };
 
-  // 단어 관련
-  const [highlighter, setHighlighter] = useState<boolean>(false);
   const [modalOpen, setModalOpen] = useState(false);
   const [selectWord, setSelectWord] = useState("");
-
-  const _handleHighlighter = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.checked) {
-      setHighlighter(true);
-    } else {
-      setHighlighter(false);
-    }
-  };
 
   const openWordModal = (word: string) => {
     setSelectWord(word); // 단어 모달에 선택된 단어 전달
@@ -87,37 +79,16 @@ const Result = () => {
           <p> 주의 요망 특약 사항 발견</p>
         </Title>
 
-        <InfoBox>
-          <div className="text-info">
-            <p>#태그</p>
-            <p>#태그</p>
+        <Date>2023.02.20 분석</Date>
 
-            <p>2023.02.18 분석</p>
-          </div>
-          <div className="word-toggle">
-            <input
-              type="checkbox"
-              id="toggle"
-              hidden
-              onChange={(e) => _handleHighlighter(e)}
-            />
-
-            <label htmlFor="toggle" className="toggleSwitch">
-              <p className="word">단어</p>
-              <span className="toggleButton"></span>
-            </label>
-          </div>
-        </InfoBox>
-
-        {/* 썸넬 */}
-        <img src={temp} />
+        <ContractImg src={temp} />
 
         {cases.map((c) => {
           return (
             <ResultBox
+              key={c.case_id}
               caseData={c}
               wordData={words}
-              highlight={highlighter}
               openWordModal={openWordModal}
             />
           );
@@ -167,87 +138,17 @@ const Title = styled.div`
   }
 `;
 
-const InfoBox = styled.div`
-  display: flex;
-  justify-content: space-between;
-  margin: 0 35px 20px 35px;
+const Date = styled.div`
+  margin: 0 auto 20px 35px;
+  font-family: "Noto Sans KR";
+  font-style: normal;
+  font-weight: 300;
+  font-size: 14px;
+  line-height: 20px;
+  letter-spacing: -0.05em;
+  color: #9a9a9a;
+`;
 
-  .text-info {
-    display: flex;
-
-    justify-content: space-between;
-
-    font-family: "Noto Sans KR";
-    font-style: normal;
-    font-weight: 400;
-    font-size: 14px;
-    line-height: 20px;
-    text-align: center;
-    letter-spacing: -0.05em;
-    color: #9a9a9a;
-
-    p {
-      margin-right: 6px;
-    }
-  }
-
-  .word-toggle {
-    .toggleSwitch {
-      width: 52px;
-      height: 23px;
-
-      display: block;
-      position: relative;
-      border-radius: 30px;
-      background-color: #d9d9d9;
-      cursor: pointer;
-    }
-
-    .toggleSwitch .toggleButton {
-      width: 20px;
-      height: 20px;
-
-      position: absolute;
-      top: 50%;
-      left: 3px;
-
-      transform: translateY(-50%);
-      border-radius: 50%;
-      background: white;
-    }
-    .word {
-      display: none;
-    }
-
-    #toggle:checked ~ .toggleSwitch {
-      //체크 된 경우
-      background: #83b4f9;
-    }
-
-    #toggle:checked ~ .toggleSwitch .word {
-      position: absolute;
-      top: 4px;
-      left: 8px;
-      display: flex;
-      font-family: "Noto Sans KR";
-      font-style: normal;
-      font-weight: 400;
-      font-size: 10px;
-      line-height: 14px;
-      text-align: center;
-      letter-spacing: -0.05em;
-
-      color: #ffffff;
-    }
-
-    #toggle:checked ~ .toggleSwitch .toggleButton {
-      left: calc(100% - 23px);
-      background: white;
-    }
-
-    .toggleSwitch,
-    .toggleButton {
-      transition: all 0.2s ease-in;
-    }
-  }
+const ContractImg = styled.img`
+  width: 100%;
 `;

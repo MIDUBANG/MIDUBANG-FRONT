@@ -11,10 +11,10 @@ import { useNavigate } from "react-router-dom";
 type Props = {
   caseData: CasesType;
   wordData: WordsType[];
-  highlight: boolean;
+  // highlight: boolean;
   openWordModal: (word: string) => void;
 };
-const ResultBox = ({ caseData, wordData, highlight, openWordModal }: Props) => {
+const ResultBox = ({ caseData, wordData, openWordModal }: Props) => {
   const {
     caseType,
     case_detail,
@@ -25,7 +25,16 @@ const ResultBox = ({ caseData, wordData, highlight, openWordModal }: Props) => {
     word_ref,
   } = caseData;
 
-  console.log(word_ref, wordData);
+  // 단어 관련
+  const [highlighter, setHighlighter] = useState<boolean>(false);
+  const _handleHighlighter = (e: React.ChangeEvent<HTMLInputElement>) => {
+    console.log("클릭", e);
+    if (e.target.checked) {
+      setHighlighter(true);
+    } else {
+      setHighlighter(false);
+    }
+  };
 
   // 포함되는 단어만 뽑기
   //let words = wordData.filter((word) => word_ref.includes(word.word_id));
@@ -108,6 +117,29 @@ const ResultBox = ({ caseData, wordData, highlight, openWordModal }: Props) => {
 
       <img src={ill} />
 
+      <InfoBox>
+        <div className="text-info">
+          <p>#태그</p>
+          <p>#태그</p>
+        </div>
+
+        {/* 체크박스 */}
+        <div className="word-toggle">
+          <input
+            type="checkbox"
+            id={case_id.toString()}
+            className="toggle"
+            hidden
+            onChange={(e) => _handleHighlighter(e)}
+          />
+
+          <label htmlFor={case_id.toString()} className="toggleSwitch">
+            <p className="word">단어</p>
+            <span className="toggleButton"></span>
+          </label>
+        </div>
+      </InfoBox>
+
       <Describe>
         <p>
           {finalResultText.map((word, index) => {
@@ -116,15 +148,15 @@ const ResultBox = ({ caseData, wordData, highlight, openWordModal }: Props) => {
             } else if (index % 2 == 1) {
               return (
                 <span
-                  key={word}
-                  className={highlight ? "word" : ""}
+                  key={index}
+                  className={highlighter ? "word" : ""}
                   onClick={() => openWordModal(word)}
                 >
                   {word}
                 </span>
               );
             } else {
-              return <span key={word}>{word}</span>;
+              return <span key={index}>{word}</span>;
             }
           })}
         </p>
@@ -163,6 +195,7 @@ const Contract = styled.div`
     height: auto;
     width: 7px;
     margin-right: 10px;
+    flex-shrink: 0;
   }
   p {
     font-family: "Noto Sans KR";
@@ -187,7 +220,32 @@ const Describe = styled.div`
   }
 
   .word {
-    color: red;
+    display: inline-block;
+    position: relative;
+  }
+
+  .word:after {
+    content: "";
+    width: 100%;
+    height: 10px;
+    display: inline-block;
+    background: #d9fcdb;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    z-index: -1;
+    animation-duration: 0.5s;
+    animation-name: slidein;
+  }
+
+  @keyframes slidein {
+    from {
+      width: 0;
+    }
+
+    to {
+      width: 100%;
+    }
   }
 
   .spacing {
@@ -221,5 +279,90 @@ const NewsBtn = styled.div`
     margin-left: 5px;
     width: 14px;
     height: 10px;
+  }
+`;
+
+const InfoBox = styled.div`
+  display: flex;
+  justify-content: space-between;
+  margin: 0 35px 20px 35px;
+
+  .text-info {
+    display: flex;
+
+    justify-content: space-between;
+
+    font-family: "Noto Sans KR";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 20px;
+    text-align: center;
+    letter-spacing: -0.05em;
+    color: #9a9a9a;
+
+    p {
+      margin-right: 6px;
+    }
+  }
+
+  .word-toggle {
+    .toggleSwitch {
+      width: 52px;
+      height: 23px;
+
+      display: block;
+      position: relative;
+      border-radius: 30px;
+      background-color: #d9d9d9;
+      cursor: pointer;
+    }
+
+    .toggleSwitch .toggleButton {
+      width: 20px;
+      height: 20px;
+
+      position: absolute;
+      top: 50%;
+      left: 3px;
+
+      transform: translateY(-50%);
+      border-radius: 50%;
+      background: white;
+    }
+    .word {
+      display: none;
+    }
+
+    .toggle:checked ~ .toggleSwitch {
+      //체크 된 경우
+      background: #83b4f9;
+    }
+
+    .toggle:checked ~ .toggleSwitch .word {
+      position: absolute;
+      top: 4px;
+      left: 8px;
+      display: flex;
+      font-family: "Noto Sans KR";
+      font-style: normal;
+      font-weight: 400;
+      font-size: 10px;
+      line-height: 14px;
+      text-align: center;
+      letter-spacing: -0.05em;
+
+      color: #ffffff;
+    }
+
+    .toggle:checked ~ .toggleSwitch .toggleButton {
+      left: calc(100% - 23px);
+      background: white;
+    }
+
+    .toggleSwitch,
+    .toggleButton {
+      transition: all 0.2s ease-in;
+    }
   }
 `;
