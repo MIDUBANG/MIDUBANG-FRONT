@@ -19,6 +19,7 @@ const Result = () => {
   const [results, setResults] = useState<resultsType>();
   const [cases, setCases] = useState<CasesType[]>([]);
   const [words, setWords] = useState<WordsType[]>([]);
+  const [contractType, setContractType] = useState<string>("");
 
   const _handlePostAnalyze = async () => {
     // requestData.inclusions,
@@ -44,6 +45,15 @@ const Result = () => {
     setResults(resultRecord);
     setCases(resultCase);
     setWords(resultWord);
+
+    console.log("d", resultRecord.contract_type);
+    if (resultRecord.contract_type === "MONTHLY_RENT") {
+      setContractType("월세");
+    } else if (resultRecord.contract_type === "JEONSE") {
+      setContractType("전세");
+    } else {
+      setContractType("반전세");
+    }
   };
 
   useEffect(() => {
@@ -81,7 +91,10 @@ const Result = () => {
 
         <Date>2023.02.20 분석</Date>
 
-        <ContractImg src={temp} />
+        <ImgBox>
+          <ContractImg src={temp} />
+          <div>{contractType}</div>
+        </ImgBox>
 
         {cases.map((c) => {
           return (
@@ -147,6 +160,31 @@ const Date = styled.div`
   line-height: 20px;
   letter-spacing: -0.05em;
   color: #9a9a9a;
+`;
+
+const ImgBox = styled.div`
+  position: relative;
+
+  div {
+    position: absolute;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    bottom: 0;
+    left: 0;
+    width: 94px;
+    height: 33px;
+    background: #ffffff;
+    border-radius: 0px 11px 0px 0px;
+
+    font-family: "Noto Sans KR";
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 23px;
+  }
 `;
 
 const ContractImg = styled.img`
