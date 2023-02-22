@@ -58,14 +58,6 @@ const Result = () => {
 
   useEffect(() => {
     _handlePostAnalyze();
-    console.log("요거", results);
-    // answer_commission: 435;
-    // commission: 123;
-    // contract_type: "JEONSE";
-    // image_url: "https://tempimgurl";
-    // is_expensive: true;
-    // record_date: "2023-02-22";
-    // record_id: 376;
   }, []);
 
   const [cookies, setCookie, removeCookie] = useCookies(["refreshToken"]);

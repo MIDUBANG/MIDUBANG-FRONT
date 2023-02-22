@@ -4,7 +4,8 @@ import ill from "@assets/illustration/loadingPerson.png";
 import readmore from "@assets/result/readmore.svg";
 import { CasesType, WordsType } from "@assets/types";
 import CaseTypeDesc from "@components/Result/CaseTypeDesc";
-
+import mark from "@assets/result/mark.svg";
+import bookmark from "@assets/result/bookmark.svg";
 // hooks
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
@@ -144,8 +145,14 @@ const ResultBox = ({ caseData, wordData, openWordModal }: Props) => {
         <p> "{case_detail}"</p>
       </Contract>
 
-      {/* 북마크 만들기 */}
-      {!case_exists && <p>누락</p>}
+      {!case_exists && (
+        <BookMarkBox>
+          <BookMark>
+            <img src={bookmark} />
+            <img src={mark} className="mark" />
+          </BookMark>
+        </BookMarkBox>
+      )}
 
       <img src={ill} />
 
@@ -220,7 +227,61 @@ const ResultBox = ({ caseData, wordData, openWordModal }: Props) => {
 
 export default ResultBox;
 
+const BookMarkBox = styled.div`
+  position: absolute;
+  top: -4px;
+  right: 12px;
+
+  animation-duration: 1s;
+  animation-delay: 2s;
+  animation-name: bounce;
+  animation-iteration-count: infinite;
+
+  @keyframes bounce {
+    0% {
+      transform: translateY(0);
+    }
+    20% {
+      transform: translateY(0);
+    }
+    40% {
+      transform: translateY(-7px);
+    }
+    50% {
+      transform: translateY(0);
+    }
+    60% {
+      transform: translateY(-3px);
+    }
+    80% {
+      transform: translateY(0);
+    }
+    100% {
+      transform: translateY(0);
+    }
+  }
+`;
+
+const BookMark = styled.div`
+  position: relative;
+  width: 28px;
+  height: 40px;
+
+  .mark {
+    width: 17px;
+    height: 17px;
+
+    position: absolute;
+
+    top: 50%;
+    left: 50%;
+
+    transform: translate(-50%, -70%);
+  }
+`;
+
 const Block = styled.div`
+  position: relative;
   box-sizing: border-box;
   height: auto;
 
