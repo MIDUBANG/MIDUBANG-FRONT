@@ -6,6 +6,9 @@ import { CasesType, WordsType } from "@assets/types";
 import CaseTypeDesc from "@components/Result/CaseTypeDesc";
 import mark from "@assets/result/mark.svg";
 import bookmark from "@assets/result/bookmark.svg";
+import ballon from "@assets/result/ballon.png";
+import ballontemp from "@assets/result/ballontemp.png";
+
 // hooks
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
@@ -138,6 +141,12 @@ const ResultBox = ({ caseData, wordData, openWordModal }: Props) => {
     }
   }, []);
 
+  /**누락 북마크 클릭*/
+  const [isBallon, setisBallon] = useState<boolean>(false);
+  const _handleOpneBallon = () => {
+    setisBallon(true);
+    setTimeout(() => setisBallon(false), 2000);
+  };
   return (
     <Block>
       <Contract caseTypeColor={caseTypeColor}>
@@ -146,12 +155,18 @@ const ResultBox = ({ caseData, wordData, openWordModal }: Props) => {
       </Contract>
 
       {!case_exists && (
-        <BookMarkBox>
+        <BookMarkBox onClick={_handleOpneBallon}>
           <BookMark>
             <img src={bookmark} />
             <img src={mark} className="mark" />
           </BookMark>
         </BookMarkBox>
+      )}
+
+      {isBallon && (
+        <BallonBox>
+          <img src={ballontemp} />
+        </BallonBox>
       )}
 
       <img src={ill} />
@@ -226,6 +241,12 @@ const ResultBox = ({ caseData, wordData, openWordModal }: Props) => {
 };
 
 export default ResultBox;
+
+const BallonBox = styled.div`
+  position: absolute;
+  top: -90px;
+  right: 20px;
+`;
 
 const BookMarkBox = styled.div`
   position: absolute;
