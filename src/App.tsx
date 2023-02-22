@@ -19,7 +19,7 @@ const WordMeanPage = loadable(() => import("@pages/User/Word/WordMean"));
 const AnalyzeListPage = loadable(
   () => import("@pages/User/Analyze/AnalyzeList")
 );
-
+const AnalyzePage = loadable(() => import("@pages/User/Analyze/Analyze"));
 const App: React.FC = () => {
   return (
     <Routes>
@@ -36,16 +36,9 @@ const App: React.FC = () => {
       <Route path="/wordlist" element={<WordListPage />} />
       <Route path="/wordmean/:id" element={<WordMeanPage />} />
       <Route path="/analyzelist" element={<AnalyzeListPage />} />
+      <Route path="/analyze/:id" element={<AnalyzePage />} />
     </Routes>
   );
 };
 
 export default App;
-
-//import Test from "./Test";
-//import Home from "./pages/Analyze/Home";
-//import InputTest from "./InputTest";
-
-/* <InputTest />
-      <Home name="props" onClick={TestOnClick} />
-      <Test /> */

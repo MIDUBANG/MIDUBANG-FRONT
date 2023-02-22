@@ -1,22 +1,40 @@
 import { useState, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import styled from "@emotion/styled";
 import { GetAnalyzeList, GetAnalyze, DeleteAnalyze } from "@api/analyze";
 import { useCookies } from "react-cookie";
 // asset
 import SimpleNavBar from "@components/NavBar/SimpleNavBar";
 import { resultsType } from "@assets/types";
-
-const AnalyzeList = () => {
-  const [results, setResults] = useState<resultsType[]>([]);
-
+import { CasesType, WordsType } from "@assets/types";
+const Analyze = () => {
   const navigate = useNavigate();
 
-  /** 분석 기록 리스트 */
-  const _handleGetAnalyzeList = async () => {
-    const res = await GetAnalyzeList(cookies.refreshToken, onCookie);
-    setResults(res.recordList);
-    console.log("분석 리스트", res);
+  const [results, setResults] = useState<resultsType>();
+  const [cases, setCases] = useState<CasesType[]>([]);
+  const [words, setWords] = useState<WordsType[]>([]);
+
+  const { id } = useParams() as { id: string };
+  const record_id = parseInt(id);
+
+  useEffect(() => {
+    _handleGetAnalyze();
+  }, []);
+
+  /** 분석 기록 개별 */
+  const _handleGetAnalyze = async () => {
+    const res = await GetAnalyze(record_id, cookies.refreshToken, onCookie);
+    setResults(res.record);
+    setCases(res.myCaseDto);
+    setWords(res.simpleWordDtos);
+    console.log("개별 분석", res);
+  };
+
+  /** 삭제 */
+  const _handleDeleteAnalyze = async () => {
+    const res = await DeleteAnalyze(record_id, cookies.refreshToken, onCookie);
+    console.log("분석 삭제", res);
+    navigate(-1);
   };
 
   const [cookies, setCookie, removeCookie] = useCookies(["refreshToken"]);
@@ -28,11 +46,6 @@ const AnalyzeList = () => {
     setCookie("refreshToken", refreshToken, { path: "/" });
   };
 
-  /**분석 개별 페이지로 이동 */
-  const _handleClickAnalyze = (id: number) => {
-    navigate(`/analyze/${id}`);
-  };
-
   // answer_commission: 0;
   // commission: 0;
   // contract_type: "JEONSE";
@@ -41,27 +54,18 @@ const AnalyzeList = () => {
   // record_date: "2023-02-20";
   // record_id: 308;
 
-  useEffect(() => {
-    _handleGetAnalyzeList();
-  }, []);
-
   return (
     <Div>
       <SimpleNavBar text="분석 목록" />
 
       <Container>
-        {results.map((result) => (
-          <AnalyzeBox onClick={() => _handleClickAnalyze(result.record_id)}>
-            <p>{result.record_date}</p>
-            <p>{result.contract_type}</p>
-            <p>{result.record_id} 번호</p>
-          </AnalyzeBox>
-        ))}
+        <p onClick={_handleDeleteAnalyze}>삭제</p>
       </Container>
+      <p>정말 삭제하시겠습니까?</p>
     </Div>
   );
 };
-export default AnalyzeList;
+export default Analyze;
 
 const Div = styled.div`
   width: 100%;
