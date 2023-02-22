@@ -47,7 +47,6 @@ const Result = () => {
     setCases(resultCase);
     setWords(resultWord);
 
-    console.log("d", resultRecord.contract_type);
     if (resultRecord.contract_type === "MONTHLY_RENT") {
       setContractType("월세");
     } else if (resultRecord.contract_type === "JEONSE") {

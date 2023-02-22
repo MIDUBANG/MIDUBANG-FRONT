@@ -1,9 +1,10 @@
 import styled from "@emotion/styled";
 // asset
 import ill from "@assets/illustration/loadingPerson.png";
-import alert from "@assets/icon/alert.svg";
-import arrow from "@assets/icon/rightarrow.svg";
+import readmore from "@assets/result/readmore.svg";
 import { CasesType, WordsType } from "@assets/types";
+import CaseTypeDesc from "@components/Result/CaseTypeDesc";
+
 // hooks
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
@@ -41,6 +42,30 @@ const ResultBox = ({ caseData, wordData, openWordModal }: Props) => {
   let words = [{ word: "임차보증금" }, { word: "임차권" }];
 
   const [caseTypeState, setCaseTypeState] = useState<string>("");
+  const [caseTypeColor, setCaseTypeColor] = useState<string>("");
+  const [caseTypeDesc, setCaseTypeDesc] = useState([
+    {
+      type: "INVALID",
+      start: "이 특약은 계약서에 포함되어도 ",
+      mid: "법적 효력이 없습니다.",
+      end: "계약서를 다시 확인해보세요!",
+      color: "#FFAFAF",
+    },
+    {
+      type: "VALID_MUST",
+      start: " 이 특약은 나에게 꼭 필요한  ",
+      mid: "필수 조항",
+      end: "입니다! 계약서에 추가하는 것을 고려해보세요.",
+      color: "#D6FFDA",
+    },
+    {
+      type: "VALID_WARNING",
+      start: "이 특약은 나에게 불리할 수 있으므로 ",
+      mid: "주의 할 필요가 있는",
+      end: "특약입니다. 계약서를 다시 확인해보세요!",
+      color: "#FFE5BC",
+    },
+  ]);
 
   // desc의 임시
   let desc =
@@ -98,52 +123,57 @@ const ResultBox = ({ caseData, wordData, openWordModal }: Props) => {
 
   useEffect(() => {
     if (caseType === "INVALID") {
+      console.log("무효");
       setCaseTypeState("무효");
+      setCaseTypeColor("#EF5353");
     } else if (caseType === "VALID_MUST") {
+      console.log("유효 필수");
       setCaseTypeState("유효 필수");
+      setCaseTypeColor("#9CDB75");
     } else {
+      console.log("유효 주의");
       setCaseTypeState("유효 주의");
+      setCaseTypeColor("#FBB03B");
     }
   }, []);
 
   return (
     <Block>
-      <Contract>
+      <Contract caseTypeColor={caseTypeColor}>
         <div></div>
         <p> "{case_detail}"</p>
       </Contract>
-      {case_exists ? <p>검출</p> : <p>누락</p>}
-      <p>{caseTypeState}</p>
+
+      {/* 북마크 만들기 */}
+      {!case_exists && <p>누락</p>}
 
       <img src={ill} />
 
       <InfoBox>
         <div className="text-info">
-          <p>#태그</p>
-          <p>#태그</p>
-        </div>
-
-        {/* 체크박스 */}
-        <div className="word-toggle">
-          <input
-            type="checkbox"
-            id={case_id.toString()}
-            className="toggle"
-            hidden
-            onChange={(e) => _handleHighlighter(e)}
-          />
-
-          <label htmlFor={case_id.toString()} className="toggleSwitch">
-            <p className="word">단어</p>
-            <span className="toggleButton"></span>
-          </label>
+          {words.map((word) => (
+            <p># {word.word}</p>
+          ))}
         </div>
       </InfoBox>
 
       <Describe>
+        {caseTypeDesc.map((des) => {
+          if (des.type === caseType) {
+            return (
+              <p>
+                {des.start}
+                <CaseTypeSpan className="des-span" color={des.color}>
+                  {des.mid}
+                </CaseTypeSpan>
+                {des.end}
+              </p>
+            );
+          }
+        })}
+
         <p>
           {finalResultText.map((word, index) => {
-          
             if (word === "#") {
               return <div className="spacing"></div>;
             } else if (index % 2 == 1) {
@@ -161,13 +191,29 @@ const ResultBox = ({ caseData, wordData, openWordModal }: Props) => {
             }
           })}
         </p>
+
+        <NewsBtn onClick={_handleReadNews}>
+          <p>관련 기사 더 보기</p>
+          <img src={readmore} />
+        </NewsBtn>
       </Describe>
 
-      <NewsBtn onClick={_handleReadNews}>
-        <p>기사보기</p>
+      <Toggle>
+        <div className="word-toggle">
+          <input
+            type="checkbox"
+            id={case_id.toString()}
+            className="toggle"
+            hidden
+            onChange={(e) => _handleHighlighter(e)}
+          />
 
-        <img src={arrow} />
-      </NewsBtn>
+          <label htmlFor={case_id.toString()} className="toggleSwitch">
+            <p className="word">단어</p>
+            <span className="toggleButton"></span>
+          </label>
+        </div>
+      </Toggle>
     </Block>
   );
 };
@@ -184,15 +230,13 @@ const Block = styled.div`
   border-radius: 5px;
 `;
 
-const Contract = styled.div`
+const Contract = styled.div<{ caseTypeColor: string }>`
   display: flex;
-
   margin: 26px auto 30px 24px;
-
   width: 70%;
 
   div {
-    background: #fbb03b;
+    background: ${(props) => props.caseTypeColor};
     height: auto;
     width: 7px;
     margin-right: 10px;
@@ -212,7 +256,7 @@ const Describe = styled.div`
   flex-direction: column;
   margin: 28px;
   p {
-    margin-bottom: 20px;
+    margin-bottom: 10px;
     font-family: "Noto Sans KR";
     font-style: normal;
     font-weight: 300;
@@ -250,34 +294,48 @@ const Describe = styled.div`
   }
 
   .spacing {
-    height: 20px;
+    height: 10px;
+  }
+`;
+
+const CaseTypeSpan = styled.span<{ color: string }>`
+  display: inline-block;
+  position: relative;
+
+  &::after {
+    content: "";
+    width: 100%;
+    height: 10px;
+    display: inline-block;
+    background: ${(props) => props.color};
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    z-index: -1;
+    animation-duration: 0.5s;
+    animation-name: slidein;
   }
 `;
 
 const NewsBtn = styled.div`
-  width: 124px;
-  height: 34px;
-
-  border: 1px solid #4880ee;
-  border-radius: 20.5px;
-
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
-  margin: 0 16px 20px auto;
 
   p {
     font-family: "Noto Sans KR";
     font-style: normal;
-    font-weight: 400;
-    font-size: 13px;
-    line-height: 19px;
-    text-align: center;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 20px;
+    letter-spacing: -0.05em;
     color: #4880ee;
+    margin: 0;
   }
 
   img {
     margin-left: 5px;
+
     width: 14px;
     height: 10px;
   }
@@ -286,7 +344,7 @@ const NewsBtn = styled.div`
 const InfoBox = styled.div`
   display: flex;
   justify-content: space-between;
-  margin: 0 35px 20px 35px;
+  margin: 0 27px 20px 27px;
 
   .text-info {
     display: flex;
@@ -306,7 +364,12 @@ const InfoBox = styled.div`
       margin-right: 6px;
     }
   }
+`;
 
+const Toggle = styled.div`
+  display: flex;
+  justify-content: end;
+  margin: 0 17px 24px auto;
   .word-toggle {
     .toggleSwitch {
       width: 52px;

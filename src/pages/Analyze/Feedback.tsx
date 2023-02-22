@@ -157,7 +157,7 @@ const Feedback = () => {
   return (
     <Div>
       <SimpleNavBar text="레포트" />
-      <Title>총 N개의 특약조항 검출</Title>
+      <Title>총 {contracts.length}개의 특약조항 검출</Title>
       <div style={{ display: "flex", justifyContent: "center" }}>
         <IlluImg src={loadingPerson} style={{ width: "60%" }} />
       </div>
@@ -276,8 +276,9 @@ const Dot = styled.div<{ done: boolean }>`
   margin-bottom: auto;
   margin-top: 4px;
 
-  background-color: ${(props) => (props.done ? "#4880ee" : "")};
-  border: ${(props) => (props.done ? "" : "1px solid #9A9A9A")};
+  background-color: ${(props) => props.done && "#4880ee"};
+  border: ${(props) =>
+    props.done ? "1px solid #4880ee" : "1px solid #9A9A9A"};
 `;
 
 const Title = styled.p`
