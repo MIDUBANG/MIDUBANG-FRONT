@@ -1,6 +1,18 @@
 // hooks
 import styled from "@emotion/styled";
-const CommissionBox = () => {
+
+type Props = {
+  answer_commission: number | any;
+  my_commission: number | any;
+  is_expensive: boolean | any;
+};
+const CommissionBox = ({
+  answer_commission,
+  my_commission,
+  is_expensive,
+}: Props) => {
+  console.log(answer_commission, my_commission, is_expensive);
+
   return (
     <Block>
       <Title>
@@ -8,7 +20,7 @@ const CommissionBox = () => {
         <p>내 복비는 적당할까?</p>
       </Title>
 
-      <BarBox>
+      <BarBox is_expensive={is_expensive}>
         <div className="bar-back">
           <div className="bar"></div>
           <div className="dot"></div>
@@ -16,18 +28,26 @@ const CommissionBox = () => {
         </div>
 
         <div className="commission mycommission">
-          <p className="num">40,000</p>
+          <p className="num">{my_commission}</p>
           <p className="text">내 복비</p>
         </div>
+
         <div className="commission default">
-          <p className="num">60,000</p>
+          <p className="num">{answer_commission}</p>
           <p className="text">상한 복비</p>
         </div>
       </BarBox>
 
       <Desc>
-        나의 복비는 40,000(4만원)입니다. 이 계약의 최대 복비는
-        60,000(6만원)입니다. 적정 수준의 복비로 계약하셨군요, 축하드립니다!
+        {is_expensive
+          ? `나의 복비 ${my_commission}원은 이 계약의 최대 복비인
+        ${answer_commission}원을 초과한 금액입니다.`
+          : `나의 복비는 ${my_commission}원입니다. 이 계약의 최대 복비는
+        ${answer_commission}원입니다.`}
+
+        {is_expensive
+          ? "바가지를 쓴 것은 아닌지 확인 할 필요가 있습니다. 😢 "
+          : "적정 수준의 복비로 계약하셨군요,축하드립니다!"}
       </Desc>
     </Block>
   );
@@ -56,7 +76,7 @@ const Title = styled.p`
   }
 `;
 
-const BarBox = styled.div`
+const BarBox = styled.div<{ is_expensive: boolean }>`
   margin: 28px 20px 50px 20px;
   position: relative;
 
@@ -72,10 +92,10 @@ const BarBox = styled.div`
   .bar {
     position: absolute;
 
-    width: 80%; // 길이
+    width: ${(props) => (props.is_expensive ? "80%" : "30%")};
     height: 14px;
 
-    background: #2d6fee;
+    background: ${(props) => (props.is_expensive ? "#EF5353" : "#2D6FEE")};
     border-radius: 10.5px 0px 0px 10.5px;
   }
 
@@ -92,7 +112,7 @@ const BarBox = styled.div`
   }
 
   .mydot {
-    left: 80%;
+    left: ${(props) => (props.is_expensive ? "80%" : "30%")};
   }
 
   .commission {
@@ -103,6 +123,9 @@ const BarBox = styled.div`
       font-size: 12px;
       line-height: 17px;
       color: #000000;
+      text-align: center;
+
+      margin-top: 4px;
     }
 
     .text {
@@ -118,7 +141,7 @@ const BarBox = styled.div`
   .mycommission {
     position: absolute;
     bottom: 0;
-    left: 80%;
+    left: ${(props) => (props.is_expensive ? "80%" : "30%")};
     transform: translate(-50%, 100%);
   }
 
