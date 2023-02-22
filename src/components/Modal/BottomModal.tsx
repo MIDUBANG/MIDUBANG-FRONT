@@ -1,12 +1,15 @@
 import styled from "@emotion/styled";
-
+import edit from "@assets/feedback/edit.svg";
+import trash from "@assets/feedback/trash.svg";
 import { PropsContracts } from "@assets/types";
+
 type Props = {
   isOpen: boolean;
   setIsOpen: (isopen: boolean) => void;
   contracts: PropsContracts[];
   _handleEdit: (id: number) => void;
 };
+
 const BottomModal = ({ isOpen, setIsOpen, contracts, _handleEdit }: Props) => {
   const contract = contracts.filter((c) => c.selected === true);
 
@@ -28,8 +31,15 @@ const BottomModal = ({ isOpen, setIsOpen, contracts, _handleEdit }: Props) => {
           </Contract>
 
           <Buttons>
-            <div onClick={() => ClickEdit(contract[0]?.id)}>수정하기</div>
-            <div onClick={() => setIsOpen(false)}>삭제하기</div>
+            <Button onClick={() => ClickEdit(contract[0]?.id)}>
+              <img src={edit} />
+              <p>수정하기</p>
+            </Button>
+
+            <Button onClick={() => setIsOpen(false)}>
+              <img src={trash} />
+              <p>삭제하기</p>
+            </Button>
           </Buttons>
         </div>
       </div>
@@ -41,11 +51,43 @@ export default BottomModal;
 
 const Buttons = styled.div`
   display: flex;
-  width: 154px;
+  justify-content: space-around;
+
+  width: 100%;
+  height: 70px;
+  border-radius: 5px;
+
+  margin-top: 18px;
+`;
+
+const Button = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  width: 45%;
   height: 70px;
   background: #f5f5f5;
   border-radius: 5px;
+
+  img {
+    width: 23px;
+    height: 23px;
+  }
+  p {
+    margin-top: 5px;
+
+    font-family: "Noto Sans KR";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 10px;
+    line-height: 14px;
+    display: flex;
+    align-items: center;
+  }
 `;
+
 const Bar = styled.hr`
   width: 26px;
   height: 1px;
