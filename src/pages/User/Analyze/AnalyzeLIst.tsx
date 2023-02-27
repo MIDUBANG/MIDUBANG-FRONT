@@ -50,13 +50,25 @@ const AnalyzeList = () => {
       <SimpleNavBar text="분석 목록" />
 
       <Container>
-        {results.map((result) => (
-          <AnalyzeBox onClick={() => _handleClickAnalyze(result.record_id)}>
-            <p>{result.record_date}</p>
-            <p>{result.contract_type}</p>
-            <p>{result.record_id} 번호</p>
-          </AnalyzeBox>
-        ))}
+        {results.map((result) => {
+          let date =
+            result.record_date.substring(5, 10).replace("-", "월 ") + "일";
+          let contractType = "";
+          if (result.contract_type === "JEONSE") {
+            contractType = "전세";
+          } else if (result.contract_type === "HALF_JEONSE") {
+            contractType = "반전세";
+          } else {
+            contractType = "월세";
+          }
+
+          return (
+            <AnalyzeBox onClick={() => _handleClickAnalyze(result.record_id)}>
+              <p className="title">{contractType} 분석</p>
+              <p className="date">{date}</p>
+            </AnalyzeBox>
+          );
+        })}
       </Container>
     </Div>
   );
@@ -75,6 +87,33 @@ const Container = styled.div`
 `;
 
 const AnalyzeBox = styled.div`
-  border: 1px solid red;
-  margin-bottom: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  width: 331px;
+  height: auto;
+  background: #f4f5f7;
+  border-radius: 5px;
+
+  margin: 10px auto 0 auto;
+  padding: 20px;
+
+  .title {
+    font-family: "Noto Sans KR";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 17px;
+    line-height: 25px;
+  }
+
+  .date {
+    font-family: "Noto Sans KR";
+    font-style: normal;
+    font-weight: 350;
+    font-size: 14px;
+    line-height: 20px;
+
+    color: rgba(0, 0, 0, 0.5);
+  }
 `;
