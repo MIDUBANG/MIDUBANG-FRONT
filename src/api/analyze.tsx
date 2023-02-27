@@ -44,6 +44,9 @@ export const PostContractImg = async (
     // };
   } catch (err: any) {
     console.log("OCR 에러", err);
+    alert(
+      "이미지 업로드 중 알 수 없는 오류가 발생했습니다. 다시 시도해주세요."
+    );
 
     if (err.response.data.message === "expired token") {
       alert("토큰 만료");
@@ -51,7 +54,11 @@ export const PostContractImg = async (
     } else if (err.response.data.message === "empty token") {
       alert("빈 토큰");
       RefreshApi(refreshToken, cookie);
+    } else {
+      console.log("?");
     }
+
+    console.log("???");
   }
 };
 
