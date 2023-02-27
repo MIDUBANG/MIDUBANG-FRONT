@@ -1,22 +1,28 @@
 import styled from "@emotion/styled";
-
+import { useState, useEffect } from "react";
 import MiniLogo from "@assets/logo/MiniLogo.svg";
 import CancleLogo from "@assets/icon/Cancle.png";
 import rod from "@assets/icon/rod.svg";
 import "@style/font.css";
+
+import useScrollDirection from "@hooks/useScrollDirection";
 
 type SimpleNavBarProps = {
   text?: string;
 };
 
 const SimpleNavBar = ({ text }: SimpleNavBarProps) => {
+  const [scrollDirection, setScrollDirection] = useScrollDirection("up");
+
   return (
     <BarDiv>
-      <img src={MiniLogo} className="mini-logo" />
-      <p>믿어방</p>
-      {text !== "" && <Rod src={rod} />}
-      <p>{text}</p>
-      <img src={CancleLogo} className="cancle-logo" />
+      <div className={scrollDirection === "up" ? "nav active" : "nav unactive"}>
+        <img src={MiniLogo} className="mini-logo" />
+        <p>믿어방</p>
+        {text !== "" && <Rod src={rod} />}
+        <p>{text}</p>
+        <img src={CancleLogo} className="cancle-logo" />
+      </div>
     </BarDiv>
   );
 };
@@ -31,13 +37,29 @@ const Rod = styled.img`
   margin-left: 12px;
 `;
 const BarDiv = styled.div`
-  display: flex;
-  width: 100%;
+  .nav {
+    border-bottom: 0.5px solid rgba(154, 154, 154, 0.3);
+    background-color: white;
+    position: fixed;
 
-  padding-top: 23px;
-  padding-bottom: 23px;
+    display: flex;
+    width: 100%;
 
-  align-items: center;
+    padding-top: 15px;
+    padding-bottom: 15px;
+
+    align-items: center;
+
+    transition: top 0.2s ease-in-out;
+  }
+
+  .active {
+    top: 0px;
+  }
+
+  .unactive {
+    top: -80px;
+  }
 
   p {
     font-family: "Noto Sans KR", sans-serif;
