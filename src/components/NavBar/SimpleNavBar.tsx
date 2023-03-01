@@ -1,5 +1,6 @@
 import styled from "@emotion/styled";
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import MiniLogo from "@assets/logo/MiniLogo.svg";
 import CancleLogo from "@assets/icon/Cancle.png";
 import rod from "@assets/icon/rod.svg";
@@ -12,6 +13,10 @@ type SimpleNavBarProps = {
 };
 
 const SimpleNavBar = ({ text }: SimpleNavBarProps) => {
+  const navigate = useNavigate();
+  const _clickBackBtn = () => {
+    navigate(-1);
+  };
   const [scrollDirection, setScrollDirection] = useScrollDirection("up");
 
   return (
@@ -21,7 +26,7 @@ const SimpleNavBar = ({ text }: SimpleNavBarProps) => {
         <p>믿어방</p>
         {text !== "" && <Rod src={rod} />}
         <p>{text}</p>
-        <img src={CancleLogo} className="cancle-logo" />
+        <img src={CancleLogo} className="cancle-logo" onClick={_clickBackBtn} />
       </div>
     </BarDiv>
   );
