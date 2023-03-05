@@ -23,7 +23,7 @@ const AnalyzePage = loadable(() => import("@pages/User/Analyze/Analyze"));
 const App: React.FC = () => {
   return (
     <Routes>
-      <Route path="/home" element={<HomePage />} />
+      <Route path="/" element={<HomePage />} />
 
       <Route path="/signup" element={<SignupPage />} />
       <Route path="/login" element={<LoginPage />} />
