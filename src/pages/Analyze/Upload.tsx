@@ -162,7 +162,9 @@ const Upload = () => {
         </Swiper>
       ) : (
         <div>
-          <FontTitle margin="20px 0 0 37px">특약 텍스트 추출 중</FontTitle>
+          <FontTitle margin="20px 0 0 37px" size="20px">
+            특약 텍스트 추출 중
+          </FontTitle>
           <div style={{ display: "flex", justifyContent: "center" }}>
             <IlluImg src={loadingPerson} />
           </div>

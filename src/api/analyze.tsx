@@ -11,34 +11,42 @@ export const PostContractImg = async (
   cookie: (res: any) => void
 ): Promise<any> => {
   try {
+    console.log("OCR 요청 중...");
     const formData = new FormData();
     formData.append("image", file);
 
-    // 5000포트 axios로 변경 필요
-    const res = await client.post("/플라스크이미지", formData, {
-      headers: { "content-type": "multipart/form-data" },
+    // const data = {
+    //   id: user_id.toString(),
+    // };
+
+    // formData.append(
+    //   "id",
+    //   new Blob([JSON.stringify(data)], { type: "application/json" })
+    // );
+
+    formData.append("id", user_id.toString());
+
+    const res = await axios.post("http://34.64.177.249:80/api/ocr", formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+        Accept: "multipart/form-data",
+      },
     });
 
-    console.log("OCR 성공", res);
-
     // response = url과 text 결과
-    return {
-      imgUrl: "https://tempimgurl",
-      resultArray: [
-        "보증금과 월세는 1년마다 시세에 맞게증금과 월세는 1년마다 시세에 맞게증금과 월세는 1년마다 시세에 맞게증금과 월세는 1년마다 시세에 맞게 올릴 수 있다",
-        "보증금과 월세는 1년마다 시세에 맞게증금과 월세는 1년마다 시세에 맞게증금과 월세는 1년마다 시세에 맞게증금과 월세는 1년마다 시세에 맞게 올릴 수 있다",
-      ],
-    };
+    return res;
+    // return {
+    //   imgUrl: "https://tempimgurl",
+    //   resultArray: [
+    //     "보증금과 월세는 1년마다 시세에 맞게증금과 월세는 1년마다 시세에 맞게증금과 월세는 1년마다 시세에 맞게증금과 월세는 1년마다 시세에 맞게 올릴 수 있다",
+    //     "보증금과 월세는 1년마다 시세에 맞게증금과 월세는 1년마다 시세에 맞게증금과 월세는 1년마다 시세에 맞게증금과 월세는 1년마다 시세에 맞게 올릴 수 있다",
+    //   ],
+    // };
   } catch (err: any) {
-    return {
-      imgUrl: "https://tempimgurl",
-      resultArray: [
-        "보증금과 월세는 1년마다 시세에 맞게증금과 월세는 1년마다 시세에 맞게증금과 월세는 1년마다 시세에 맞게증금과 월세는 1년마다 시세에 맞게 올릴 수 있다",
-        "보증금과 월세는 1년마다 시세에 맞게증금과 월세는 1년마다 시세에 맞게증금과 월세는 1년마다 시세에 맞게증금과 월세는 1년마다 시세에 맞게 올릴 수 있다",
-      ],
-    };
-
     console.log("OCR 에러", err);
+    alert(
+      "이미지 업로드 중 알 수 없는 오류가 발생했습니다. 다시 시도해주세요."
+    );
 
     if (err.response.data.message === "expired token") {
       alert("토큰 만료");
@@ -46,7 +54,11 @@ export const PostContractImg = async (
     } else if (err.response.data.message === "empty token") {
       alert("빈 토큰");
       RefreshApi(refreshToken, cookie);
+    } else {
+      console.log("?");
     }
+
+    console.log("???");
   }
 };
 

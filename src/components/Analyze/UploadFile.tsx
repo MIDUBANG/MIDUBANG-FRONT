@@ -29,7 +29,7 @@ const UploadFile = ({ setUpload, setImgUrl, setResult }: UploadFileProps) => {
 
   const [uploadfile, setUploadFile] = useState<File | any>();
 
-  /* 업로드한 사진과 파일명 보여주기 */
+  /** 업로드한 사진과 파일명 보여주기 */
   const readInputFile = (e: React.ChangeEvent<HTMLInputElement>) => {
     // 업로드 된 파일 보여주기
     let files = e.target.files as FileList;
@@ -95,6 +95,7 @@ const UploadFile = ({ setUpload, setImgUrl, setResult }: UploadFileProps) => {
     console.log("member_id", member_id);
 
     // 이미지 업로드 -> 오류나면 어찌되는겨??
+
     const { imgUrl, resultArray } = await PostContractImg(
       member_id,
       uploadfile,

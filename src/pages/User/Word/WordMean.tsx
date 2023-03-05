@@ -63,7 +63,6 @@ const WordMean = () => {
       <WordBox>
         <p className="word">{word?.word}</p>
         <p className="date">{word.word_date} 저장</p>
-        <img src={blur} />
       </WordBox>
 
       <Hr />
