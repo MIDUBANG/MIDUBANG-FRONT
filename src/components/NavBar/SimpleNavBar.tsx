@@ -13,12 +13,18 @@ type SimpleNavBarProps = {
 };
 
 const SimpleNavBar = ({ text }: SimpleNavBarProps) => {
+  console.log("정신차려");
+
   const navigate = useNavigate();
   const _clickBackBtn = () => {
     navigate(-1);
   };
 
   const [scrollDirection, setScrollDirection] = useScrollDirection("up");
+
+  useEffect(() => {
+    console.log(scrollDirection);
+  }, [scrollDirection]);
 
   return (
     <BarDiv>

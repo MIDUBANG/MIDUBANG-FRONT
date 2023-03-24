@@ -132,6 +132,7 @@ const Container = styled.div`
   flex-direction: column;
   justify-content: center;
 `;
+
 const Illustration = styled.img`
   width: 179px;
   height: 115px;

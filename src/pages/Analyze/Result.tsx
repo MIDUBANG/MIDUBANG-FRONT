@@ -84,6 +84,11 @@ const Result = () => {
     <Div>
       <SimpleNavBar text="레포트" />
       <Container>
+        <h1>ddd</h1>
+        <h1>ddd</h1>
+        <h1>ddd</h1>
+        <h1>ddd</h1>
+        <h1>ddd</h1>
         <Title>
           <div></div>
           <p> 주의 요망 특약 사항 발견</p>
@@ -113,12 +118,12 @@ const Result = () => {
           );
         })}
 
-        <WordModal
+        {/* <WordModal
           open={modalOpen}
           close={closeWordModal}
           text={selectWord}
           wordsData={words}
-        />
+        /> */}
       </Container>
     </Div>
   );
@@ -129,11 +134,12 @@ export default Result;
 const Div = styled.div`
   width: 100%;
   height: 100%;
-
-  overflow-y: scroll;
+  //overflow-y: scroll;
 `;
 
 const Container = styled.div`
+  display: flex;
+  flex-direction: column;
   padding-bottom: 100px;
 `;
 
