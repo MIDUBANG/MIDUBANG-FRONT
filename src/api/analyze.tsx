@@ -34,14 +34,14 @@ export const PostContractImg = async (
     });
 
     // response = url과 text 결과
-    return res;
-    // return {
-    //   imgUrl: "https://tempimgurl",
-    //   resultArray: [
-    //     "보증금과 월세는 1년마다 시세에 맞게증금과 월세는 1년마다 시세에 맞게증금과 월세는 1년마다 시세에 맞게증금과 월세는 1년마다 시세에 맞게 올릴 수 있다",
-    //     "보증금과 월세는 1년마다 시세에 맞게증금과 월세는 1년마다 시세에 맞게증금과 월세는 1년마다 시세에 맞게증금과 월세는 1년마다 시세에 맞게 올릴 수 있다",
-    //   ],
-    // };
+    //return res;
+    return {
+      imgUrl: "https://tempimgurl",
+      resultArray: [
+        "보증금과 월세는 1년마다 시세에 맞게증금과 월세는 1년마다 시세에 맞게증금과 월세는 1년마다 시세에 맞게증금과 월세는 1년마다 시세에 맞게 올릴 수 있다",
+        "보증금과 월세는 1년마다 시세에 맞게증금과 월세는 1년마다 시세에 맞게증금과 월세는 1년마다 시세에 맞게증금과 월세는 1년마다 시세에 맞게 올릴 수 있다",
+      ],
+    };
   } catch (err: any) {
     console.log("OCR 에러", err);
     alert(
@@ -116,14 +116,24 @@ export const PostAnalyze = async (
 ): Promise<any> => {
   try {
     const res = await client.post("analysis", {
-      commission: commission,
-      answer_commission: answer_commission,
-      is_expensive: is_expensive,
-      contract_type: contract_type,
-      image_url: image_url,
-      inclusions: inclusions,
-      omissions: omissions,
+      commission: 1234,
+      answer_commission: 12,
+      is_expensive: true,
+      contract_type: "JEONSE",
+      image_url: "http/",
+      inclusions: [0, 2, 3, 4],
+      omissions: [5, 6, 7],
     });
+
+    // const res = await client.post("analysis", {
+    //   commission: commission,
+    //   answer_commission: answer_commission,
+    //   is_expensive: is_expensive,
+    //   contract_type: contract_type,
+    //   image_url: image_url,
+    //   inclusions: inclusions,
+    //   omissions: omissions,
+    // });
 
     console.log("Spring 성공", res);
     return res.data;

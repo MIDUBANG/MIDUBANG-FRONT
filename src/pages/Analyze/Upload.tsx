@@ -97,6 +97,7 @@ const Upload = () => {
   return (
     <Div>
       <SimpleNavBar text="레포트" />
+
       {!upload ? (
         <Swiper pagination={{ clickable: true }} className="mySwiper">
           <SwiperSlide>

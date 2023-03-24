@@ -36,7 +36,7 @@ const Signup = () => {
   /**회원가입 */
   const _handleSignUp = () => {
     SignUpApi(email, pw, onCookie);
-    navigate("/");
+    //navigate("/");
   };
 
   /** 토큰 연장 */
