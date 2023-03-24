@@ -17,6 +17,7 @@ const SimpleNavBar = ({ text }: SimpleNavBarProps) => {
   const _clickBackBtn = () => {
     navigate(-1);
   };
+
   const [scrollDirection, setScrollDirection] = useScrollDirection("up");
 
   return (
@@ -43,6 +44,7 @@ const Rod = styled.img`
 `;
 const BarDiv = styled.div`
   .nav {
+    z-index: 100000;
     border-bottom: 0.5px solid rgba(154, 154, 154, 0.3);
     background-color: white;
     position: fixed;
