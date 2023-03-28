@@ -12,7 +12,7 @@ import clip from "@assets/icon/clip.svg";
 import modalCancle from "@assets/icon/modalCancle.svg";
 import { WordsType } from "@assets/types";
 // api
-import {PostSaveWord} from "@api/word";
+import { PostSaveWord } from "@api/word";
 
 type Props = {
   open: boolean;
@@ -26,15 +26,9 @@ const WordModal = (props: Props) => {
 
   // 스크롤 방지
   useEffect(() => {
-    document.body.style.cssText = `
-              position: fixed;
-              top: -${window.scrollY}px;
-              overflow-y: scroll;
-              width: 100%;`;
+    document.body.style.overflow = "hidden";
     return () => {
-      const scrollY = document.body.style.top;
-      document.body.style.cssText = "";
-      window.scrollTo(0, parseInt(scrollY || "0", 10) * -1);
+      document.body.style.overflow = "";
     };
   }, []);
 
@@ -47,13 +41,13 @@ const WordModal = (props: Props) => {
   };
 
   /** 단어 저장 함수 */
-  const _handleClickSaveBtn = (text:string) => {
+  const _handleClickSaveBtn = (text: string) => {
     wordsData.map((word) => {
-      if(word.word === text){
-        PostSaveWord(word.word_id, cookies.refreshToken, onCookie)
+      if (word.word === text) {
+        PostSaveWord(word.word_id, cookies.refreshToken, onCookie);
       }
-          })
-  }
+    });
+  };
 
   return (
     <div
