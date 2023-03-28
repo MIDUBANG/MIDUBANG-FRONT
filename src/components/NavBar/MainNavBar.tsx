@@ -17,8 +17,8 @@ const MainNavBar = ({ text }: MainNavBarProps) => {
 
   const navigate = useNavigate();
 
-  const _clickBackBtn = () => {
-    alert("프로필 누름");
+  const _clickProfileBtn = () => {
+    navigate("/my");
   };
 
   const [scrollDirection, setScrollDirection] = useScrollDirection("up");
@@ -34,8 +34,7 @@ const MainNavBar = ({ text }: MainNavBarProps) => {
         <p>믿어방</p>
         {text !== "" && <Rod src={rod} />}
         <p>{text}</p>
-        <p>프로필</p>
-        <img src={profile} className="profile" onClick={_clickBackBtn} />
+        <img src={profile} className="profile" onClick={_clickProfileBtn} />
       </div>
     </BarDiv>
   );
