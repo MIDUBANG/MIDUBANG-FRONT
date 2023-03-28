@@ -80,33 +80,39 @@ const Result = () => {
     setModalOpen(false);
   };
 
+  const [customDirection, setCustomDirecton] = useState("up");
+
+  useEffect(() => {
+    console.log("변화:", customDirection);
+  }, [customDirection]);
+
   return (
     <Div>
-      <SimpleNavBar text="레포트" />
+      {modalOpen && (
+        <WordModal
+          open={modalOpen}
+          close={closeWordModal}
+          text={selectWord}
+          wordsData={words}
+        />
+      )}
+
       <Container>
-        <h1>ddd</h1>
-        <h1>ddd</h1>
-        <h1>ddd</h1>
-        <h1>ddd</h1>
-        <h1>ddd</h1>
+        <SimpleNavBar text="레포트" direction={customDirection} />
         <Title>
           <div></div>
           <p> 주의 요망 특약 사항 발견</p>
         </Title>
-
         <Date>2023.02.20 분석</Date>
-
         <ImgBox>
           <ContractImg src={temp} />
           <div>{contractType}</div>
         </ImgBox>
-
         <CommissionBox
           answer_commission={results?.answer_commission}
           my_commission={results?.answer_commission}
           is_expensive={results?.is_expensive}
         />
-
         {cases.map((c) => {
           return (
             <ResultBox
@@ -117,13 +123,6 @@ const Result = () => {
             />
           );
         })}
-
-        {/* <WordModal
-          open={modalOpen}
-          close={closeWordModal}
-          text={selectWord}
-          wordsData={words}
-        /> */}
       </Container>
     </Div>
   );
@@ -134,6 +133,7 @@ export default Result;
 const Div = styled.div`
   width: 100%;
   height: 100%;
+  padding-top: 90px;
   //overflow-y: scroll;
 `;
 

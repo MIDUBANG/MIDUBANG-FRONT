@@ -203,7 +203,9 @@ const ResultBox = ({ caseData, wordData, openWordModal }: Props) => {
                 <span
                   key={index}
                   className={highlighter ? "word" : ""}
-                  onClick={() => openWordModal(word)}
+                  onClick={() => {
+                    openWordModal(word);
+                  }}
                 >
                   {word}
                 </span>
@@ -315,7 +317,7 @@ const Block = styled.div`
 const Contract = styled.div<{ caseTypeColor: string }>`
   display: flex;
   margin: 26px auto 30px 24px;
-  width: 70%;
+  width: 80%;
 
   div {
     background: ${(props) => props.caseTypeColor};

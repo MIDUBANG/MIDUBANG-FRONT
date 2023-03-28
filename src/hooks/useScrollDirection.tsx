@@ -16,8 +16,6 @@ const useScrollDirection = (initialValue: string) => {
         setScrollDirection(direction);
       }
       lastScrollY = scrollY > 0 ? scrollY : 0; // 이전 위치 업뎃
-
-      console.log(lastScrollY);
     };
 
     window.addEventListener("scroll", updateScrollDirection); // add event listener

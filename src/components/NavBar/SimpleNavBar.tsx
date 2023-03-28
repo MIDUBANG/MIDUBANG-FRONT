@@ -10,21 +10,17 @@ import useScrollDirection from "@hooks/useScrollDirection";
 
 type SimpleNavBarProps = {
   text?: string;
+  direction: string;
 };
 
-const SimpleNavBar = ({ text }: SimpleNavBarProps) => {
-  console.log("정신차려");
-
+const SimpleNavBar = ({ text, direction }: SimpleNavBarProps) => {
   const navigate = useNavigate();
+
   const _clickBackBtn = () => {
     navigate(-1);
   };
 
-  const [scrollDirection, setScrollDirection] = useScrollDirection("up");
-
-  useEffect(() => {
-    console.log(scrollDirection);
-  }, [scrollDirection]);
+  const [scrollDirection, setScrollDirection] = useScrollDirection(direction);
 
   return (
     <BarDiv>
@@ -43,14 +39,16 @@ export default SimpleNavBar;
 
 SimpleNavBar.defaultProps = {
   text: "",
+  direction: "up",
 };
 
 const Rod = styled.img`
   margin-left: 12px;
 `;
+
 const BarDiv = styled.div`
   .nav {
-    z-index: 100000;
+    z-index: 10;
     border-bottom: 0.5px solid rgba(154, 154, 154, 0.3);
     background-color: white;
     position: fixed;
