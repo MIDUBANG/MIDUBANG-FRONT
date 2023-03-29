@@ -17,6 +17,7 @@ import CommissionBox from "@components/Result/CommissionBox";
 
 const Result = () => {
   const requestData = useAppSelector((state: RootState) => state.result);
+
   const [results, setResults] = useState<resultsType>();
   const [cases, setCases] = useState<CasesType[]>([]);
   const [words, setWords] = useState<WordsType[]>([]);
@@ -36,8 +37,6 @@ const Result = () => {
       cookies.refreshToken,
       onCookie
     );
-
-    console.log("spring 결과물", analyzeResult);
 
     const resultRecord = analyzeResult.record;
     const resultCase = analyzeResult.myCaseDto;
@@ -82,10 +81,6 @@ const Result = () => {
 
   const [customDirection, setCustomDirecton] = useState("up");
 
-  useEffect(() => {
-    console.log("변화:", customDirection);
-  }, [customDirection]);
-
   return (
     <Div>
       {modalOpen && (
@@ -101,16 +96,19 @@ const Result = () => {
         <SimpleNavBar text="레포트" direction={customDirection} />
         <Title>
           <div></div>
-          <p> 주의 요망 특약 사항 발견</p>
+          <p> 특약 조항 분석 레포트</p>
         </Title>
-        <Date>2023.02.20 분석</Date>
+        <Date>{results?.record_date.replaceAll("-", ". ")} 분석</Date>
         <ImgBox>
           <ContractImg src={temp} />
           <div>{contractType}</div>
         </ImgBox>
+
+        <div>레포트 요약 보기</div>
+
         <CommissionBox
           answer_commission={results?.answer_commission}
-          my_commission={results?.answer_commission}
+          my_commission={results?.commission}
           is_expensive={results?.is_expensive}
         />
         {cases.map((c) => {

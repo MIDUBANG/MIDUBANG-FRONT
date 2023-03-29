@@ -14,7 +14,7 @@ const CommissionBox = ({
   return (
     <Block>
       <Title>
-        <p>내가 내는 부동산 중개 수수료,</p>
+        <p>이 계약의 최대 중개 보수</p>
         <p>내 복비는 적당할까?</p>
       </Title>
 
@@ -68,7 +68,7 @@ const Title = styled.p`
     font-family: "Noto Sans KR";
     font-style: normal;
     font-weight: 500;
-    font-size: 16px;
+    font-size: 20px;
     line-height: 23px;
     color: #1f4ef5;
   }
