@@ -9,6 +9,7 @@ const HomePage = loadable(() => import("@pages/Main/Home"));
 const UploadPage = loadable(() => import("@pages/Analyze/Upload"));
 const ResultPage = loadable(() => import("@pages/Analyze/Result"));
 const FeedbackPage = loadable(() => import("@pages/Analyze/Feedback"));
+const SummaryPage = loadable(() => import("@pages/Analyze/Summary"));
 
 const SignupPage = loadable(() => import("@pages/Auth/Signup"));
 const LoginPage = loadable(() => import("@pages/Auth/Login"));
@@ -30,8 +31,9 @@ const App: React.FC = () => {
       <Route path="/KakaoLogin" element={<KakoLoginPage />} />
 
       <Route path="/upload" element={<UploadPage />} />
-      <Route path="/result" element={<ResultPage />} />
       <Route path="/feedback" element={<FeedbackPage />} />
+      <Route path="/result" element={<ResultPage />} />
+      <Route path="/summary" element={<SummaryPage />} />
 
       <Route path="/wordlist" element={<WordListPage />} />
       <Route path="/wordmean/:id" element={<WordMeanPage />} />

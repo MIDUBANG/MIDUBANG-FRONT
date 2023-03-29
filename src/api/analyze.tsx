@@ -26,12 +26,12 @@ export const PostContractImg = async (
 
     formData.append("id", user_id.toString());
 
-    const res = await axios.post("http://34.64.177.249:80/api/ocr", formData, {
-      headers: {
-        "Content-Type": "multipart/form-data",
-        Accept: "multipart/form-data",
-      },
-    });
+    // const res = await axios.post("http://34.64.177.249:80/api/ocr", formData, {
+    //   headers: {
+    //     "Content-Type": "multipart/form-data",
+    //     Accept: "multipart/form-data",
+    //   },
+    // });
 
     // response = url과 text 결과
     //return res;
@@ -88,6 +88,7 @@ export const PostContractCase = async (
     const res = await axios.post("http://34.64.177.249:5000/api/nlp", result);
 
     console.log("NLP 성공", res);
+
     return res.data;
   } catch (err: any) {
     console.log("NLP 에러", err);
@@ -115,27 +116,26 @@ export const PostAnalyze = async (
   cookie: (res: any) => void
 ): Promise<any> => {
   try {
+    // const res = await client.post("analysis", {
+    //   commission: 4,
+    //   answer_commission: 12,
+    //   is_expensive: false,
+    //   contract_type: "JEONSE",
+    //   image_url: "http/",
+    //   inclusions: [0, 2, 3, 4],
+    //   omissions: [5, 6, 7],
+    // });
     const res = await client.post("analysis", {
-      commission: 1234,
-      answer_commission: 12,
-      is_expensive: true,
-      contract_type: "JEONSE",
-      image_url: "http/",
+      commission: commission,
+      answer_commission: answer_commission,
+      is_expensive: is_expensive,
+      contract_type: contract_type,
+      image_url: image_url,
       inclusions: [0, 2, 3, 4],
       omissions: [5, 6, 7],
     });
 
-    // const res = await client.post("analysis", {
-    //   commission: commission,
-    //   answer_commission: answer_commission,
-    //   is_expensive: is_expensive,
-    //   contract_type: contract_type,
-    //   image_url: image_url,
-    //   inclusions: inclusions,
-    //   omissions: omissions,
-    // });
-
-    console.log("Spring 성공", res);
+    console.log("Spring 성공`", res);
     return res.data;
   } catch (err: any) {
     console.log("Spring 에러", err);
@@ -225,5 +225,18 @@ export const DeleteAnalyze = async (
       alert("빈 토큰");
       RefreshApi(refreshToken, cookie);
     }
+  }
+};
+
+/** 레포트 요약 */
+export const SummarizeReport = async (content: string): Promise<any> => {
+  try {
+    const res = await axios.post("http://127.0.0.1:5000/api/summary", {
+      content: content,
+    });
+
+    return res;
+  } catch (err: any) {
+    console.log("요약 에러", err);
   }
 };
