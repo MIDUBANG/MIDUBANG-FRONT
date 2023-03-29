@@ -229,10 +229,10 @@ export const DeleteAnalyze = async (
 };
 
 /** 레포트 요약 */
-export const SummarizeReport = async (content: string): Promise<any> => {
+export const SummarizeReport = async (contents: string[]): Promise<any> => {
   try {
     const res = await axios.post("http://127.0.0.1:5000/api/summary", {
-      content: content,
+      contents: contents,
     });
 
     return res;
