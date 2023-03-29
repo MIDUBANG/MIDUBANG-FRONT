@@ -11,8 +11,6 @@ const CommissionBox = ({
   my_commission,
   is_expensive,
 }: Props) => {
-  console.log(answer_commission, my_commission, is_expensive);
-
   return (
     <Block>
       <Title>
@@ -40,14 +38,14 @@ const CommissionBox = ({
 
       <Desc>
         {is_expensive
-          ? `나의 복비 ${my_commission}원은 이 계약의 최대 복비인
-        ${answer_commission}원을 초과한 금액입니다.`
-          : `나의 복비는 ${my_commission}원입니다. 이 계약의 최대 복비는
-        ${answer_commission}원입니다.`}
+          ? `나의 복비 ${my_commission}만원은 이 계약의 최대 복비인
+        ${answer_commission}만원을 초과한 금액입니다.`
+          : `나의 복비는 ${my_commission}만원 입니다. 이 계약의 최대 복비는
+        ${answer_commission}만원입니다.`}
 
         {is_expensive
           ? "바가지를 쓴 것은 아닌지 확인 할 필요가 있습니다. 😢 "
-          : "적정 수준의 복비로 계약하셨군요,축하드립니다!"}
+          : " 적정 수준의 복비로 계약하셨군요, 축하드립니다!"}
       </Desc>
     </Block>
   );
