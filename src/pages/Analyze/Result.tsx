@@ -2,20 +2,24 @@
 import { useCookies } from "react-cookie";
 import { useState, useEffect } from "react";
 import styled from "@emotion/styled";
+import { useNavigate } from "react-router-dom";
 // component
 import SimpleNavBar from "@components/NavBar/SimpleNavBar";
 import ResultBox from "@components/Result/ResultBox";
 import WordModal from "@components/Modal/WordModal";
 //api
-import { PostAnalyze } from "@api/analyze";
+import { PostAnalyze, SummarizeReport } from "@api/analyze";
 import { RootState } from "@store/store";
-import { useAppSelector } from "@store/store";
+import { useAppSelector, useAppDispatch } from "@store/store";
+import { setReportId } from "@store/summarySlice";
 // asset
 import { resultsType, CasesType, WordsType } from "@assets/types";
 import temp from "@assets/result/temp.png";
 import CommissionBox from "@components/Result/CommissionBox";
 
 const Result = () => {
+  const dispatch = useAppDispatch();
+
   const requestData = useAppSelector((state: RootState) => state.result);
 
   const [results, setResults] = useState<resultsType>();
@@ -81,6 +85,16 @@ const Result = () => {
 
   const [customDirection, setCustomDirecton] = useState("up");
 
+  const navigate = useNavigate();
+  const _clickSummaryBtn = async () => {
+    dispatch(
+      setReportId({
+        reportId: results?.record_id,
+      })
+    );
+    navigate("/summary");
+  };
+
   return (
     <Div>
       {modalOpen && (
@@ -104,7 +118,7 @@ const Result = () => {
           <div>{contractType}</div>
         </ImgBox>
 
-        <div>레포트 요약 보기</div>
+        <div onClick={_clickSummaryBtn}>레포트 요약 보기</div>
 
         <CommissionBox
           answer_commission={results?.answer_commission}

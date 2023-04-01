@@ -9,10 +9,12 @@ import thunk from "redux-thunk";
 
 import resultReducer from "./resultSlice";
 import extraInfoReducer from "./extraInfoSlice";
+import summaryReducer from "./summarySlice";
 
 const reducers = combineReducers({
   result: resultReducer,
   extraInfo: extraInfoReducer,
+  summary: summaryReducer,
 });
 
 const persistConfig = {
