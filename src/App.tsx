@@ -21,6 +21,9 @@ const AnalyzeListPage = loadable(
   () => import("@pages/User/Analyze/AnalyzeList")
 );
 const AnalyzePage = loadable(() => import("@pages/User/Analyze/Analyze"));
+
+const HousePage = loadable(() => import("@pages/House/House"));
+
 const App: React.FC = () => {
   return (
     <Routes>
@@ -34,6 +37,8 @@ const App: React.FC = () => {
       <Route path="/feedback" element={<FeedbackPage />} />
       <Route path="/result" element={<ResultPage />} />
       <Route path="/summary" element={<SummaryPage />} />
+
+      <Route path="/house" element={<HousePage />} />
 
       <Route path="/wordlist" element={<WordListPage />} />
       <Route path="/wordmean/:id" element={<WordMeanPage />} />
