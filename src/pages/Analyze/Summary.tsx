@@ -223,7 +223,7 @@ const Contract = styled.div<{ caseTypeColor: string }>`
 `;
 
 const Title = styled.div`
-  margin: 26px 21px 30px 21px;
+  margin: 26px 21px 0px 21px;
 
   font-family: "Noto Sans KR";
   font-style: normal;
