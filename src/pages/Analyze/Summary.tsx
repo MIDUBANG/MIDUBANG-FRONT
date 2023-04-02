@@ -43,142 +43,88 @@ const Summary = () => {
 
   const [loading, setLoading] = useState(true);
 
-  const [INVALID, setINVALID] = useState<any>([]);
-  const [VALID_MUST, setVALID_MUST] = useState<any>([]);
-  const [VALID_WARNING, setVALID_WARNING] = useState<any>([]);
-
-  const [summary, setSummary] = useState([]);
-
   const [customDirection, setCustomDirecton] = useState("up");
 
-  const _getAnalyzeReport = async () => {
-    const records = await GetAnalyze(reportId, cookies.refreshToken, onCookie); //records중 case만?
-
-    records.myCaseDto.map((r: any) => {
-      switch (r.caseType) {
-        case "INVALID":
-          setINVALID([
-            ...INVALID,
-            {
-              article_url: r.article_url,
-              caseType: r.caseType,
-              case_detail: r.case_detail,
-              case_exists: r.case_exists,
-              case_id: r.case_id,
-              desc: r.desc,
-            },
-          ]);
-          break;
-        case "VALID_MUST":
-          setVALID_MUST([
-            ...VALID_MUST,
-            {
-              article_url: r.article_url,
-              caseType: r.caseType,
-              case_detail: r.case_detail,
-              case_exists: r.case_exists,
-              case_id: r.case_id,
-              desc: r.desc,
-            },
-          ]);
-          break;
-        case "VALID_WARNING":
-          setVALID_WARNING([
-            ...VALID_WARNING,
-            {
-              article_url: r.article_url,
-              caseType: r.caseType,
-              case_detail: r.case_detail,
-              case_exists: r.case_exists,
-              case_id: r.case_id,
-              desc: r.desc,
-            },
-          ]);
-          break;
-      }
-    });
-  };
-
-  // const _requestSummary = async (contents: string[]) => {
-  //   let res = await SummarizeReport(contents);
-  //   return res;
-  // };
-
-  const _organizeSummary = () => {
-    let temp1 = INVALID.map((re: any) => re.desc);
-    const res1 = _requestSummary(temp1);
-  };
-
-  /** 일단 이 아래가 원본임... */
-  /** https://velog.io/@eunjin/Javascript-Fetch-API-AsyncAwait-%EC%97%AC%EB%9F%AC%EA%B0%9C-%EC%97%B0%EA%B2%B0%ED%95%98%EA%B8%B0
-   * 이 포스트 시도해보기
-   */
   const test = [
     "특약에 관련 내용을 넣었고, 주변 전·월세 시세가 단기간에 아무리 급등했어도 집주인이 맘대로 올릴 수 없습니다.",
     "임차인은 전월세계약 종료 2개월전까지 임대인에게 갱신청구권을 행사할 수 있습니다. 이때는 임대인은 이를 거절할 수 없고, ",
     "세입자가 2달치 이상의 월세를 연체한 경우 계약 해지를 통보할 수는 있지만, 세입자의 짐을 함부로 처분하거나 세입자를 강제로 집에서 내 보낼 수 없습니다.",
   ];
 
-  const _requestSummary = async (contents: string[]) => {
+  let INVALID: any[] = [];
+  let VALID_MUST: any[] = [];
+  let VALID_WARNING: any[] = [];
+
+  const _requestSummary = async () => {
     const records = await GetAnalyze(reportId, cookies.refreshToken, onCookie); //records중 case만?
+
+    // 케이스 별로 구별
     records.myCaseDto.map((r: any) => {
-      switch (r.caseType) {
+      let ob = {
+        case_id: r.case_id,
+        case_detail: r.case_detail,
+        article_url: r.article_url,
+        caseType: r.caseType,
+        case_exists: r.case_exists,
+        desc: r.desc,
+      };
+
+      switch (ob.caseType) {
         case "INVALID":
-          setINVALID([
-            ...INVALID,
-            {
-              article_url: r.article_url,
-              caseType: r.caseType,
-              case_detail: r.case_detail,
-              case_exists: r.case_exists,
-              case_id: r.case_id,
-              desc: r.desc,
-            },
-          ]);
+          INVALID.push(ob);
           break;
         case "VALID_MUST":
-          setVALID_MUST([
-            ...VALID_MUST,
-            {
-              article_url: r.article_url,
-              caseType: r.caseType,
-              case_detail: r.case_detail,
-              case_exists: r.case_exists,
-              case_id: r.case_id,
-              desc: r.desc,
-            },
-          ]);
+          VALID_MUST.push(ob);
           break;
         case "VALID_WARNING":
-          setVALID_WARNING([
-            ...VALID_WARNING,
-            {
-              article_url: r.article_url,
-              caseType: r.caseType,
-              case_detail: r.case_detail,
-              case_exists: r.case_exists,
-              case_id: r.case_id,
-              desc: r.desc,
-            },
-          ]);
+          VALID_WARNING.push(ob);
           break;
       }
     });
 
-    // 아래 코드를 빨리 할 수 있는 방법을 찾자
-    // setState는 반영이 느리니까, 그냥 지역 변수를 쓰는 게 좋을 것 같음
+    // DESC 만 뽑고
     let temp1 = INVALID.map((re: any) => re.desc);
+    let temp2 = VALID_MUST.map((re: any) => re.desc);
+    let temp3 = VALID_WARNING.map((re: any) => re.desc);
 
-    // test말고 원래 내가 필요한거로 넣으면 로딩이 풀림 ㅅㅂ (temp에 아무것도 없어서 그런 듯 함)
-    const res = await SummarizeReport(temp1);
+    // 요약
+    let res1 = await SummarizeReport(temp1);
+    let res2 = await SummarizeReport(temp2);
+    let res3 = await SummarizeReport(temp3);
 
-    console.log(res);
-    setSummary(res.data.summarys);
+    res1 = res1.data.summarys;
+    res2 = res2.data.summarys;
+    res3 = res3.data.summarys;
+
+    INVALID = INVALID.map((con: any, i: number) => ({
+      ...con,
+      summary: res1[i],
+    }));
+
+    VALID_MUST = VALID_MUST.map((con: any, i: number) => ({
+      ...con,
+      summary: res2[i],
+    }));
+
+    VALID_WARNING = VALID_WARNING.map((con: any, i: number) => ({
+      ...con,
+      summary: res3[i],
+    }));
+
+    console.log("최종 결과:", INVALID, VALID_MUST, VALID_WARNING);
+    setINVALID(INVALID);
+    setVALID_MUST(VALID_MUST);
+    setVALID_WARNING(VALID_WARNING);
+
     setLoading(false);
   };
 
+  const [INVALID2, setINVALID] = useState<any>([]);
+  const [VALID_MUST2, setVALID_MUST] = useState<any>([]);
+  const [VALID_WARNING2, setVALID_WARNING] = useState<any>([]);
+
   useEffect(() => {
-    _requestSummary(test).then(() => {});
+    _requestSummary();
   }, []);
 
   return (
@@ -190,21 +136,38 @@ const Summary = () => {
           <p>로딩 중 ...</p>
         ) : (
           <div>
-            <p>무효 </p>
-            {/* {INVALID} */}
-            <p>유효 필수 </p>
+            {INVALID2.map((i: any) => (
+              <Block>
+                <Contract caseTypeColor="#EF5353">
+                  <div></div>
+                  <p>법적 효력이 없는 특약 </p>
+                </Contract>
+                <Title>1. {i.case_detail}</Title>
+                <Des>{i.summary}</Des>
+              </Block>
+            ))}
 
-            {/* {VALID_MUST} */}
-            <p>유효 주의 </p>
+            {VALID_MUST2.map((i: any) => (
+              <Block>
+                <Contract caseTypeColor="#9CDB75">
+                  <div></div>
+                  <p>필수 특약 </p>
+                </Contract>
+                <Title>1. {i.case_detail}</Title>
+                <Des>{i.summary}</Des>
+              </Block>
+            ))}
 
-            {/* {VALID_WARNING} */}
-            {/* {summary.map((sum) => {
-              return (
-                <Block>
-                  <Title>{sum}</Title>
-                </Block>
-              );
-            })} */}
+            {VALID_WARNING2.map((i: any) => (
+              <Block>
+                <Contract caseTypeColor="#FBB03B">
+                  <div></div>
+                  <p>미리 알아둬야 할 특약 </p>
+                </Contract>
+                <Title>1. {i.case_detail}</Title>
+                <Des>{i.summary}</Des>
+              </Block>
+            ))}
           </div>
         )}
       </Container>
@@ -238,22 +201,44 @@ const Block = styled.div`
   border-radius: 5px;
 `;
 
-const Title = styled.div`
+const Contract = styled.div<{ caseTypeColor: string }>`
   display: flex;
-  margin-left: 35px;
-  margin-bottom: 14px;
+  margin: 26px auto 30px 24px;
+  width: 80%;
 
   div {
-    background: #fbb03b;
+    background: ${(props) => props.caseTypeColor};
     height: auto;
     width: 7px;
     margin-right: 10px;
+    flex-shrink: 0;
   }
   p {
     font-family: "Noto Sans KR";
     font-style: normal;
     font-weight: 500;
-    font-size: 20px;
-    line-height: 29px;
+    font-size: 16px;
+    line-height: 23px;
   }
+`;
+
+const Title = styled.div`
+  margin: 26px 21px 30px 21px;
+
+  font-family: "Noto Sans KR";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 20px;
+  letter-spacing: -0.05em;
+`;
+
+const Des = styled.div`
+  margin: 10px 21px 30px 21px;
+
+  font-family: "Noto Sans KR";
+  font-style: normal;
+  font-weight: 300;
+  font-size: 15px;
+  line-height: 22px;
 `;
