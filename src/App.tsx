@@ -24,9 +24,13 @@ const AnalyzePage = loadable(() => import("@pages/User/Analyze/Analyze"));
 
 const HousePage = loadable(() => import("@pages/House/House"));
 
+import HouseRoutes from "@route/HouseRoutes";
+
 const App: React.FC = () => {
   return (
     <Routes>
+      <Route path="/house/*" element={<HouseRoutes />} />
+
       <Route path="/" element={<HomePage />} />
 
       <Route path="/signup" element={<SignupPage />} />
