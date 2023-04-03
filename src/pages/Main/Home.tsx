@@ -5,22 +5,18 @@ import profile from "@assets/nav/profile.png";
 
 const Home = () => {
   const navigate = useNavigate();
-  const _ClickGotoLogin = () => {
-    navigate("/login");
+  const _ClickGoto = (path: string) => {
+    navigate(path);
   };
+
   return (
     <Div>
-      <MainNavBar text="자취가 처음이라면" />
-      <div>배너</div>
-      <div>
-        <h1>제목1</h1>
-        <div>버튼들</div>
-      </div>
-      <div>
-        <h1>제목2</h1>
-        <div>버튼들</div>
-      </div>
-      <div>sdfs</div>
+      <Container>
+        <MainNavBar text="자취가 처음이라면" />
+        <Button onClick={() => _ClickGoto("upload")}>특약</Button>
+
+        <Button onClick={() => _ClickGoto("house")}>등기부</Button>
+      </Container>
     </Div>
   );
 };
@@ -32,7 +28,17 @@ const Div = styled.div`
   height: 100%;
 `;
 
-const TopNav = styled.div`
+const Container = styled.div`
   width: 100%;
-  height: 50px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  padding-top: 65px;
+`;
+
+const Button = styled.div`
+  // 임시 버튼
+  width: 100px;
+  height: 30px;
+  border: 1px solid red;
 `;
