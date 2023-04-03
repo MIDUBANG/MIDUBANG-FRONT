@@ -1,6 +1,7 @@
 // lib
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "@emotion/styled";
+import { Navigator, useNavigate } from "react-router-dom";
 import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
 //component
@@ -8,9 +9,41 @@ import SimpleNavBar from "@components/NavBar/SimpleNavBar";
 // asset
 import greencheck from "@assets/house/greencheck.png";
 import graycheck from "@assets/house/graycheck.png";
+import { HouseData } from "@assets/houseData";
+import { Navigate } from "react-router-dom";
 
 const House = () => {
+  const navigate = useNavigate();
+
+  const [houseData, setHouseData] = useState(HouseData);
   let percentage = 100;
+
+  const _getRecordCompletion = () => {
+    let rate: any = localStorage.getItem("houseCompleteRate");
+    rate = JSON.parse(rate);
+
+    rate.map((r: any) => _ClickComplete(r[0], r[1]));
+
+    console.log(houseData);
+  };
+
+  const _ClickComplete = (id: number, subId: number) => {
+    let menu = houseData[id - 1];
+    let contents = menu.contents;
+    contents[subId - 1].complete = true;
+
+    setHouseData(
+      houseData.map((h) => (h.id === id ? { ...menu, contents: contents } : h))
+    );
+  };
+
+  const _GotoContent = (path: string) => {
+    navigate(path);
+  };
+
+  useEffect(() => {
+    _getRecordCompletion(); // 강의 기록 반영
+  }, []);
 
   return (
     <Div>
@@ -45,21 +78,28 @@ const House = () => {
 
         <Des>등기부등본을 마스터해봅시다! </Des>
 
-        <MenuTitle>1. 입문</MenuTitle>
-        <Menus>
-          <div>
-            <img src={greencheck} /> <Menu weight="bold">등기부등본이란? </Menu>
-          </div>
-          <div>
-            <img src={graycheck} /> <Menu weight="light">등기부등본이란? </Menu>
-          </div>
-          <div>
-            <img src={graycheck} /> <Menu weight="bold">등기부등본이란? </Menu>
-          </div>
-          <div>
-            <img src={graycheck} /> <Menu weight="bold">등기부등본이란? </Menu>
-          </div>
-        </Menus>
+        {houseData.map((con) => {
+          let menus = con.contents.map((ccon) => (
+            <div onClick={() => _GotoContent(ccon.path)}>
+              {ccon.complete ? (
+                <img src={greencheck} />
+              ) : (
+                <img src={graycheck} />
+              )}
+
+              <Menu weight="bold">{ccon.subTitle}</Menu>
+            </div>
+          ));
+
+          return (
+            <div>
+              <MenuTitle>
+                {con.id}. {con.title}
+              </MenuTitle>
+              <Menus>{menus}</Menus>
+            </div>
+          );
+        })}
       </Container>
     </Div>
   );
