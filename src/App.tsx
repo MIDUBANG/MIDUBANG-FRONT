@@ -3,6 +3,7 @@ import { Routes, Route } from "react-router-dom";
 import loadable from "@loadable/component";
 import "@style/font.css";
 import "@style/common.scss";
+import HouseRoutes from "@route/HouseRoutes";
 
 const HomePage = loadable(() => import("@pages/Main/Home"));
 
@@ -23,8 +24,6 @@ const AnalyzeListPage = loadable(
 const AnalyzePage = loadable(() => import("@pages/User/Analyze/Analyze"));
 
 const HousePage = loadable(() => import("@pages/House/House"));
-
-import HouseRoutes from "@route/HouseRoutes";
 
 const App: React.FC = () => {
   return (

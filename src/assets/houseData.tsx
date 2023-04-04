@@ -47,9 +47,9 @@ export const HouseData = [
     id: 4,
     title: "우리집 등기부등본 알아보기",
     contents: [
-      { id: 1, subTitle: "1. 표제부", complete: false, path: "/intro/1" },
-      { id: 2, subTitle: "2. 갑구", complete: false, path: "/intro/1" },
-      { id: 3, subTitle: "3. 을구", complete: false, path: "/intro/1" },
+      { id: 1, subTitle: "1. 표제부", complete: false, path: "check/1" },
+      { id: 2, subTitle: "2. 갑구", complete: false, path: "check/2" },
+      { id: 3, subTitle: "3. 을구", complete: false, path: "check/3" },
     ],
   },
 ];
