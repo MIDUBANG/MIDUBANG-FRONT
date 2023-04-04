@@ -37,10 +37,10 @@ export const HouseData = [
     id: 3,
     title: "등기부등본의 구성",
     contents: [
-      { id: 1, subTitle: "인트로", complete: false, path: "/intro/1" },
-      { id: 2, subTitle: "1. 표제부", complete: false, path: "/intro/1" },
-      { id: 3, subTitle: "2. 갑구", complete: false, path: "/intro/1" },
-      { id: 4, subTitle: "3. 을구", complete: false, path: "/intro/1" },
+      { id: 1, subTitle: "인트로", complete: false, path: "my/1" },
+      { id: 2, subTitle: "1. 표제부", complete: false, path: "my/2" },
+      { id: 3, subTitle: "2. 갑구", complete: false, path: "my/3" },
+      { id: 4, subTitle: "3. 을구", complete: false, path: "my/4" },
     ],
   },
   {
