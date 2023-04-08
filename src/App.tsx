@@ -24,6 +24,7 @@ const AnalyzeListPage = loadable(
 const AnalyzePage = loadable(() => import("@pages/User/Analyze/Analyze"));
 
 const HousePage = loadable(() => import("@pages/House/House"));
+const TextPage = loadable(() => import("@pages/Text/Text"));
 
 const App: React.FC = () => {
   return (
@@ -47,6 +48,8 @@ const App: React.FC = () => {
       <Route path="/wordmean/:id" element={<WordMeanPage />} />
       <Route path="/analyzelist" element={<AnalyzeListPage />} />
       <Route path="/analyze/:id" element={<AnalyzePage />} />
+
+      <Route path="/text" element={<TextPage />} />
     </Routes>
   );
 };
