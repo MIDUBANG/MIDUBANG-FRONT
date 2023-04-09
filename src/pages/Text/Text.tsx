@@ -14,18 +14,46 @@ const Text = () => {
       <SimpleNavBar text="문자 마법사" direction="up" />
 
       <Container>
+        <BlueText margin="36px 0 6px 0">믿어방 문자 마법사</BlueText>
         <Title>문자 보낼 때 고민됐다면</Title>
-        <Title>chatGPT가 문자 대신 써드립니다!</Title>
+        <Title>
+          chatGPT가 <span>문자</span> 대신 써드립니다!
+        </Title>
 
-        <img src={text} />
+        <Img src={text} />
 
-        <DesText>
+        <DesText margin="">
           자취를 하다보면 주변인에게 문자를 보낼 일이 많습니다. 그럴 때 문자를
-          작성하는 것이 막막하지 않나요? 다음 3가지만 작성해주시면 OpenAI의
-          chatGPT가 요구사항에 따라 문자를 작성해드려요.
+          작성하는 것이 막막하지 않나요?
         </DesText>
 
-        <Dot></Dot>
+        <DesText margin="20px 0 10px 0">
+          다음 3가지만 작성해주시면 OpenAI의 chatGPT가 요구사항에 따라 문자를
+          작성해드려요.
+        </DesText>
+
+        <BlueTextBox>
+          <div>
+            <BlueText margin="0 16px 0 0">
+              <Dot />
+              <p>수신인</p>
+            </BlueText>
+            <BlueText margin="5px 16px 0 0">
+              <Dot /> <p>문자 보내는 목적</p>
+            </BlueText>
+          </div>
+
+          <div>
+            <BlueText margin="0 16px 0 0">
+              <Dot /> <p>추가적인 상황</p>
+            </BlueText>
+            <BlueText margin="5px 16px 0 0">
+              <Dot /> <p>어조 (말투)</p>
+            </BlueText>
+          </div>
+        </BlueTextBox>
+
+        <BlueBtn>시작하기</BlueBtn>
       </Container>
     </Div>
   );
@@ -40,7 +68,7 @@ const Div = styled.div`
 
 const Container = styled.div`
   width: 100%;
-  height: auto;
+  height: 100%;
   display: flex;
   flex-direction: column;
   padding: 24px;
@@ -49,13 +77,41 @@ const Container = styled.div`
 `;
 
 const Title = styled.p`
-  /* margin: 23px auto 0 30px; */
-  font-family: "Noto Sans KR", sans-serif;
+  font-family: "Noto Sans KR";
   font-style: normal;
   font-weight: 500;
-  font-size: 26px;
-  line-height: 38px;
-  padding: 0;
+  font-size: 22px;
+  line-height: 29px;
+
+  span {
+    color: #5a73fc;
+  }
+`;
+
+const Img = styled.img`
+  width: 264px;
+  height: 183px;
+
+  margin: 113px 0 53px auto;
+`;
+
+const BlueTextBox = styled.div`
+  display: flex;
+  margin-top: 12px;
+`;
+const BlueText = styled.div<{ margin: string }>`
+  display: flex;
+  align-content: center;
+
+  margin: ${(props) => props.margin};
+
+  font-family: "Noto Sans KR";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 13px;
+  line-height: 19px;
+  text-align: center;
+  color: #5a73fc;
 `;
 
 const Dot = styled.div`
@@ -63,9 +119,11 @@ const Dot = styled.div`
   height: 5px;
   border-radius: 50%;
   background: #5a73fc;
+
+  margin: auto 5px auto 0;
 `;
 
-const DesText = styled.p`
+const DesText = styled.p<{ margin: string }>`
   font-family: "Noto Sans KR";
   font-style: normal;
   font-weight: 350;
@@ -73,7 +131,29 @@ const DesText = styled.p`
   line-height: 20px;
   color: #7d7d7d;
 
+  margin: ${(props) => props.margin};
   span {
     font-weight: 500;
   }
+`;
+
+const BlueBtn = styled.div`
+  margin-top: auto;
+
+  width: 100%;
+  height: 40px;
+  background: #5a73fc;
+  border-radius: 8px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  font-family: "Noto Sans KR";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 24px;
+
+  color: #fcfcfc;
 `;

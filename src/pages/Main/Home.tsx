@@ -16,6 +16,7 @@ const Home = () => {
         <Button onClick={() => _ClickGoto("upload")}>특약</Button>
 
         <Button onClick={() => _ClickGoto("house")}>등기부</Button>
+        <Button onClick={() => _ClickGoto("text")}>문자 마법사</Button>
       </Container>
     </Div>
   );
