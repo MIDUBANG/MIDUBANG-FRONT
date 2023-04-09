@@ -1,5 +1,6 @@
 // lib
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import styled from "@emotion/styled";
 import "react-circular-progressbar/dist/styles.css";
 //component
@@ -9,6 +10,10 @@ import SimpleNavBar from "@components/NavBar/SimpleNavBar";
 import text from "@assets/text/text.png";
 
 const Text = () => {
+  const naviate = useNavigate();
+  const _onClickToChating = () => {
+    naviate("chat");
+  };
   return (
     <Div>
       <SimpleNavBar text="문자 마법사" direction="up" />
@@ -53,7 +58,7 @@ const Text = () => {
           </div>
         </BlueTextBox>
 
-        <BlueBtn>시작하기</BlueBtn>
+        <BlueBtn onClick={_onClickToChating}>시작하기</BlueBtn>
       </Container>
     </Div>
   );

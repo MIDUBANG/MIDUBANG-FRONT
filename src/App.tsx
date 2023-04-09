@@ -4,6 +4,7 @@ import loadable from "@loadable/component";
 import "@style/font.css";
 import "@style/common.scss";
 import HouseRoutes from "@route/HouseRoutes";
+import TextRoutes from "@route/TextRoutes";
 
 const HomePage = loadable(() => import("@pages/Main/Home"));
 
@@ -29,7 +30,10 @@ const TextPage = loadable(() => import("@pages/Text/Text"));
 const App: React.FC = () => {
   return (
     <Routes>
+      {/* 등기부등본 */}
       <Route path="/house/*" element={<HouseRoutes />} />
+      {/* 문자 마법사 */}
+      <Route path="/text/*" element={<TextRoutes />} />
 
       <Route path="/" element={<HomePage />} />
 
