@@ -73,11 +73,13 @@ const Div = styled.div`
 
 const Container = styled.div`
   width: 100%;
-  height: 100%;
+  height: auto;
   display: flex;
   flex-direction: column;
   padding: 24px;
   padding-top: 65px;
+  padding-bottom: 50px;
+
   box-sizing: border-box;
 `;
 
@@ -103,6 +105,7 @@ const Img = styled.img`
 const BlueTextBox = styled.div`
   display: flex;
   margin-top: 12px;
+  margin-bottom: 50px;
 `;
 const BlueText = styled.div<{ margin: string }>`
   display: flex;
@@ -143,10 +146,19 @@ const DesText = styled.p<{ margin: string }>`
 `;
 
 const BlueBtn = styled.div`
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+
   margin-top: auto;
 
-  width: 100%;
+  margin-bottom: 24px;
+
+  width: 90%;
   height: 40px;
+  min-height: 40px;
   background: #5a73fc;
   border-radius: 8px;
 
