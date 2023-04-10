@@ -2,7 +2,8 @@ import { useState, useCallback, ChangeEvent } from "react";
 
 type UserInputProps = [
   string,
-  (e: React.ChangeEvent<HTMLInputElement>) => void
+  (e: React.ChangeEvent<HTMLInputElement>) => void,
+  () => void
 ];
 
 const useInput = (initialValue: string): UserInputProps => {
@@ -12,7 +13,11 @@ const useInput = (initialValue: string): UserInputProps => {
     setUserFormInput(e.target.value);
   }, []);
 
-  return [userFormInput, onChangeForm];
+  const reset = useCallback(() => {
+    setUserFormInput(initialValue);
+  }, [initialValue]);
+
+  return [userFormInput, onChangeForm, reset];
 };
 
 export default useInput;

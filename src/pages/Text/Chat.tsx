@@ -1,8 +1,10 @@
 // lib
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import styled from "@emotion/styled";
 import { css } from "@emotion/css";
 import "react-circular-progressbar/dist/styles.css";
+// hooks
+import useInput from "@hooks/useInput";
 //component
 import SimpleNavBar from "@components/NavBar/SimpleNavBar";
 // asset
@@ -10,182 +12,259 @@ import send from "@assets/text/send.png";
 import profile from "@assets/text/profile.png";
 import loading from "@assets/text/loading.png";
 import copy from "@assets/text/copy.png";
-
+import { userTextHistory } from "@assets/textData";
 const Chat = () => {
+  const userCurrentId = useRef(0);
+  const assiCurrentId = useRef(0);
+
+  const [history, setHistory] = useState(userTextHistory);
+  const [userInput, setUserInput, reset] = useInput("");
+
+  const [userRender, setUserRender] = useState([false, false, false, false]);
+
+  const [assiRender, setAssiRender] = useState([
+    true,
+    false,
+    false,
+    false,
+    false,
+  ]);
+
+  /** 말풍선 상태 업데이트 */
+  const SendUserInput = () => {
+    // 1. 유저 입력값 저장
+    setUserBubble();
+
+    // 2. 유저 버블 보여주기
+    let copy = [...userRender];
+    copy[userCurrentId.current] = true;
+    setUserRender(copy);
+    userCurrentId.current += 1;
+
+    // 3. input 창 초기화
+    reset();
+
+    // // 4. 믿어방 다음 버블 보여주기
+
+    setTimeout(() => {
+      let copy = [...assiRender];
+      copy[assiCurrentId.current] = true;
+      setAssiRender(copy);
+    }, 2000);
+
+    assiCurrentId.current += 1;
+  };
+
+  /** 말풍선 안에 value 반영하기  */
+  const setUserBubble = () => {
+    // 1. userInput에 들어온 값을 userTextHistory에 반영
+    setHistory(
+      history.map((h) =>
+        h.id == userCurrentId.current ? { ...h, text: userInput, res: true } : h
+      )
+    );
+  };
+
   return (
     <Div>
       <SimpleNavBar text="문자 마법사" direction="up" noTitle={true} />
 
       <Container>
-        <LeftMessageBox>
-          <ProfileImg src={profile} />
-          <div>
-            <LeftBubble>
-              <p className="name">믿어방</p>
-              <p>안녕하세요, 믿어방 문자 마법사입니다. </p>
-              <p style={{ marginBottom: "15px" }}>
-                원하는 문자를 대신 작성해드립니다!
-              </p>
-              <p>
-                몇가지 질문에 답해주시면 <span>문자 템플릿</span>을
-                만들어드리겠습니다.
-              </p>
-            </LeftBubble>
+        {assiRender[0] && (
+          <LeftMessageBox>
+            <ProfileImg src={profile} />
+            <div>
+              <LeftBubble>
+                <p className="name">믿어방</p>
+                <p>안녕하세요, 믿어방 문자 마법사입니다. </p>
+                <p style={{ marginBottom: "15px" }}>
+                  원하는 문자를 대신 작성해드립니다!
+                </p>
+                <p>
+                  몇가지 질문에 답해주시면 <span>문자 템플릿</span>을
+                  만들어드리겠습니다.
+                </p>
+              </LeftBubble>
 
-            <LeftBubble>
-              <p className="name">믿어방</p>
-              <p style={{ marginBottom: "15px" }}>
-                <span>누구</span>에게 보내는 문자인가요?
-              </p>
-              <p> ex) 집주인, 경비 아저씨, 공인중개사, 옆 집 이웃</p>
-            </LeftBubble>
-          </div>
-        </LeftMessageBox>
-        <RightMessageBox>
-          <RightBubble>집주인</RightBubble>
-        </RightMessageBox>
-        <LeftMessageBox>
-          <ProfileImg src={profile} />
-          <div>
-            <LeftBubble>
-              <p className="name">믿어방</p>
-              <p style={{ marginBottom: "15px" }}>
-                문자를 보내는 <span>목적</span>을 알려주세요!
-              </p>
-              <p>
-                ex) 계약이 종료됐는데 집주인이 보증금을 돌려주지 않는다. 빨리
-                돌려달라고 말하고 싶다.
-              </p>
-            </LeftBubble>
-          </div>
-        </LeftMessageBox>
-        <RightMessageBox>
-          <RightBubble>
-            다음 달부터 친구랑 같이 살고 싶은데, 이에 대해 집주인의 허락을
-            구하고 싶음
-          </RightBubble>
-        </RightMessageBox>
-        <LeftMessageBox>
-          <ProfileImg src={profile} />
-          <div>
-            <LeftBubble>
-              <p className="name">믿어방</p>
-              <p> 문자의 어조를 골라주세요! </p>
-              <p style={{ marginBottom: "15px" }}>중복 선택도 가능합니다.</p>
-              <p>마음에 드는 어조가 없나요? </p>
-              <p>직접 작성해 알려주세요!</p>
+              <LeftBubble>
+                <p className="name">믿어방</p>
+                <p style={{ marginBottom: "15px" }}>
+                  <span>누구</span>에게 보내는 문자인가요?
+                </p>
+                <p> ex) 집주인, 경비 아저씨, 공인중개사, 옆 집 이웃</p>
+              </LeftBubble>
+            </div>
+          </LeftMessageBox>
+        )}
 
-              <DoneBtn>다 골랐어요</DoneBtn>
-            </LeftBubble>
+        {userRender[0] && (
+          <RightMessageBox>
+            <RightBubble>{history[0].text}</RightBubble>
+          </RightMessageBox>
+        )}
 
-            <EmotionBtnBox>
-              <EmotionBtn active={true}>
-                🤵️ <p className="active">정중한</p>
-              </EmotionBtn>
-              <EmotionBtn active={false}>
-                😤 <p className="active">화난</p>
-              </EmotionBtn>
-              <EmotionBtn active={false}>
-                🤵️ <p className="active">예의바른</p>
-              </EmotionBtn>
-              <EmotionBtn active={false}>
-                😤 <p className="active">캐주얼한</p>
-              </EmotionBtn>
-              <EmotionBtn active={false}>
-                🤵️ <p className="active">친근한</p>
-              </EmotionBtn>
-              <EmotionBtn active={false}>
-                🤵️ <p className="active">반말</p>
-              </EmotionBtn>
-              <EmotionBtn active={false}>
-                😤 <p className="active">급한</p>
-              </EmotionBtn>
-            </EmotionBtnBox>
-          </div>
-        </LeftMessageBox>
-        <RightMessageBox>
-          <RightBubble>정중하고, 부탁드리는 말투</RightBubble>
-        </RightMessageBox>
-        <LeftMessageBox>
-          <ProfileImg src={profile} />
-          <div>
-            <LeftBubble>
-              <p className="name">믿어방</p>
-              <p style={{ marginBottom: "15px" }}>
-                마지막이에요! <span>추가적인 상황 정보</span>가 있다면
-                입력해주세요!
-              </p>
-              <p>ex) 집주인이 연락을 잘 안 봄</p>
-            </LeftBubble>
-          </div>
-        </LeftMessageBox>
-        <RightMessageBox>
-          <RightBubble>
-            만약 친구가 살 수 있다면 월세 인상에 대해서 얘기해 볼 의향 있음.
-            제발 허락해주면 좋겠음
-          </RightBubble>
-        </RightMessageBox>
-        <LeftMessageBox>
-          <ProfileImg src={profile} />
-          <div>
-            <LeftBubble
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "center",
-              }}
-            >
-              <img
-                src={loading}
-                width={113}
-                height={113}
-                style={{ margin: "0 30px" }}
-              />
-              <p style={{ marginTop: "15px" }}>믿어방 문자 작성 중...</p>
-            </LeftBubble>
-          </div>
-        </LeftMessageBox>
+        {assiRender[1] && (
+          <LeftMessageBox>
+            <ProfileImg src={profile} />
+            <div>
+              <LeftBubble>
+                <p className="name">믿어방</p>
+                <p style={{ marginBottom: "15px" }}>
+                  문자를 보내는 <span>목적</span>을 알려주세요!
+                </p>
+                <p>
+                  ex) 계약이 종료됐는데 집주인이 보증금을 돌려주지 않는다. 빨리
+                  돌려달라고 말하고 싶다.
+                </p>
+              </LeftBubble>
+            </div>
+          </LeftMessageBox>
+        )}
 
-        <LeftMessageBox>
-          <ProfileImg src={profile} />
-          <div>
-            <LeftBubble style={{ maxWidth: "250px", paddingBottom: "50px" }}>
-              <p className="name">믿어방</p>
-              <p style={{ marginBottom: "15px" }}>
-                안녕하세요, [집주인 성함]님.
-              </p>
-              <p style={{ marginBottom: "15px" }}>
-                저는 [나의 이름]이라는 임차인입니다. 다음 달부터 제 친구와 함께
-                살 계획이 있는데, 이에 대해 [집주인 성함]님의 허락을 구하고자
-                연락드립니다.
-              </p>
-              <p style={{ marginBottom: "15px" }}>
-                만약 친구와 함께 살 수 있다면, 월세 인상에 대해서도 얘기해 볼
-                의향이 있습니다. 그리고 저희는 항상 깨끗하고 조용하게 생활할
-                것을 약속드리며, 집주인님의 결정에 따라 적극적으로 협조할
-                것입니다.
-              </p>
-              <p>감사합니다.</p>
+        {userRender[1] && (
+          <RightMessageBox>
+            <RightBubble>{history[1].text}</RightBubble>
+          </RightMessageBox>
+        )}
 
-              <img
-                src={copy}
+        {assiRender[2] && (
+          <LeftMessageBox>
+            <ProfileImg src={profile} />
+            <div>
+              <LeftBubble>
+                <p className="name">믿어방</p>
+                <p> 문자의 어조를 골라주세요! </p>
+                <p style={{ marginBottom: "15px" }}>중복 선택도 가능합니다.</p>
+                <p>마음에 드는 어조가 없나요? </p>
+                <p>직접 작성해 알려주세요!</p>
+
+                <DoneBtn>다 골랐어요</DoneBtn>
+              </LeftBubble>
+
+              <EmotionBtnBox>
+                <EmotionBtn active={true}>
+                  🤵️ <p className="active">정중한</p>
+                </EmotionBtn>
+                <EmotionBtn active={false}>
+                  😤 <p className="active">화난</p>
+                </EmotionBtn>
+                <EmotionBtn active={false}>
+                  🤵️ <p className="active">예의바른</p>
+                </EmotionBtn>
+                <EmotionBtn active={false}>
+                  😤 <p className="active">캐주얼한</p>
+                </EmotionBtn>
+                <EmotionBtn active={false}>
+                  🤵️ <p className="active">친근한</p>
+                </EmotionBtn>
+                <EmotionBtn active={false}>
+                  🤵️ <p className="active">반말</p>
+                </EmotionBtn>
+                <EmotionBtn active={false}>
+                  😤 <p className="active">급한</p>
+                </EmotionBtn>
+              </EmotionBtnBox>
+            </div>
+          </LeftMessageBox>
+        )}
+
+        {userRender[2] && (
+          <RightMessageBox>
+            <RightBubble>{history[2].text}</RightBubble>
+          </RightMessageBox>
+        )}
+
+        {assiRender[3] && (
+          <LeftMessageBox>
+            <ProfileImg src={profile} />
+            <div>
+              <LeftBubble>
+                <p className="name">믿어방</p>
+                <p style={{ marginBottom: "15px" }}>
+                  마지막이에요! <span>추가적인 상황 정보</span>가 있다면
+                  입력해주세요!
+                </p>
+                <p>ex) 집주인이 연락을 잘 안 봄</p>
+              </LeftBubble>
+            </div>
+          </LeftMessageBox>
+        )}
+
+        {userRender[3] && (
+          <RightMessageBox>
+            <RightBubble>{history[3].text}</RightBubble>
+          </RightMessageBox>
+        )}
+
+        {assiRender[4] && (
+          <LeftMessageBox>
+            <ProfileImg src={profile} />
+            <div>
+              <LeftBubble
                 style={{
-                  marginTop: "15px",
-                  position: "absolute",
-                  bottom: "15px",
-                  right: "19px",
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "center",
                 }}
-              />
-            </LeftBubble>
-          </div>
-        </LeftMessageBox>
+              >
+                <img
+                  src={loading}
+                  width={113}
+                  height={113}
+                  style={{ margin: "0 30px" }}
+                />
+                <p style={{ marginTop: "15px" }}>믿어방 문자 작성 중...</p>
+              </LeftBubble>
+            </div>
+          </LeftMessageBox>
+        )}
+
+        {assiRender[5] && (
+          <LeftMessageBox>
+            <ProfileImg src={profile} />
+            <div>
+              <LeftBubble style={{ maxWidth: "250px", paddingBottom: "50px" }}>
+                <p className="name">믿어방</p>
+                <p style={{ marginBottom: "15px" }}>
+                  안녕하세요, [집주인 성함]님.
+                </p>
+                <p style={{ marginBottom: "15px" }}>
+                  저는 [나의 이름]이라는 임차인입니다. 다음 달부터 제 친구와
+                  함께 살 계획이 있는데, 이에 대해 [집주인 성함]님의 허락을
+                  구하고자 연락드립니다.
+                </p>
+                <p style={{ marginBottom: "15px" }}>
+                  만약 친구와 함께 살 수 있다면, 월세 인상에 대해서도 얘기해 볼
+                  의향이 있습니다. 그리고 저희는 항상 깨끗하고 조용하게 생활할
+                  것을 약속드리며, 집주인님의 결정에 따라 적극적으로 협조할
+                  것입니다.
+                </p>
+                <p>감사합니다.</p>
+
+                <img
+                  src={copy}
+                  style={{
+                    marginTop: "15px",
+                    position: "absolute",
+                    bottom: "15px",
+                    right: "19px",
+                  }}
+                />
+              </LeftBubble>
+            </div>
+          </LeftMessageBox>
+        )}
       </Container>
 
       <SendBox>
         <SendInput>
-          <input />
+          <input
+            value={userInput}
+            placeholder="작성해주세요"
+            onChange={setUserInput}
+          />
         </SendInput>
-        <SendBtnImg src={send} />
+        <SendBtnImg src={send} onClick={SendUserInput} />
       </SendBox>
     </Div>
   );
