@@ -13,10 +13,14 @@ import profile from "@assets/text/profile.png";
 import loading from "@assets/text/loading.png";
 import copy from "@assets/text/copy.png";
 import { userTextHistory } from "@assets/textData";
+// api
+import { GetMessageMaker } from "@api/message";
+
 const Chat = () => {
   const userCurrentId = useRef(0);
   const assiCurrentId = useRef(0);
 
+  const [result, setResult] = useState("");
   const [history, setHistory] = useState(userTextHistory);
   const [userInput, setUserInput, reset] = useInput("");
 
@@ -24,6 +28,8 @@ const Chat = () => {
 
   const [assiRender, setAssiRender] = useState([
     true,
+    false,
+    false,
     false,
     false,
     false,
@@ -50,9 +56,12 @@ const Chat = () => {
       let copy = [...assiRender];
       copy[assiCurrentId.current] = true;
       setAssiRender(copy);
-    }, 2000);
+    }, 500);
 
     assiCurrentId.current += 1;
+    if (assiCurrentId.current === 4) {
+      FetchMessageMakerApi();
+    }
   };
 
   /** 말풍선 안에 value 반영하기  */
@@ -63,6 +72,35 @@ const Chat = () => {
         h.id == userCurrentId.current ? { ...h, text: userInput, res: true } : h
       )
     );
+  };
+
+  const FetchMessageMakerApi = async () => {
+    const res = await GetMessageMaker(
+      "옆집",
+      "옆집이 너무 시끄러워요",
+      "화난말투",
+      "옆집이랑 사이 안좋지만 화해하고싶음"
+    );
+
+    console.log("결과 : ", res);
+    setResult(res);
+
+    // 로딩 버블 보여주기
+    let copy = [...assiRender];
+    copy[assiCurrentId.current] = true;
+    setAssiRender(copy);
+
+    console.log("현재 id :", assiCurrentId.current);
+
+    // 1초 뒤 로딩 지우고 결과 보여주기
+    setTimeout(() => {
+      console.log("바꿔치기!");
+      assiCurrentId.current += 1;
+      let copy = [...assiRender];
+      copy[assiCurrentId.current] = true;
+      copy[assiCurrentId.current - 1] = false;
+      setAssiRender(copy);
+    }, 1000);
   };
 
   return (
@@ -225,21 +263,7 @@ const Chat = () => {
             <div>
               <LeftBubble style={{ maxWidth: "250px", paddingBottom: "50px" }}>
                 <p className="name">믿어방</p>
-                <p style={{ marginBottom: "15px" }}>
-                  안녕하세요, [집주인 성함]님.
-                </p>
-                <p style={{ marginBottom: "15px" }}>
-                  저는 [나의 이름]이라는 임차인입니다. 다음 달부터 제 친구와
-                  함께 살 계획이 있는데, 이에 대해 [집주인 성함]님의 허락을
-                  구하고자 연락드립니다.
-                </p>
-                <p style={{ marginBottom: "15px" }}>
-                  만약 친구와 함께 살 수 있다면, 월세 인상에 대해서도 얘기해 볼
-                  의향이 있습니다. 그리고 저희는 항상 깨끗하고 조용하게 생활할
-                  것을 약속드리며, 집주인님의 결정에 따라 적극적으로 협조할
-                  것입니다.
-                </p>
-                <p>감사합니다.</p>
+                <p style={{ marginBottom: "15px" }}>{result}</p>
 
                 <img
                   src={copy}
