@@ -59,9 +59,6 @@ const Chat = () => {
     }, 500);
 
     assiCurrentId.current += 1;
-    if (assiCurrentId.current === 4) {
-      FetchMessageMakerApi();
-    }
   };
 
   /** 말풍선 안에 value 반영하기  */
@@ -75,11 +72,13 @@ const Chat = () => {
   };
 
   const FetchMessageMakerApi = async () => {
+    console.log("APi 호출!!", history);
+
     const res = await GetMessageMaker(
-      "옆집",
-      "옆집이 너무 시끄러워요",
-      "화난말투",
-      "옆집이랑 사이 안좋지만 화해하고싶음"
+      history[0].text,
+      history[1].text,
+      history[2].text,
+      history[3].text
     );
 
     console.log("결과 : ", res);
@@ -102,6 +101,13 @@ const Chat = () => {
       setAssiRender(copy);
     }, 1000);
   };
+
+  useEffect(() => {
+    if (userCurrentId.current === 4) {
+      console.log("바뀜?", history[3]);
+      FetchMessageMakerApi();
+    }
+  }, [history[3]]);
 
   return (
     <Div>

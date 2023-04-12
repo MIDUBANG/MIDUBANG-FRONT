@@ -13,16 +13,15 @@ export const GetMessageMaker = async (
   try {
     console.log("문자 요청 ");
 
-    // const res = await axios.post("http://127.0.0.1:5000/api/message", {
-    //   receiver: receiver,
-    //   purpose: purpose,
-    //   tone: tone,
-    //   more_info: more_info,
-    // });
+    const res = await axios.post("http://127.0.0.1:5000/api/message", {
+      receiver: receiver,
+      purpose: purpose,
+      tone: tone,
+      more_info: more_info,
+    });
 
-    //return res.data.result;
-    return "가짜 결과이지롱";
+    return res.data.result;
   } catch (err: any) {
-    console.log("에러", err);
+    console.log("문자 마법사 API post 에러", err);
   }
 };
