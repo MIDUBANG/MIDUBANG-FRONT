@@ -15,6 +15,7 @@ import copy from "@assets/text/copy.png";
 import { userTextHistory } from "@assets/textData";
 // api
 import { GetMessageMaker } from "@api/message";
+import { handleCopyClipBoard } from "@api/clipBoard";
 
 const Chat = () => {
   const userCurrentId = useRef(0);
@@ -279,6 +280,7 @@ const Chat = () => {
                     bottom: "15px",
                     right: "19px",
                   }}
+                  onClick={() => handleCopyClipBoard(result)}
                 />
               </LeftBubble>
             </div>
