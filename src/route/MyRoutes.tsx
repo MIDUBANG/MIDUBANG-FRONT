@@ -1,10 +1,6 @@
 import React, { useState, useCallback } from "react";
 import { Routes, Route } from "react-router-dom";
 
-import Receive1 from "@pages/House/Receive/Receive1";
-import Receive2 from "@pages/House/Receive/Receive2";
-import Receive3 from "@pages/House/Receive/Receive3";
-
 import My1 from "@pages/House/My/My1";
 import My2 from "@pages/House/My/My2";
 import My3 from "@pages/House/My/My3";
