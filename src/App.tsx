@@ -5,6 +5,7 @@ import "@style/font.css";
 import "@style/common.scss";
 import HouseRoutes from "@route/HouseRoutes";
 import TextRoutes from "@route/TextRoutes";
+import QuestionRoutes from "@route/QuestionRoutes";
 
 const HomePage = loadable(() => import("@pages/Main/Home"));
 
@@ -34,6 +35,8 @@ const App: React.FC = () => {
       <Route path="/house/*" element={<HouseRoutes />} />
       {/* 문자 마법사 */}
       <Route path="/text/*" element={<TextRoutes />} />
+      {/* 금쪽이 */}
+      <Route path="/question/*" element={<QuestionRoutes />} />
 
       <Route path="/" element={<HomePage />} />
 
