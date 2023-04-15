@@ -1,7 +1,7 @@
 import React, { useState, useCallback } from "react";
 import { Routes, Route } from "react-router-dom";
 
-import QuestionList from "@pages/Question/QuestionList";
+import QuestionList from "@pages/Question/Main";
 
 const QuestionRoutes = () => {
   return (

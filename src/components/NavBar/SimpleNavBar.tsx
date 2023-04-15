@@ -77,6 +77,8 @@ const BarDiv = styled.div<{ noTitle: boolean }>`
   }
 
   .midubang {
+    font-family: "Noto Sans KR", sans-serif;
+
     margin-left: 12px;
   }
   .title {
