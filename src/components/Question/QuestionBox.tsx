@@ -6,6 +6,7 @@ import comment from "@assets/question/comment.png";
 type QuestionType = {
   author: string;
   title: string;
+  content: string;
   commentCount: number;
 };
 
@@ -17,14 +18,21 @@ const QuestionBox = ({ question }: Props) => {
   const isDino = question.author === "챗쪽이" ? true : false;
   return (
     <BoxDiv isDino={isDino}>
-      <img src={isDino ? dino1 : user} width={27} height={27} />
+      <Profile>
+        {isDino ? (
+          <img src={dino1} width={17} height={18} />
+        ) : (
+          <img src={user} width={25} height={25} />
+        )}
+      </Profile>
 
       <div className="texts">
-        <p>{question.author}</p>
-        <p>{question.title}</p>
+        <p className="author">{question.author}</p>
+        <p className="title">{question.title}</p>
+        {isDino || <p className="content">{question.content}</p>}
       </div>
 
-      <div className="comment">
+      <div className="comment-box">
         <img src={comment} width={15} height={15} />
         <p>{question.commentCount}</p>
       </div>
@@ -35,17 +43,71 @@ const QuestionBox = ({ question }: Props) => {
 export default QuestionBox;
 
 const BoxDiv = styled.div<{ isDino: boolean }>`
-  padding: 6px 12px 12px 12px;
+  padding: 9px 12px 17px 12px;
   width: 346px;
-  height: 85px;
+  height: auto;
+  min-height: 85px;
 
   display: flex;
 
-  .texts {
-  }
-  border: ${(props) =>
-    props.isDino ? "0.5px solid #4880ee" : "0.5px solid rgba(42, 42, 42, 0.2)"};
+  border: 0.5px solid rgba(42, 42, 42, 0.2);
   border-radius: 9px;
-
   margin-bottom: 12px;
+
+  p {
+    font-family: "Noto Sans KR";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 17px;
+    color: #000000;
+  }
+
+  .texts {
+    margin: 5px 0 0 11px;
+  }
+
+  .title {
+    font-weight: 500;
+    font-size: 14px;
+
+    margin-top: 7px;
+  }
+
+  .content {
+    font-weight: 400;
+    font-size: 12px;
+    color: #8c8c8c;
+
+    margin-top: 4px;
+  }
+
+  .comment-box {
+    display: flex;
+    align-self: flex-end;
+    margin-left: auto;
+
+    p {
+      margin-left: 3px;
+      color: #5a73fc;
+    }
+  }
+
+  &:active {
+    background-color: rgba(90, 115, 252, 0.1);
+  }
+`;
+
+const Profile = styled.div`
+  width: 25px;
+  height: 25px;
+  background: #f0f0f0;
+  border-radius: 12.5px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  img {
+  }
 `;

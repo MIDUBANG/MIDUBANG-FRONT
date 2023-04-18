@@ -20,9 +20,24 @@ const Main = () => {
   ];
 
   const questions = [
-    { author: "챗쪽이", title: "보증금 할부 되나영", commentCount: 3 },
-    { author: "챗쪽이", title: "보증금 할부 되나영", commentCount: 3 },
-    { author: "dy6578", title: "보증금 할부 되나영", commentCount: 20 },
+    {
+      author: "챗쪽이",
+      title: "보증금 할부 되나영",
+      content: "",
+      commentCount: 3,
+    },
+    {
+      author: "챗쪽이",
+      title: "보증금 할부 되나영",
+      content: "",
+      commentCount: 3,
+    },
+    {
+      author: "dy6578",
+      title: "자취하면 보통 식비 얼마나오나여",
+      content: "자취는 처음이라 식비가 감이 안와요ㅠ",
+      commentCount: 20,
+    },
   ];
 
   return (
