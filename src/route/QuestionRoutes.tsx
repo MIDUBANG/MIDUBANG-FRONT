@@ -1,12 +1,14 @@
 import React, { useState, useCallback } from "react";
 import { Routes, Route } from "react-router-dom";
 
-import QuestionList from "@pages/Question/Main";
+import QuestionMain from "@pages/Question/Main";
+import QuestionList from "@pages/Question/List";
 
 const QuestionRoutes = () => {
   return (
     <Routes>
-      <Route element={<QuestionList />} path="/" />
+      <Route element={<QuestionMain />} path="/" />
+      <Route element={<QuestionList />} path="/list" />
     </Routes>
   );
 };
