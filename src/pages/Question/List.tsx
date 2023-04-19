@@ -82,7 +82,7 @@ const List = () => {
 
       <Container>
         <Text size="big" margin="25px 0 7px 0">
-          오늘의 사소한 부동산 질문
+          사소한 부동산 질문
         </Text>
         <Text margin="0 0 19px 0">부동산 궁금한거 다 물어봐!</Text>
 
@@ -140,7 +140,7 @@ const Text = styled.p<{ size?: string; margin?: string }>`
   font-family: "Noto Sans KR";
   font-style: normal;
   font-weight: ${(props) => (props.size === "big" ? "500" : "400")};
-  font-size: ${(props) => (props.size === "big" ? "20px" : "14px")};
+  font-size: ${(props) => (props.size === "big" ? "24px" : "14px")};
   color: #000000;
   margin: ${(props) => props.margin};
 `;
