@@ -188,7 +188,7 @@ const CommentInputBox = styled.div`
   align-items: center;
 
   .input-box {
-    width: 366px;
+    width: 90%;
     height: 39px;
     background: #f1f1f1;
     border-radius: 19.5px;
@@ -255,7 +255,7 @@ const Text = styled.p<{
 
 const Comment = styled.div`
   border-bottom: 1px solid rgba(207, 207, 207, 0.5);
-  margin: 0 19px 13px 19px;
+  margin: 0 25px 13px 25px;
 
   .top-content-box {
     display: flex;
