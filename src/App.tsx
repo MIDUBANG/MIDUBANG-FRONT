@@ -3,9 +3,12 @@ import { Routes, Route } from "react-router-dom";
 import loadable from "@loadable/component";
 import "@style/font.css";
 import "@style/common.scss";
+
+// Routes
 import HouseRoutes from "@route/HouseRoutes";
 import TextRoutes from "@route/TextRoutes";
 import QuestionRoutes from "@route/QuestionRoutes";
+import CheckListRoutes from "@route/CheckListRoutes";
 
 const HomePage = loadable(() => import("@pages/Main/Home"));
 
@@ -37,6 +40,8 @@ const App: React.FC = () => {
       <Route path="/text/*" element={<TextRoutes />} />
       {/* 금쪽이 */}
       <Route path="/question/*" element={<QuestionRoutes />} />
+      {/* 자취 체크리스트 */}
+      <Route path="/checklist/*" element={<CheckListRoutes />} />
 
       <Route path="/" element={<HomePage />} />
 

@@ -5,7 +5,7 @@ import House from "@pages/House/House";
 import Intro1 from "@pages/House/Intro/Intro1";
 import ReceiveRoutes from "./ReceiveRoutes";
 import MyRoutes from "./MyRoutes";
-import CheckRoutes from "./CheckRoutes";
+import CheckRoutes from "./HouseCheckRoutes";
 const HouseRoutes = () => {
   return (
     <Routes>

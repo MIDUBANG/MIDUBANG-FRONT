@@ -18,6 +18,7 @@ const Home = () => {
         <Button onClick={() => _ClickGoto("house")}>등기부</Button>
         <Button onClick={() => _ClickGoto("text")}>문자 마법사</Button>
         <Button onClick={() => _ClickGoto("question")}>금쪽이</Button>
+        <Button onClick={() => _ClickGoto("checklist")}>체크리스트</Button>
       </Container>
     </Div>
   );
