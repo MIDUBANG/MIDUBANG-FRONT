@@ -110,6 +110,7 @@ const IndiCheckBox = styled.div<{ last: boolean }>`
     font-style: normal;
     font-weight: 400;
     font-size: 14px;
+    line-height: 20px;
     color: #6e6e6e;
 
     margin: 7px 0 0 35px;

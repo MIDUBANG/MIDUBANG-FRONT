@@ -6,6 +6,7 @@ import "react-circular-progressbar/dist/styles.css";
 //component
 import MainNavBar from "@components/NavBar/MainNavBar";
 import CheckBox from "@components/CheckList/CheckBox";
+import OtherCheckList from "@components/CheckList/OtherCheckList";
 // asset
 import house from "@assets/checklist/emojis/house.png";
 
@@ -32,8 +33,7 @@ const Main = () => {
       </Container>
 
       <BottomContainer>
-        <p>Related Checklists</p>
-        <p>View all </p>
+        <OtherCheckList />
       </BottomContainer>
     </Div>
   );
@@ -138,6 +138,8 @@ const BottomContainer = styled.div`
   width: 100%;
   height: auto;
   background-color: white;
+
+  padding: 42px 19px;
 `;
 
 const EnText = styled.div<{
