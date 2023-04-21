@@ -8,7 +8,7 @@ import { useNavigate } from "react-router-dom";
 const KakaoLogin = () => {
   const location = useLocation();
   const KAKAO_CODE = location.search.split("=")[1]; // 인가코드
-  const Spring = `http://34.64.177.249:8080/api/member/login/oauth/kakao?code=${KAKAO_CODE}`; // 토큰 요청
+  const Spring = `http://52.79.133.117:8080/api/member/login/oauth/kakao?code=${KAKAO_CODE}`; // 토큰 요청
 
   const [cookies, setCookie] = useCookies(["refreshToken"]);
 

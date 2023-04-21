@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const client = axios.create();
-client.defaults.baseURL = "http://34.64.177.249:8080/api/";
+client.defaults.baseURL = "http://52.79.133.117:8080/api/";
 client.defaults.withCredentials = true;
 
 const token = localStorage.getItem("token");
