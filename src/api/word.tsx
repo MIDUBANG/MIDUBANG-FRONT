@@ -2,6 +2,25 @@ import client from "@api/common/client";
 
 import { RefreshApi } from "./auth";
 
+// 전체 단어 불러오기
+export const GetAllWordList = async (
+  refreshToken: string,
+  cookie: (res: any) => void
+): Promise<any> => {
+  try {
+    const res = await client.get("word/list?sort=word,asc");
+    return res.data;
+  } catch (err: any) {
+    if (err.response.data.message === "expired token") {
+      alert("토큰 만료");
+      RefreshApi(refreshToken, cookie);
+    } else if (err.response.data.message === "empty token") {
+      alert("빈 토큰");
+      RefreshApi(refreshToken, cookie);
+    }
+  }
+};
+
 // 저장한 단어 목록 불러오기
 export const GetWordList = async (
   refreshToken: string,

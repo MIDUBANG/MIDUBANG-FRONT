@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import styled from "@emotion/styled";
-import { GetWordList, PostSaveWord, DeleteWord } from "@api/word";
+import { GetAllWordList } from "@api/word";
 import { useCookies } from "react-cookie";
 
 // componnet
@@ -25,97 +25,45 @@ const WordList = () => {
     setCookie("refreshToken", refreshToken, { path: "/" });
   };
 
-  const [wordId, setWordId] = useState(2);
-
   const [wordList, setWordList] = useState<
-    { word_id: number; word: string; meaning: string; word_date: string }[]
-  >([]);
-
-  const [activeWord, setActiveWord] = useState<
-    { word_id: number; word: string; meaning: string; word_date: string }[]
+    { word_id: number; word: string; meaning: string }[]
   >([]);
 
   // 선택한 날짜
   const [date, setDate] = useState("");
 
-  const _handleSaveWord = async (id: number) => {
-    await PostSaveWord(wordId, cookies.refreshToken, onCookie);
-    _handleWordList();
-  };
-
-  const _handleWordList = async () => {
-    const words = await GetWordList(cookies.refreshToken, onCookie);
-    const newWords = words.map((w: any) => {
-      let date = w.word_date.replaceAll("-", ".");
-      return { ...w, word_date: date };
-    });
-    setWordList(newWords);
-    console.log(newWords);
-  };
-
-  const _handleDeleteWord = async (wordId: number) => {
-    alert("삭제하시겠습니까?");
-    await DeleteWord(wordId, cookies.refreshToken, onCookie);
-    _handleWordList();
-  };
-
-  // 작업 필요
-  const _handleSetDate = () => {
-    // 날짜 정하면, 그거랑 맞는 wordList만 출력
-  };
-
   const navigate = useNavigate();
 
+  /** 상세 단어 뜻 보러가기 */
+  const _handleWordMean = (id: number) => {
+    navigate(`${id}`);
+  };
+
+  /** 모든 단어 가져오기  */
+  const _handleGetAllWordList = async () => {
+    const words = await GetAllWordList(cookies.refreshToken, onCookie);
+    setWordList(words.content);
+    console.log(words.content);
+  };
+
   useEffect(() => {
-    _handleWordList(); // 가져오기
+    _handleGetAllWordList(); // 전체 단어 가져오기
   }, []);
+
+  const style = { marginBottom: "10px" };
 
   return (
     <Div>
       <SimpleNavBar text="단어장" />
 
       <Container>
-        <Illustration src={temp} />
-        <Calendar src={calendar} />
-
-        <BtnBox>
-          <Button active={true} onClick={_handleWordList}>
-            전체
-          </Button>
-          <Button active={false}>오늘</Button>
-        </BtnBox>
-
-        {wordList.map((word) => (
-          <Word
-            key={word.word_id}
-            onClick={() => navigate(`/wordmean/${word.word_id}`)}
-          >
-            <div className="title">
-              <p className="word"> {word.word}</p>
-              <p className="date">{word.word_date}</p>
-            </div>
-
-            <p className="des">{word.meaning}</p>
-
-            <img
-              src={bookmark}
-              className="bookmark"
-              onClick={(e) => {
-                e.stopPropagation();
-                _handleDeleteWord(word.word_id);
-              }}
-            />
-          </Word>
+        {wordList.map((w) => (
+          <div style={style} onClick={() => _handleWordMean(w.word_id)}>
+            <p>
+              {w.word_id} {w.word} {w.meaning}
+            </p>
+          </div>
         ))}
-
-        <button onClick={() => setWordId(wordId + 1)}>{wordId}</button>
-        <button onClick={() => _handleSaveWord(wordId)}>저장</button>
-
-        {/* <WordListBox>
-  {wordList.map((word) => {
-    return <p key={word.word_id}>{word.word}</p>;
-  })}
-</WordListBox> */}
       </Container>
     </Div>
   );
