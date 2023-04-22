@@ -9,28 +9,26 @@ import "@style/font.css";
 
 import useScrollDirection from "@hooks/useScrollDirection";
 
+// img
+import logo from "@assets/nav/logo.png";
+
 type SimpleNavBarProps = {
   text?: string;
-  noTitle: true;
-  direction: string;
 };
 
-const SimpleNavBar = ({ text, direction, noTitle }: SimpleNavBarProps) => {
+const SimpleNavBar = ({ text }: SimpleNavBarProps) => {
   const navigate = useNavigate();
 
   const _clickBackBtn = () => {
     navigate(-1);
   };
 
-  const [scrollDirection, setScrollDirection] = useScrollDirection(direction);
+  const [scrollDirection, setScrollDirection] = useScrollDirection("up");
 
   return (
-    <BarDiv noTitle={noTitle}>
+    <BarDiv>
       <div className={scrollDirection === "up" ? "nav active" : "nav unactive"}>
-        <img src={MiniLogo} className="mini-logo" />
-        {noTitle || <p className="midubang">믿어방</p>}
-
-        {text !== "" && !noTitle && <Rod src={rod} />}
+        <img src={logo} className="mini-logo" width={34} height={34} />
         <p className="title">{text}</p>
         <img src={CancleLogo} className="cancle-logo" onClick={_clickBackBtn} />
       </div>
@@ -46,18 +44,17 @@ SimpleNavBar.defaultProps = {
   noTitle: false,
 };
 
-const Rod = styled.img`
-  margin-left: 12px;
-`;
-
-const BarDiv = styled.div<{ noTitle: boolean }>`
+const BarDiv = styled.div`
   .nav {
+    position: relative;
+
     z-index: 10;
     border-bottom: 0.5px solid rgba(154, 154, 154, 0.3);
     background-color: white;
     position: fixed;
 
     display: flex;
+    justify-content: space-between;
     width: 100%;
 
     padding-top: 15px;
@@ -76,24 +73,21 @@ const BarDiv = styled.div<{ noTitle: boolean }>`
     top: -80px;
   }
 
-  .midubang {
-    font-family: "Noto Sans KR", sans-serif;
-
-    margin-left: 12px;
-  }
   .title {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+
     font-family: "Noto Sans KR", sans-serif;
     font-size: 17px;
-
-    margin: ${(props) => (props.noTitle ? "0 auto 0 auto" : "0 auto 0 12px")};
   }
 
   .mini-logo {
-    margin-left: 26px;
+    margin-left: 20px;
   }
 
   .cancle-logo {
-    margin-right: 26px;
-    //margin-left: auto;
+    margin-right: 24px;
   }
 `;
