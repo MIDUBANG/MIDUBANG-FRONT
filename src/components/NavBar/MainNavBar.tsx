@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import MiniLogo from "@assets/logo/MiniLogo.svg";
+import logo from "@assets/nav/logo.png";
 import profile from "@assets/nav/profile.png";
 import rod from "@assets/icon/rod.svg";
 import "@style/font.css";
@@ -30,7 +30,7 @@ const MainNavBar = ({ text }: MainNavBarProps) => {
   return (
     <BarDiv>
       <div className={scrollDirection === "up" ? "nav active" : "nav unactive"}>
-        <img src={MiniLogo} className="mini-logo" />
+        <img src={logo} className="mini-logo" width={34} />
         <p>믿어방</p>
         {text !== "" && <Rod src={rod} />}
         <p>{text}</p>
@@ -78,17 +78,17 @@ const BarDiv = styled.div`
   p {
     font-family: "Noto Sans KR", sans-serif;
     font-size: 17px;
-    margin-left: 12px;
   }
 
   .mini-logo {
-    margin-left: 26px;
+    margin-left: 20px;
+    margin-right: 17px;
   }
 
   .profile {
     width: 34px;
     height: 34px;
-    margin-right: 26px;
+    margin-right: 20px;
     margin-left: auto;
   }
 `;
