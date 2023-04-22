@@ -4,8 +4,8 @@ import SimpleNavBar from "@components/NavBar/SimpleNavBar";
 import styled from "@emotion/styled";
 // imgs
 import blur from "@assets/illustration/blur.png";
-import bookmark from "@assets/wordlist/bookmark.svg";
-import unbookmark from "@assets/wordlist/unbookmark.svg";
+import bookmark from "@assets/wordlist/bookmark.png";
+import unbookmark from "@assets/wordlist/unbookmark.png";
 
 // api
 import { GetWord, DeleteWord, PostSaveWord } from "@api/word";
@@ -63,10 +63,15 @@ const WordMean = () => {
       <SimpleNavBar text="단어" />
       <WordBox>
         <p className="word">{word?.word}</p>
-        {/* <p className="date">{word.word_date} 저장</p> */}
+        {word.isSaved ? (
+          <img src={bookmark} onClick={_handleCancleBookMark} />
+        ) : (
+          <img src={unbookmark} onClick={_handleBookMark} />
+        )}
       </WordBox>
 
       <Hr />
+
       <Container>
         <MeanBox>
           <p className="midubang">[믿어방 해설]</p>
@@ -77,17 +82,13 @@ const WordMean = () => {
         <MeanBox>
           <p className="naver">[네이버 지식백과]</p>
           <p className="word">{word?.word}</p>
-          <p className="des">네이버 결과 넣어야해..</p>
+          <p className="des">
+            네이버 결과 넣어네이버 결과 넣어야해..네이버 결과 넣어야해..네이버
+            결과 넣어야해..네이버 결과 넣어야해..네이버 결과 넣어야해..네이버
+            결과 넣어야해..네이버 결과 넣어야해..야해..
+          </p>
         </MeanBox>
       </Container>
-
-      <MeanFooter>
-        {word.isSaved ? (
-          <img src={bookmark} onClick={_handleCancleBookMark} />
-        ) : (
-          <img src={unbookmark} onClick={_handleBookMark} />
-        )}
-      </MeanFooter>
     </Div>
   );
 };
@@ -96,11 +97,12 @@ export default WordMean;
 const Div = styled.div`
   width: 100%;
   height: 100%;
+  padding-top: 65px;
 `;
 
 const WordBox = styled.div`
   width: 100%;
-  height: 200px;
+  height: 176px;
 
   position: relative;
   display: flex;
@@ -115,35 +117,17 @@ const WordBox = styled.div`
     line-height: 35px;
   }
 
-  .date {
-    font-family: "Noto Sans KR";
-    font-style: normal;
-    font-weight: 350;
-    font-size: 14px;
-    line-height: 20px;
-
-    color: rgba(0, 0, 0, 0.5);
-
-    position: absolute;
-    bottom: 5px;
-    right: 10px;
-  }
-
   img {
-    width: 20vh;
-    height: 20vh;
     position: absolute;
-    top: 50%;
-    left: 50%;
+    right: 24px;
+    top: 28px;
 
-    transform: translate(-50%, -50%);
-
-    z-index: -1;
-    opacity: 0.8;
+    width: 23px;
+    height: 33px;
   }
 `;
 
-const Hr = styled.hr`
+const Hr = styled.div`
   border: none;
   height: 14px;
   background: #f4f5f7;
