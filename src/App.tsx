@@ -9,7 +9,7 @@ import HouseRoutes from "@route/HouseRoutes";
 import TextRoutes from "@route/TextRoutes";
 import QuestionRoutes from "@route/QuestionRoutes";
 import CheckListRoutes from "@route/CheckListRoutes";
-
+import WordRoutes from "@route/WordRoutes";
 const HomePage = loadable(() => import("@pages/Main/Home"));
 
 const UploadPage = loadable(() => import("@pages/Analyze/Upload"));
@@ -21,8 +21,6 @@ const SignupPage = loadable(() => import("@pages/Auth/Signup"));
 const LoginPage = loadable(() => import("@pages/Auth/Login"));
 const KakoLoginPage = loadable(() => import("@pages/Auth/KakaoLogin"));
 
-const WordListPage = loadable(() => import("@pages/User/Word/WordList"));
-const WordMeanPage = loadable(() => import("@pages/User/Word/WordMean"));
 const AnalyzeListPage = loadable(
   () => import("@pages/User/Analyze/AnalyzeList")
 );
@@ -42,6 +40,8 @@ const App: React.FC = () => {
       <Route path="/question/*" element={<QuestionRoutes />} />
       {/* 자취 체크리스트 */}
       <Route path="/checklist/*" element={<CheckListRoutes />} />
+      {/* 단어 관련 */}
+      <Route path="/word/*" element={<WordRoutes />} />
 
       <Route path="/" element={<HomePage />} />
 
@@ -56,8 +56,6 @@ const App: React.FC = () => {
 
       <Route path="/house" element={<HousePage />} />
 
-      <Route path="/wordlist" element={<WordListPage />} />
-      <Route path="/wordmean/:id" element={<WordMeanPage />} />
       <Route path="/analyzelist" element={<AnalyzeListPage />} />
       <Route path="/analyze/:id" element={<AnalyzePage />} />
 

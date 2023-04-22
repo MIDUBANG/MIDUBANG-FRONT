@@ -21,12 +21,12 @@ const WordMean = () => {
     word_id: number;
     word: string;
     meaning: string;
-    word_date: string;
+    isSaved: boolean;
   }>({
     word_id: 0,
     word: "",
     meaning: "",
-    word_date: "",
+    isSaved: true,
   });
 
   const [cookies, setCookie, removeCookie] = useCookies(["refreshToken"]);
@@ -41,11 +41,8 @@ const WordMean = () => {
 
   const _handleGetWord = async () => {
     let word = await GetWord(Number(id), cookies.refreshToken, onCookie);
-    const date = word.word_date.replaceAll("-", ".");
+    console.log(word);
 
-    word.word_date = date;
-
-    console.log("고친거", word);
     setWord(word);
   };
 
@@ -62,7 +59,7 @@ const WordMean = () => {
       <SimpleNavBar text="단어" />
       <WordBox>
         <p className="word">{word?.word}</p>
-        <p className="date">{word.word_date} 저장</p>
+        {/* <p className="date">{word.word_date} 저장</p> */}
       </WordBox>
 
       <Hr />
@@ -75,18 +72,13 @@ const WordMean = () => {
 
         <MeanBox>
           <p className="naver">[네이버 지식백과]</p>
-          <p className="word">근저당권</p>
-          <p className="des">
-            임대인 또는 임차인이 임대차기간이 만료되.임대인 또는 임차인이
-            임대차기간이 만료되..임대인 또는 임차인이 임대차기간이
-            만료되..임대인 또는 임차인이 임대차기간이 만료되..임대인 또는
-            임차인이 임대차기간이 만료되...
-          </p>
+          <p className="word">{word?.word}</p>
+          <p className="des">네이버 결과 넣어야해..</p>
         </MeanBox>
       </Container>
 
       <MeanFooter>
-        {isSave ? <img src={bookmark} /> : <img src={unbookmark} />}
+        {word.isSaved ? <img src={bookmark} /> : <img src={unbookmark} />}
       </MeanFooter>
     </Div>
   );

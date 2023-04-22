@@ -1,6 +1,6 @@
 // lib
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import styled from "@emotion/styled";
 import "react-circular-progressbar/dist/styles.css";
 //component
@@ -9,9 +9,8 @@ import CheckBox from "@components/CheckList/CheckBox";
 import OtherCheckList from "@components/CheckList/OtherCheckList";
 // asset
 import house from "@assets/checklist/emojis/house.png";
-
 const Main = () => {
-  const naviate = useNavigate();
+  const { id } = useParams();
 
   return (
     <Div>

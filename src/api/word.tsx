@@ -28,7 +28,7 @@ export const GetWord = async (
   cookie: (res: any) => void
 ): Promise<any> => {
   try {
-    const res = await client.get(`/word/my/${wordId}`);
+    const res = await client.get(`/word/${wordId}`);
     return res.data;
   } catch (err: any) {
     console.log(err);
