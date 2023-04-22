@@ -10,6 +10,7 @@ import TextRoutes from "@route/TextRoutes";
 import QuestionRoutes from "@route/QuestionRoutes";
 import CheckListRoutes from "@route/CheckListRoutes";
 import WordRoutes from "@route/WordRoutes";
+import UserRoutes from "@route/UserRoutes";
 const HomePage = loadable(() => import("@pages/Main/Home"));
 
 const UploadPage = loadable(() => import("@pages/Analyze/Upload"));
@@ -32,6 +33,8 @@ const TextPage = loadable(() => import("@pages/Text/Text"));
 const App: React.FC = () => {
   return (
     <Routes>
+      <Route path="/" element={<HomePage />} />
+
       {/* 등기부등본 */}
       <Route path="/house/*" element={<HouseRoutes />} />
       {/* 문자 마법사 */}
@@ -43,7 +46,8 @@ const App: React.FC = () => {
       {/* 단어 관련 */}
       <Route path="/word/*" element={<WordRoutes />} />
 
-      <Route path="/" element={<HomePage />} />
+      {/* 유저 관련 */}
+      <Route path="/my/*" element={<UserRoutes />} />
 
       <Route path="/signup" element={<SignupPage />} />
       <Route path="/login" element={<LoginPage />} />

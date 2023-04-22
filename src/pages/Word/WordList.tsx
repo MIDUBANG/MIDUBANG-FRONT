@@ -1,18 +1,19 @@
 import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import styled from "@emotion/styled";
-import { GetAllWordList } from "@api/word";
+import { GetAllWordList, GetSearchWords } from "@api/word";
 import { useCookies } from "react-cookie";
 
 // componnet
 import SimpleNavBar from "@components/NavBar/SimpleNavBar";
 
 // image
+import magnify from "@assets/wordlist/magnify.png";
+import bookmark from "@assets/wordlist/bookmark.png";
+import bottomarrow from "@assets/wordlist/bottomarrow.png";
 
 const WordList = () => {
   const [cookies, setCookie, removeCookie] = useCookies(["refreshToken"]);
-
-  console.log("리프레시는", cookies.refreshToken);
 
   const onCookie = (res: any) => {
     console.log("쿠키");
@@ -23,11 +24,8 @@ const WordList = () => {
   };
 
   const [wordList, setWordList] = useState<
-    { word_id: number; word: string; meaning: string }[]
+    { wordId: number; word: string; meaning: string; isSaved: boolean }[]
   >([]);
-
-  // 선택한 날짜
-  const [date, setDate] = useState("");
 
   const navigate = useNavigate();
 
@@ -47,20 +45,67 @@ const WordList = () => {
     _handleGetAllWordList(); // 전체 단어 가져오기
   }, []);
 
-  const style = { marginBottom: "10px" };
+  const [searchText, setSearchText] = useState("");
+  const [searched, setSearched] = useState(false);
+
+  /** 단어 검색   */
+  const _handleSearchWord = async () => {
+    const words = await GetSearchWords(
+      searchText,
+      cookies.refreshToken,
+      onCookie
+    );
+
+    setWordList(words.content);
+    console.log(words.content);
+    setSearched(true);
+  };
 
   return (
     <Div>
       <SimpleNavBar text="단어 사전" />
 
+      <SearchBox>
+        <div className="input-box">
+          <input
+            placeholder="부동산 단어를 입력해주세요"
+            value={searchText}
+            onChange={(e) => setSearchText(e.target.value)}
+          />
+
+          <img
+            src={magnify}
+            width={16}
+            height={16}
+            onClick={_handleSearchWord}
+          />
+        </div>
+      </SearchBox>
+
       <Container>
+        <CountText>
+          <p>
+            {searched ? "검색 결과" : "믿어방 단어"}
+            <span>{wordList.length}개</span>
+          </p>
+        </CountText>
+
         {wordList.map((w) => (
-          <div style={style} onClick={() => _handleWordMean(w.word_id)}>
-            <p>
-              {w.word_id} {w.word} {w.meaning}
-            </p>
-          </div>
+          <WordMeanBox onClick={() => _handleWordMean(w.wordId)}>
+            <div className="word-box">
+              <p className="word">{w.word} </p>
+              {w.isSaved && <img src={bookmark} width={13} height={18} />}
+            </div>
+
+            <p className="meaning">{w.meaning}</p>
+            <hr />
+          </WordMeanBox>
         ))}
+
+        <SeeMoreBox>
+          <p>더보기 13/311</p>
+          <img src={bottomarrow} width={15} height={9} />
+        </SeeMoreBox>
       </Container>
     </Div>
   );
@@ -70,100 +115,132 @@ export default WordList;
 const Div = styled.div`
   width: 100%;
   height: 100%;
-  padding-top: 70px;
+  padding-top: 65px;
 `;
 
 const Container = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
+
+  padding: 30px 35px;
 `;
 
-const Illustration = styled.img`
-  width: 179px;
-  height: 115px;
-  margin: 15px auto 0 auto;
+const SearchBox = styled.div`
+  width: 100%;
+  height: 70px;
+  background: #bfdaff;
+
+  padding: 15px 20px;
+
+  .input-box {
+    width: 100%;
+    height: 39px;
+    background: #ffffff;
+    border-radius: 19.5px;
+
+    padding: 0 16px 0 24px;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  input {
+    background-color: transparent;
+    border: none;
+    width: 80%;
+
+    font-family: "Noto Sans KR";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12px;
+    color: #4b4b4b;
+
+    &:focus {
+      outline: none;
+    }
+  }
 `;
 
-const Calendar = styled.img`
-  width: 39px;
-  height: 39px;
-  margin-left: auto;
-  margin-right: 22px;
-`;
-
-const BtnBox = styled.div`
+const CountText = styled.div`
   display: flex;
   justify-content: space-between;
-  padding: 0 23px;
-  margin-top: 19px;
-  margin-bottom: 37px;
+  align-items: center;
+
+  p {
+    font-family: "Noto Sans KR";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    color: #313131;
+    span {
+      margin-left: 7px;
+
+      color: #7b7b7b;
+    }
+  }
+
+  margin-bottom: 26px;
 `;
-const Button = styled.div<{ active: boolean }>`
-  width: 50%;
-  height: 45px;
-  border-radius: 4px;
+
+const WordMeanBox = styled.div`
+  .word-box {
+    display: flex;
+    justify-content: space-between;
+
+    align-items: center;
+  }
+  .word {
+    display: inline-block;
+
+    padding: 0 5px;
+    height: 27px;
+    background: #e2f0f9;
+
+    line-height: 25px;
+
+    font-family: "Noto Sans KR";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 20px;
+    color: #0068cb;
+  }
+
+  .meaning {
+    margin: 17px 8px 22px 4px;
+
+    font-family: "Noto Sans KR";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 20px;
+    color: #4b4b4b;
+  }
+
+  hr {
+    width: 330px;
+    height: 2px;
+    background-color: #e3e3e3;
+  }
+`;
+
+const SeeMoreBox = styled.div`
+  width: 100%;
+  height: 61px;
+  background: #f9fafc;
+
   display: flex;
   justify-content: center;
   align-items: center;
 
-  font-family: "Noto Sans KR";
-  font-style: normal;
-  font-weight: 400;
-  font-size: 17px;
-  line-height: 25px;
-
-  border: 1px solid ${(props) => (props.active ? "#1F4EF5" : "#9a9a9a")};
-  color: ${(props) => (props.active ? "#1F4EF5" : "#9a9a9a")};
-
-  margin-left: 7px;
-  margin-right: 7px;
-`;
-
-const Word = styled.div`
-  width: 331px;
-  height: auto;
-  background: #f4f5f7;
-  border-radius: 5px;
-
-  margin: 16px auto 0 auto;
-  padding: 20px;
-
-  .title {
-    display: flex;
-    justify-content: space-between;
-  }
-
-  .word {
-    font-family: "Noto Sans KR";
+  p {
+    font-family: "Inter";
     font-style: normal;
     font-weight: 400;
-    font-size: 17px;
-    line-height: 25px;
-  }
-
-  .date {
-    font-family: "Noto Sans KR";
-    font-style: normal;
-    font-weight: 350;
     font-size: 14px;
-    line-height: 20px;
+    color: #4b4b4b;
 
-    color: rgba(0, 0, 0, 0.5);
-  }
-
-  .des {
-    margin-top: 10px;
-    margin-bottom: 15px;
-
-    font-family: "Noto Sans KR";
-    font-style: normal;
-    font-weight: 300;
-    font-size: 14px;
-    line-height: 20px;
-  }
-
-  .bookmark {
-    z-index: 1000;
+    margin-right: 10px;
   }
 `;
