@@ -1,8 +1,8 @@
 import React, { useState, useCallback } from "react";
 import { Routes, Route } from "react-router-dom";
 
-import WordList from "@pages/User/Word/WordList";
-import WordMean from "@pages/User/Word/WordMean";
+import WordList from "@pages/Word/WordList";
+import WordMean from "@pages/Word/WordMean";
 
 const WordRoutes = () => {
   return (

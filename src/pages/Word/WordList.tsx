@@ -8,9 +8,6 @@ import { useCookies } from "react-cookie";
 import SimpleNavBar from "@components/NavBar/SimpleNavBar";
 
 // image
-import temp from "@assets/illustration/logo&person.png";
-import calendar from "@assets/wordlist/calendar.png";
-import bookmark from "@assets/wordlist/bookmark.svg";
 
 const WordList = () => {
   const [cookies, setCookie, removeCookie] = useCookies(["refreshToken"]);
@@ -54,7 +51,7 @@ const WordList = () => {
 
   return (
     <Div>
-      <SimpleNavBar text="단어장" />
+      <SimpleNavBar text="단어 사전" />
 
       <Container>
         {wordList.map((w) => (
@@ -73,6 +70,7 @@ export default WordList;
 const Div = styled.div`
   width: 100%;
   height: 100%;
+  padding-top: 70px;
 `;
 
 const Container = styled.div`

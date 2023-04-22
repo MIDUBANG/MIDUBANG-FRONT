@@ -8,13 +8,11 @@ import bookmark from "@assets/wordlist/bookmark.svg";
 import unbookmark from "@assets/wordlist/unbookmark.svg";
 
 // api
-import { GetWord, DeleteWord } from "@api/word";
+import { GetWord, DeleteWord, PostSaveWord } from "@api/word";
 import { useEffect, useState } from "react";
 import { useCookies } from "react-cookie";
 
 const WordMean = () => {
-  const [isSave, setIsSave] = useState(true);
-
   const { id } = useParams();
 
   const [word, setWord] = useState<{
@@ -46,8 +44,14 @@ const WordMean = () => {
     setWord(word);
   };
 
-  const _handleBookMark = () => {
-    //DeleteWord()
+  const _handleBookMark = async () => {
+    await PostSaveWord(Number(id), cookies.refreshToken, onCookie);
+    _handleGetWord();
+  };
+
+  const _handleCancleBookMark = async () => {
+    await DeleteWord(Number(id), cookies.refreshToken, onCookie);
+    _handleGetWord();
   };
 
   useEffect(() => {
@@ -78,7 +82,11 @@ const WordMean = () => {
       </Container>
 
       <MeanFooter>
-        {word.isSaved ? <img src={bookmark} /> : <img src={unbookmark} />}
+        {word.isSaved ? (
+          <img src={bookmark} onClick={_handleCancleBookMark} />
+        ) : (
+          <img src={unbookmark} onClick={_handleBookMark} />
+        )}
       </MeanFooter>
     </Div>
   );
