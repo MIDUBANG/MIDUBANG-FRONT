@@ -11,6 +11,7 @@ import SimpleNavBar from "@components/NavBar/SimpleNavBar";
 import magnify from "@assets/wordlist/magnify.png";
 import bookmark from "@assets/wordlist/bookmark.png";
 import bottomarrow from "@assets/wordlist/bottomarrow.png";
+import scrollbookmark from "@assets/wordlist/scrollbookmark.png";
 
 const WordList = () => {
   const [cookies, setCookie, removeCookie] = useCookies(["refreshToken"]);
@@ -65,6 +66,10 @@ const WordList = () => {
     <Div>
       <SimpleNavBar text="단어 사전" />
 
+      <ScrollBookMark>
+        <img src={scrollbookmark} width={61} height={35} />
+        <p>단어장</p>
+      </ScrollBookMark>
       <SearchBox>
         <div className="input-box">
           <input
@@ -123,6 +128,7 @@ const Container = styled.div`
   flex-direction: column;
   justify-content: center;
 
+  width: 100%;
   padding: 30px 35px;
 `;
 
@@ -242,5 +248,25 @@ const SeeMoreBox = styled.div`
     color: #4b4b4b;
 
     margin-right: 10px;
+  }
+`;
+
+const ScrollBookMark = styled.div`
+  position: absolute;
+  right: 0;
+  top: 200px;
+  display: flex;
+  align-items: center;
+  p {
+    position: absolute;
+    left: 50%;
+
+    width: 40px;
+    transform: translate(-30%);
+    font-family: "Inter";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12px;
+    color: #ffffff;
   }
 `;

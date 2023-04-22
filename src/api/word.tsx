@@ -8,7 +8,7 @@ export const GetAllWordList = async (
   cookie: (res: any) => void
 ): Promise<any> => {
   try {
-    const res = await client.get("word/list?sort=word,desc&size=3&page=1");
+    const res = await client.get("word/list?sort=word,desc");
     return res.data;
   } catch (err: any) {
     if (err.response.data.message === "expired token") {
