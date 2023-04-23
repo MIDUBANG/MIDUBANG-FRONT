@@ -1,9 +1,10 @@
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
+
 // conponents
 import SimpleNavBar from "@components/NavBar/SimpleNavBar";
 import styled from "@emotion/styled";
 // imgs
-import blur from "@assets/illustration/blur.png";
+import rightarrow from "@assets/wordlist/rightarrow.png";
 import bookmark from "@assets/wordlist/bookmark.png";
 import unbookmark from "@assets/wordlist/unbookmark.png";
 
@@ -27,6 +28,16 @@ const WordMean = () => {
     isSaved: true,
   });
 
+  const [naverWord, setNaverWord] = useState<{
+    description: string;
+    link: string;
+    title: string;
+  }>({
+    description: "string",
+    link: "",
+    title: "",
+  });
+
   const [cookies, setCookie, removeCookie] = useCookies(["refreshToken"]);
 
   const onCookie = (res: any) => {
@@ -41,7 +52,8 @@ const WordMean = () => {
     let word = await GetWord(Number(id), cookies.refreshToken, onCookie);
     console.log(word);
 
-    setWord(word);
+    setWord(word.simpleWordDto);
+    setNaverWord(word.naverWordDto);
   };
 
   const _handleBookMark = async () => {
@@ -53,6 +65,8 @@ const WordMean = () => {
     await DeleteWord(Number(id), cookies.refreshToken, onCookie);
     _handleGetWord();
   };
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     _handleGetWord();
@@ -82,11 +96,16 @@ const WordMean = () => {
         <MeanBox>
           <p className="naver">[네이버 지식백과]</p>
           <p className="word">{word?.word}</p>
-          <p className="des">
-            네이버 결과 넣어네이버 결과 넣어야해..네이버 결과 넣어야해..네이버
-            결과 넣어야해..네이버 결과 넣어야해..네이버 결과 넣어야해..네이버
-            결과 넣어야해..네이버 결과 넣어야해..야해..
-          </p>
+          <p className="des">{naverWord?.description}</p>
+          <div
+            className="more"
+            onClick={() => {
+              window.location.href = naverWord?.link;
+            }}
+          >
+            <p>해설 더 보기</p>
+            <img src={rightarrow} width={8} />
+          </div>
         </MeanBox>
       </Container>
     </Div>
@@ -175,24 +194,21 @@ const MeanBox = styled.div`
     font-size: 14px;
     line-height: 20px;
   }
-`;
 
-const MeanFooter = styled.div`
-  position: fixed;
-  bottom: 0;
-  height: 67px;
-  width: 100%;
+  .more {
+    display: flex;
+    align-items: center;
 
-  border-top: 2px solid #f4f5f7;
-  //border-top: 2px solid red;
-
-  display: flex;
-  justify-content: space-between;
-  box-sizing: border-box;
-  padding: 18px;
-
-  img {
-    height: 33px;
-    width: 23px;
+    margin-top: 10px;
+    p {
+      margin-right: 10px;
+      font-family: "Noto Sans KR";
+      font-style: normal;
+      font-weight: 500;
+      font-size: 16px;
+      line-height: 20px;
+      letter-spacing: -0.05em;
+      color: #9cdb75;
+    }
   }
 `;
