@@ -2,13 +2,13 @@ import client from "@api/common/client";
 
 import { RefreshApi } from "./auth";
 
-// 전체 단어 불러오기
-export const GetAllWordList = async (
+// 전체 체크리스트 완료 count수
+export const GetAllCheckCount = async (
   refreshToken: string,
   cookie: (res: any) => void
 ): Promise<any> => {
   try {
-    const res = await client.get("word/list?sort=word,desc");
+    const res = await client.get("checklist/count");
     return res.data;
   } catch (err: any) {
     if (err.response.data.message === "expired token") {
@@ -21,13 +21,14 @@ export const GetAllWordList = async (
   }
 };
 
-// 저장한 단어 목록 불러오기
-export const GetSavedWordList = async (
+// 항목 별 체크리스트 완료 count 수
+export const GetCheckCount = async (
+  checklistId: number,
   refreshToken: string,
   cookie: (res: any) => void
 ): Promise<any> => {
   try {
-    const res = await client.get("word/my/list");
+    const res = await client.get(`checklist/count/${checklistId}`);
     return res.data;
   } catch (err: any) {
     if (err.response.data.message === "expired token") {
@@ -40,92 +41,58 @@ export const GetSavedWordList = async (
   }
 };
 
-// 개별 단어 조회
-export const GetWord = async (
-  wordId: number,
+// 항목 별 체크리스트
+export const GetChecklist = async (
+  checklistId: number,
   refreshToken: string,
   cookie: (res: any) => void
 ): Promise<any> => {
   try {
-    const res = await client.get(`/word/${wordId}`);
+    const res = await client.get(`checklist/${checklistId}`);
     return res.data;
   } catch (err: any) {
-    console.log(err);
     if (err.response.data.message === "expired token") {
       alert("토큰 만료");
       RefreshApi(refreshToken, cookie);
     } else if (err.response.data.message === "empty token") {
       alert("빈 토큰");
       RefreshApi(refreshToken, cookie);
-    } else if (err.response.data.message === "word not exist") {
-      alert("존재하지 않는 단어입니다.");
     }
   }
 };
 
-// 단어 검색하기
-export const GetSearchWords = async (
-  searchText: string,
+// 토글 체크
+export const ToggleChecklist = async (
+  checklistId: number,
   refreshToken: string,
   cookie: (res: any) => void
 ): Promise<any> => {
   try {
-    const res = await client.get(
-      `/word/search/list?searchKeyword=${searchText}&page=0&size=10&sort=word,asc`
-    );
-    console.log("검색 결과:", res);
+    const res = await client.post(`checklist/${checklistId}`);
     return res.data;
   } catch (err: any) {
-    console.log(err);
     if (err.response.data.message === "expired token") {
       alert("토큰 만료");
       RefreshApi(refreshToken, cookie);
     } else if (err.response.data.message === "empty token") {
       alert("빈 토큰");
       RefreshApi(refreshToken, cookie);
-    } else if (err.response.data.message === "word not exist") {
-      alert("존재하지 않는 단어입니다.");
     }
   }
 };
 
-// 단어 저장하기
-export const PostSaveWord = async (
-  wordId: number,
+// 토글 취소
+export const UnToggleChecklist = async (
+  checklistId: number,
   refreshToken: string,
   cookie: (res: any) => void
 ): Promise<any> => {
   try {
-    const res = await client.post(`/word/${wordId}`);
-    return res;
-  } catch (err: any) {
-    console.log(err);
-    const message = err.response.data.message;
-    if (message === "존재하지 않는 단어 id") {
-      alert("존재하지 않는 단어 id");
-    } else if (message === "이미 저장된 단어입니다.") {
-      alert("이미 저장된 단어입니다.");
-    } else if (err.response.data.message === "expired token") {
-      alert("토큰 만료");
-      RefreshApi(refreshToken, cookie);
-    } else if (err.response.data.message === "empty token") {
-      alert("빈 토큰");
-      RefreshApi(refreshToken, cookie);
-    }
-  }
-};
+    console.log("취소 시도");
+    const res = await client.delete(`checklist/${checklistId}`);
 
-// 단어 삭제하기
-export const DeleteWord = async (
-  wordId: number,
-  refreshToken: string,
-  cookie: (res: any) => void
-): Promise<any> => {
-  try {
-    const res = await client.delete(`/word/${wordId}`);
-    return res;
+    return res.data;
   } catch (err: any) {
-    console.log(err);
     if (err.response.data.message === "expired token") {
       alert("토큰 만료");
       RefreshApi(refreshToken, cookie);

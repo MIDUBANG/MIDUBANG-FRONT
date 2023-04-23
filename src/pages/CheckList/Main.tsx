@@ -2,17 +2,38 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "@emotion/styled";
-import "react-circular-progressbar/dist/styles.css";
+import { useCookies } from "react-cookie";
 //component
 import MainNavBar from "@components/NavBar/MainNavBar";
 import CategoryBox from "@components/CheckList/CategoryBox";
 // asset
+import { checkCategoryData } from "@assets/checkCategoryData";
+//img
 import illustration from "@assets/checklist/illustration.png";
 import check from "@assets/checklist/check.png";
+// api
+import { GetAllCheckCount } from "@api/checklist";
 
-import { checkCategoryData } from "@assets/checkCategoryData";
 const Main = () => {
-  const naviate = useNavigate();
+  const [cookies, setCookie, removeCookie] = useCookies(["refreshToken"]);
+  const onCookie = (res: any) => {
+    console.log("쿠키");
+    const accessToken = res.data.accessToken;
+    localStorage.setItem("token", accessToken);
+    const refreshToken = res.data.refreshToken;
+    setCookie("refreshToken", refreshToken, { path: "/" });
+  };
+
+  const [doneDount, setDoneCount] = useState(0);
+
+  const _handleGetAllCheckCount = async () => {
+    const res = await GetAllCheckCount(cookies.refreshToken, onCookie);
+    console.log(res);
+  };
+
+  useEffect(() => {
+    _handleGetAllCheckCount();
+  }, []);
 
   return (
     <Div>
@@ -21,7 +42,7 @@ const Main = () => {
         <EnText weight="700" size="40px" color="#070A39" margin="">
           Checklists
         </EnText>
-        <EnText weight="700" size="14px" color="#474747" margin="4px 0 0 0">
+        <EnText weight="700" size="14px" color="#474747" margin="7px 0 0 3px">
           슬기로운 자취 시작 A to Z
         </EnText>
         <img src={illustration} />
@@ -32,9 +53,9 @@ const Main = () => {
           <img src={check} width={43} height={43} />
           <div className="percent">
             <p className="percent-text">
-              45% <span>완료 </span>
+              {(doneDount / 62) * 100}% <span>완료 </span>
             </p>
-            <ProgressBar percent={45}>
+            <ProgressBar percent={(doneDount / 62) * 100}>
               <div className="done-bar"></div>
             </ProgressBar>
           </div>

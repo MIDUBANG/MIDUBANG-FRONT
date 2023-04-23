@@ -1,67 +1,69 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "@emotion/styled";
 import { useNavigate } from "react-router-dom";
 import { css } from "@emotion/react";
+import { useCookies } from "react-cookie";
 
 // assets
 import checkedbox from "@assets/checklist/checkedbox.png";
 import uncheckbox from "@assets/checklist/uncheckbox.png";
 
-type Props = {};
-const CheckBox = ({}: Props) => {
-  const data = [
-    {
-      id: 1,
-      title: "보유 자금 확인",
-      content: "블라블라 설명 입니다아아아아ㅏ 가계약 당시와 같은 웅앵 ",
-      checked: true,
-      last: false,
-    },
-    {
-      id: 2,
-      title: "보유 자금 확인",
-      content: "블라블라 설명 입니다아아아아ㅏ 가계약 당시와 같은 웅앵 ",
-      checked: false,
-      last: false,
-    },
-    {
-      id: 3,
-      title: "보유 자금 확인",
-      content: "블라블라 설명 입니다아아아아ㅏ 가계약 당시와 같은 웅앵 ",
-      checked: true,
-      last: false,
-    },
-    {
-      id: 4,
-      title: "보유 자금 확인",
-      content: "블라블라 설명 입니다아아아아ㅏ 가계약 당시와 같은 웅앵 ",
-      checked: false,
-      last: false,
-    },
-    {
-      id: 5,
-      title: "보유 자금 확인",
-      content: "블라블라 설명 입니다아아아아ㅏ 가계약 당시와 같은 웅앵 ",
-      checked: true,
-      last: true,
-    },
-  ];
+type checklistType = {
+  checklistId: number;
+  listDetail: string;
+  listName: string;
+  checked: boolean;
+  last: boolean;
+};
+type Props = {
+  checklistData: checklistType[];
+  _handleToggleChecklist: (id: number) => void;
+  _handleUnToggleChecklist: (id: number) => void;
+};
+
+const CheckBox = ({
+  checklistData,
+  _handleToggleChecklist,
+  _handleUnToggleChecklist,
+}: Props) => {
+  const [cookies, setCookie, removeCookie] = useCookies(["refreshToken"]);
+
+  const onCookie = (res: any) => {
+    console.log("쿠키");
+    const accessToken = res.data.accessToken;
+    localStorage.setItem("token", accessToken);
+    const refreshToken = res.data.refreshToken;
+    setCookie("refreshToken", refreshToken, { path: "/" });
+  };
+
   return (
     <BackgroundBox>
-      {data.map((d) => (
+      {checklistData.map((d) => (
         <IndiCheckBox last={d.last}>
           <div className="top-content">
-            <img
-              src={d.checked ? checkedbox : uncheckbox}
-              width={18}
-              height={18}
-            />
-            <p className="title">{d.title} </p>
+            {d.checked ? (
+              <img
+                src={checkedbox}
+                onClick={() => _handleUnToggleChecklist(d.checklistId)}
+              />
+            ) : (
+              <img
+                src={uncheckbox}
+                onClick={() => _handleToggleChecklist(d.checklistId)}
+              />
+            )}
+
+            <p className="title">{d.listName} </p>
           </div>
-          <p className="content">{d.content}</p>
-          <p className="sub-content">
-            ⭐ 더 하위 설명이 필요하다면 이런식으로..{" "}
-          </p>
+          {/* {d.listDetail?.split("\\").map((detail) => (
+            <p className="content">{detail}</p>
+          ))} */}
+
+          {d.listDetail?.split("\\").map((detail) => (
+            <div className="sub-content">
+              ⭐<p> {detail}</p>
+            </div>
+          ))}
         </IndiCheckBox>
       ))}
     </BackgroundBox>
@@ -94,6 +96,8 @@ const IndiCheckBox = styled.div<{ last: boolean }>`
 
     img {
       margin-right: 16px;
+      width: 18px;
+      height: 18px;
     }
 
     .title {
@@ -124,5 +128,13 @@ const IndiCheckBox = styled.div<{ last: boolean }>`
     color: #93641d;
 
     margin: 13px 0 0 35px;
+
+    word-break: keep-all;
+
+    display: flex;
+    p {
+      transform: translate(3px, -2px);
+      line-height: 17px;
+    }
   }
 `;

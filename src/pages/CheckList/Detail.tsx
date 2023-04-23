@@ -2,15 +2,124 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import styled from "@emotion/styled";
-import "react-circular-progressbar/dist/styles.css";
+import { useCookies } from "react-cookie";
+
 //component
 import MainNavBar from "@components/NavBar/MainNavBar";
 import CheckBox from "@components/CheckList/CheckBox";
 import OtherCheckList from "@components/CheckList/OtherCheckList";
 // asset
 import house from "@assets/checklist/emojis/house.png";
+// api
+import {
+  GetCheckCount,
+  GetChecklist,
+  ToggleChecklist,
+  UnToggleChecklist,
+} from "@api/checklist";
+
 const Main = () => {
   const { id } = useParams();
+
+  const [cookies, setCookie, removeCookie] = useCookies(["refreshToken"]);
+
+  const onCookie = (res: any) => {
+    console.log("쿠키");
+
+    const accessToken = res.data.accessToken;
+    localStorage.setItem("token", accessToken);
+    const refreshToken = res.data.refreshToken;
+    setCookie("refreshToken", refreshToken, { path: "/" });
+  };
+
+  const [doneCount, setDoneCount] = useState(0);
+  const [checklistData, setChecklistData] = useState([
+    {
+      checklistId: 1,
+      listDetail: "",
+      listName: "",
+      checked: false,
+      last: false,
+    },
+  ]);
+
+  /** 완료한 체크 숫자 */
+  const _handleGetCheckCount = async () => {
+    let checklistId = parseInt(id || "0");
+    const res = await GetCheckCount(
+      checklistId,
+      cookies.refreshToken,
+      onCookie
+    );
+
+    setDoneCount(res.count);
+  };
+
+  const _handleGetChecklist = async () => {
+    let checklistId = parseInt(id || "0");
+    const res = await GetChecklist(checklistId, cookies.refreshToken, onCookie);
+    console.log("설마ㅠ", res);
+
+    let checklist = res.checklist;
+    let donelist = res.userCheck;
+    let newlist: any = checklist;
+
+    // checked 속성 추가
+    newlist = newlist.map((c: any) => ({ ...c, checked: false, last: false }));
+
+    // 체크된 것만 true로 변경
+    donelist.map((d: any) => {
+      newlist = newlist.map((c: any) =>
+        c.checklistId === d ? { ...c, checked: true } : c
+      );
+    });
+
+    // 맨 마지막만 last = true로 변경
+    newlist[newlist.length - 1]["last"] = true;
+
+    setChecklistData(newlist);
+  };
+
+  const [req, setRes] = useState(0); // check 요청에 대한 트래킹
+
+  /** 토글  */
+  const _handleToggleChecklist = async (id: number) => {
+    await ToggleChecklist(id, cookies.refreshToken, onCookie);
+
+    setChecklistData(
+      checklistData.map((c) =>
+        c.checklistId === id ? { ...c, checked: true } : c
+      )
+    );
+
+    setRes(req + 1);
+  };
+
+  /** 토글 취소  */
+  const _handleUnToggleChecklist = async (id: number) => {
+    await UnToggleChecklist(id, cookies.refreshToken, onCookie);
+
+    setChecklistData(
+      checklistData.map((c) =>
+        c.checklistId === id ? { ...c, checked: false } : c
+      )
+    );
+
+    setRes(req + 1);
+  };
+
+  /** 토글 전체 취소  */
+  const _handleUnToggleAllChecklist = async () => {
+    // 전체에 대해 api 호출
+    checklistData.map((c) => {
+      _handleUnToggleChecklist(c.checklistId);
+    });
+  };
+
+  useEffect(() => {
+    _handleGetCheckCount();
+    _handleGetChecklist();
+  }, [req]);
 
   return (
     <Div>
@@ -24,11 +133,19 @@ const Main = () => {
       <Container>
         <TopTextContainer>
           <p className="checklist">Checklists</p>
-          <p className="outof">0 out of 17</p>
-          <div className="uncheck-btn">Uncheck all</div>
+          <p className="outof">
+            {doneCount} out of {checklistData.length}
+          </p>
+          <div className="uncheck-btn" onClick={_handleUnToggleAllChecklist}>
+            Uncheck all
+          </div>
         </TopTextContainer>
 
-        <CheckBox></CheckBox>
+        <CheckBox
+          checklistData={checklistData}
+          _handleToggleChecklist={_handleToggleChecklist}
+          _handleUnToggleChecklist={_handleUnToggleChecklist}
+        />
       </Container>
 
       <BottomContainer>
