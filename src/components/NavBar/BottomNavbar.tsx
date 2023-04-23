@@ -1,4 +1,5 @@
 import styled from "@emotion/styled";
+import { useNavigate } from "react-router-dom";
 
 import left from "@assets/nav/left.png";
 import right from "@assets/nav/right.png";
@@ -8,13 +9,15 @@ import reload from "@assets/nav/reload.png";
 import share from "@assets/nav/share.png";
 
 const BottomNavbar = () => {
+  const navigate = useNavigate();
+
   return (
     <BarDiv>
-      <img src={left} />
-      <img src={right} />
-      <img src={report} />
-      <img src={text} />
-      <img src={reload} />
+      <img src={left} onClick={() => navigate(-1)} />
+      <img src={right} onClick={() => navigate(1)} />
+      <img src={report} onClick={() => navigate("/upload")} />
+      <img src={text} onClick={() => navigate("/text")} />
+      <img src={reload} onClick={() => window.location.reload()} />
       <img src={share} />
     </BarDiv>
   );
@@ -37,6 +40,6 @@ const BarDiv = styled.div`
   box-shadow: 0px -3px 2px rgba(185, 185, 185, 0.05);
 
   img {
-    width: 7vw;
+    width: 6vw;
   }
 `;
