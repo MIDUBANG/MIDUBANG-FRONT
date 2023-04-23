@@ -9,7 +9,8 @@ import CheckRoutes from "./HouseCheckRoutes";
 const HouseRoutes = () => {
   return (
     <Routes>
-      <Route element={<Intro1 />} path="/intro/*" />
+      <Route element={<House />} path="/" />
+      <Route element={<Intro1 />} path="/intro" />
       <Route element={<ReceiveRoutes />} path="/receive/*" />
       <Route element={<MyRoutes />} path="/my/*" />
       <Route element={<CheckRoutes />} path="/check/*" />
