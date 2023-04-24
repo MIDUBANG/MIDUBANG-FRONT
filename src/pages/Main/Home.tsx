@@ -10,6 +10,7 @@ import FeatureCard4 from "@components/Main/FeatureCard4";
 import FeatureCard5 from "@components/Main/FeatureCard5";
 import FeatureCard6 from "@components/Main/FeatureCard6";
 
+import Footer from "@components/Footer/Footer";
 const Home = () => {
   const navigate = useNavigate();
   const _ClickGoto = (path: string) => {
@@ -53,6 +54,8 @@ const Home = () => {
         <Button onClick={() => _ClickGoto("checklist")}>체크리스트</Button>
         <Button onClick={() => _ClickGoto("word")}>단어</Button> */}
       </Container>
+
+      <Footer></Footer>
     </Div>
   );
 };
