@@ -6,7 +6,7 @@ import paper1 from "@assets/main/paper1.png";
 import house1 from "@assets/main/house1.png";
 import arrowblack from "@assets/main/arrowblack.png";
 import houseshadow from "@assets/main/houseshadow.png";
-const FeatureCard = () => {
+const FeatureCard1 = () => {
   const navigate = useNavigate();
   return (
     <CardDiv onClick={() => navigate("/house")}>
@@ -29,7 +29,7 @@ const FeatureCard = () => {
   );
 };
 
-export default FeatureCard;
+export default FeatureCard1;
 
 const CardDiv = styled.div`
   display: flex;
