@@ -4,8 +4,9 @@ import { useRef, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "@emotion/styled";
 import { css } from "@emotion/react";
-
 import { useParams } from "react-router-dom";
+import { useCookies } from "react-cookie";
+
 //component
 import MainNavBar from "@components/NavBar/MainNavBar";
 import QuestionBox from "@components/Question/QuestionBox";
@@ -15,8 +16,18 @@ import dino1 from "@assets/question/dino1.png";
 import deleteicon from "@assets/question/delete.png";
 import profile from "@assets/question/user.png";
 import send from "@assets/question/send.png";
-
+// api
+import { PostGoldPost } from "@api/community";
 const Create = () => {
+  const [cookies, setCookie, removeCookie] = useCookies(["refreshToken"]);
+  const onCookie = (res: any) => {
+    console.log("쿠키");
+    const accessToken = res.data.accessToken;
+    localStorage.setItem("token", accessToken);
+    const refreshToken = res.data.refreshToken;
+    setCookie("refreshToken", refreshToken, { path: "/" });
+  };
+
   const textRef = useRef<HTMLTextAreaElement>(null);
 
   const handleResizeHeight = useCallback(() => {
@@ -31,6 +42,30 @@ const Create = () => {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
 
+  const _handlePostGoldPost = async () => {
+    let question = title;
+    let detail = content;
+
+    const res = await PostGoldPost(
+      question,
+      detail,
+      cookies.refreshToken,
+      onCookie
+    );
+
+    naviate(`/question/detail/${res.id}`);
+
+    console.log(res);
+  };
+
+  const _handleSubmitGoldPost = () => {
+    // 유효성 검사
+    if (title !== "" && content !== "") {
+      _handlePostGoldPost(); // 업로드
+    } else {
+      alert("모두 작성해주세요");
+    }
+  };
   return (
     <Div>
       <SimpleNavBar text="챗쪽이 질문 작성하기" />
@@ -57,7 +92,11 @@ const Create = () => {
           <Btn background="#F2F3F7" color="#707070">
             취소
           </Btn>
-          <Btn background="#5A73FC" color="#FFFFFF">
+          <Btn
+            background="#5A73FC"
+            color="#FFFFFF"
+            onClick={_handleSubmitGoldPost}
+          >
             작성하기
           </Btn>
         </BtnBox>

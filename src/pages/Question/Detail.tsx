@@ -3,8 +3,8 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "@emotion/styled";
 import { css } from "@emotion/react";
-
 import { useParams } from "react-router-dom";
+import { useCookies } from "react-cookie";
 //component
 import MainNavBar from "@components/NavBar/MainNavBar";
 import QuestionBox from "@components/Question/QuestionBox";
@@ -13,13 +13,47 @@ import dino1 from "@assets/question/dino1.png";
 import deleteicon from "@assets/question/delete.png";
 import profile from "@assets/question/user.png";
 import send from "@assets/question/send.png";
-
+// api
+import { GetGoldPost } from "@api/community";
 const Detail = () => {
+  const [cookies, setCookie, removeCookie] = useCookies(["refreshToken"]);
+  const onCookie = (res: any) => {
+    console.log("쿠키");
+    const accessToken = res.data.accessToken;
+    localStorage.setItem("token", accessToken);
+    const refreshToken = res.data.refreshToken;
+    setCookie("refreshToken", refreshToken, { path: "/" });
+  };
+
   const { id } = useParams();
   const naviate = useNavigate();
 
   const commentArr = [1, 2, 3, 4, 5, 3, 3, 3, 3];
 
+  const [post, setPost] = useState({
+    title: "",
+    detail: "",
+    writer: "",
+    createdDate: "",
+  });
+
+  const [comments, setCommnets] = useState([
+    {
+      writer: "test3@gmail.com",
+      comment: "댓글2",
+      createdDate: "2023-04-25 02:40",
+    },
+  ]);
+
+  const _handleGetGoldPost = async () => {
+    const postId = parseInt(id || "1");
+    const res = await GetGoldPost(postId, cookies.refreshToken, onCookie);
+    console.log(res);
+  };
+
+  useEffect(() => {
+    _handleGetGoldPost();
+  }, []);
   return (
     <Div>
       <MainNavBar text="챗쪽이가 대신 질문" />

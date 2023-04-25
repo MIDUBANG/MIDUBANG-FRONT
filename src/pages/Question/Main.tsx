@@ -10,6 +10,7 @@ import QuestionBox from "@components/Question/QuestionBox";
 import card1 from "@assets/question/card1.png";
 import write from "@assets/question/write.svg";
 import rightArrow from "@assets/question/rightArrow.png";
+// api
 
 const Main = () => {
   const naviate = useNavigate();

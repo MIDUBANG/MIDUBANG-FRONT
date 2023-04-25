@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "@emotion/styled";
 import { css } from "@emotion/react";
-import "react-circular-progressbar/dist/styles.css";
+import { useCookies } from "react-cookie";
 //component
 import MainNavBar from "@components/NavBar/MainNavBar";
 import QuestionBox from "@components/Question/QuestionBox";
@@ -11,9 +11,25 @@ import QuestionBox from "@components/Question/QuestionBox";
 import card1 from "@assets/question/card1.png";
 import write from "@assets/question/write.svg";
 import rightArrow from "@assets/question/rightArrow.png";
+// api
+import { GetAllGoldPosts } from "@api/community";
 
 const List = () => {
+  const [cookies, setCookie, removeCookie] = useCookies(["refreshToken"]);
+  const onCookie = (res: any) => {
+    console.log("쿠키");
+    const accessToken = res.data.accessToken;
+    localStorage.setItem("token", accessToken);
+    const refreshToken = res.data.refreshToken;
+    setCookie("refreshToken", refreshToken, { path: "/" });
+  };
+
   const naviate = useNavigate();
+
+  const _handleGetAllGoldPosts = async () => {
+    const res = await GetAllGoldPosts(cookies.refreshToken, onCookie);
+    console.log(res);
+  };
 
   const backgroundArray = [
     "linear-gradient(30.18deg,#5a73fc 57.1%,rgba(83, 108, 249, 0.853858) 84.35%, rgba(74, 100, 245, 0.66486) 99.99%,rgba(74, 100, 245, 0) 100%);",
@@ -75,6 +91,10 @@ const List = () => {
       )
     );
   };
+
+  useEffect(() => {
+    _handleGetAllGoldPosts();
+  }, []);
 
   return (
     <Div>
