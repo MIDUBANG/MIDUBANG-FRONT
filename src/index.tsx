@@ -23,7 +23,7 @@ root.render(
       <Provider store={store}>
         <PersistGate loading={null} persistor={persistor}>
           <App />
-          <BottomNavbar></BottomNavbar>
+          {/* <BottomNavbar></BottomNavbar> */}
         </PersistGate>
       </Provider>
     </BrowserRouter>
