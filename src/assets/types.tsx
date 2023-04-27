@@ -43,3 +43,47 @@ export type WordsType = {
   word: string;
   meaning: string;
 };
+
+// 금쪽이
+export type GoldQuestionType = {
+  postId: number;
+  writer: string;
+  title: string;
+  content: string;
+  numOfComments: number;
+};
+
+export type GoldComment = {
+  commentId: number;
+  writer: string;
+  comment: string;
+  createdDate: string;
+};
+
+export type GoldQuestionDetailType = {
+  postId: number;
+  writer: string;
+  title: string;
+  detail: string;
+  createdDate: string;
+};
+
+// 챗쪽이
+export type ChatQuestionType = {
+  questionId: number;
+  question: string;
+  numOfAnswers: number;
+};
+
+export type ChatComment = {
+  commentId: number;
+  writer: string;
+  comment: string;
+  createdDate: string;
+};
+
+export type ChatQuestionDetailType = {
+  questionId: number;
+  question: string;
+  createdDate: string;
+};
