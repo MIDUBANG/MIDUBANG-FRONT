@@ -117,7 +117,7 @@ export const GetUserInfo = async (
     const res = await client.get("member/info");
     return res.data;
   } catch (err: any) {
-    console.log(err);
+    console.log("에러임", err);
 
     if (err.response.data.message === "expired token") {
       alert("토큰 만료");
