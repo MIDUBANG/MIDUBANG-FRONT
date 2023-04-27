@@ -2,45 +2,62 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "@emotion/styled";
-import "react-circular-progressbar/dist/styles.css";
+import { useCookies } from "react-cookie";
+
 //component
 import MainNavBar from "@components/NavBar/MainNavBar";
-import QuestionBox from "@components/Question/QuestionBox";
+import GoldQuestionBox from "@components/Question/GoldQuestionBox";
+import ChatQuestionBox from "@components/Question/ChatQuestionBox";
+
 // asset
 import card1 from "@assets/question/card1.png";
 import write from "@assets/question/write.svg";
 import rightArrow from "@assets/question/rightArrow.png";
 // api
+import { GetTodayPosts } from "@api/community";
+// type
+import { GoldQuestionType, ChatQuestionType } from "@assets/types";
 
 const Main = () => {
-  const naviate = useNavigate();
+  const navigate = useNavigate();
 
   const backgroundArray = [
     "linear-gradient(30.18deg,#5a73fc 57.1%,rgba(83, 108, 249, 0.853858) 84.35%, rgba(74, 100, 245, 0.66486) 99.99%,rgba(74, 100, 245, 0) 100%);",
     "linear-gradient(259.16deg, #5B8BF7 49.62%, rgba(81, 120, 251, 0.777732) 81.88%, rgba(68, 96, 255, 0.51) 91.14%);box-shadow: 0px 20px 50px 4px rgba(0, 0, 0, 0.25);",
   ];
 
-  const questions = [
-    {
-      author: "챗쪽이",
-      title: "보증금 할부 되나영",
-      content: "",
-      commentCount: 3,
-    },
-    {
-      author: "챗쪽이",
-      title: "보증금 할부 되나영",
-      content: "",
-      commentCount: 3,
-    },
-    {
-      author: "dy6578",
-      title: "자취하면 보통 식비 얼마나오나여",
-      content: "자취는 처음이라 식비가 감이 안와요ㅠ",
-      commentCount: 20,
-    },
-  ];
+  const [cookies, setCookie, removeCookie] = useCookies(["refreshToken"]);
+  const onCookie = (res: any) => {
+    console.log("쿠키");
+    const accessToken = res.data.accessToken;
+    localStorage.setItem("token", accessToken);
+    const refreshToken = res.data.refreshToken;
+    setCookie("refreshToken", refreshToken, { path: "/" });
+  };
 
+  const [chatPosts, setChatPosts] = useState<ChatQuestionType[]>();
+  const [goldPosts, setGoldPosts] = useState<GoldQuestionType[]>();
+
+  const _handleGetTodayPosts = async () => {
+    const res = await GetTodayPosts(cookies.refreshToken, onCookie);
+    console.log("결과", res.data);
+    setChatPosts(res.data.questionList);
+    setGoldPosts(res.data.postList);
+  };
+
+  /** detail 페이지로 이동 */
+  const _handleClicktoDetail = (category: string, id: number) => {
+    if (category === "금쪽이") {
+      navigate(`/question/gold/${id}`);
+    } else {
+      // 챗쪽이
+      navigate(`/question/chat/${id}`);
+    }
+  };
+
+  useEffect(() => {
+    _handleGetTodayPosts();
+  }, []);
   return (
     <Div>
       <MainNavBar text="금쪽이" />
@@ -79,7 +96,12 @@ const Main = () => {
               <img src={write} />
             </WriteBtn>
 
-            <Text margin="0 0 0 13px">질문 쓰기</Text>
+            <Text
+              margin="0 0 0 13px"
+              onClick={() => navigate("/question/create")}
+            >
+              질문 쓰기
+            </Text>
           </div>
         </BtnBar>
 
@@ -88,15 +110,27 @@ const Main = () => {
             오늘의 질문
           </Text>
 
-          <ViewAllBtn>
+          <ViewAllBtn onClick={() => navigate("/question/list")}>
             <p>전체보기</p>
             <img src={rightArrow} />
           </ViewAllBtn>
         </Bar>
 
         <div>
-          {questions.map((question) => (
-            <QuestionBox question={question} />
+          {chatPosts?.map((question) => (
+            <ChatQuestionBox
+              question={question}
+              onClick={() =>
+                _handleClicktoDetail("챗쪽이", question.questionId)
+              }
+            />
+          ))}
+
+          {goldPosts?.map((question) => (
+            <GoldQuestionBox
+              question={question}
+              onClick={() => _handleClicktoDetail("금쪽이", question.postId)}
+            />
           ))}
         </div>
       </Container>
