@@ -3,46 +3,38 @@ import dino1 from "@assets/question/dino1.png";
 import user from "@assets/question/user.png";
 import comment from "@assets/question/comment.png";
 
-type QuestionType = {
-  author: string;
-  title: string;
-  content: string;
-  commentCount: number;
+import { GoldQuestionType } from "@assets/types";
+
+type QuestionPropsType = {
+  question: GoldQuestionType;
+  onClick: () => void;
 };
 
-type Props = {
-  question: QuestionType;
-};
-
-const QuestionBox = ({ question }: Props) => {
-  const isDino = question.author === "챗쪽이" ? true : false;
+const GoldQuestionBox = ({ question, onClick }: QuestionPropsType) => {
   return (
-    <BoxDiv isDino={isDino}>
+    <BoxDiv onClick={onClick}>
       <Profile>
-        {isDino ? (
-          <img src={dino1} width={17} height={18} />
-        ) : (
-          <img src={user} width={25} height={25} />
-        )}
+        <img src={user} width={25} height={25} />
       </Profile>
 
       <div className="texts">
-        <p className="author">{question.author}</p>
+        <p className="author">{question.writer.split("@")[0]}님</p>
         <p className="title">{question.title}</p>
-        {isDino || <p className="content">{question.content}</p>}
+
+        <p className="content">{question.content.substring(0, 48)}</p>
       </div>
 
       <div className="comment-box">
         <img src={comment} width={15} height={15} />
-        <p>{question.commentCount}</p>
+        <p>{question.numOfComments}</p>
       </div>
     </BoxDiv>
   );
 };
 
-export default QuestionBox;
+export default GoldQuestionBox;
 
-const BoxDiv = styled.div<{ isDino: boolean }>`
+const BoxDiv = styled.div`
   padding: 9px 12px 17px 12px;
   width: 346px;
   height: auto;
