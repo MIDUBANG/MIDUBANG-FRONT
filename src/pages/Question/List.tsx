@@ -6,13 +6,17 @@ import { css } from "@emotion/react";
 import { useCookies } from "react-cookie";
 //component
 import MainNavBar from "@components/NavBar/MainNavBar";
-import QuestionBox from "@components/Question/QuestionBox";
+import GoldQuestionBox from "@components/Question/GoldQuestionBox";
+import ChatQuestionBox from "@components/Question/ChatQuestionBox";
+
 // asset
 import card1 from "@assets/question/card1.png";
 import write from "@assets/question/write.svg";
 import rightArrow from "@assets/question/rightArrow.png";
 // api
-import { GetAllGoldPosts } from "@api/community";
+import { GetAllGoldPosts, GetAllChatPosts } from "@api/community";
+// type
+import { GoldQuestionType, ChatQuestionType } from "@assets/types";
 
 const List = () => {
   const [cookies, setCookie, removeCookie] = useCookies(["refreshToken"]);
@@ -26,55 +30,6 @@ const List = () => {
 
   const naviate = useNavigate();
 
-  const _handleGetAllGoldPosts = async () => {
-    const res = await GetAllGoldPosts(cookies.refreshToken, onCookie);
-    console.log(res);
-  };
-
-  const backgroundArray = [
-    "linear-gradient(30.18deg,#5a73fc 57.1%,rgba(83, 108, 249, 0.853858) 84.35%, rgba(74, 100, 245, 0.66486) 99.99%,rgba(74, 100, 245, 0) 100%);",
-    "linear-gradient(259.16deg, #5B8BF7 49.62%, rgba(81, 120, 251, 0.777732) 81.88%, rgba(68, 96, 255, 0.51) 91.14%);box-shadow: 0px 20px 50px 4px rgba(0, 0, 0, 0.25);",
-  ];
-
-  const questions = [
-    {
-      author: "챗쪽이",
-      title: "보증금 할부 되나영",
-      content: "",
-      commentCount: 3,
-    },
-    {
-      author: "챗쪽이",
-      title: "보증금 할부 되나영",
-      content: "",
-      commentCount: 3,
-    },
-    {
-      author: "dy6578",
-      title: "자취하면 보통 식비 얼마나오나여",
-      content: "자취는 처음이라 식비가 감이 안와요ㅠ",
-      commentCount: 20,
-    },
-    {
-      author: "챗쪽이",
-      title: "보증금 할부 되나영",
-      content: "",
-      commentCount: 3,
-    },
-    {
-      author: "챗쪽이",
-      title: "보증금 할부 되나영",
-      content: "",
-      commentCount: 3,
-    },
-    {
-      author: "dy6578",
-      title: "자취하면 보통 식비 얼마나오나여",
-      content: "자취는 처음이라 식비가 감이 안와요ㅠ",
-      commentCount: 20,
-    },
-  ];
-
   const [filter, setFilter] = useState("챗쪽이");
 
   const [btnsArr, setBtnArr] = useState([
@@ -82,9 +37,35 @@ const List = () => {
     { text: "금쪽이", active: false },
   ]);
 
+  /** detail 페이지로 이동 */
+  const _handleClicktoDetail = (category: string, id: number) => {
+    if (category === "금쪽이") {
+      naviate(`/question/gold/${id}`);
+    } else {
+      // 챗쪽이
+      naviate(`/question/chat/${id}`);
+    }
+  };
+
+  /** 모든 금쪽이 포스트 가져오기  */
+  const _handleGetAllGoldPosts = async () => {
+    const res = await GetAllGoldPosts(cookies.refreshToken, onCookie);
+    setGoldQuestions(res.data);
+    console.log(res);
+  };
+
+  /** 모든 챗쪽이 포스트 가져오기  */
+  const _handleGetAllChatPosts = async () => {
+    const res = await GetAllChatPosts(cookies.refreshToken, onCookie);
+    setChatQuestions(res.data);
+    console.log(res);
+  };
+
+  const [goldQuestions, setGoldQuestions] = useState<GoldQuestionType[]>();
+  const [chatQuestions, setChatQuestions] = useState<ChatQuestionType[]>();
+
   const ToggleBtn = (text: string) => {
     setFilter(text); // 필터링
-
     setBtnArr(
       btnsArr.map((b) =>
         b.text == text ? { ...b, active: true } : { ...b, active: false }
@@ -93,7 +74,8 @@ const List = () => {
   };
 
   useEffect(() => {
-    _handleGetAllGoldPosts();
+    _handleGetAllGoldPosts(); // 포스트 금쪽이 리스트 가져오기
+    _handleGetAllChatPosts(); // 챗쪽이 리스트
   }, []);
 
   return (
@@ -117,15 +99,29 @@ const List = () => {
         </BtnContainer>
 
         <div>
-          {questions.map((question) => {
+          {goldQuestions?.map((question) => {
+            if (filter === "금쪽이") {
+              return (
+                <GoldQuestionBox
+                  question={question}
+                  onClick={() =>
+                    _handleClicktoDetail("금쪽이", question.postId)
+                  }
+                />
+              );
+            }
+          })}
+
+          {chatQuestions?.map((question) => {
             if (filter === "챗쪽이") {
-              if (question.author === "챗쪽이") {
-                return <QuestionBox question={question} />;
-              }
-            } else {
-              if (question.author !== "챗쪽이") {
-                return <QuestionBox question={question} />;
-              }
+              return (
+                <ChatQuestionBox
+                  question={question}
+                  onClick={() =>
+                    _handleClicktoDetail("챗쪽이", question.questionId)
+                  }
+                />
+              );
             }
           })}
         </div>
