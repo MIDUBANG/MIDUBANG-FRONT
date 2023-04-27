@@ -9,7 +9,7 @@ import { useCookies } from "react-cookie";
 
 //component
 import MainNavBar from "@components/NavBar/MainNavBar";
-import QuestionBox from "@components/Question/QuestionBox";
+import QuestionBox from "@components/Question/GoldQuestionBox";
 import SimpleNavBar from "@components/NavBar/SimpleNavBar";
 // asset
 import dino1 from "@assets/question/dino1.png";
@@ -18,6 +18,7 @@ import profile from "@assets/question/user.png";
 import send from "@assets/question/send.png";
 // api
 import { PostGoldPost } from "@api/community";
+
 const Create = () => {
   const [cookies, setCookie, removeCookie] = useCookies(["refreshToken"]);
   const onCookie = (res: any) => {
@@ -30,6 +31,7 @@ const Create = () => {
 
   const textRef = useRef<HTMLTextAreaElement>(null);
 
+  // 텍스트 박스 높이 조절
   const handleResizeHeight = useCallback(() => {
     if (textRef.current) {
       // null일때는 실행안되게 오류 수정
@@ -42,6 +44,7 @@ const Create = () => {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
 
+  /** 금쪽이 글 작성하기  */
   const _handlePostGoldPost = async () => {
     let question = title;
     let detail = content;
@@ -53,7 +56,7 @@ const Create = () => {
       onCookie
     );
 
-    naviate(`/question/detail/${res.id}`);
+    naviate(`/question/gold/${res.id}`);
 
     console.log(res);
   };
