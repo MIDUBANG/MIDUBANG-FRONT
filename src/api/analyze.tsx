@@ -159,6 +159,8 @@ export const GetAnalyzeList = async (
     const res = await client.get("analysis/list");
     console.log("분석 불러오기 성공", res);
 
+    return res;
+
     if (res.data.noRecord === true) {
       return false; //분석 없음
     } else {
@@ -184,8 +186,9 @@ export const GetAnalyze = async (
   cookie: (res: any) => void
 ): Promise<any> => {
   try {
-    const res = await client.get(`analysis?record_id=${record_id}`);
-    console.log("성공", res);
+    console.log("api 내부 try 실행");
+    const res = await client.get(`analysis?recordId=${record_id}`);
+    console.log("성공 >>>> ", res);
     return res.data;
   } catch (err: any) {
     console.log("에러", err);
@@ -204,13 +207,13 @@ export const GetAnalyze = async (
 
 // 분석 삭제
 export const DeleteAnalyze = async (
-  record_id: number,
+  recordId: number,
   refreshToken: string,
   cookie: (res: any) => void
 ) => {
   try {
-    const res = await client.delete(`analysis?record_id=${record_id}`);
-    console.log(res);
+    const res = await client.delete(`analysis?recordId=${recordId}`);
+    console.log("분석 삭제", res);
   } catch (err: any) {
     console.log(err);
 
