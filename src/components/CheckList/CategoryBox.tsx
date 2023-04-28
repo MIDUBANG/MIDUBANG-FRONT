@@ -12,6 +12,7 @@ type Props = {
   path: string;
   arrow: string;
   emoji: string;
+  count: number;
 };
 const CategoryBox = ({
   backgroundColor,
@@ -20,6 +21,7 @@ const CategoryBox = ({
   path,
   arrow,
   emoji,
+  count,
 }: Props) => {
   const navigate = useNavigate();
 
@@ -32,7 +34,7 @@ const CategoryBox = ({
       <img src={emoji} width={29} height={29} />
       <Title pointColor={pointColor}>{title}</Title>
       <div className="flexbox">
-        <Checklist pointColor={pointColor}>17 checklists</Checklist>
+        <Checklist pointColor={pointColor}>{count} checklists</Checklist>
 
         <img src={arrow} width={36} height={11} />
       </div>
