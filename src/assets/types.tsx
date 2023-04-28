@@ -18,7 +18,7 @@ export type PropsContracts = {
 };
 
 export type resultsType = {
-  record_id: number;
+  recordId: number;
   is_expensive: boolean;
   commission: number;
   answer_commission: number;
@@ -28,7 +28,7 @@ export type resultsType = {
 };
 
 export type CasesType = {
-  case_id: number;
+  caseId: number;
   case_detail: string;
   desc: string;
   caseType: string;
