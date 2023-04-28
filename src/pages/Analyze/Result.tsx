@@ -89,7 +89,7 @@ const Result = () => {
   const _clickSummaryBtn = async () => {
     dispatch(
       setReportId({
-        reportId: results?.record_id,
+        reportId: results?.recordId,
       })
     );
     navigate("/summary");
@@ -128,7 +128,7 @@ const Result = () => {
         {cases.map((c) => {
           return (
             <ResultBox
-              key={c.case_id}
+              key={c.caseId}
               caseData={c}
               wordData={words}
               openWordModal={openWordModal}

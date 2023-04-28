@@ -105,7 +105,7 @@ const SavedWordList = () => {
             </Buttons>
           </div>
 
-          <img src={wordbook} width={160} height={137} />
+          <img src={wordbook} />
         </Banner>
 
         <CountText>
@@ -152,6 +152,10 @@ const Banner = styled.div`
   width: 100%;
 
   margin-bottom: 35px;
+
+  img {
+    width: 140px;
+  }
 `;
 
 const Title = styled.p`
