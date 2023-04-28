@@ -5,7 +5,7 @@ import readmore from "@assets/result/readmore.svg";
 import { CasesType, WordsType } from "@assets/types";
 import CaseTypeDesc from "@components/Result/CaseTypeDesc";
 import mark from "@assets/result/mark.svg";
-import bookmark from "@assets/result/bookmark.svg";
+import bookmark from "@assets/result/bookmark.png";
 import ballon from "@assets/result/ballon.png";
 import ballontemp from "@assets/result/ballontemp.png";
 
@@ -24,7 +24,7 @@ const ResultBox = ({ caseData, wordData, openWordModal }: Props) => {
     caseType,
     case_detail,
     case_exists,
-    case_id,
+    caseId,
     desc,
     article_url,
     word_ref,
@@ -157,8 +157,8 @@ const ResultBox = ({ caseData, wordData, openWordModal }: Props) => {
       {!case_exists && (
         <BookMarkBox onClick={_handleOpneBallon}>
           <BookMark>
-            <img src={bookmark} />
-            <img src={mark} className="mark" />
+            <img src={bookmark} className="bookmark" />
+            {/* <img src={mark} className="mark" /> */}
           </BookMark>
         </BookMarkBox>
       )}
@@ -226,13 +226,13 @@ const ResultBox = ({ caseData, wordData, openWordModal }: Props) => {
         <div className="word-toggle">
           <input
             type="checkbox"
-            id={case_id.toString()}
+            id={caseId.toString()}
             className="toggle"
             hidden
             onChange={(e) => _handleHighlighter(e)}
           />
 
-          <label htmlFor={case_id.toString()} className="toggleSwitch">
+          <label htmlFor={caseId.toString()} className="toggleSwitch">
             <p className="word">단어</p>
             <span className="toggleButton"></span>
           </label>
@@ -290,9 +290,9 @@ const BookMark = styled.div`
   width: 28px;
   height: 40px;
 
-  .mark {
-    width: 17px;
-    height: 17px;
+  .bookmark {
+    width: 35x;
+    height: 40px;
 
     position: absolute;
 
