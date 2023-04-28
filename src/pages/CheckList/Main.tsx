@@ -26,8 +26,10 @@ const Main = () => {
 
   const [doneDount, setDoneCount] = useState(0);
 
+  /** 완료한 개수 */
   const _handleGetAllCheckCount = async () => {
     const res = await GetAllCheckCount(cookies.refreshToken, onCookie);
+    setDoneCount(res.count);
     console.log(res);
   };
 
@@ -53,7 +55,7 @@ const Main = () => {
           <img src={check} width={43} height={43} />
           <div className="percent">
             <p className="percent-text">
-              {(doneDount / 62) * 100}% <span>완료 </span>
+              {parseInt(((doneDount / 62) * 100).toString())}%<span>완료 </span>
             </p>
             <ProgressBar percent={(doneDount / 62) * 100}>
               <div className="done-bar"></div>
@@ -69,6 +71,7 @@ const Main = () => {
             path={c.path}
             arrow={c.arrow}
             emoji={c.emoji}
+            count={c.count}
           />
         ))}
       </Container>

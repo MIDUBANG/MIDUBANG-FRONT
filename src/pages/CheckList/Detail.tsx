@@ -19,8 +19,13 @@ import {
   UnToggleAllChecklist,
 } from "@api/checklist";
 
+import { checkCategoryData } from "@assets/checkCategoryData";
+
 const Main = () => {
   const { id } = useParams();
+  const categoryId = parseInt(id || "0") - 1;
+  const categoryTitle = checkCategoryData[categoryId].title;
+  const categorySubTitle = checkCategoryData[categoryId].subTitle;
 
   const [cookies, setCookie, removeCookie] = useCookies(["refreshToken"]);
 
@@ -126,8 +131,8 @@ const Main = () => {
       <MainNavBar text="자취 A-Z 체크리스트" />
       <Banner>
         <img src={house} width={82} height={82} />
-        <p className="title">사전 체크</p>
-        <p className="sub-title">독립의 시작</p>
+        <p className="title">{categoryTitle}</p>
+        <p className="sub-title">{categorySubTitle}</p>
       </Banner>
 
       <Container>
