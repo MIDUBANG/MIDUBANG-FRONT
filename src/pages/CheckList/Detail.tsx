@@ -16,6 +16,7 @@ import {
   GetChecklist,
   ToggleChecklist,
   UnToggleChecklist,
+  UnToggleAllChecklist,
 } from "@api/checklist";
 
 const Main = () => {
@@ -99,21 +100,20 @@ const Main = () => {
   const _handleUnToggleChecklist = async (id: number) => {
     await UnToggleChecklist(id, cookies.refreshToken, onCookie);
 
-    setChecklistData(
-      checklistData.map((c) =>
-        c.checklistId === id ? { ...c, checked: false } : c
-      )
-    );
+    // setChecklistData(
+    //   checklistData.map((c) =>
+    //     c.checklistId === id ? { ...c, checked: false } : c
+    //   )
+    // );
 
     setRes(req + 1);
   };
 
   /** 토글 전체 취소  */
   const _handleUnToggleAllChecklist = async () => {
-    // 전체에 대해 api 호출
-    checklistData.map((c) => {
-      _handleUnToggleChecklist(c.checklistId);
-    });
+    let categoryId = parseInt(id || "0");
+    await UnToggleAllChecklist(categoryId, cookies.refreshToken, onCookie);
+    setRes(req + 1);
   };
 
   useEffect(() => {

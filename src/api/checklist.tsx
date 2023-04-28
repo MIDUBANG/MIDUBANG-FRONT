@@ -102,3 +102,24 @@ export const UnToggleChecklist = async (
     }
   }
 };
+
+// 토글 전체 취소
+export const UnToggleAllChecklist = async (
+  categoryId: number,
+  refreshToken: string,
+  cookie: (res: any) => void
+): Promise<any> => {
+  try {
+    const res = await client.delete(`checklist/category/${categoryId}`);
+
+    return res.data;
+  } catch (err: any) {
+    if (err.response.data.message === "expired token") {
+      alert("토큰 만료");
+      RefreshApi(refreshToken, cookie);
+    } else if (err.response.data.message === "empty token") {
+      alert("빈 토큰");
+      RefreshApi(refreshToken, cookie);
+    }
+  }
+};
