@@ -25,7 +25,6 @@ const KakoLoginPage = loadable(() => import("@pages/Auth/KakaoLogin"));
 const AnalyzeListPage = loadable(
   () => import("@pages/User/Analyze/AnalyzeList")
 );
-const AnalyzePage = loadable(() => import("@pages/User/Analyze/Analyze"));
 
 const HousePage = loadable(() => import("@pages/House/House"));
 const TextPage = loadable(() => import("@pages/Text/Text"));
@@ -45,24 +44,21 @@ const App: React.FC = () => {
       <Route path="/checklist/*" element={<CheckListRoutes />} />
       {/* 단어 관련 */}
       <Route path="/word/*" element={<WordRoutes />} />
-
       {/* 유저 관련 */}
       <Route path="/my/*" element={<UserRoutes />} />
 
+      {/* 로그인 관련 */}
       <Route path="/signup" element={<SignupPage />} />
       <Route path="/login" element={<LoginPage />} />
       <Route path="/KakaoLogin" element={<KakoLoginPage />} />
 
+      {/* 특약 기능 */}
       <Route path="/upload" element={<UploadPage />} />
       <Route path="/feedback" element={<FeedbackPage />} />
       <Route path="/result" element={<ResultPage />} />
       <Route path="/summary" element={<SummaryPage />} />
 
-      <Route path="/house" element={<HousePage />} />
-
-      <Route path="/analyzelist" element={<AnalyzeListPage />} />
-      <Route path="/analyze/:id" element={<AnalyzePage />} />
-
+      {/* 문자마법사 */}
       <Route path="/text" element={<TextPage />} />
     </Routes>
   );
