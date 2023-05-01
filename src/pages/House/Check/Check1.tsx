@@ -64,7 +64,7 @@ const Check1 = () => {
 
   return (
     <Div>
-      <SimpleNavBar text="등기부등본 마스터" direction="up" />
+      <SimpleNavBar text="등기부등본 마스터" />
 
       <Container>
         <Title margin="0">표제부 - CHECKPOINT</Title>
@@ -97,10 +97,6 @@ const Div = styled.div`
   width: 100%;
   height: 100%;
   padding-top: 75px;
-
-  img {
-    margin-top: 10px;
-  }
 `;
 
 const Container = styled.div`
@@ -120,15 +116,6 @@ const Title = styled.p<{ margin: string }>`
   line-height: 29px;
   color: #000000;
   margin: ${(props) => props.margin};
-`;
-
-const ExImgText = styled.p`
-  font-family: "Noto Sans KR";
-  font-style: normal;
-  font-weight: 350;
-  font-size: 14px;
-  line-height: 20px;
-  color: #3d3d3d;
 `;
 
 const DesText = styled.p`

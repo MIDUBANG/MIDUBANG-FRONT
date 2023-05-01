@@ -28,7 +28,7 @@ const SimpleNavBar = ({ text }: SimpleNavBarProps) => {
   return (
     <BarDiv>
       <div className={scrollDirection === "up" ? "nav active" : "nav unactive"}>
-        <img src={logo} className="mini-logo" width={34} height={34} />
+        <img src={logo} className="mini-logo" />
         <p className="title">{text}</p>
         <img src={CancleLogo} className="cancle-logo" onClick={_clickBackBtn} />
       </div>
@@ -85,6 +85,7 @@ const BarDiv = styled.div`
 
   .mini-logo {
     margin-left: 20px;
+    width: 34px;
   }
 
   .cancle-logo {

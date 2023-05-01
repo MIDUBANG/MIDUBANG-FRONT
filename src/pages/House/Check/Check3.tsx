@@ -87,10 +87,6 @@ export default Check3;
 const Div = styled.div`
   width: 100%;
   height: 100%;
-
-  img {
-    margin-top: 10px;
-  }
 `;
 
 const Container = styled.div`
