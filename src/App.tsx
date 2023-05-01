@@ -11,20 +11,13 @@ import QuestionRoutes from "@route/QuestionRoutes";
 import CheckListRoutes from "@route/CheckListRoutes";
 import WordRoutes from "@route/WordRoutes";
 import UserRoutes from "@route/UserRoutes";
-const HomePage = loadable(() => import("@pages/Main/Home"));
+import AnalyzeRoutes from "@route/AnalyzeRoutes";
 
-const UploadPage = loadable(() => import("@pages/Analyze/Upload"));
-const ResultPage = loadable(() => import("@pages/Analyze/Result"));
-const FeedbackPage = loadable(() => import("@pages/Analyze/Feedback"));
-const SummaryPage = loadable(() => import("@pages/Analyze/Summary"));
+const HomePage = loadable(() => import("@pages/Main/Home"));
 
 const SignupPage = loadable(() => import("@pages/Auth/Signup"));
 const LoginPage = loadable(() => import("@pages/Auth/Login"));
 const KakoLoginPage = loadable(() => import("@pages/Auth/KakaoLogin"));
-
-const AnalyzeListPage = loadable(
-  () => import("@pages/User/Analyze/AnalyzeList")
-);
 
 const HousePage = loadable(() => import("@pages/House/House"));
 const TextPage = loadable(() => import("@pages/Text/Text"));
@@ -46,17 +39,13 @@ const App: React.FC = () => {
       <Route path="/word/*" element={<WordRoutes />} />
       {/* 유저 관련 */}
       <Route path="/my/*" element={<UserRoutes />} />
+      {/* 특약 기능 */}
+      <Route path="/analyze/*" element={<AnalyzeRoutes />} />
 
       {/* 로그인 관련 */}
       <Route path="/signup" element={<SignupPage />} />
       <Route path="/login" element={<LoginPage />} />
       <Route path="/KakaoLogin" element={<KakoLoginPage />} />
-
-      {/* 특약 기능 */}
-      <Route path="/upload" element={<UploadPage />} />
-      <Route path="/feedback" element={<FeedbackPage />} />
-      <Route path="/result" element={<ResultPage />} />
-      <Route path="/summary" element={<SummaryPage />} />
 
       {/* 문자마법사 */}
       <Route path="/text" element={<TextPage />} />

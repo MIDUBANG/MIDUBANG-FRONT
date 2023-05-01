@@ -9,7 +9,7 @@ import arrowwhite from "@assets/main/arrowwhite.png";
 const FeatureCard2 = () => {
   const navigate = useNavigate();
   return (
-    <CardDiv onClick={() => navigate("/house")}>
+    <CardDiv onClick={() => navigate("/analyze/upload")}>
       <Number>2</Number>
 
       <div className="content">

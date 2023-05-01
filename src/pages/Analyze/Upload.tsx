@@ -94,12 +94,18 @@ const Upload = () => {
     if (imgUrl != "" && result.length != 0) navigate("/feedback");
   }, [imgUrl, result]);
 
+  SwiperCore.use([Pagination]);
+
   return (
     <Div>
-      <SimpleNavBar text="레포트" />
+      <SimpleNavBar text="임대차계약서 특약 분석" />
 
       {!upload ? (
-        <Swiper pagination={{ clickable: true }} className="mySwiper">
+        <Swiper
+          pagination={{ clickable: true }}
+          //modules={[Pagination]}
+          className="mySwiper"
+        >
           <SwiperSlide>
             <First />
           </SwiperSlide>
@@ -185,7 +191,7 @@ const Div = styled.div`
 
   .mySwiper {
     width: auto;
-    height: 90%;
+    height: 100%;
   }
 
   .swiper-pagination {

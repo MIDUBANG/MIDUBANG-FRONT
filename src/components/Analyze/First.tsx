@@ -5,23 +5,29 @@ import book from "@assets/icon/book.png";
 import people from "@assets/icon/people.png";
 import money from "@assets/icon/money.png";
 
+import illustration from "@assets/analyze/upload/first/illustration.png";
+
 const First = () => {
   return (
     <Div>
-      <Illustration src={logoPerson} />
-      <FontBig margin="23px auto 0 auto">믿어방 AI 매니저</FontBig>
+      <Illustration src={illustration} />
+      <Title margin="67px 0 0 0">믿어방 AI 매니저</Title>
 
-      <FontGray margin="8px auto 0 auto">
+      <SmallText margin="6px 0 0 0">
         믿어방 AI 매니저를 이용해
         <br /> 주거 관련 문서를 분석해보세요.
-      </FontGray>
+      </SmallText>
 
-      <FontMiddle margin="79px auto 0 auto">믿어방 AI 제공 모델</FontMiddle>
-      <FontGray margin="8px auto 0 auto">
-        다음 세가지 문서를 분석 할 수 있습니다.
-      </FontGray>
+      <Title margin="79px 0 0 0">제공 해설</Title>
+      <SmallText margin="9px 0 0 0">다음 세가지 분석 할 수 있습니다.</SmallText>
 
-      <IconDiv>
+      <p>법적 효력이 없는 특약</p>
+      <p>꼭 필요한 특약</p>
+      <p>주의해아하는 특약</p>
+
+      <p>복비 계산</p>
+
+      {/* <IconDiv>
         <Icon>
           <img src={book} />
           <p>
@@ -44,7 +50,7 @@ const First = () => {
             을구
           </p>
         </Icon>
-      </IconDiv>
+      </IconDiv> */}
     </Div>
   );
 };
@@ -55,10 +61,36 @@ const Div = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
+
+  padding-top: 69px;
 `;
 
 const Illustration = styled.img`
-  margin: 50px auto 0 auto;
+  width: 198px;
+  margin: 35px auto 0 auto;
+  transform: translate(-11px, 0);
+`;
+
+const Title = styled.p<{ margin: string }>`
+  font-family: "Noto Sans KR";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 29px;
+  text-align: center;
+  color: #000000;
+  margin: ${(props) => props.margin};
+`;
+
+const SmallText = styled.p<{ margin: string }>`
+  font-family: "Noto Sans KR";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 19px;
+  text-align: center;
+  color: #7d7d7d;
+  margin: ${(props) => props.margin};
 `;
 
 const IconDiv = styled.div`
