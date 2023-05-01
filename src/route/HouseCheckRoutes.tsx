@@ -3,7 +3,7 @@ import { Routes, Route } from "react-router-dom";
 
 import Check1 from "@pages/House/Check/Check1";
 import Check2 from "@pages/House/Check/Check2";
-import Check3 from "@pages/House/Check/Check";
+import Check3 from "@pages/House/Check/Check3";
 const CheckRoutes = () => {
   return (
     <Routes>

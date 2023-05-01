@@ -16,11 +16,17 @@ const House = () => {
   const navigate = useNavigate();
 
   const [houseData, setHouseData] = useState(HouseData);
-  let percentage = 100;
+  const [percentage, setPercentage] = useState(0);
+  const [complete, setComplete] = useState(0);
 
   const _getRecordCompletion = () => {
     let rate: any = localStorage.getItem("houseCompleteRate");
     rate = JSON.parse(rate);
+
+    setComplete(rate.length);
+
+    let prePercentage = parseInt(((rate.length / 14) * 100).toString());
+    setPercentage(prePercentage);
 
     console.log("rate >> ", rate);
 
@@ -59,8 +65,8 @@ const House = () => {
 
         <Progress>
           <CircularProgressbar
-            value={50}
-            text={`50%`}
+            value={percentage}
+            text={`${percentage}%`}
             strokeWidth={5}
             styles={buildStyles({
               pathColor: `rgba(72, 128, 238, ${percentage / 100})`,
@@ -72,16 +78,16 @@ const House = () => {
 
         <Numbers>
           <div>
-            <p>2</p>
+            <p>{complete}</p>
             <p>완료</p>
           </div>
           <div>
-            <p>2</p>
-            <p>완료</p>
+            <p>{14 - complete}</p>
+            <p>미완료</p>
           </div>
         </Numbers>
 
-        <Des>등기부등본을 마스터해봅시다! </Des>
+        <Des>등기부등본을 마스터해봅시다 </Des>
 
         {houseData.map((con) => {
           let menus = con.contents.map((ccon) => (
