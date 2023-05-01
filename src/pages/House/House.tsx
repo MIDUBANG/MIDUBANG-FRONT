@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import styled from "@emotion/styled";
 import { Navigator, useNavigate } from "react-router-dom";
 import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
-import "react-circular-progressbar/dist/styles.css";
+//import "react-circular-progressbar/dist/styles.css";
 //component
 import SimpleNavBar from "@components/NavBar/SimpleNavBar";
 // asset
@@ -22,12 +22,17 @@ const House = () => {
     let rate: any = localStorage.getItem("houseCompleteRate");
     rate = JSON.parse(rate);
 
-    rate.map((r: any) => _ClickComplete(r[0], r[1]));
+    console.log("rate >> ", rate);
 
-    console.log(houseData);
+    if (rate) {
+      rate.map((r: any) => _UpdateCompleteRate(r[0], r[1]));
+    } else {
+      let initialRate: any = [];
+      localStorage.setItem("houseCompleteRate", JSON.stringify(initialRate));
+    }
   };
 
-  const _ClickComplete = (id: number, subId: number) => {
+  const _UpdateCompleteRate = (id: number, subId: number) => {
     let menu = houseData[id - 1];
     let contents = menu.contents;
     contents[subId - 1].complete = true;
