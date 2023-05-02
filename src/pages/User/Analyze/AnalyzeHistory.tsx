@@ -16,8 +16,12 @@ import { setReportId } from "@store/summarySlice";
 import { resultsType, CasesType, WordsType } from "@assets/types";
 import temp from "@assets/result/temp.png";
 import CommissionBox from "@components/Result/CommissionBox";
+import whiteArrow from "@assets/analyze/result/whiteArrow.png";
+import removeIcon from "@assets/analyze/result/removeIcon.png";
 
 const AnalyzeHistory = () => {
+  const dispatch = useAppDispatch();
+
   const [results, setResults] = useState<resultsType>();
   const [cases, setCases] = useState<CasesType[]>([]);
   const [words, setWords] = useState<WordsType[]>([]);
@@ -77,20 +81,22 @@ const AnalyzeHistory = () => {
   const [customDirection, setCustomDirecton] = useState("up");
 
   const navigate = useNavigate();
-  // const _clickSummaryBtn = async () => {
-  //   dispatch(
-  //     setReportId({
-  //       reportId: results?.recordId,
-  //     })
-  //   );
-  //   navigate("/summary");
-  // };
+
+  const _clickSummaryBtn = async () => {
+    dispatch(
+      setReportId({
+        reportId: results?.recordId,
+      })
+    );
+    navigate("/summary");
+  };
 
   useEffect(() => {
     console.log("useEffect 실행");
     _handleGetAnalyze();
   }, []);
 
+  /** 레포트 삭제 */
   const _handleClickDelete = async () => {
     const reportId = parseInt(id || "0");
 
@@ -115,7 +121,6 @@ const AnalyzeHistory = () => {
         <Title>
           <div></div>
           <p> 특약 조항 분석 레포트</p>
-          <button onClick={_handleClickDelete}>삭제</button>
         </Title>
         {/* <Date>{results?.record_date.replaceAll("-", ". ")} 분석</Date> */}
         <Date>{results?.record_date} 분석</Date>
@@ -125,7 +130,14 @@ const AnalyzeHistory = () => {
           <div>{contractType}</div>
         </ImgBox>
 
-        {/* <div onClick={_clickSummaryBtn}>레포트 요약 보기</div> */}
+        <BtnBox>
+          <RemoveBtn onClick={_handleClickDelete}>
+            삭제하기 <img src={removeIcon} />
+          </RemoveBtn>
+          <SummaryBtn onClick={_clickSummaryBtn}>
+            요약 확인하기 <img src={whiteArrow} />
+          </SummaryBtn>
+        </BtnBox>
 
         <CommissionBox
           answer_commission={results?.answer_commission}
@@ -220,4 +232,57 @@ const ImgBox = styled.div`
 
 const ContractImg = styled.img`
   width: 100%;
+`;
+
+const BtnBox = styled.div`
+  display: flex;
+  justify-content: start;
+  align-items: center;
+
+  margin: 32px 0 0 19px;
+`;
+
+const RemoveBtn = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  width: 107px;
+  height: 37px;
+  background: #ff7575;
+  border-radius: 4px;
+
+  font-family: "Noto Sans";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  color: #ffffff;
+
+  img {
+    width: 9px;
+    margin-left: 5px;
+  }
+`;
+
+const SummaryBtn = styled.div`
+  margin-left: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  width: 119px;
+  height: 37px;
+  background: linear-gradient(94.02deg, #4880ee 5.7%, #b093ee 100%);
+  border-radius: 4px;
+
+  font-family: "Noto Sans";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  color: #ffffff;
+
+  img {
+    width: 5px;
+    margin-left: 5px;
+  }
 `;

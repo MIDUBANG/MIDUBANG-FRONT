@@ -43,20 +43,13 @@ const Summary = () => {
 
   const [loading, setLoading] = useState(true);
 
-  const [customDirection, setCustomDirecton] = useState("up");
-
-  const test = [
-    "특약에 관련 내용을 넣었고, 주변 전·월세 시세가 단기간에 아무리 급등했어도 집주인이 맘대로 올릴 수 없습니다.",
-    "임차인은 전월세계약 종료 2개월전까지 임대인에게 갱신청구권을 행사할 수 있습니다. 이때는 임대인은 이를 거절할 수 없고, ",
-    "세입자가 2달치 이상의 월세를 연체한 경우 계약 해지를 통보할 수는 있지만, 세입자의 짐을 함부로 처분하거나 세입자를 강제로 집에서 내 보낼 수 없습니다.",
-  ];
-
   let INVALID: any[] = [];
   let VALID_MUST: any[] = [];
   let VALID_WARNING: any[] = [];
 
+  /** 요약 요청 보내기  */
   const _requestSummary = async () => {
-    const records = await GetAnalyze(reportId, cookies.refreshToken, onCookie); //records중 case만?
+    const records = await GetAnalyze(7, cookies.refreshToken, onCookie); //records중 case만
 
     // 케이스 별로 구별
     records.myCaseDto.map((r: any) => {
@@ -82,12 +75,12 @@ const Summary = () => {
       }
     });
 
-    // DESC 만 뽑고
+    // DESC (설명) 만 뽑고
     let temp1 = INVALID.map((re: any) => re.desc);
     let temp2 = VALID_MUST.map((re: any) => re.desc);
     let temp3 = VALID_WARNING.map((re: any) => re.desc);
 
-    // 요약
+    // 요약 요청 보내기
     let res1 = await SummarizeReport(temp1);
     let res2 = await SummarizeReport(temp2);
     let res3 = await SummarizeReport(temp3);
@@ -130,44 +123,63 @@ const Summary = () => {
   return (
     <Div>
       <Container>
-        <SimpleNavBar text="레포트 세 줄 요약" direction={customDirection} />
+        <SimpleNavBar text="레포트 요약" />
 
         {loading ? (
           <p>로딩 중 ...</p>
         ) : (
           <div>
-            {INVALID2.map((i: any) => (
+            <ReportTitle>레포트 요약 결과</ReportTitle>
+            {!!INVALID2 && (
               <Block>
                 <Contract caseTypeColor="#EF5353">
                   <div></div>
                   <p>법적 효력이 없는 특약 </p>
                 </Contract>
-                <Title>1. {i.case_detail}</Title>
-                <Des>{i.summary}</Des>
+                {INVALID2.map((c: any, i: number) => (
+                  <>
+                    <Title>
+                      {i + 1}. {c.case_detail}
+                    </Title>
+                    <Des>{c.summary}</Des>
+                  </>
+                ))}
               </Block>
-            ))}
+            )}
 
-            {VALID_MUST2.map((i: any) => (
+            {!!VALID_MUST2.length && (
               <Block>
                 <Contract caseTypeColor="#9CDB75">
                   <div></div>
                   <p>필수 특약 </p>
                 </Contract>
-                <Title>1. {i.case_detail}</Title>
-                <Des>{i.summary}</Des>
+                {VALID_MUST2.map((c: any, i: number) => (
+                  <>
+                    <Title>
+                      {i + 1}. {c.case_detail}
+                    </Title>
+                    <Des>{c.summary}</Des>
+                  </>
+                ))}
               </Block>
-            ))}
+            )}
 
-            {VALID_WARNING2.map((i: any) => (
+            {!!VALID_WARNING2.length && (
               <Block>
                 <Contract caseTypeColor="#FBB03B">
                   <div></div>
                   <p>미리 알아둬야 할 특약 </p>
                 </Contract>
-                <Title>1. {i.case_detail}</Title>
-                <Des>{i.summary}</Des>
+                {VALID_WARNING2?.map((c: any, i: number) => (
+                  <>
+                    <Title>
+                      {i + 1}. {c.case_detail}
+                    </Title>
+                    <Des>{c.summary}</Des>
+                  </>
+                ))}
               </Block>
-            ))}
+            )}
           </div>
         )}
       </Container>
@@ -222,6 +234,17 @@ const Contract = styled.div<{ caseTypeColor: string }>`
   }
 `;
 
+const ReportTitle = styled.p`
+  font-family: "Noto Sans KR";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 24px;
+  line-height: 35px;
+
+  text-align: center;
+
+  color: #000000;
+`;
 const Title = styled.div`
   margin: 26px 21px 0px 21px;
 

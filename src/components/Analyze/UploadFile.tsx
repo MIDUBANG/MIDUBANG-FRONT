@@ -90,27 +90,21 @@ const UploadFile = ({ setUpload, setImgUrl, setResult }: UploadFileProps) => {
     setUpload(true);
 
     // 유저 아이디 요청
-    const { member_id } = await GetUserInfo(cookies.refreshToken, onCookie);
+    const { memberId } = await GetUserInfo(cookies.refreshToken, onCookie);
 
-    console.log("member_id", member_id);
+    console.log("member_id", memberId);
 
-    // 이미지 업로드 -> 오류나면 어찌되는겨??
+    console.log("ocr 요청.... ");
 
-    const { imgUrl, resultArray } = await PostContractImg(
-      member_id,
-      uploadfile,
-      cookies.refreshToken,
-      onCookie
-    );
+    const res = await PostContractImg(memberId, uploadfile);
 
-    // url과 분석 결과 상위로 전달 -> 상태관리 필요
-    setImgUrl(imgUrl);
-    setResult(resultArray);
+    console.log("결과>>", res);
 
-    // setTimeout(() => {
-    //   // 피드백 페이지 이동
-    //   navigate("/feedback");
-    // }, 1000);
+    //url과 분석 결과 상위로 전달 -> 상태관리 필요
+    const { s3_url, text } = res;
+    setImgUrl(s3_url);
+    //setImgUrl(imgUrl);
+    setResult(text);
   };
 
   return (

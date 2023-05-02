@@ -3,13 +3,18 @@ import { PURGE } from "redux-persist";
 
 const name = "resultSlice";
 
+type inclusion = {
+  caseNo: number;
+  rawCase: string;
+};
+
 type stateType = {
   contract_type: string;
   image_url: string;
   commission: number;
   answer_commission: number;
   is_expensive: boolean;
-  inclusions: number[];
+  inclusions: inclusion[];
   omissions: number[];
 };
 

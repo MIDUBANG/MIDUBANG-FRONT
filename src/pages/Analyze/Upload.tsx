@@ -62,13 +62,13 @@ const Upload = () => {
     // Contract type (전세, 월세, 반전세)
     dispatch(setContractType({ contract_type: extraInfo.monthly }));
 
-    // if (extraInfo.monthly === true) {
-    //   dispatch(setContractType({ contract_type: "MONTHLY_RENT" }));
-    // } else if (extraInfo.monthly === false) {
-    //   dispatch(setContractType({ contract_type: "JEONSE" }));
-    // } else {
-    //   dispatch(setContractType({ contract_type: "HALF_JEONSE" }));
-    // }
+    if (extraInfo.monthly === "MONTHLY_RENT") {
+      dispatch(setContractType({ contract_type: "MONTHLY_RENT" }));
+    } else if (extraInfo.monthly === "JEONSE") {
+      dispatch(setContractType({ contract_type: "JEONSE" }));
+    } else {
+      dispatch(setContractType({ contract_type: "HALF_JEONSE" }));
+    }
 
     dispatch(
       setExtraInfo({
@@ -91,7 +91,7 @@ const Upload = () => {
 
     dispatch(setContents({ contents: result }));
 
-    if (imgUrl != "" && result.length != 0) navigate("/feedback");
+    if (imgUrl != "" && result.length != 0) navigate("/analyze/feedback");
   }, [imgUrl, result]);
 
   SwiperCore.use([Pagination]);

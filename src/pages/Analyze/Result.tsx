@@ -8,13 +8,13 @@ import SimpleNavBar from "@components/NavBar/SimpleNavBar";
 import ResultBox from "@components/Result/ResultBox";
 import WordModal from "@components/Modal/WordModal";
 //api
-import { PostAnalyze, SummarizeReport } from "@api/analyze";
+import { PostAnalyze } from "@api/analyze";
 import { RootState } from "@store/store";
 import { useAppSelector, useAppDispatch } from "@store/store";
 import { setReportId } from "@store/summarySlice";
 // asset
 import { resultsType, CasesType, WordsType } from "@assets/types";
-import temp from "@assets/result/temp.png";
+import whiteArrow from "@assets/analyze/result/whiteArrow.png";
 import CommissionBox from "@components/Result/CommissionBox";
 
 const Result = () => {
@@ -28,16 +28,14 @@ const Result = () => {
   const [contractType, setContractType] = useState<string>("");
 
   const _handlePostAnalyze = async () => {
-    // requestData.inclusions,
-    // requestData.omissions,
     const analyzeResult = await PostAnalyze(
       requestData.commission,
       requestData.answer_commission,
       requestData.is_expensive,
       requestData.contract_type,
       requestData.image_url,
-      [0, 1, 2, 3, 4],
-      [2],
+      requestData.inclusions,
+      requestData.omissions,
       cookies.refreshToken,
       onCookie
     );
@@ -86,15 +84,16 @@ const Result = () => {
   const [customDirection, setCustomDirecton] = useState("up");
 
   const navigate = useNavigate();
+
+  /** 요약하기 버튼  */
   const _clickSummaryBtn = async () => {
     dispatch(
       setReportId({
         reportId: results?.recordId,
       })
     );
-    navigate("/summary");
+    navigate("/analyze/summary");
   };
-
   return (
     <Div>
       {modalOpen && (
@@ -114,11 +113,19 @@ const Result = () => {
         </Title>
         <Date>{results?.record_date.replaceAll("-", ". ")} 분석</Date>
         <ImgBox>
-          <ContractImg src={temp} />
-          <div>{contractType}</div>
+          <div className="img-box">
+            <div className="img-shadow-box"></div>
+            <ContractImg src={results?.image_url} />
+          </div>
+          <div className="contract-type-box">{contractType}</div>
         </ImgBox>
 
-        <div onClick={_clickSummaryBtn}>레포트 요약 보기</div>
+        <BtnBox>
+          <HistoryBtn>지난 레포트</HistoryBtn>
+          <SummaryBtn onClick={_clickSummaryBtn}>
+            요약 확인하기 <img src={whiteArrow} />
+          </SummaryBtn>
+        </BtnBox>
 
         <CommissionBox
           answer_commission={results?.answer_commission}
@@ -189,7 +196,29 @@ const Date = styled.div`
 const ImgBox = styled.div`
   position: relative;
 
-  div {
+  .img-box {
+    position: relative;
+    width: 100%;
+    height: 240px;
+    overflow: hidden;
+  }
+
+  .img-shadow-box {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+
+    background: linear-gradient(
+      180deg,
+      rgba(217, 217, 217, 0) 0%,
+      rgba(91, 91, 91, 0.44) 0.01%,
+      rgba(217, 217, 217, 0) 24.48%,
+      rgba(199, 199, 199, 0.0321505) 76.56%,
+      rgba(91, 91, 91, 0.31) 100%
+    );
+  }
+
+  .contract-type-box {
     position: absolute;
 
     display: flex;
@@ -201,7 +230,7 @@ const ImgBox = styled.div`
     width: 94px;
     height: 33px;
     background: #ffffff;
-    border-radius: 0px 11px 0px 0px;
+    border-radius: 0px 15px 0px 0px;
 
     font-family: "Noto Sans KR";
     font-style: normal;
@@ -213,4 +242,52 @@ const ImgBox = styled.div`
 
 const ContractImg = styled.img`
   width: 100%;
+`;
+
+const BtnBox = styled.div`
+  display: flex;
+  justify-content: start;
+  align-items: center;
+
+  margin: 32px 0 0 19px;
+`;
+
+const HistoryBtn = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  width: 107px;
+  height: 37px;
+  background: #83b4f9;
+  border-radius: 4px;
+
+  font-family: "Noto Sans";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  color: #ffffff;
+`;
+
+const SummaryBtn = styled.div`
+  margin-left: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  width: 119px;
+  height: 37px;
+  background: linear-gradient(94.02deg, #4880ee 5.7%, #b093ee 100%);
+  border-radius: 4px;
+
+  font-family: "Noto Sans";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  color: #ffffff;
+
+  img {
+    width: 5px;
+    margin-left: 5px;
+  }
 `;

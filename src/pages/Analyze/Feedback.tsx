@@ -120,6 +120,7 @@ const Feedback = () => {
   };
 
   const _handlePostAnalyze = async () => {
+    console.log("nlp 요청 버튼 클릭");
     // (1) NLP 업로드 -> case 번호 (in, out )
     let valueContents: string[] = [];
 
@@ -139,7 +140,7 @@ const Feedback = () => {
       onCookie
     );
 
-    console.log(nlpresult);
+    console.log("NLP 결과 >>", nlpresult);
 
     dispatch(
       setNlpReult({
@@ -151,7 +152,7 @@ const Feedback = () => {
       })
     );
 
-    navigate("/result");
+    navigate("/analyze/result");
   };
 
   return (
