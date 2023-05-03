@@ -82,13 +82,14 @@ const AnalyzeHistory = () => {
 
   const navigate = useNavigate();
 
+  /** 요약 버튼 */
   const _clickSummaryBtn = async () => {
     dispatch(
       setReportId({
         reportId: results?.recordId,
       })
     );
-    navigate("/summary");
+    navigate("/analyze/summary");
   };
 
   useEffect(() => {
