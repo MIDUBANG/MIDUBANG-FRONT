@@ -85,6 +85,11 @@ const Result = () => {
 
   const navigate = useNavigate();
 
+  /** 레포트 기록 보기 버튼  */
+  const _clickHistoryBtn = async () => {
+    navigate("/my/analyzelist");
+  };
+
   /** 요약하기 버튼  */
   const _clickSummaryBtn = async () => {
     dispatch(
@@ -94,6 +99,7 @@ const Result = () => {
     );
     navigate("/analyze/summary");
   };
+
   return (
     <Div>
       {modalOpen && (
@@ -121,7 +127,7 @@ const Result = () => {
         </ImgBox>
 
         <BtnBox>
-          <HistoryBtn>지난 레포트</HistoryBtn>
+          <HistoryBtn onClick={_clickHistoryBtn}>지난 레포트</HistoryBtn>
           <SummaryBtn onClick={_clickSummaryBtn}>
             요약 확인하기 <img src={whiteArrow} />
           </SummaryBtn>
