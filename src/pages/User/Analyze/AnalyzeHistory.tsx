@@ -42,7 +42,7 @@ const AnalyzeHistory = () => {
     console.log("요청 결과 >>>>>>>>", analyzeResult);
 
     const resultRecord = analyzeResult.record;
-    const resultCase = analyzeResult.myCaseDto;
+    let resultCase = analyzeResult.myCaseDto;
     const resultWord = analyzeResult.simpleWordDtos;
 
     setResults(resultRecord);

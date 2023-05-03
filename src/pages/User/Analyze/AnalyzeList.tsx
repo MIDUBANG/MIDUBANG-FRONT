@@ -19,7 +19,16 @@ const AnalyzeHistory = () => {
   /** 분석 기록 리스트 */
   const _handleGetAnalyzeList = async () => {
     const res = await GetAnalyzeList(cookies.refreshToken, onCookie);
-    setResults(res.data.recordList);
+    let records = [...res.data.recordList];
+
+    records.sort((a, b) => {
+      // 최신순
+      if (a.record_date > b.record_date) return -1;
+      if (a.record_date < b.record_date) return 1;
+      return 0;
+    });
+
+    setResults(records);
   };
 
   const [cookies, setCookie, removeCookie] = useCookies(["refreshToken"]);
