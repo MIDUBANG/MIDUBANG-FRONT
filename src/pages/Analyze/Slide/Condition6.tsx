@@ -36,7 +36,7 @@ const Condition6 = ({ extraInfo, setExtraInfo }: Props) => {
   return (
     <Div>
       <Title>전세 대출이 있으신가요?</Title>
-      <Des>전세 대출</Des>
+      <Des>전세금 마련을 위한 대출이 있다면 예로 답변해주세요.</Des>
 
       <ConditionBtn
         text="예"
@@ -70,13 +70,13 @@ const Title = styled.p`
   font-family: "Noto Sans KR";
   font-style: normal;
   font-weight: 500;
-  font-size: 20px;
+  font-size: 24px;
   line-height: 29px;
 `;
 
 const Des = styled.p`
   margin-top: 19px;
-  margin-bottom: 100px;
+  margin-bottom: 36px;
 
   font-family: "Noto Sans KR";
   font-style: normal;

@@ -35,8 +35,8 @@ const Condition7 = ({ extraInfo, setExtraInfo }: Props) => {
 
   return (
     <Div>
-      <Title>계약 대리인이 있으신가요?</Title>
-      <Des>집주인과 직접 계약하지 않았다면</Des>
+      <Title>대리인과 계약하시나요?</Title>
+      <Des>집주인과 직접 계약하지 않았다면 예로 답변해주세요.</Des>
 
       <ConditionBtn
         text="예"
@@ -70,13 +70,13 @@ const Title = styled.p`
   font-family: "Noto Sans KR";
   font-style: normal;
   font-weight: 500;
-  font-size: 20px;
+  font-size: 24px;
   line-height: 29px;
 `;
 
 const Des = styled.p`
   margin-top: 19px;
-  margin-bottom: 100px;
+  margin-bottom: 36px;
 
   font-family: "Noto Sans KR";
   font-style: normal;

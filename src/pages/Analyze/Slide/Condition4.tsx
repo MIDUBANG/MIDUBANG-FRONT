@@ -30,7 +30,9 @@ const Condition4 = ({ extraInfo, setExtraInfo }: Props) => {
   return (
     <Div>
       <Title>복비를 입력해주세요</Title>
-      <Des>부동산 계약 중계 수수료</Des>
+      <Des>
+        복비란, 부동산 계약 중계 수수료로 부동산 중개인에게 지불하는 금액입니다.
+      </Des>
 
       <ConditionInput
         value={money}
@@ -63,13 +65,13 @@ const Title = styled.p`
   font-family: "Noto Sans KR";
   font-style: normal;
   font-weight: 500;
-  font-size: 20px;
+  font-size: 24px;
   line-height: 29px;
 `;
 
 const Des = styled.p`
   margin-top: 19px;
-  margin-bottom: 100px;
+  margin-bottom: 36px;
 
   font-family: "Noto Sans KR";
   font-style: normal;

@@ -101,11 +101,7 @@ const Upload = () => {
       <SimpleNavBar text="임대차계약서 특약 분석" />
 
       {!upload ? (
-        <Swiper
-          pagination={{ clickable: true }}
-          //modules={[Pagination]}
-          className="mySwiper"
-        >
+        <Swiper pagination={{ clickable: true }} className="mySwiper">
           <SwiperSlide>
             <First />
           </SwiperSlide>
@@ -188,6 +184,8 @@ export default Upload;
 const Div = styled.div`
   width: 100%;
   height: 100%;
+
+  padding-top: 69px;
 
   .mySwiper {
     width: auto;

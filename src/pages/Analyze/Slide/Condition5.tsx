@@ -36,7 +36,7 @@ const Condition5 = ({ extraInfo, setExtraInfo }: Props) => {
   return (
     <Div>
       <Title>반려동물을 키우실 예정인가요?</Title>
-      <Des>멍멍 나용</Des>
+      <Des>식물을 제외한 동물은 모두 예로 답변해주세요.</Des>
 
       <ConditionBtn
         text="예"
@@ -70,13 +70,13 @@ const Title = styled.p`
   font-family: "Noto Sans KR";
   font-style: normal;
   font-weight: 500;
-  font-size: 20px;
+  font-size: 24px;
   line-height: 29px;
 `;
 
 const Des = styled.p`
   margin-top: 19px;
-  margin-bottom: 100px;
+  margin-bottom: 36px;
 
   font-family: "Noto Sans KR";
   font-style: normal;

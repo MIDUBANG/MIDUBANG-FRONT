@@ -30,7 +30,7 @@ const Condition3 = ({ extraInfo, setExtraInfo }: Props) => {
   return (
     <Div>
       <Title>차임(월세)를 입력해주세요</Title>
-      <Des>달마다 내는 임대료</Des>
+      <Des>차임(월세)이란 달마다 내는 임대료입니다.</Des>
 
       <ConditionInput
         value={money}
@@ -63,14 +63,13 @@ const Title = styled.p`
   font-family: "Noto Sans KR";
   font-style: normal;
   font-weight: 500;
-  font-size: 20px;
+  font-size: 24px;
   line-height: 29px;
 `;
 
 const Des = styled.p`
   margin-top: 19px;
-  margin-bottom: 100px;
-
+  margin-bottom: 36px;
   font-family: "Noto Sans KR";
   font-style: normal;
   font-weight: 400;

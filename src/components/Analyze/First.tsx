@@ -61,8 +61,6 @@ const Div = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-
-  padding-top: 69px;
 `;
 
 const Illustration = styled.img`

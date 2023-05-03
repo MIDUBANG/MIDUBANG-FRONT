@@ -31,7 +31,7 @@ const Condition2 = ({ extraInfo, setExtraInfo }: Props) => {
   return (
     <Div>
       <Title>계약금을 입력해주세요.</Title>
-      <Des>월세 보증금, 또는 전세금</Des>
+      <Des>월세 보증금, 또는 전세금을 입력해주세요.</Des>
 
       <ConditionInput
         value={money}
@@ -64,13 +64,13 @@ const Title = styled.p`
   font-family: "Noto Sans KR";
   font-style: normal;
   font-weight: 500;
-  font-size: 20px;
+  font-size: 24px;
   line-height: 29px;
 `;
 
 const Des = styled.p`
   margin-top: 19px;
-  margin-bottom: 100px;
+  margin-bottom: 36px;
 
   font-family: "Noto Sans KR";
   font-style: normal;

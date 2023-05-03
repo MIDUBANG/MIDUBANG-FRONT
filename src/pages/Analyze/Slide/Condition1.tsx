@@ -2,13 +2,6 @@
 import { useState } from "react";
 import styled from "@emotion/styled";
 
-import SimpleNavBar from "@components/NavBar/SimpleNavBar";
-
-import loadingPerson from "@assets/illustration/loadingPerson.png";
-
-import { FontTitle, FontGray } from "@style/font.style";
-import { PostContractCase, PostAnalyze } from "@api/analyze";
-import { useCookies } from "react-cookie";
 import ConditionBtn from "@components/Buttons/Condition/ConditionBtn";
 
 import { PropsExtra } from "@assets/types";
@@ -37,7 +30,7 @@ const Condition1 = ({ extraInfo, setExtraInfo }: Props) => {
   return (
     <Div>
       <Title>계약 유형을 선택해주세요.</Title>
-      <Des>계약 유형을 선택해주세요.</Des>
+      <Des>월세, 전세, 반전세 중 어떤 게약인가요? </Des>
 
       <ConditionBtn
         text="월세"
@@ -76,9 +69,11 @@ const Title = styled.p`
 
   font-family: "Noto Sans KR";
   font-style: normal;
+
   font-weight: 500;
-  font-size: 20px;
-  line-height: 29px;
+  font-size: 24px;
+
+  color: #000000;
 `;
 
 const Des = styled.p`
