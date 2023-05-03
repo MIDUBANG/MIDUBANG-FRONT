@@ -126,8 +126,11 @@ const AnalyzeHistory = () => {
         <Date>{results?.record_date} 분석</Date>
 
         <ImgBox>
-          <ContractImg src={temp} />
-          <div>{contractType}</div>
+          <div className="img-box">
+            <div className="img-shadow-box"></div>
+            <ContractImg src={results?.image_url} />
+          </div>
+          <div className="contract-type-box">{contractType}</div>
         </ImgBox>
 
         <BtnBox>
@@ -208,7 +211,29 @@ const Date = styled.div`
 const ImgBox = styled.div`
   position: relative;
 
-  div {
+  .img-box {
+    position: relative;
+    width: 100%;
+    height: 240px;
+    overflow: hidden;
+  }
+
+  .img-shadow-box {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+
+    background: linear-gradient(
+      180deg,
+      rgba(217, 217, 217, 0) 0%,
+      rgba(91, 91, 91, 0.44) 0.01%,
+      rgba(217, 217, 217, 0) 24.48%,
+      rgba(199, 199, 199, 0.0321505) 76.56%,
+      rgba(91, 91, 91, 0.31) 100%
+    );
+  }
+
+  .contract-type-box {
     position: absolute;
 
     display: flex;
@@ -220,7 +245,7 @@ const ImgBox = styled.div`
     width: 94px;
     height: 33px;
     background: #ffffff;
-    border-radius: 0px 11px 0px 0px;
+    border-radius: 0px 15px 0px 0px;
 
     font-family: "Noto Sans KR";
     font-style: normal;
