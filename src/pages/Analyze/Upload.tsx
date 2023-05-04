@@ -8,7 +8,8 @@ import SwiperCore, { Pagination, Autoplay } from "swiper";
 import "swiper/swiper.min.css";
 import "swiper/components/pagination/pagination.scss";
 
-import First from "@components/Analyze/First";
+import First from "@pages/Analyze/Slide/First";
+import Second from "@pages/Analyze/Slide/Second";
 import Condition1 from "@pages/Analyze/Slide/Condition1";
 import Condition2 from "@pages/Analyze/Slide/Condition2";
 import Condition3 from "@pages/Analyze/Slide/Condition3";
@@ -104,6 +105,10 @@ const Upload = () => {
         <Swiper pagination={{ clickable: true }} className="mySwiper">
           <SwiperSlide>
             <First />
+          </SwiperSlide>
+
+          <SwiperSlide>
+            <Second />
           </SwiperSlide>
 
           <SwiperSlide>

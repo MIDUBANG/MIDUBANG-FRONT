@@ -1,10 +1,4 @@
 import styled from "@emotion/styled";
-import { FontBig, FontMiddle, FontGray } from "@style/font.style";
-import logoPerson from "@assets/illustration/logo&person.png";
-import book from "@assets/icon/book.png";
-import people from "@assets/icon/people.png";
-import money from "@assets/icon/money.png";
-
 import illustration from "@assets/analyze/upload/first/illustration.png";
 
 const First = () => {
