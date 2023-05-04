@@ -19,7 +19,7 @@ import Condition7 from "@pages/Analyze/Slide/Condition7";
 
 import UploadFile from "@components/Analyze/UploadFile";
 import { FontTitle } from "@style/font.style";
-import loadingPerson from "@assets/illustration/loadingPerson.png";
+import rokect from "@assets/analyze/loading/rokect.png";
 
 import { PropsExtra } from "@assets/types";
 
@@ -169,7 +169,7 @@ const Upload = () => {
             특약 텍스트 추출 중
           </FontTitle>
           <div style={{ display: "flex", justifyContent: "center" }}>
-            <IlluImg src={loadingPerson} />
+            <IlluImg src={rokect} />
           </div>
           <ProgressFont>65%</ProgressFont>
           <WatingFont>추출 중...</WatingFont>

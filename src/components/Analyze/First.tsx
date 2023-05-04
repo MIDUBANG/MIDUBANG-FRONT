@@ -11,46 +11,14 @@ const First = () => {
   return (
     <Div>
       <Illustration src={illustration} />
-      <Title margin="67px 0 0 0">믿어방 AI 매니저</Title>
-
-      <SmallText margin="6px 0 0 0">
-        믿어방 AI 매니저를 이용해
-        <br /> 주거 관련 문서를 분석해보세요.
+      <Title margin="67px 0 0 0">임대차계약서 분석 서비스 </Title>
+      <SmallText margin="33px 0 0 0">
+        처음 하는 부동산 계약, <br /> 불리한 계약이 아닌지 불안하다면?
       </SmallText>
 
-      <Title margin="79px 0 0 0">제공 해설</Title>
-      <SmallText margin="9px 0 0 0">다음 세가지 분석 할 수 있습니다.</SmallText>
-
-      <p>법적 효력이 없는 특약</p>
-      <p>꼭 필요한 특약</p>
-      <p>주의해아하는 특약</p>
-
-      <p>복비 계산</p>
-
-      {/* <IconDiv>
-        <Icon>
-          <img src={book} />
-          <p>
-            임대차계약서 <br />
-            특약사항
-          </p>
-        </Icon>
-        <Icon>
-          <img src={people} />
-          <p>
-            등기부등본
-            <br />
-            갑구
-          </p>
-        </Icon>
-        <Icon>
-          <img src={money} />
-          <p>
-            등기부등본 <br />
-            을구
-          </p>
-        </Icon>
-      </IconDiv> */}
+      <SmallText margin="33px 0 0 0">
+        믿어방 AI 스캐너를 이용해 <br /> 임대차계약서를 분석해보세요.{" "}
+      </SmallText>
     </Div>
   );
 };
@@ -72,11 +40,13 @@ const Illustration = styled.img`
 const Title = styled.p<{ margin: string }>`
   font-family: "Noto Sans KR";
   font-style: normal;
-  font-weight: 400;
-  font-size: 20px;
-  line-height: 29px;
+  font-weight: 500;
+  font-size: 24px;
+  line-height: 35px;
+  /* identical to box height */
+
   text-align: center;
-  color: #000000;
+
   margin: ${(props) => props.margin};
 `;
 
@@ -84,8 +54,8 @@ const SmallText = styled.p<{ margin: string }>`
   font-family: "Noto Sans KR";
   font-style: normal;
   font-weight: 400;
-  font-size: 13px;
-  line-height: 19px;
+  font-size: 16px;
+  line-height: 23px;
   text-align: center;
   color: #7d7d7d;
   margin: ${(props) => props.margin};
