@@ -1,8 +1,38 @@
 import styled from "@emotion/styled";
 import temp from "@assets/analyze/upload/second/temp.png";
 
+import calculator from "@assets/analyze/upload/second/calculator.png";
+import document from "@assets/analyze/upload/second/document.png";
+import law from "@assets/analyze/upload/second/law.png";
+import recomend from "@assets/analyze/upload/second/recomend.png";
+
 const Second = () => {
-  const service = [1, 2, 3, 4];
+  const service = [
+    {
+      id: 1,
+      title: "복비 계산기",
+      description: "상한요율에 기반한 복비 계산",
+      img: calculator,
+    },
+    {
+      id: 2,
+      title: "특약조항 해설",
+      description: "특약 조항의 상세한 의미를 해설",
+      img: document,
+    },
+    {
+      id: 3,
+      title: "효력 없는 특약 검출",
+      description: "임차인에게 불리한 효력 없는 특약 ",
+      img: law,
+    },
+    {
+      id: 4,
+      title: "맞춤 특약 추천",
+      description: "필요한 특약 중 누락 요소 해설 ",
+      img: recomend,
+    },
+  ];
   return (
     <Div>
       <Title margin="30px 0 0 0">
@@ -15,11 +45,11 @@ const Second = () => {
       </SmallText>
 
       {service.map((s) => (
-        <ServiceBox key={s}>
-          <img src={temp} className="service-img" />
+        <ServiceBox key={s.id}>
+          <img src={s.img} className="service-img" />
           <div className="text-box">
-            <p className="title">복비 계산기 </p>
-            <p className="sub-text">상한요율에 기반한 복비 계산 </p>
+            <p className="title">{s.title}</p>
+            <p className="sub-text">{s.description}</p>
           </div>
         </ServiceBox>
       ))}
@@ -63,7 +93,7 @@ const SmallText = styled.p<{ margin: string }>`
 `;
 
 const ServiceBox = styled.div`
-  width: 319px;
+  width: 90%;
   height: 97px;
   background: #ffffff;
   border: 0.5px solid rgba(202, 202, 202, 0.33);
@@ -71,12 +101,13 @@ const ServiceBox = styled.div`
   border-radius: 7px;
 
   display: flex;
+  align-items: center;
   margin: 18px auto;
   padding: 16px 0;
 
   .service-img {
-    width: 57px;
-    height: 60px;
+    width: 55px;
+    height: 55px;
     margin-left: 20px;
   }
 
