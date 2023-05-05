@@ -46,10 +46,10 @@ const Condition2 = ({ extraInfo, setExtraInfo }: Props) => {
       <ConditionInput
         value={money}
         setValue={_handleChageInput}
-        placeholder="월세 또는 전세금 입력 (만원)"
+        placeholder="월세 보증금 또는 전세금 입력 (만원)"
       />
 
-      <InputResult>{money === "NaN" ? "" : money} 만원</InputResult>
+      <InputResult>{money} 만원</InputResult>
 
       <DescriptionBox>
         <img src={alert} />
