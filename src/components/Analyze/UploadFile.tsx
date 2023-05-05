@@ -114,7 +114,9 @@ const UploadFile = ({ setUpload, setImgUrl, setResult }: UploadFileProps) => {
         <FontGray>{fileName}</FontGray>
       </ImgDiv>
 
-      <FontBig margin="80px auto 0 auto">{statusMsg}</FontBig>
+      <FontBig margin="80px auto 0 auto" size="20px">
+        {statusMsg}
+      </FontBig>
       <FontGray margin="17px auto 0 auto">{explain}</FontGray>
 
       <div className="filebox">
@@ -133,8 +135,6 @@ const UploadFile = ({ setUpload, setImgUrl, setResult }: UploadFileProps) => {
         <CloudBtn />
         {status && <ArrowBtn onClick={_handleUploadImg} />}
       </div>
-
-      <p>사진 업로드 예시 보기</p>
     </Div>
   );
 };
@@ -213,7 +213,7 @@ const ImgDiv = styled.div`
   margin: 0 auto;
   padding-top: 50px;
   width: 90%;
-  height: 250px;
+  height: auto;
 
   display: flex;
   flex-direction: column;

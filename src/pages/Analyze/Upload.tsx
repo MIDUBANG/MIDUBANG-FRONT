@@ -173,9 +173,9 @@ const Upload = () => {
           <FontTitle margin="20px 0 0 37px" size="20px">
             특약 텍스트 추출 중
           </FontTitle>
-          <div style={{ display: "flex", justifyContent: "center" }}>
-            <IlluImg src={rokect} />
-          </div>
+          <IlluImg>
+            <img src={rokect} />
+          </IlluImg>
           <ProgressFont>65%</ProgressFont>
           <WatingFont>추출 중...</WatingFont>
         </div>
@@ -208,8 +208,19 @@ const Div = styled.div`
   }
 `;
 
-const IlluImg = styled.img`
+const IlluImg = styled.div`
   margin: 35px auto 0 auto;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  img {
+    margin-left: 25px;
+
+    width: 318px;
+    height: auto;
+  }
 `;
 const ProgressFont = styled.p`
   margin-top: 19px;
