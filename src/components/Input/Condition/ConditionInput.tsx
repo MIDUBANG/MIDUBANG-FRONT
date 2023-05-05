@@ -27,21 +27,18 @@ const ConditionInput = ({ value, setValue, placeholder }: Props) => {
 export default ConditionInput;
 
 const Input = styled.input`
-  margin-bottom: 26px;
+  padding-left: 20px;
 
   width: 100%;
   height: 41px;
 
   display: flex;
-  justify-content: center;
-  align-items: center;
 
   font-family: "Noto Sans KR";
   font-style: normal;
   font-weight: 200;
   font-size: 13px;
   line-height: 19px;
-  text-align: center;
 
   border: 1px solid #d9d9d9;
 
