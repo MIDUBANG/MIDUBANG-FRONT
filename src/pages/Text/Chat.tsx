@@ -66,9 +66,11 @@ const Chat = () => {
   const setUserBubble = () => {
     // 1. userInput에 들어온 값을 userTextHistory에 반영
     setHistory(
-      history.map((h) =>
-        h.id == userCurrentId.current ? { ...h, text: userInput, res: true } : h
-      )
+      history.map(h =>
+        h.id == userCurrentId.current
+          ? { ...h, text: userInput, res: true }
+          : h,
+      ),
     );
   };
 
@@ -79,7 +81,7 @@ const Chat = () => {
       history[0].text,
       history[1].text,
       history[2].text,
-      history[3].text
+      history[3].text,
     );
 
     console.log("결과 : ", res);
@@ -441,67 +443,6 @@ const SendBtnImg = styled.img`
   height: 32px;
 `;
 
-const Title = styled.p`
-  font-family: "Noto Sans KR";
-  font-style: normal;
-  font-weight: 500;
-  font-size: 22px;
-  line-height: 29px;
-
-  span {
-    color: #5a73fc;
-  }
-`;
-
-const Img = styled.img`
-  width: 264px;
-  height: 183px;
-
-  margin: 113px 0 53px auto;
-`;
-
-const BlueTextBox = styled.div`
-  display: flex;
-  margin-top: 12px;
-`;
-const BlueText = styled.div<{ margin: string }>`
-  display: flex;
-  align-content: center;
-
-  margin: ${(props) => props.margin};
-
-  font-family: "Noto Sans KR";
-  font-style: normal;
-  font-weight: 500;
-  font-size: 13px;
-  line-height: 19px;
-  text-align: center;
-  color: #5a73fc;
-`;
-
-const Dot = styled.div`
-  width: 5px;
-  height: 5px;
-  border-radius: 50%;
-  background: #5a73fc;
-
-  margin: auto 5px auto 0;
-`;
-
-const DesText = styled.p<{ margin: string }>`
-  font-family: "Noto Sans KR";
-  font-style: normal;
-  font-weight: 350;
-  font-size: 14px;
-  line-height: 20px;
-  color: #7d7d7d;
-
-  margin: ${(props) => props.margin};
-  span {
-    font-weight: 500;
-  }
-`;
-
 const DoneBtn = styled.div`
   display: flex;
   justify-content: center;
@@ -561,7 +502,7 @@ const EmotionBtn = styled.div<{ active: boolean }>`
     margin-left: 3px;
   }
 
-  border: ${(props) => (props.active ? "1px solid rgba(138, 97, 225, 1)" : "")};
-  box-shadow: ${(props) =>
+  border: ${props => (props.active ? "1px solid rgba(138, 97, 225, 1)" : "")};
+  box-shadow: ${props =>
     props.active ? "0px 2px 4px rgba(0, 0, 0, 0.25)" : ""};
 `;
