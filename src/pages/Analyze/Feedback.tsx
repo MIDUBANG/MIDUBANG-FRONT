@@ -18,6 +18,9 @@ import { RootState } from "@store/store";
 import { useAppDispatch, useAppSelector } from "@store/store";
 import { setNlpReult } from "@store/resultSlice";
 
+import { FontTitle } from "@style/font.style";
+import rokect from "@assets/analyze/loading/rokect.png";
+
 const Feedback = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
@@ -120,6 +123,8 @@ const Feedback = () => {
   };
 
   const _handlePostAnalyze = async () => {
+    setRequest(true);
+
     console.log("nlp 요청 버튼 클릭");
     // (1) NLP 업로드 -> case 번호 (in, out )
     let valueContents: string[] = [];
@@ -155,23 +160,54 @@ const Feedback = () => {
     navigate("/analyze/result");
   };
 
+  const [request, setRequest] = useState(false);
+
   return (
     <Div>
       <SimpleNavBar text="레포트" />
-      <Title>총 {contracts.length}개의 특약조항 검출</Title>
-      <div style={{ display: "flex", justifyContent: "center" }}>
-        <IlluImg src={loadingPerson} style={{ width: "60%" }} />
-      </div>
-      <FontGray margin="23px auto 0 auto">
-        오타를 수정하면 더 정확한 분석을 받아보실 수 있습니다.
-      </FontGray>
-      {contracts.map((con) => {
-        return (
-          <Contract>
-            <Dot done={con.done} onClick={() => _handleClickCheck(con.id)} />
 
-            {con.edit ? (
-              <EditForm onSubmit={(e) => _handleSubmitEdit(e)}>
+      {!request ? (
+        <>
+          <Title>총 {contracts.length}개의 특약조항 검출</Title>
+          <IlluImg imgWidth="220px" imgHeight="auto" imgMargin="10px 0 0 0">
+            <img src={loadingPerson} />
+          </IlluImg>
+          <FontGray margin="23px auto 0 auto">
+            오타를 수정하면 더 정확한 분석을 받아보실 수 있습니다.
+          </FontGray>
+          {contracts.map((con) => {
+            return (
+              <Contract>
+                <Dot
+                  done={con.done}
+                  onClick={() => _handleClickCheck(con.id)}
+                />
+
+                {con.edit ? (
+                  <EditForm onSubmit={(e) => _handleSubmitEdit(e)}>
+                    <input
+                      autoFocus={true}
+                      type="text"
+                      value={newContract}
+                      onChange={(e) => setNewContract(e.target.value)}
+                    />
+                  </EditForm>
+                ) : (
+                  <FontDescribed
+                    margin="0 0 0 14px"
+                    onClick={() => _handleClickEdit(con.id)}
+                  >
+                    {con.contract}
+                  </FontDescribed>
+                )}
+              </Contract>
+            );
+          })}
+          {isAdd && (
+            <Contract>
+              <Dot done={false} onClick={() => _handleClickCheck(9)} />
+
+              <EditForm onSubmit={(e) => _handleSubmitAddContract(e)}>
                 <input
                   autoFocus={true}
                   type="text"
@@ -179,50 +215,45 @@ const Feedback = () => {
                   onChange={(e) => setNewContract(e.target.value)}
                 />
               </EditForm>
-            ) : (
-              <FontDescribed
-                margin="0 0 0 14px"
-                onClick={() => _handleClickEdit(con.id)}
-              >
-                {con.contract}
-              </FontDescribed>
-            )}
-          </Contract>
-        );
-      })}
-
-      {isAdd && (
-        <Contract>
-          <Dot done={false} onClick={() => _handleClickCheck(9)} />
-
-          <EditForm onSubmit={(e) => _handleSubmitAddContract(e)}>
-            <input
-              autoFocus={true}
-              type="text"
-              value={newContract}
-              onChange={(e) => setNewContract(e.target.value)}
-            />
-          </EditForm>
-        </Contract>
+            </Contract>
+          )}
+          <BtnBox>
+            <AddBtn onClick={_handleAddContract}>
+              <img src={pencil} /> 추가
+            </AddBtn>
+            <DoneBtn onClick={_handlePostAnalyze}>완료</DoneBtn>
+          </BtnBox>
+          <BottomModal
+            isOpen={isOpen}
+            setIsOpen={setIsOpen}
+            _handleEdit={_handleEdit}
+            contracts={contracts}
+          />
+        </>
+      ) : (
+        <div>
+          <FontTitle margin="20px 0 0 37px" size="20px">
+            레포트 생성 중{" "}
+          </FontTitle>
+          <IlluImg imgWidth="318px" imgHeight="auto" imgMargin="40px 0 0 25px">
+            <img src={rokect} />
+          </IlluImg>
+          <ProgressFont>65%</ProgressFont>
+          <WatingFont>열심히 레포트 쓰는 중...</WatingFont>
+        </div>
       )}
-
-      <BtnBox>
-        <AddBtn onClick={_handleAddContract}>
-          <img src={pencil} /> 추가
-        </AddBtn>
-        <DoneBtn onClick={_handlePostAnalyze}>완료</DoneBtn>
-      </BtnBox>
-      <BottomModal
-        isOpen={isOpen}
-        setIsOpen={setIsOpen}
-        _handleEdit={_handleEdit}
-        contracts={contracts}
-      />
     </Div>
   );
 };
 
 export default Feedback;
+
+const Div = styled.div`
+  width: 100%;
+  height: 100%;
+
+  padding-top: 69px;
+`;
 
 const EditForm = styled.form`
   width: 85%;
@@ -247,13 +278,23 @@ const EditForm = styled.form`
     }
   }
 `;
-const Div = styled.div`
-  width: 100%;
-  height: 100%;
-`;
 
-const IlluImg = styled.img`
-  margin: 35px auto 0 auto;
+const IlluImg = styled.div<{
+  imgWidth: string;
+  imgHeight: string;
+  imgMargin: string;
+}>`
+  //margin: 35px auto 0 auto;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  img {
+    margin: ${(props) => props.imgMargin};
+    width: ${(props) => props.imgWidth};
+    height: ${(props) => props.imgHeight};
+  }
 `;
 
 const Contract = styled.div`
@@ -277,9 +318,11 @@ const Dot = styled.div<{ done: boolean }>`
   margin-bottom: auto;
   margin-top: 4px;
 
-  background-color: ${(props) => props.done && "#4880ee"};
-  border: ${(props) =>
-    props.done ? "1px solid #4880ee" : "1px solid #9A9A9A"};
+  // ${(props) => props.done && "#4880ee"};
+  //    ${(props) => (props.done ? "1px solid #4880ee" : "1px solid #9A9A9A")};
+
+  background-color: #4880ee;
+  border: 1px solid #4880ee;
 `;
 
 const Title = styled.p`
@@ -290,6 +333,7 @@ const Title = styled.p`
   line-height: 29px;
   color: #000000;
 
+  margin-top: 20px;
   margin-left: 31px;
 `;
 
@@ -348,4 +392,27 @@ const DoneBtn = styled.div`
   line-height: 19px;
   text-align: center;
   color: #ffffff;
+`;
+const ProgressFont = styled.p`
+  margin-top: 19px;
+  font-family: "Poppins", sans-serif;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 40px;
+  line-height: 60px;
+  /* identical to box height */
+  text-align: center;
+  color: #9b9b9b;
+`;
+
+const WatingFont = styled.p`
+  margin-left: 9px;
+  font-family: "Noto Sans KR";
+  font-style: normal;
+  font-weight: 350;
+  font-size: 32px;
+  line-height: 46px;
+  text-align: center;
+
+  color: #959595;
 `;
