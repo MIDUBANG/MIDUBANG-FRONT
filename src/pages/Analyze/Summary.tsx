@@ -19,6 +19,8 @@ import { resultsType, CasesType, WordsType } from "@assets/types";
 import temp from "@assets/result/temp.png";
 import CommissionBox from "@components/Result/CommissionBox";
 
+import { FontTitle } from "@style/font.style";
+import rokect from "@assets/analyze/loading/rokect.png";
 type Test = {
   article_url: string;
   caseType: string;
@@ -126,7 +128,20 @@ const Summary = () => {
         <SimpleNavBar text="레포트 요약" />
 
         {loading ? (
-          <p>로딩 중 ...</p>
+          <div>
+            <FontTitle margin="20px 0 0 37px" size="20px">
+              요약 레포투 생성 중
+            </FontTitle>
+            <IlluImg
+              imgWidth="318px"
+              imgHeight="auto"
+              imgMargin="40px 0 0 25px"
+            >
+              <img src={rokect} />
+            </IlluImg>
+            <ProgressFont>65%</ProgressFont>
+            <WatingFont>레포트 요약 중...</WatingFont>
+          </div>
         ) : (
           <div>
             <ReportTitle>레포트 요약 결과</ReportTitle>
@@ -219,7 +234,7 @@ const Contract = styled.div<{ caseTypeColor: string }>`
   width: 80%;
 
   div {
-    background: ${(props) => props.caseTypeColor};
+    background: ${props => props.caseTypeColor};
     height: auto;
     width: 7px;
     margin-right: 10px;
@@ -264,4 +279,45 @@ const Des = styled.div`
   font-weight: 300;
   font-size: 15px;
   line-height: 22px;
+`;
+
+const IlluImg = styled.div<{
+  imgWidth: string;
+  imgHeight: string;
+  imgMargin: string;
+}>`
+  //margin: 35px auto 0 auto;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  img {
+    margin: ${props => props.imgMargin};
+    width: ${props => props.imgWidth};
+    height: ${props => props.imgHeight};
+  }
+`;
+const ProgressFont = styled.p`
+  margin-top: 19px;
+  font-family: "Poppins", sans-serif;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 40px;
+  line-height: 60px;
+  /* identical to box height */
+  text-align: center;
+  color: #9b9b9b;
+`;
+
+const WatingFont = styled.p`
+  margin-left: 9px;
+  font-family: "Noto Sans KR";
+  font-style: normal;
+  font-weight: 350;
+  font-size: 32px;
+  line-height: 46px;
+  text-align: center;
+
+  color: #959595;
 `;
