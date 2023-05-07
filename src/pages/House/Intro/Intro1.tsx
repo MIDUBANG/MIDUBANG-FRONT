@@ -4,12 +4,15 @@ import styled from "@emotion/styled";
 import "react-circular-progressbar/dist/styles.css";
 //component
 import UnderstandBtn from "@components/Buttons/UnderstandBtn";
-import Bubble from "@components/House/Bubble";
+
 import SimpleNavBar from "@components/NavBar/SimpleNavBar";
+
+import LeftMessageBubble from "@components/House/LeftBubble";
+import RightMessageBubble from "@components/House/RightMessageBubble";
+
 // asset
 import ex1 from "@assets/house/ex1.png";
 import zoom from "@assets/house/zoom.png";
-import profile from "@assets/text/profile.png";
 
 const Intro1 = () => {
   return (
@@ -17,7 +20,9 @@ const Intro1 = () => {
       <SimpleNavBar text="등기부등본 마스터" direction="up" />
 
       <Container>
-        <Title>등기부등본이란 무엇인가요?</Title>
+        <Title margin="0 0 17px 0">
+          등기부등본이란 <span>무엇</span>인가요?
+        </Title>
 
         <MainImgBox>
           <img src={ex1} className="main-img" />
@@ -40,88 +45,36 @@ const Intro1 = () => {
           있죠.
         </DesText>
 
-        <Title>등기부등본은 왜 필요한가요?</Title>
-        <DesText>우리 집은 괜찮아 보이는데... 귀찮게 꼭 봐야할까?</DesText>
+        <Title margin="20px 0 17px 0">
+          등기부등본은 <span>왜 필요한가요?</span>
+        </Title>
 
         <MessageContainer>
-          <LeftMessageBox>
-            <div className="top-box">
-              <ProfileImg src={profile} />
-              <p className="name">믿어방</p>
-            </div>
+          <RightMessageBubble
+            text="처음 자취방을 구하고 있는데, 보증금을 잘 돌려 받을 수 있을지
+              걱정돼요... 미리 알 수 있는 방법 없을까요?"
+          />
 
-            <LeftBubble>
-              <p style={{ marginBottom: "15px" }}>
-                문자를 보내는 <span>목적</span>을 알려주세요!
-              </p>
-              <p>
-                ex) 계약이 종료됐는데 집주인이 보증금을 돌려주지 않는다. 빨리
-                돌려달라고 말하고 싶다.
-              </p>
-            </LeftBubble>
-          </LeftMessageBox>
+          <LeftMessageBubble
+            text={[
+              "보증금 못 돌려 받는 경우가 많아 집 구할 때 신경 많이 쓰이잖아요. ",
+            ]}
+          />
 
-          <RightMessageBox>
-            <p className="name">새내기</p>
-            <RightBubble>
-              처음 자취방을 구하고 있는데, 보증금을 잘 돌려 받을 수 있을지
-              걱정돼요... 미리 알 수 있는 방법 없을까요?
-            </RightBubble>
-          </RightMessageBox>
+          <LeftMessageBubble
+            text={[
+              "미리 예방하려면 집 구할 때 확인 해야 하는 사항이 많습니다.",
+              "내가 살 집이 안전한지, 위험한지를 아는 방법이 있어요.",
+            ]}
+          />
 
-          <LeftMessageBox>
-            <div className="top-box">
-              <ProfileImg src={profile} />
-              <p className="name">믿어방</p>
-            </div>
-
-            <LeftBubble>
-              <p style={{ marginBottom: "15px" }}>
-                문자를 보내는 <span>목적</span>을 알려주세요!
-              </p>
-              <p>
-                ex) 계약이 종료됐는데 집주인이 보증금을 돌려주지 않는다. 빨리
-                돌려달라고 말하고 싶다.
-              </p>
-            </LeftBubble>
-          </LeftMessageBox>
-
-          <RightMessageBox>
-            <p className="name">새내기</p>
-            <RightBubble>
-              처음 자취방을 구하고 있는데, 보증금을 잘 돌려 받을 수 있을지
-              걱정돼요... 미리 알 수 있는 방법 없을까요?
-            </RightBubble>
-          </RightMessageBox>
-
-          <LeftMessageBox>
-            <div className="top-box">
-              <ProfileImg src={profile} />
-              <p className="name">믿어방</p>
-            </div>
-
-            <LeftBubble>
-              <p style={{ marginBottom: "15px" }}>
-                문자를 보내는 <span>목적</span>을 알려주세요!
-              </p>
-              <p>
-                ex) 계약이 종료됐는데 집주인이 보증금을 돌려주지 않는다. 빨리
-                돌려달라고 말하고 싶다.
-              </p>
-            </LeftBubble>
-          </LeftMessageBox>
-
-          <RightMessageBox>
-            <p className="name">새내기</p>
-            <RightBubble>
-              처음 자취방을 구하고 있는데, 보증금을 잘 돌려 받을 수 있을지
-              걱정돼요... 미리 알 수 있는 방법 없을까요?
-            </RightBubble>
-          </RightMessageBox>
-
-          {/* {BubbleData.map(bubble => (
-          <Bubble color={bubble.color} text={bubble.text} />
-        ))} */}
+          <RightMessageBubble text="헉 그게 뭔가요?" />
+          <LeftMessageBubble
+            text={[
+              "바로 등기부등본을 샅샅이 파헤치는 것!",
+              "제가 이해하기 쉽게 해설해드릴게요.",
+            ]}
+          />
         </MessageContainer>
 
         <UnderstandBtn id={1} subId={1} />
@@ -167,8 +120,7 @@ const MainImgBox = styled.div`
     bottom: -19px;
   }
 `;
-const Title = styled.p`
-  /* margin: 23px auto 0 30px; */
+const Title = styled.p<{ margin: string }>`
   font-family: "Noto Sans KR", sans-serif;
   font-style: normal;
   font-weight: 500;
@@ -176,7 +128,11 @@ const Title = styled.p`
   line-height: 38px;
   padding: 0;
 
-  margin-bottom: 17px;
+  margin: ${props => props.margin};
+
+  span {
+    color: #5a73fc;
+  }
 `;
 
 const ExImgText = styled.p`
@@ -210,102 +166,5 @@ const DesText = styled.p`
 `;
 
 const MessageContainer = styled.div`
-  margin-bottom: 40px;
-`;
-const LeftMessageBox = styled.div`
-  margin-top: 22px;
-
-  .name {
-    font-family: "Noto Sans KR";
-    font-style: normal;
-    font-weight: 700;
-    font-size: 13px;
-    line-height: 19px;
-
-    color: #505050;
-    margin-left: 10px;
-  }
-
-  .top-box {
-    display: flex;
-
-    align-items: center;
-  }
-`;
-
-const ProfileImg = styled.img`
-  width: 37px;
-  height: 37px;
-`;
-
-const LeftBubble = styled.div`
-  position: relative;
-
-  width: auto;
-  height: auto;
-  min-width: 220px;
-  max-width: 80%;
-
-  padding: 16px;
-  margin: 10px 0 0 8px;
-
-  background: #f8f9fe;
-  border: 0.5px solid rgba(0, 0, 0, 0.1);
-  border-radius: 0px 20px 20px 20px;
-
-  font-family: "Noto Sans KR";
-  font-style: normal;
-  font-weight: 350;
-  font-size: 13px;
-  line-height: 19px;
-  color: black;
-
-  span {
-    font-weight: 500;
-  }
-
-  .name {
-    font-weight: 700;
-    margin-bottom: 5px;
-  }
-`;
-
-const RightMessageBox = styled.div`
-  margin: 14px 0 0 0;
-
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-  align-items: end;
-
-  .name {
-    font-family: "Noto Sans KR";
-    font-style: normal;
-    font-weight: 700;
-    font-size: 13px;
-    line-height: 19px;
-
-    color: #505050;
-  }
-`;
-
-const RightBubble = styled.div`
-  width: auto;
-  height: auto;
-  max-width: 80%;
-  margin: 8px 0 0 0;
-
-  padding: 12px;
-
-  background: #ffc670;
-  border-radius: 20px 0px 20px 20px;
-
-  font-family: "Noto Sans KR";
-
-  font-style: normal;
-  font-weight: 300;
-  font-size: 14px;
-  line-height: 20px;
-
-  color: black;
+  margin-bottom: 60px;
 `;

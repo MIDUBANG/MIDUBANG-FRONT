@@ -6,9 +6,10 @@ type Props = {
   id: number;
   subId: number;
   complete: boolean;
+  bottomFix?: boolean;
 };
 
-const UnderstandBtn = ({ id, subId, complete }: Props) => {
+const UnderstandBtn = ({ id, subId, complete, bottomFix }: Props) => {
   const navigate = useNavigate();
 
   const _clickUnderStand = () => {
@@ -33,19 +34,27 @@ const UnderstandBtn = ({ id, subId, complete }: Props) => {
   };
 
   return (
-    <Btn onClick={_clickUnderStand} complete={complete}>
-      이해했어요{" "}
+    <Btn
+      onClick={_clickUnderStand}
+      complete={complete}
+      bottomFix={bottomFix || false}
+    >
+      이해했어요
     </Btn>
   );
 };
 
-export default UnderstandBtn;
-
 UnderstandBtn.defaultProps = {
   complete: true,
+  bottomFix: false,
 };
 
-const Btn = styled.div<{ complete: boolean }>`
+export default UnderstandBtn;
+
+const Btn = styled.div<{ complete: boolean; bottomFix: boolean }>`
+  position: ${props => props.bottomFix && "absolute"};
+  bottom: ${props => props.bottomFix && "45px"};
+
   display: flex;
   justify-content: center;
   align-items: center;
@@ -54,7 +63,7 @@ const Btn = styled.div<{ complete: boolean }>`
 
   width: 90%;
   height: 40px;
-  background: ${(props) => (props.complete ? "#4880EE" : "#D1D1D1")};
+  background: ${props => (props.complete ? "#4880EE" : "#D1D1D1")};
   border-radius: 8px;
 
   font-family: "Noto Sans KR";
