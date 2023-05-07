@@ -44,7 +44,7 @@ const House = () => {
     contents[subId - 1].complete = true;
 
     setHouseData(
-      houseData.map((h) => (h.id === id ? { ...menu, contents: contents } : h))
+      houseData.map(h => (h.id === id ? { ...menu, contents: contents } : h)),
     );
   };
 
@@ -89,18 +89,38 @@ const House = () => {
 
         <Des>등기부등본을 마스터해봅시다 </Des>
 
-        {houseData.map((con) => {
-          let menus = con.contents.map((ccon) => (
-            <div onClick={() => _GotoContent(ccon.path)}>
-              {ccon.complete ? (
-                <img src={greencheck} />
-              ) : (
-                <img src={graycheck} />
-              )}
+        {houseData.map(con => {
+          let menus = null;
 
-              <Menu weight="bold">{ccon.subTitle}</Menu>
-            </div>
-          ));
+          if (con.contents.length === 1) {
+            menus = con.contents.map(ccon => {
+              return (
+                <div onClick={() => _GotoContent(ccon.path)} className="first">
+                  {ccon.complete ? (
+                    <img src={greencheck} />
+                  ) : (
+                    <img src={graycheck} />
+                  )}
+
+                  <Menu weight="bold">{ccon.subTitle}</Menu>
+                </div>
+              );
+            });
+          } else {
+            menus = con.contents.map(ccon => {
+              return (
+                <div onClick={() => _GotoContent(ccon.path)}>
+                  {ccon.complete ? (
+                    <img src={greencheck} />
+                  ) : (
+                    <img src={graycheck} />
+                  )}
+
+                  <Menu weight="bold">{ccon.subTitle}</Menu>
+                </div>
+              );
+            });
+          }
 
           return (
             <div>
@@ -224,15 +244,19 @@ const Menus = styled.div`
     padding: 11px 10px;
   }
 
+  div:last-child {
+    border-radius: 0 0 10px 10px;
+    border: 0.5px solid rgba(0, 0, 0, 0.2);
+    border-top: none;
+  }
+
   div:nth-child(1) {
     border-radius: 10px 10px 0 0;
     border: 0.5px solid rgba(0, 0, 0, 0.2);
   }
 
-  div:last-child {
-    border-radius: 0 0 10px 10px;
-    border: 0.5px solid rgba(0, 0, 0, 0.2);
-    border-top: none;
+  .first {
+    border-radius: 10px !important;
   }
 
   img {
@@ -245,7 +269,7 @@ const Menus = styled.div`
 const Menu = styled.p<{ weight: string }>`
   font-family: "Noto Sans KR";
   font-style: normal;
-  font-weight: ${(props) => (props.weight === "bold" ? 500 : 300)};
+  font-weight: ${props => (props.weight === "bold" ? 500 : 300)};
   font-size: 12px;
   line-height: 17px;
 

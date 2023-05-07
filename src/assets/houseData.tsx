@@ -4,8 +4,6 @@ export const HouseData = [
     title: "입문",
     contents: [
       { id: 1, subTitle: "등기부등본이란?", complete: false, path: "intro" },
-      { id: 2, subTitle: "등기부등본이란?", complete: false, path: "intro" },
-      { id: 3, subTitle: "등기부등본이란?", complete: false, path: "intro" },
     ],
   },
   {

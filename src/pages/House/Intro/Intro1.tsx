@@ -12,29 +12,6 @@ import zoom from "@assets/house/zoom.png";
 import profile from "@assets/text/profile.png";
 
 const Intro1 = () => {
-  const BubbleData = [
-    {
-      color: "gray",
-      text: "처음 자취방을 구하고 있는데, 보증금을 잘 돌려 받을 수 있을지 걱정돼요...미리 알 수 있는 방법 없을까요?",
-    },
-    {
-      color: "blue",
-      text: "보증금 못 돌려 받는 경우가 많아 집 구할 때 신경 많이 쓰이잖아요. ",
-    },
-    {
-      color: "blue",
-      text: "미리 예방하려면 집 구할 때 확인 해야 하는 사항이 많습니다. 내가 살 집이 안전한지, 위험한지를 아는 방법이 있어요.",
-    },
-    {
-      color: "gray",
-      text: "헉 그게 뭔가요?",
-    },
-    {
-      color: "blue",
-      text: "바로 등기부등본을 샅샅이 파헤치는 것! 제가 이해하기 쉽게 해설해드릴게요.",
-    },
-  ];
-
   return (
     <Div>
       <SimpleNavBar text="등기부등본 마스터" direction="up" />
