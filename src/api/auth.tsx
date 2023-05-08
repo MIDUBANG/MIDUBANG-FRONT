@@ -20,7 +20,7 @@ const check = (body: string, type: string): boolean => {
 export const SignUpApi = (
   email: string,
   pw: string,
-  cookie: (res: any) => void
+  cookie: (res: any) => void,
 ) => {
   if (!check(email, "email")) {
     alert("이메일의 형식이 유효하지 않습니다.");
@@ -32,14 +32,17 @@ export const SignUpApi = (
         email: email,
         password: pw,
       })
-      .then((res) => {
+      .then(res => {
         console.log("쿠키 저장!!");
+
         cookie(res);
+        window.location.href = "http://localhost:3000/";
+        window.location.reload();
       })
-      .catch((err) => {
+      .catch(err => {
         if (err.response.data.message === "이미 존재하는 계정입니다.") {
           alert("이미 존재하는 계정입니다.");
-          window.location.href = "http://localhost:3000/login";
+          // window.location.href = "http://localhost:3000/login";
         }
       });
   }
@@ -49,7 +52,7 @@ export const SignUpApi = (
 export const LoginApi = (
   email: string,
   pw: string,
-  cookie: (res: any) => void
+  cookie: (res: any) => void,
 ) => {
   if (!check(email, "email")) {
     alert("이메일의 형식이 유효하지 않습니다.");
@@ -59,12 +62,13 @@ export const LoginApi = (
         email: email,
         password: pw,
       })
-      .then((res) => {
+      .then(res => {
         console.log(res);
         cookie(res);
         window.location.href = "http://localhost:3000/";
+        window.location.reload();
       })
-      .catch((err) => {
+      .catch(err => {
         console.log(err);
         if (err.response.data.message == "비밀번호가 일치하지 않습니다.") {
           alert("비밀번호가 일치하지 않습니다.");
@@ -78,7 +82,7 @@ export const LoginApi = (
 // access 토큰 재발급
 export const RefreshApi = (
   refreshToken: string,
-  cookie: (res: any) => void
+  cookie: (res: any) => void,
 ) => {
   axios
     .get("http://52.79.133.117:8080/api/member/refresh/", {
@@ -86,15 +90,14 @@ export const RefreshApi = (
         Authorization: `Bearer ${refreshToken}`,
       },
     })
-    .then((res) => {
+    .then(res => {
       alert("토큰 재발급 완료");
       console.log("토큰 재발급 완료", res);
       cookie(res); // 토큰 2개 재설정
       window.location.reload();
     })
-    .catch((err) => {
+    .catch(err => {
       alert("토큰 재발급 실패");
-      console.log("토큰 재발급 실패", err);
 
       if (err.response.data.message === "expired token") {
         // 로그인
@@ -111,20 +114,23 @@ export const RefreshApi = (
 // 유저 정보 조회
 export const GetUserInfo = async (
   refreshToken: string,
-  cookie: (res: any) => void
+  cookie: (res: any) => void,
 ): Promise<any> => {
   try {
     const res = await client.get("member/info");
     return res.data;
   } catch (err: any) {
-    console.log("에러임", err);
+    console.log("에러임>", err);
 
     if (err.response.data.message === "expired token") {
-      alert("토큰 만료");
+      alert("유저 정보 조회 시도했으나 토큰 만료");
       RefreshApi(refreshToken, cookie);
+    } else if (err.response.data.message === "malformed token") {
+      console.log("유효하지 않은 토큰을 넣음");
     } else if (err.response.data.message === "empty token") {
-      alert("빈 토큰");
-      RefreshApi(refreshToken, cookie);
+      alert("유저 정보 조회 시도했으나 빈 토큰");
+      let e = new Error("로그인 필요");
+      throw e;
     }
   }
 };

@@ -9,8 +9,37 @@ import wordbook from "@assets/my/wordbook.png";
 import report from "@assets/my/report.png";
 import arrow from "@assets/my/arrow.png";
 
+import { GetUserInfo } from "@api/auth";
+
+import { useCookies } from "react-cookie";
+import { useEffect } from "react";
+
 const My = () => {
   const navigate = useNavigate();
+
+  const [cookies, setCookie, removeCookie] = useCookies(["refreshToken"]);
+
+  const onCookie = (res: any) => {
+    console.log("쿠키");
+    const accessToken = res.data.accessToken;
+    localStorage.setItem("token", accessToken);
+    const refreshToken = res.data.refreshToken;
+    setCookie("refreshToken", refreshToken, { path: "/" });
+  };
+
+  const checkLogin = async () => {
+    try {
+      let res = await GetUserInfo(cookies.refreshToken, onCookie);
+    } catch (err: any) {
+      if (err.message === "로그인 필요") {
+        navigate("/login");
+      }
+    }
+  };
+
+  useEffect(() => {
+    checkLogin();
+  }, []);
 
   return (
     <Div>
