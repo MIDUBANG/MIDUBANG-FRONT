@@ -9,12 +9,13 @@ import { Provider } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
 import { persistStore } from "redux-persist";
 import { store } from "@store/store";
+import UseScrollToTop from "@hooks/UseScrollToTop";
 
 import BottomNavbar from "@components/NavBar/BottomNavbar";
 export let persistor = persistStore(store);
 
 const root = ReactDOM.createRoot(
-  document.getElementById("root") as HTMLElement
+  document.getElementById("root") as HTMLElement,
 );
 
 root.render(
@@ -22,10 +23,11 @@ root.render(
     <BrowserRouter>
       <Provider store={store}>
         <PersistGate loading={null} persistor={persistor}>
+          <UseScrollToTop />
           <App />
           {/* <BottomNavbar></BottomNavbar> */}
         </PersistGate>
       </Provider>
     </BrowserRouter>
-  </CookiesProvider>
+  </CookiesProvider>,
 );

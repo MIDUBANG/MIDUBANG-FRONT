@@ -21,6 +21,9 @@ const House = () => {
 
   const _getRecordCompletion = () => {
     let rate: any = localStorage.getItem("houseCompleteRate");
+    if (!rate) {
+      localStorage.setItem("houseCompleteRate", JSON.stringify([]));
+    } // rate 없는 경우
     rate = JSON.parse(rate);
 
     setComplete(rate.length);

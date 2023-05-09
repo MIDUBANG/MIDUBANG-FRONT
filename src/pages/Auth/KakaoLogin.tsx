@@ -8,7 +8,7 @@ import { useNavigate } from "react-router-dom";
 const KakaoLogin = () => {
   const location = useLocation();
   const KAKAO_CODE = location.search.split("=")[1]; // 인가코드
-  const Spring = `http://52.79.133.117:8080/api/member/login/oauth/kakao?code=${KAKAO_CODE}`; // 토큰 요청
+  const Spring = `http://3.38.77.244:8090/api/member/login/oauth/kakao?code=${KAKAO_CODE}`; // 토큰 요청
 
   const [cookies, setCookie] = useCookies(["refreshToken"]);
 
@@ -17,7 +17,7 @@ const KakaoLogin = () => {
   axios.defaults.withCredentials = true;
   axios
     .post(Spring)
-    .then((res) => {
+    .then(res => {
       const accessToken = res.data.accessToken;
       console.log(accessToken);
       localStorage.setItem("token", accessToken);
@@ -25,8 +25,9 @@ const KakaoLogin = () => {
       const refreshToken = res.data.refreshToken;
       setCookie("refreshToken", refreshToken, { path: "/" });
       navigate("/");
+      window.location.reload();
     })
-    .catch((err) => {
+    .catch(err => {
       console.log("카카오 로그인 에러.", err);
       navigate("/login");
     });

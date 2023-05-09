@@ -85,7 +85,7 @@ export const RefreshApi = (
   cookie: (res: any) => void,
 ) => {
   axios
-    .get("http://52.79.133.117:8080/api/member/refresh/", {
+    .get("http://3.38.77.244:8090/api/member/refresh/", {
       headers: {
         Authorization: `Bearer ${refreshToken}`,
       },
