@@ -9,7 +9,7 @@ import AuthInput from "@components/Input/AuthInput";
 import LongBtn from "@components/Buttons/LongBtn";
 import KakaoBtn from "@components/Buttons/KakaoBtn";
 // asset
-import logoperson from "@assets/illustration/logo&person.png";
+import lockIllustration from "@assets/illustration/lock.png";
 // hooks/utils
 import useInput from "@hooks/useInput";
 import { LoginApi } from "@api/auth";
@@ -47,9 +47,9 @@ const Login = () => {
 
   return (
     <Div>
-      <SimpleNavBar text="회원 가입" />
+      <SimpleNavBar text="로그인" />
       <Container>
-        <Illurstration src={logoperson} />
+        <Illurstration src={lockIllustration} />
         <form onSubmit={_handleLogin}>
           <AuthInput placeholder="이메일" value={email} onChange={setEmail} />
           <AuthInput placeholder="비밀번호" value={pw} onChange={setPw} />
@@ -79,13 +79,14 @@ export default Login;
 const Div = styled.div`
   width: 100%;
   height: 100%;
+  padding-top: 69px;
 `;
 
 const Illurstration = styled.img`
-  margin-top: 60px;
+  margin-top: 15px;
   margin-bottom: 40px;
-  width: 178px;
-  height: 151px;
+  width: 255px;
+  height: auto;
 `;
 
 const Container = styled.div`

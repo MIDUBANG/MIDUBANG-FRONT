@@ -8,7 +8,7 @@ import { useNavigate } from "react-router-dom";
 import SimpleNavBar from "@components/NavBar/SimpleNavBar";
 import greencheck from "@assets/icon/greencheck.svg";
 import graycheck from "@assets/icon/graycheck.svg";
-import logoperson from "@assets/illustration/logo&person.png";
+import lockIllustration from "@assets/illustration/lock.png";
 import { FontTitle, FontDescribed } from "@style/font.style";
 import AuthInput from "@components/Input/AuthInput";
 import LongBtn from "@components/Buttons/LongBtn";
@@ -48,7 +48,7 @@ const Signup = () => {
     <Div>
       <SimpleNavBar text="회원 가입" />
       <Container>
-        <Illurstration src={logoperson} />
+        <Illurstration src={lockIllustration} />
         <AuthInput placeholder="이메일" value={email} onChange={setEmail} />
         <AuthInput placeholder="비밀번호" value={pw} onChange={setPw} />
         <Box>
@@ -71,13 +71,6 @@ const Signup = () => {
           onClick={_handleSignUp}
         />
 
-        <LongBtn
-          text="로그인 연장 임시 버튼"
-          color="--aurora"
-          activeColor="--aurora-shadow"
-          onClick={_handleRefresh}
-        />
-
         <p className="description">
           이미 계정이 있나요? <span>로그인</span>
         </p>
@@ -91,13 +84,14 @@ export default Signup;
 const Div = styled.div`
   width: 100%;
   height: 100%;
+  padding-top: 69px;
 `;
 
 const Illurstration = styled.img`
-  margin-top: 60px;
+  margin-top: 15px;
   margin-bottom: 40px;
-  width: 178px;
-  height: 151px;
+  width: 255px;
+  height: auto;
 `;
 
 const Check = styled.img`
