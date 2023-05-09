@@ -22,7 +22,7 @@ type Props = {
 
 const CustomAccordion = ({ inputData, _handleUpdateCheckData }: Props) => {
   return (
-    <Accordion defaultActiveKey="0" id="custom">
+    <Accordion id="custom">
       {inputData.map((data: any) => (
         <Accordion.Item eventKey={data.id}>
           <Accordion.Header className="title">
@@ -81,9 +81,9 @@ const CheckBtn = styled.div<{ checked: boolean }>`
   line-height: 17px;
   border-radius: 16.5px;
 
-  border: ${(props) => (props.checked ? "" : "0.8px solid #5a73fc")};
-  color: ${(props) => (props.checked ? "#FFFFFF" : "#5a73fc")};
-  background: ${(props) =>
+  border: ${props => (props.checked ? "" : "0.8px solid #5a73fc")};
+  color: ${props => (props.checked ? "#FFFFFF" : "#5a73fc")};
+  background: ${props =>
     props.checked
       ? "linear-gradient(94.02deg, #4880EE 5.7%, #B093EE 100%)"
       : ""};
