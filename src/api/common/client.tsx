@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const client = axios.create();
-client.defaults.baseURL = "http://3.38.77.244:8090/api/"; // spring
+client.defaults.baseURL = "http://43.200.73.168:8090/api/"; // spring
 client.defaults.withCredentials = true;
 
 const token = localStorage.getItem("token"); // access token
