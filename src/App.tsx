@@ -12,6 +12,7 @@ import CheckListRoutes from "@route/CheckListRoutes";
 import WordRoutes from "@route/WordRoutes";
 import UserRoutes from "@route/UserRoutes";
 import AnalyzeRoutes from "@route/AnalyzeRoutes";
+import PrivateRoute from "@route/PrivateRoute";
 
 const HomePage = loadable(() => import("@pages/Main/Home"));
 
@@ -27,28 +28,27 @@ const App: React.FC = () => {
     <Routes>
       <Route path="/" element={<HomePage />} />
 
-      {/* 등기부등본 */}
-      <Route path="/house/*" element={<HouseRoutes />} />
-      {/* 문자 마법사 */}
-      <Route path="/text/*" element={<TextRoutes />} />
-      {/* 금쪽이 */}
-      <Route path="/question/*" element={<QuestionRoutes />} />
-      {/* 자취 체크리스트 */}
-      <Route path="/checklist/*" element={<CheckListRoutes />} />
-      {/* 단어 관련 */}
-      <Route path="/word/*" element={<WordRoutes />} />
-      {/* 유저 관련 */}
-      <Route path="/my/*" element={<UserRoutes />} />
-      {/* 특약 기능 */}
-      <Route path="/analyze/*" element={<AnalyzeRoutes />} />
-
-      {/* 로그인 관련 */}
+      {/* 가입 관련 */}
       <Route path="/signup" element={<SignupPage />} />
       <Route path="/login" element={<LoginPage />} />
       <Route path="/KakaoLogin" element={<KakoLoginPage />} />
+      {/* 문자 마법사 */}
+      <Route path="/text/*" element={<TextRoutes />} />
 
-      {/* 문자마법사 */}
-      <Route path="/text" element={<TextPage />} />
+      <Route element={<PrivateRoute authentication={true} />}>
+        {/* 등기부등본 */}
+        <Route path="/house/*" element={<HouseRoutes />} />
+        {/* 금쪽이 */}
+        <Route path="/question/*" element={<QuestionRoutes />} />
+        {/* 자취 체크리스트 */}
+        <Route path="/checklist/*" element={<CheckListRoutes />} />
+        {/* 단어 관련 */}
+        <Route path="/word/*" element={<WordRoutes />} />
+        {/* 유저 관련 */}
+        <Route path="/my/*" element={<UserRoutes />} />
+        {/* 특약 기능 */}
+        <Route path="/analyze/*" element={<AnalyzeRoutes />} />
+      </Route>
     </Routes>
   );
 };
