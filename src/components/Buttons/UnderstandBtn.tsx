@@ -52,16 +52,13 @@ UnderstandBtn.defaultProps = {
 export default UnderstandBtn;
 
 const Btn = styled.div<{ complete: boolean; bottomFix: boolean }>`
-  position: ${props => props.bottomFix && "absolute"};
-  bottom: ${props => props.bottomFix && "45px"};
-
   display: flex;
   justify-content: center;
   align-items: center;
 
   margin: auto;
 
-  width: 90%;
+  width: 100%;
   height: 40px;
   background: ${props => (props.complete ? "#4880EE" : "#D1D1D1")};
   border-radius: 8px;
@@ -72,4 +69,8 @@ const Btn = styled.div<{ complete: boolean; bottomFix: boolean }>`
   font-size: 16px;
   line-height: 24px;
   color: #fcfcfc;
+
+  position: ${props => props.bottomFix && "absolute"};
+  bottom: ${props => props.bottomFix && "45px"};
+  width: ${props => props.bottomFix && "90%"};
 `;
