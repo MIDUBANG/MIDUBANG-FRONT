@@ -221,6 +221,7 @@ const DesText = styled.p<{ bold: boolean | false }>`
   span {
     font-weight: 500;
     background-color: rgba(156, 219, 117, 0.5);
+    margin-left: 3px;
   }
 
   font-weight: ${props => (props.bold ? 700 : 400)};
@@ -260,6 +261,7 @@ const ContentsBox = styled.div`
   }
 
   margin-bottom: 64px;
+  margin-top: 25px;
 `;
 
 const RightContent = styled.div`

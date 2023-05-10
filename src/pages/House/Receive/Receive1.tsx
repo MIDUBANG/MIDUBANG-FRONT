@@ -46,6 +46,7 @@ export default Receive1;
 const Div = styled.div`
   width: 100%;
   height: 100%;
+  padding-top: 69px;
 `;
 
 const Container = styled.div`
@@ -54,12 +55,11 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   padding: 24px;
-  padding-top: 65px;
+
   box-sizing: border-box;
 `;
 
 const Title = styled.p`
-  margin: 34px 0 0 0;
   font-family: "Noto Sans KR", sans-serif;
   font-style: normal;
   font-weight: 500;
@@ -86,7 +86,7 @@ const ExImgText = styled.p`
 const DesText = styled.p`
   font-family: "Noto Sans KR";
   font-style: normal;
-  font-weight: 400;
+  font-weight: 350;
   font-size: 16px;
   line-height: 24px;
   color: #000000;
@@ -95,5 +95,6 @@ const DesText = styled.p`
   span {
     font-weight: 500;
     background-color: rgba(156, 219, 117, 0.5);
+    margin-left: 3px;
   }
 `;

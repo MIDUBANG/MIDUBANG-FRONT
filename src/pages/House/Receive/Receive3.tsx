@@ -38,6 +38,7 @@ export default Receive3;
 const Div = styled.div`
   width: 100%;
   height: 100%;
+  padding-top: 69px;
 `;
 
 const Container = styled.div`
@@ -46,7 +47,7 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   padding: 24px;
-  padding-top: 65px;
+
   box-sizing: border-box;
 `;
 
@@ -79,5 +80,7 @@ const DesText = styled.p`
 
   span {
     font-weight: 500;
+    background-color: rgba(156, 219, 117, 0.5);
+    margin-left: 3px;
   }
 `;
