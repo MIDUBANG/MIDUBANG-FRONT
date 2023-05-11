@@ -54,7 +54,7 @@ const WordList = () => {
     const words = await GetSearchWords(
       searchText,
       cookies.refreshToken,
-      onCookie
+      onCookie,
     );
 
     setWordList(words.content);
@@ -62,11 +62,15 @@ const WordList = () => {
     setSearched(true);
   };
 
+  const _handleGotoMyBookmark = () => {
+    navigate("/my/savedword");
+  };
+
   return (
     <Div>
       <SimpleNavBar text="단어 사전" />
 
-      <ScrollBookMark>
+      <ScrollBookMark onClick={_handleGotoMyBookmark}>
         <img src={scrollbookmark} width={61} height={35} />
         <p>단어장</p>
       </ScrollBookMark>
@@ -75,7 +79,7 @@ const WordList = () => {
           <input
             placeholder="부동산 단어를 입력해주세요"
             value={searchText}
-            onChange={(e) => setSearchText(e.target.value)}
+            onChange={e => setSearchText(e.target.value)}
           />
 
           <img
@@ -95,7 +99,7 @@ const WordList = () => {
           </p>
         </CountText>
 
-        {wordList.map((w) => (
+        {wordList.map(w => (
           <WordMeanBox onClick={() => _handleWordMean(w.wordId)}>
             <div className="word-box">
               <p className="word">{w.word} </p>
