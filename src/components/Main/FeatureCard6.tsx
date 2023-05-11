@@ -9,7 +9,7 @@ import checkbook from "@assets/main/checkbook.png";
 const FeatureCard6 = () => {
   const navigate = useNavigate();
   return (
-    <CardDiv onClick={() => navigate("/house")}>
+    <CardDiv onClick={() => navigate("/checklist")}>
       <Number>6</Number>
 
       <div className="content">

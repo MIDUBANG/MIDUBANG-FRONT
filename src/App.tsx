@@ -32,10 +32,10 @@ const App: React.FC = () => {
       <Route path="/signup" element={<SignupPage />} />
       <Route path="/login" element={<LoginPage />} />
       <Route path="/KakaoLogin" element={<KakoLoginPage />} />
-      {/* 문자 마법사 */}
-      <Route path="/text/*" element={<TextRoutes />} />
 
       <Route element={<PrivateRoute authentication={true} />}>
+        {/* 문자 마법사 */}
+        <Route path="/text/*" element={<TextRoutes />} />
         {/* 등기부등본 */}
         <Route path="/house/*" element={<HouseRoutes />} />
         {/* 금쪽이 */}

@@ -7,7 +7,7 @@ import text from "@assets/main/text.png";
 const FeatureCard4 = () => {
   const navigate = useNavigate();
   return (
-    <CardDiv onClick={() => navigate("/house")}>
+    <CardDiv onClick={() => navigate("/text")}>
       <Number>4</Number>
 
       <div className="content">

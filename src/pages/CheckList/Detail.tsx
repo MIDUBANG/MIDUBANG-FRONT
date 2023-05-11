@@ -6,6 +6,7 @@ import { useCookies } from "react-cookie";
 
 //component
 import MainNavBar from "@components/NavBar/MainNavBar";
+import SimpleNavBar from "@components/NavBar/SimpleNavBar";
 import CheckBox from "@components/CheckList/CheckBox";
 import OtherCheckList from "@components/CheckList/OtherCheckList";
 // asset
@@ -55,7 +56,7 @@ const Main = () => {
     const res = await GetCheckCount(
       checklistId,
       cookies.refreshToken,
-      onCookie
+      onCookie,
     );
 
     setDoneCount(res.count);
@@ -76,7 +77,7 @@ const Main = () => {
     // 체크된 것만 true로 변경
     donelist.map((d: any) => {
       newlist = newlist.map((c: any) =>
-        c.checklistId === d ? { ...c, checked: true } : c
+        c.checklistId === d ? { ...c, checked: true } : c,
       );
     });
 
@@ -93,9 +94,9 @@ const Main = () => {
     await ToggleChecklist(id, cookies.refreshToken, onCookie);
 
     setChecklistData(
-      checklistData.map((c) =>
-        c.checklistId === id ? { ...c, checked: true } : c
-      )
+      checklistData.map(c =>
+        c.checklistId === id ? { ...c, checked: true } : c,
+      ),
     );
 
     setRes(req + 1);
@@ -128,7 +129,7 @@ const Main = () => {
 
   return (
     <Div>
-      <MainNavBar text="자취 A-Z 체크리스트" />
+      <SimpleNavBar text="자취 A-Z 체크리스트" />
       <Banner>
         <img src={house} width={82} height={82} />
         <p className="title">{categoryTitle}</p>
@@ -271,16 +272,16 @@ const EnText = styled.div<{
 }>`
   font-family: "Inter", sans-serif;
   font-style: normal;
-  font-weight: ${(props) => props.weight};
-  font-size: ${(props) => props.size};
-  color: ${(props) => props.color};
-  margin: ${(props) => props.margin};
+  font-weight: ${props => props.weight};
+  font-size: ${props => props.size};
+  color: ${props => props.color};
+  margin: ${props => props.margin};
 `;
 
 const KRText = styled.div<{ weight: string; size: string; color: string }>`
   font-family: "Noto Sans KR";
   font-style: normal;
-  font-weight: ${(props) => props.weight};
-  font-size: ${(props) => props.size};
-  color: ${(props) => props.color};
+  font-weight: ${props => props.weight};
+  font-size: ${props => props.size};
+  color: ${props => props.color};
 `;

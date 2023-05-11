@@ -66,7 +66,7 @@ const GoldDetail = () => {
         postId,
         newComment,
         cookies.refreshToken,
-        onCookie
+        onCookie,
       );
 
       console.log("댓글 결과 : ", res);
@@ -88,7 +88,7 @@ const GoldDetail = () => {
     const res = await DeleteGoldComment(
       commentId,
       cookies.refreshToken,
-      onCookie
+      onCookie,
     );
 
     _handleGetGoldPost(); // 글 다시 불러오기
@@ -121,7 +121,9 @@ const GoldDetail = () => {
             </div>
 
             {currenUser === post?.writer && (
-              <button onClick={_handleDeleteGoldPost}>삭제</button>
+              <PostDeleteBtn onClick={_handleDeleteGoldPost}>
+                삭제
+              </PostDeleteBtn>
             )}
           </div>
 
@@ -147,7 +149,7 @@ const GoldDetail = () => {
         </PostContainer>
         <Hr></Hr>
         <CommentContainer>
-          {comments?.map((c) => (
+          {comments?.map(c => (
             <Comment>
               <div className="top-content-box">
                 <img src={profile} width={26} height={26} />
@@ -197,7 +199,7 @@ const GoldDetail = () => {
           <input
             placeholder="댓글을 입력해주세요"
             value={newComment}
-            onChange={(e) => setNewComment(e.target.value)}
+            onChange={e => setNewComment(e.target.value)}
           />
           <div className="send-btn" onClick={_handleSubmitGoldComment}>
             <img src={send} width={23} height={23} />
@@ -245,7 +247,7 @@ const PostContainer = styled.div`
     display: flex;
     justify-content: start;
 
-    margin: 25px 0 14px 25px;
+    margin: 25px 19px 14px 25px;
   }
 
   .profile {
@@ -340,11 +342,11 @@ const Text = styled.p<{
   font-family: "Noto Sans KR";
   font-style: normal;
 
-  font-weight: ${(props) => props.weight};
-  font-size: ${(props) => props.size};
-  line-height: ${(props) => props.height};
-  color: ${(props) => props.color};
-  margin: ${(props) => props.margin};
+  font-weight: ${props => props.weight};
+  font-size: ${props => props.size};
+  line-height: ${props => props.height};
+  color: ${props => props.color};
+  margin: ${props => props.margin};
 `;
 
 const Comment = styled.div`
@@ -388,7 +390,7 @@ const Btn = styled.div<{ active: boolean }>`
 
   border-radius: 9px;
 
-  ${(props) =>
+  ${props =>
     props.active
       ? css`
   color: #ffffff;
@@ -399,4 +401,27 @@ const Btn = styled.div<{ active: boolean }>`
           color: #707070;
           background: #f2f3f7;
         `};
+`;
+
+const PostDeleteBtn = styled.div`
+  margin-left: auto;
+  //margin-right: 10px;
+  width: 36px;
+  height: 17px;
+
+  background: #f2f3f7;
+  border-radius: 3px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  font-family: "Noto Sans KR";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 11px;
+  line-height: 16px;
+
+  text-align: center;
+  color: #ef5353;
 `;

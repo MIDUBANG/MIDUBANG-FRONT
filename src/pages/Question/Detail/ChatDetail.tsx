@@ -67,7 +67,7 @@ const ChatDetail = () => {
         postId,
         newComment,
         cookies.refreshToken,
-        onCookie
+        onCookie,
       );
 
       console.log("댓글 결과 : ", res);
@@ -82,7 +82,7 @@ const ChatDetail = () => {
     const res = await DeleteChatComment(
       answerId,
       cookies.refreshToken,
-      onCookie
+      onCookie,
     );
 
     _handleGetChatPost(); // 글 다시 불러오기
@@ -108,7 +108,7 @@ const ChatDetail = () => {
                 챗쪽이
               </Text>
 
-              <Text size="16px" weight="500" margin="5px 0 0 0">
+              <Text size="16px" weight="500" margin="5px 0 0 0" height="24px">
                 {post?.question}
               </Text>
             </div>
@@ -126,7 +126,7 @@ const ChatDetail = () => {
         </PostContainer>
         <Hr></Hr>
         <CommentContainer>
-          {comments?.map((c) => (
+          {comments?.map(c => (
             <Comment>
               <div className="top-content-box">
                 <img src={profile} width={26} height={26} />
@@ -176,7 +176,7 @@ const ChatDetail = () => {
           <input
             placeholder="댓글을 입력해주세요"
             value={newComment}
-            onChange={(e) => setNewComment(e.target.value)}
+            onChange={e => setNewComment(e.target.value)}
           />
           <div className="send-btn" onClick={_handleSubmitChatComment}>
             <img src={send} width={23} height={23} />
@@ -224,14 +224,14 @@ const PostContainer = styled.div`
     display: flex;
     justify-content: start;
 
-    margin: 25px 0 14px 25px;
+    margin: 25px 19px 14px 25px;
   }
 
   .profile {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 40px;
+    min-width: 40px;
     height: 40px;
     background: #f0f0f0;
     border-radius: 23.5px;
@@ -319,11 +319,11 @@ const Text = styled.p<{
   font-family: "Noto Sans KR";
   font-style: normal;
 
-  font-weight: ${(props) => props.weight};
-  font-size: ${(props) => props.size};
-  line-height: ${(props) => props.height};
-  color: ${(props) => props.color};
-  margin: ${(props) => props.margin};
+  font-weight: ${props => props.weight};
+  font-size: ${props => props.size};
+  line-height: ${props => props.height};
+  color: ${props => props.color};
+  margin: ${props => props.margin};
 `;
 
 const Comment = styled.div`
@@ -367,7 +367,7 @@ const Btn = styled.div<{ active: boolean }>`
 
   border-radius: 9px;
 
-  ${(props) =>
+  ${props =>
     props.active
       ? css`
   color: #ffffff;

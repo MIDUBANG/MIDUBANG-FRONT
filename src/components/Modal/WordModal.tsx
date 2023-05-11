@@ -24,6 +24,8 @@ type Props = {
 const WordModal = (props: Props) => {
   const { open, close, text, wordsData } = props;
 
+  console.log("단어 데이타!!", wordsData);
+
   // 스크롤 방지
   useEffect(() => {
     document.body.style.overflow = "hidden";
@@ -42,7 +44,7 @@ const WordModal = (props: Props) => {
 
   /** 단어 저장 함수 */
   const _handleClickSaveBtn = (text: string) => {
-    wordsData.map((word) => {
+    wordsData.map(word => {
       if (word.word === text) {
         PostSaveWord(word.word_id, cookies.refreshToken, onCookie);
       }
@@ -70,9 +72,9 @@ const WordModal = (props: Props) => {
             <Contents>
               <p className="word">{text}</p>
 
-              {wordsData.map((m) => {
+              {wordsData.map(m => {
                 if (m.word === text) {
-                  return <p className="mean">{m.meaning}</p>;
+                  return <p className="mean">{m.meaning} ?</p>;
                 }
               })}
             </Contents>
@@ -179,7 +181,7 @@ const Btn = styled.div<BtnProps>`
   min-width: 131px;
   width: 45%;
   height: 37px;
-  background: var(${(props) => props.color});
+  background: var(${props => props.color});
   border-radius: 4px;
 
   display: flex;

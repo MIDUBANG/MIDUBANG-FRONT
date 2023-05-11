@@ -7,7 +7,7 @@ import question from "@assets/main/question.png";
 const FeatureCard5 = () => {
   const navigate = useNavigate();
   return (
-    <CardDiv onClick={() => navigate("/house")}>
+    <CardDiv onClick={() => navigate("/question")}>
       <Number>5</Number>
 
       <div className="content">
