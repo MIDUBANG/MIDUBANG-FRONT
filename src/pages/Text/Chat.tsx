@@ -18,6 +18,7 @@ import { GetMessageMaker } from "@api/message";
 import { handleCopyClipBoard } from "@api/clipBoard";
 
 const Chat = () => {
+  const messageEndRef = useRef<HTMLDivElement | null>(null);
   const userCurrentId = useRef(0);
   const assiCurrentId = useRef(0);
 
@@ -38,7 +39,10 @@ const Chat = () => {
   ]);
 
   /** 말풍선 상태 업데이트 */
-  const SendUserInput = () => {
+  const SendUserInput = (e: React.FormEvent<HTMLFormElement>) => {
+    // 새로 방지
+    e.preventDefault();
+
     // 1. 유저 입력값 저장
     setUserBubble();
 
@@ -111,6 +115,10 @@ const Chat = () => {
       FetchMessageMakerApi();
     }
   }, [history[3]]);
+
+  useEffect(() => {
+    messageEndRef?.current?.scrollIntoView({ behavior: "smooth" });
+  }, [userRender, assiRender]);
 
   return (
     <Div>
@@ -288,17 +296,18 @@ const Chat = () => {
             </div>
           </LeftMessageBox>
         )}
+        <div ref={messageEndRef}></div>
       </Container>
 
       <SendBox>
-        <SendInput>
+        <SendInput onSubmit={SendUserInput}>
           <input
             value={userInput}
             placeholder="작성해주세요"
             onChange={setUserInput}
           />
         </SendInput>
-        <SendBtnImg src={send} onClick={SendUserInput} />
+        <SendBtnImg src={send} />
       </SendBox>
     </Div>
   );
@@ -406,7 +415,7 @@ const SendBox = styled.div`
   border-top: 1px solid rgba(0, 0, 0, 0.1);
   background-color: white;
 `;
-const SendInput = styled.div`
+const SendInput = styled.form`
   display: flex;
   width: 100%;
   height: 40px;
