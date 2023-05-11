@@ -3,6 +3,9 @@ import styled from "@emotion/styled";
 import { css } from "@emotion/react";
 
 import logo from "@assets/footer/whitelogo.png";
+import github from "@assets/footer/github.png";
+import insta from "@assets/footer/insta.png";
+import linktree from "@assets/footer/linktree.png";
 
 const Footer = () => {
   return (
@@ -15,9 +18,9 @@ const Footer = () => {
       </Text>
 
       <div className="sns-logo-container">
-        <img src={logo} />
-        <img src={logo} />
-        <img src={logo} />
+        <img src={github} />
+        <img src={insta} />
+        <img src={linktree} />
       </div>
 
       <hr />
@@ -51,8 +54,8 @@ const FooterDiv = styled.div`
     width: 98px;
 
     img {
-      width: 22px;
-      height: 22px;
+      width: 24px;
+      height: 24px;
     }
   }
 
@@ -73,7 +76,7 @@ const Text = styled.p<{ margin: string }>`
   font-style: normal;
   font-weight: 400;
   font-size: 10px;
-  line-height: 14px;
+  line-height: 16px;
 
   color: #ffffff;
   margin: ${props => props.margin};

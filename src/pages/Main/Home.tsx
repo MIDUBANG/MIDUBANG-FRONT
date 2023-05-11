@@ -37,7 +37,7 @@ const Home = () => {
         <Title>
           <p className="title">부동산과 친해지기</p>
           <p className="sub-title">
-            <span>슬기로운 홀로서기</span>클래스
+            <span>슬기로운 홀로서기 </span>클래스
           </p>
         </Title>
         <CardScrollBox>
@@ -65,7 +65,7 @@ export default Home;
 const Div = styled.div`
   width: 100%;
   height: auto;
-  padding-top: 70px;
+  padding-top: 69px;
 `;
 
 const Container = styled.div`
@@ -74,7 +74,7 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
 
-  padding: 36px 0 50px 0;
+  padding: 25px 0 0 0;
 `;
 
 const Title = styled.div`
