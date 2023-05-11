@@ -8,12 +8,12 @@ export const GetMessageMaker = async (
   receiver: string,
   purpose: string,
   tone: string,
-  more_info: string
+  more_info: string,
 ): Promise<any> => {
   try {
     console.log("문자 요청 ");
 
-    const res = await axios.post("http://127.0.0.1:5000/api/message", {
+    const res = await axios.post("https://nlp.midubang.com/api/message", {
       receiver: receiver,
       purpose: purpose,
       tone: tone,

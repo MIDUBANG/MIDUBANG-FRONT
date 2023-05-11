@@ -6,7 +6,7 @@ import axios from "axios";
 /** (1) OCR 특약 이미지 업로드 */
 export const PostContractImg = async (
   user_id: number,
-  file: File
+  file: File,
 ): Promise<any> => {
   try {
     console.log("OCR 요청 중...");
@@ -14,7 +14,7 @@ export const PostContractImg = async (
     formData.append("image", file);
     formData.append("id", user_id.toString());
 
-    const res = await axios.post("http://52.79.133.117/api/ocr", formData, {
+    const res = await axios.post("https://nlp.midubang.com/api/ocr", formData, {
       headers: {
         "Content-Type": "multipart/form-data",
         Accept: "multipart/form-data",
@@ -48,10 +48,10 @@ type NLPtype = {
 export const PostContractCase = async (
   result: NLPtype,
   refreshToken: string,
-  cookie: (res: any) => void
+  cookie: (res: any) => void,
 ): Promise<any> => {
   try {
-    const res = await axios.post("http://52.79.133.117/api/nlp", result);
+    const res = await axios.post("https://nlp.midubang.com/api/nlp", result);
 
     console.log("NLP 성공", res);
 
@@ -83,7 +83,7 @@ export const PostAnalyze = async (
   inclusions: inlcusion[],
   omissions: number[],
   refreshToken: string,
-  cookie: (res: any) => void
+  cookie: (res: any) => void,
 ): Promise<any> => {
   try {
     console.log("스프링 요청:", {
@@ -124,7 +124,7 @@ export const PostAnalyze = async (
 // 분석 리스트 불러오기 ✅
 export const GetAnalyzeList = async (
   refreshToken: string,
-  cookie: (res: any) => void
+  cookie: (res: any) => void,
 ): Promise<any> => {
   try {
     const res = await client.get("analysis/list");
@@ -148,7 +148,7 @@ export const GetAnalyzeList = async (
 export const GetAnalyze = async (
   record_id: number,
   refreshToken: string,
-  cookie: (res: any) => void
+  cookie: (res: any) => void,
 ): Promise<any> => {
   try {
     console.log("api 내부 try 실행");
@@ -174,7 +174,7 @@ export const GetAnalyze = async (
 export const DeleteAnalyze = async (
   recordId: number,
   refreshToken: string,
-  cookie: (res: any) => void
+  cookie: (res: any) => void,
 ) => {
   try {
     const res = await client.delete(`analysis?recordId=${recordId}`);
@@ -199,7 +199,7 @@ export const DeleteAnalyze = async (
 /** 레포트 요약 */
 export const SummarizeReport = async (contents: string[]): Promise<any> => {
   try {
-    const res = await axios.post("http://52.79.133.117/api/summary", {
+    const res = await axios.post("https://nlp.midubang.com/api/summary", {
       contents: contents,
     });
 

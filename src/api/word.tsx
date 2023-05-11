@@ -5,7 +5,7 @@ import { RefreshApi } from "./auth";
 // 전체 단어 불러오기
 export const GetAllWordList = async (
   refreshToken: string,
-  cookie: (res: any) => void
+  cookie: (res: any) => void,
 ): Promise<any> => {
   try {
     const res = await client.get("word/list?sort=word,desc");
@@ -24,7 +24,7 @@ export const GetAllWordList = async (
 // 저장한 단어 목록 불러오기
 export const GetSavedWordList = async (
   refreshToken: string,
-  cookie: (res: any) => void
+  cookie: (res: any) => void,
 ): Promise<any> => {
   try {
     const res = await client.get("word/my/list");
@@ -44,7 +44,7 @@ export const GetSavedWordList = async (
 export const GetWord = async (
   wordId: number,
   refreshToken: string,
-  cookie: (res: any) => void
+  cookie: (res: any) => void,
 ): Promise<any> => {
   try {
     const res = await client.get(`/word/${wordId}`);
@@ -67,11 +67,11 @@ export const GetWord = async (
 export const GetSearchWords = async (
   searchText: string,
   refreshToken: string,
-  cookie: (res: any) => void
+  cookie: (res: any) => void,
 ): Promise<any> => {
   try {
     const res = await client.get(
-      `/word/search/list?searchKeyword=${searchText}&page=0&size=10&sort=word,asc`
+      `/word/search/list?searchKeyword=${searchText}&page=0&size=10&sort=word,asc`,
     );
     console.log("검색 결과:", res);
     return res.data;
@@ -93,7 +93,7 @@ export const GetSearchWords = async (
 export const PostSaveWord = async (
   wordId: number,
   refreshToken: string,
-  cookie: (res: any) => void
+  cookie: (res: any) => void,
 ): Promise<any> => {
   try {
     const res = await client.post(`/word/${wordId}`);
@@ -119,7 +119,7 @@ export const PostSaveWord = async (
 export const DeleteWord = async (
   wordId: number,
   refreshToken: string,
-  cookie: (res: any) => void
+  cookie: (res: any) => void,
 ): Promise<any> => {
   try {
     const res = await client.delete(`/word/${wordId}`);
