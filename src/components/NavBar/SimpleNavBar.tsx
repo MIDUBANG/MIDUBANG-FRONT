@@ -19,6 +19,10 @@ type SimpleNavBarProps = {
 const SimpleNavBar = ({ text }: SimpleNavBarProps) => {
   const navigate = useNavigate();
 
+  const _clickHomeLogo = () => {
+    navigate("/");
+  };
+
   const _clickBackBtn = () => {
     navigate(-1);
   };
@@ -28,7 +32,7 @@ const SimpleNavBar = ({ text }: SimpleNavBarProps) => {
   return (
     <BarDiv>
       <div className={scrollDirection === "up" ? "nav active" : "nav unactive"}>
-        <img src={logo} className="mini-logo" />
+        <img src={logo} className="mini-logo" onClick={_clickHomeLogo} />
         <p className="title">{text}</p>
         <img src={CancleLogo} className="cancle-logo" onClick={_clickBackBtn} />
       </div>
