@@ -134,6 +134,8 @@ const TextBox = styled.div`
   .email-box {
     display: flex;
     align-items: center;
+
+    margin-top: 5px;
   }
 
   .my-email {

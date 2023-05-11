@@ -35,6 +35,7 @@ const App: React.FC = () => {
       <Route path="/house/*" element={<HouseRoutes />} />
       <Route path="/question/*" element={<QuestionRoutes />} />
       <Route path="/text/*" element={<TextRoutes />} />
+      <Route path="/my/*" element={<UserRoutes />} />
 
       <Route element={<PrivateRoute authentication={true} />}>
         {/* 문자 마법사 */}
@@ -45,7 +46,6 @@ const App: React.FC = () => {
         {/* 단어 관련 */}
         <Route path="/word/*" element={<WordRoutes />} />
         {/* 유저 관련 */}
-        <Route path="/my/*" element={<UserRoutes />} />
         {/* 특약 기능 */}
         <Route path="/analyze/*" element={<AnalyzeRoutes />} />
       </Route>
