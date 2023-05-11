@@ -21,6 +21,10 @@ const MainNavBar = ({ text }: MainNavBarProps) => {
     navigate("/my");
   };
 
+  const _clickMainLogo = () => {
+    navigate("/");
+  };
+
   const [scrollDirection, setScrollDirection] = useScrollDirection("up");
 
   useEffect(() => {
@@ -30,7 +34,12 @@ const MainNavBar = ({ text }: MainNavBarProps) => {
   return (
     <BarDiv>
       <div className={scrollDirection === "up" ? "nav active" : "nav unactive"}>
-        <img src={logo} className="mini-logo" width={34} />
+        <img
+          src={logo}
+          className="mini-logo"
+          width={34}
+          onClick={_clickMainLogo}
+        />
         <p>믿어방</p>
         {text !== "" && <Rod src={rod} />}
         <p>{text}</p>
@@ -48,6 +57,7 @@ MainNavBar.defaultProps = {
 
 const Rod = styled.img`
   margin-left: 12px;
+  margin-right: 12px;
 `;
 const BarDiv = styled.div`
   .nav {
@@ -83,6 +93,8 @@ const BarDiv = styled.div`
   .mini-logo {
     margin-left: 20px;
     margin-right: 17px;
+
+    transform: translate(0, -3px);
   }
 
   .profile {
