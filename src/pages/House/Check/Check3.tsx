@@ -47,13 +47,13 @@ const Check3 = () => {
   /** 확인 버튼 누르기 */
   const _handleUpdateCheckData = (id: string) => {
     setCheckData(
-      checkData.map((c) => (c.id === id ? { ...c, checked: !c.checked } : c))
+      checkData.map(c => (c.id === id ? { ...c, checked: !c.checked } : c)),
     );
   };
 
   /** 모두 체크된 경우만 이해했어요 버튼 활성화*/
   useEffect(() => {
-    let checkedCount = checkData.filter((c) => c.checked === true).length;
+    let checkedCount = checkData.filter(c => c.checked === true).length;
 
     if (checkedCount === checkData.length) {
       setIsComplete(true);
@@ -67,10 +67,19 @@ const Check3 = () => {
       <SimpleNavBar text="등기부등본 마스터" direction="up" />
 
       <Container>
-        <Title>을구 - CHECKPOINT</Title>
+        <Title margin="0">을구 - CHECKPOINT</Title>
         <DesText>을구에서 확인해야 할 부분들입니다.</DesText>
 
-        <img src={temp1} />
+        <img src={temp1} className="main-img" />
+
+        <Title margin="20px 0 0 0">스스로 확인해보기</Title>
+        <div style={{ display: "flex", justifyContent: "space-between" }}>
+          <DesText>우리집 등기부등본을 보며 체크해봅시다</DesText>
+          <CountBox>
+            {checkData.filter(c => c.checked === true).length} /{" "}
+            {checkData.length}
+          </CountBox>
+        </div>
 
         <CustomAccordion
           inputData={checkData}
@@ -87,6 +96,7 @@ export default Check3;
 const Div = styled.div`
   width: 100%;
   height: 100%;
+  padding-top: 75px;
 `;
 
 const Container = styled.div`
@@ -95,38 +105,49 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   padding: 24px;
-  padding-top: 65px;
   box-sizing: border-box;
+
+  .main-img {
+    margin-top: 10px;
+  }
 `;
 
-const Title = styled.p`
-  margin: 23px auto 0 0;
-  font-family: "Noto Sans KR", sans-serif;
-  font-style: normal;
-  font-weight: 500;
-  font-size: 26px;
-  line-height: 38px;
-  padding: 0;
-`;
-
-const ExImgText = styled.p`
+const Title = styled.p<{ margin: string }>`
   font-family: "Noto Sans KR";
   font-style: normal;
-  font-weight: 350;
-  font-size: 14px;
-  line-height: 20px;
-  color: #3d3d3d;
+  font-weight: 500;
+  font-size: 24px;
+  line-height: 29px;
+  color: #000000;
+  margin: ${props => props.margin};
 `;
 
 const DesText = styled.p`
   font-family: "Noto Sans KR";
   font-style: normal;
-  font-weight: 350;
-  font-size: 14px;
-  line-height: 20px;
-  color: #000000;
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 19px;
+  color: #7d7d7d;
 
-  span {
-    font-weight: 500;
-  }
+  margin-top: 5px;
+`;
+
+const CountBox = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  width: 52px;
+  height: 22px;
+  background: rgba(126, 126, 126, 0.3);
+  border-radius: 13px;
+
+  font-family: "Noto Sans KR";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  color: #ffffff;
+
+  padding-bottom: 1px;
 `;

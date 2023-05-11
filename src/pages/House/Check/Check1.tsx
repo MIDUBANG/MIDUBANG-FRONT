@@ -47,13 +47,13 @@ const Check1 = () => {
   /** 확인 버튼 누르기 */
   const _handleUpdateCheckData = (id: string) => {
     setCheckData(
-      checkData.map((c) => (c.id === id ? { ...c, checked: !c.checked } : c))
+      checkData.map(c => (c.id === id ? { ...c, checked: !c.checked } : c)),
     );
   };
 
   /** 모두 체크된 경우만 이해했어요 버튼 활성화*/
   useEffect(() => {
-    let checkedCount = checkData.filter((c) => c.checked === true).length;
+    let checkedCount = checkData.filter(c => c.checked === true).length;
 
     if (checkedCount === checkData.length) {
       setIsComplete(true);
@@ -70,13 +70,13 @@ const Check1 = () => {
         <Title margin="0">표제부 - CHECKPOINT</Title>
         <DesText>표제부에서 확인해야 할 부분들입니다.</DesText>
 
-        <img src={temp1} />
+        <img src={temp1} className="main-img" />
 
         <Title margin="20px 0 0 0">스스로 확인해보기</Title>
         <div style={{ display: "flex", justifyContent: "space-between" }}>
           <DesText>우리집 등기부등본을 보며 체크해봅시다</DesText>
           <CountBox>
-            {checkData.filter((c) => c.checked === true).length} /{" "}
+            {checkData.filter(c => c.checked === true).length} /{" "}
             {checkData.length}
           </CountBox>
         </div>
@@ -106,16 +106,24 @@ const Container = styled.div`
   flex-direction: column;
   padding: 24px;
   box-sizing: border-box;
+
+  .main-img {
+    margin-top: 10px;
+  }
+
+  .accordion {
+    margin-bottom: 48px !important;
+  }
 `;
 
 const Title = styled.p<{ margin: string }>`
   font-family: "Noto Sans KR";
   font-style: normal;
   font-weight: 500;
-  font-size: 20px;
+  font-size: 24px;
   line-height: 29px;
   color: #000000;
-  margin: ${(props) => props.margin};
+  margin: ${props => props.margin};
 `;
 
 const DesText = styled.p`
@@ -125,6 +133,8 @@ const DesText = styled.p`
   font-size: 13px;
   line-height: 19px;
   color: #7d7d7d;
+
+  margin-top: 5px;
 `;
 
 const CountBox = styled.div`
