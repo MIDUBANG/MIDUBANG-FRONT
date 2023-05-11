@@ -18,22 +18,23 @@ const Receive4 = () => {
 
         <img src={sammaryex} />
 
-        <ExImgText>요약 버전 예시 </ExImgText>
+        <ExImgText>[요약 버전 예시] </ExImgText>
 
-        <DesText>
+        <DesText margin="20px 0 0 0">
           여기서 꿀팁! 등기가 너무 많아서 문서가 너무 복잡하진 않나요?
         </DesText>
 
-        <DesText>
-          말소된 내용은 싹 빼고, 현재 남아 있는 내용을 정리해서 요약해주는 ‘주요
-          등기사항 요약’도 활용해보세요.
+        <DesText margin="10px 0 0 0">
+          말소된 내용은 싹 빼고, 현재 남아 있는 내용을 정리해서 요약해주는
+          <span>"주요 등기사항 요약"</span>도 활용해보세요.
         </DesText>
 
-        <DesText>
-          등기부등본 열람 시 요약 체크 박스 에 체크 하셨다면 등기부등본의 가장
-          마지막 페이지에 주요 등기사항 요약(참고용) 이 함께 표시됩니다.
+        <DesText margin="10px 0 40px 0">
+          등기부등본 열람 시 <span>요약 체크</span> 박스 에 체크 하셨다면
+          등기부등본의 가장 마지막 페이지에 주요 등기사항 요약(참고용) 이 함께
+          표시됩니다.
         </DesText>
-        <UnderstandBtn id={2} subId={4} />
+        <UnderstandBtn id={2} subId={4} bottomFix={true} />
       </Container>
     </Div>
   );
@@ -57,7 +58,7 @@ const Container = styled.div`
 `;
 
 const Title = styled.p`
-  /* margin: 23px auto 0 30px; */
+  margin: 23px 0 17px 0;
   font-family: "Noto Sans KR", sans-serif;
   font-style: normal;
   font-weight: 500;
@@ -73,9 +74,13 @@ const ExImgText = styled.p`
   font-size: 14px;
   line-height: 20px;
   color: #3d3d3d;
+
+  text-align: center;
+
+  margin-top: 5px;
 `;
 
-const DesText = styled.p`
+const DesText = styled.p<{ margin: string }>`
   font-family: "Noto Sans KR";
   font-style: normal;
   font-weight: 350;
@@ -85,5 +90,9 @@ const DesText = styled.p`
 
   span {
     font-weight: 500;
+    background-color: rgba(156, 219, 117, 0.5);
+    margin-left: 3px;
   }
+
+  margin: ${props => props.margin};
 `;

@@ -33,13 +33,13 @@ const App: React.FC = () => {
       <Route path="/login" element={<LoginPage />} />
       <Route path="/KakaoLogin" element={<KakoLoginPage />} />
       <Route path="/house/*" element={<HouseRoutes />} />
+      <Route path="/question/*" element={<QuestionRoutes />} />
 
       <Route element={<PrivateRoute authentication={true} />}>
         {/* 문자 마법사 */}
         <Route path="/text/*" element={<TextRoutes />} />
         {/* 등기부등본 */}
         {/* 금쪽이 */}
-        <Route path="/question/*" element={<QuestionRoutes />} />
         {/* 자취 체크리스트 */}
         <Route path="/checklist/*" element={<CheckListRoutes />} />
         {/* 단어 관련 */}

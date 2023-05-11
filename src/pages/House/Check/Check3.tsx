@@ -7,42 +7,14 @@ import UnderstandBtn from "@components/Buttons/UnderstandBtn";
 import SimpleNavBar from "@components/NavBar/SimpleNavBar";
 import CustomAccordion from "@components/House/CustomAccordion";
 // asset
-import temp1 from "@assets/house/temp1.png";
+import eulgu from "@assets/house/check/을구.png";
+import { checkdata3 } from "@assets/houseCheckData";
 
 const Check3 = () => {
   // 여기 checkData 따로 관리하기
 
   const [isComplete, setIsComplete] = useState(false);
-  const [checkData, setCheckData] = useState([
-    {
-      id: "0",
-      title: "집 소유자와 현재 집주인 일치 여부 확인 ",
-      content:
-        "계약하려는 부동산의 주소와 등기부등본에 기재되어 있는 소재지가 일치되어 있는지 확인하세요!",
-      checked: false,
-    },
-    {
-      id: "1",
-      title: "현재의 소유자 확인 ",
-      content:
-        "계약하려는 부동산의 주소와 등기부등본에 기재되어 있는 소재지가 일치되어 있는지 확인하세요!",
-      checked: false,
-    },
-    {
-      id: "2",
-      title: "신탁 등기",
-      content:
-        "계약하려는 부동산의 주소와 등기부등본에 기재되어 있는 소재지가 일치되어 있는지 확인하세요!",
-      checked: false,
-    },
-    {
-      id: "",
-      title: "경매",
-      content:
-        "계약하려는 부동산의 주소와 등기부등본에 기재되어 있는 소재지가 일치되어 있는지 확인하세요!",
-      checked: false,
-    },
-  ]);
+  const [checkData, setCheckData] = useState(checkdata3);
 
   /** 확인 버튼 누르기 */
   const _handleUpdateCheckData = (id: string) => {
@@ -70,7 +42,7 @@ const Check3 = () => {
         <Title margin="0">을구 - CHECKPOINT</Title>
         <DesText>을구에서 확인해야 할 부분들입니다.</DesText>
 
-        <img src={temp1} className="main-img" />
+        <img src={eulgu} className="main-img" />
 
         <Title margin="20px 0 0 0">스스로 확인해보기</Title>
         <div style={{ display: "flex", justifyContent: "space-between" }}>
@@ -85,7 +57,12 @@ const Check3 = () => {
           inputData={checkData}
           _handleUpdateCheckData={_handleUpdateCheckData}
         />
-        <UnderstandBtn id={4} subId={3} complete={isComplete} />
+        <UnderstandBtn
+          id={4}
+          subId={3}
+          complete={isComplete}
+          bottomFix={true}
+        />
       </Container>
     </Div>
   );
@@ -109,6 +86,10 @@ const Container = styled.div`
 
   .main-img {
     margin-top: 10px;
+  }
+
+  .accordion {
+    margin-bottom: 40px !important;
   }
 `;
 

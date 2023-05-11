@@ -202,20 +202,20 @@ const DesText = styled.p<{ color: string; weight: string; top?: string }>`
   font-style: normal;
   font-weight: 350;
   font-size: 14px;
-  line-height: 20px;
+  line-height: 22px;
   span {
     font-weight: 500;
   }
 
-  font-weight: ${(props) => props.weight};
+  font-weight: ${props => props.weight};
 
-  color: ${(props) => (props.color === "gray" ? "#7D7D7D" : "#000000")};
+  color: ${props => (props.color === "gray" ? "#7D7D7D" : "#000000")};
 
-  margin-top: ${(props) => props.top};
+  margin-top: ${props => props.top};
 `;
 
 const TopContentBox = styled.div`
-  width: 90%;
+  width: 100%;
   height: auto;
   padding: 15px;
 
@@ -275,7 +275,7 @@ const ContentsBox = styled.div`
   }
   .bar {
     position: absolute;
-    left: 6px;
+    left: 4px;
     z-index: -100;
     width: 2px;
     height: 100%;
@@ -287,7 +287,7 @@ const Checkpoint = styled.div`
   margin-top: 50px;
   margin-bottom: 60px;
   padding: 20px;
-  width: 90%;
+  width: 100%;
   height: auto;
   background: #ffffff;
   border: 0.5px solid rgba(147, 147, 147, 0.5);
@@ -324,6 +324,8 @@ const Checkpoint = styled.div`
   .text {
     display: flex;
     align-items: start;
+
+    margin-bottom: 5px;
     div {
       margin-top: 4px;
       margin-right: 9px;

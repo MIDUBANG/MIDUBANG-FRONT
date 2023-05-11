@@ -59,7 +59,7 @@ const DesText = styled.p`
   font-style: normal;
   font-weight: 350;
   font-size: 14px;
-  line-height: 20px;
+  line-height: 22px;
   color: #000000;
 
   span {

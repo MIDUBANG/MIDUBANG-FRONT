@@ -23,12 +23,16 @@ const House = () => {
     let rate: any = localStorage.getItem("houseCompleteRate");
     if (!rate) {
       localStorage.setItem("houseCompleteRate", JSON.stringify([]));
-    } // rate 없는 경우
-    rate = JSON.parse(rate);
+      rate = [];
+    } else {
+      rate = JSON.parse(rate);
+    }
 
     setComplete(rate.length);
 
-    let prePercentage = parseInt(((rate.length / 14) * 100).toString());
+    console.log(rate.length);
+
+    let prePercentage = parseInt(((rate.length / 12) * 100).toString());
     setPercentage(prePercentage);
 
     console.log("rate >> ", rate);
@@ -85,7 +89,7 @@ const House = () => {
             <p>완료</p>
           </div>
           <div>
-            <p>{14 - complete}</p>
+            <p>{12 - complete}</p>
             <p>미완료</p>
           </div>
         </Numbers>
