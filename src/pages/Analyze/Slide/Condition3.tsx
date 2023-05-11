@@ -48,7 +48,8 @@ const Condition3 = ({ extraInfo, setExtraInfo }: Props) => {
       <DescriptionBox>
         <img src={alert} />
         <p>
-          <span>차임(월세)란?</span> <br /> qmffkqmff
+          <span>차임(월세)란?</span> <br /> 월세(차임)는 매달 지불하는 것이며
+          돌려받는 금액이 아닙니다.
         </p>
       </DescriptionBox>
     </Div>
