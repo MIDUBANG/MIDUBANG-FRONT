@@ -21,14 +21,6 @@ import CommissionBox from "@components/Result/CommissionBox";
 
 import { FontTitle } from "@style/font.style";
 import rokect from "@assets/analyze/loading/rokect.png";
-type Test = {
-  article_url: string;
-  caseType: string;
-  case_detail: string;
-  case_exists: boolean;
-  case_id: number;
-  desc: string;
-};
 
 const Summary = () => {
   const { reportId } = useAppSelector((state: RootState) => state.summary);
@@ -51,7 +43,7 @@ const Summary = () => {
 
   /** 요약 요청 보내기  */
   const _requestSummary = async () => {
-    const records = await GetAnalyze(7, cookies.refreshToken, onCookie); //records중 case만
+    const records = await GetAnalyze(reportId, cookies.refreshToken, onCookie); //records중 case만
 
     // 케이스 별로 구별
     records.myCaseDto.map((r: any) => {
@@ -130,7 +122,7 @@ const Summary = () => {
         {loading ? (
           <div>
             <FontTitle margin="20px 0 0 37px" size="20px">
-              요약 레포투 생성 중
+              요약 레포트 생성 중
             </FontTitle>
             <IlluImg
               imgWidth="318px"
