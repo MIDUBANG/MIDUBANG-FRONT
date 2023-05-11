@@ -27,20 +27,19 @@ const My = () => {
     setCookie("refreshToken", refreshToken, { path: "/" });
   };
 
-  const checkLogin = async () => {
-    try {
-      let res = await GetUserInfo(cookies.refreshToken, onCookie);
-    } catch (err: any) {
-      if (err.message === "로그인 필요") {
-        navigate("/login");
-      }
-    }
+  const _handleLogout = () => {
+    alert("로그아웃합니다");
+    localStorage.removeItem("token");
+    removeCookie("refreshToken", { path: "/" });
+    navigate("/");
   };
 
-  useEffect(() => {
-    checkLogin();
-  }, []);
-
+  const _handleLoginOuther = () => {
+    alert("다른 계정으로 로그인합니다.");
+    localStorage.removeItem("token");
+    removeCookie("refreshToken", { path: "/" });
+    navigate("/login");
+  };
   return (
     <Div>
       <SimpleNavBar text="마이페이지" />
@@ -66,7 +65,7 @@ const My = () => {
           </div>
           <img src={wordbook} />
         </BigButton>
-        <BigButton onClick={() => navigate("/analyzelist")}>
+        <BigButton onClick={() => navigate("/my/analyzelist")}>
           <div className="left-flex-box">
             <p className="title">내 계약서 분석 기록</p>
             <div className="small-btn">레포트 보기</div>
@@ -74,11 +73,11 @@ const My = () => {
           <img src={report} />
         </BigButton>
 
-        <SmallBtn onClick={() => navigate("/my/logout")}>
+        <SmallBtn onClick={_handleLogout}>
           <p className="title">로그아웃</p>
           <img src={arrow} />
         </SmallBtn>
-        <SmallBtn onClick={() => navigate("/my/login")}>
+        <SmallBtn onClick={_handleLoginOuther}>
           <p className="title">다른 계정으로 로그인</p>
           <img src={arrow} />
         </SmallBtn>
