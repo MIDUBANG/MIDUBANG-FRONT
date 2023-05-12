@@ -52,8 +52,10 @@ const WordList = () => {
   /** 단어 검색   */
   const _handleSearchWord = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
+    const searchWord = searchText.replace(" ", "");
     const words = await GetSearchWords(
-      searchText,
+      searchWord,
       cookies.refreshToken,
       onCookie,
     );
