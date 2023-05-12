@@ -10,9 +10,8 @@ import GoldQuestionBox from "@components/Question/GoldQuestionBox";
 import ChatQuestionBox from "@components/Question/ChatQuestionBox";
 
 // asset
-import card1 from "@assets/question/card1.png";
-import write from "@assets/question/write.svg";
-import rightArrow from "@assets/question/rightArrow.png";
+import pencil from "@assets/question/pencil.png";
+
 // api
 import { GetAllGoldPosts, GetAllChatPosts } from "@api/community";
 // type
@@ -64,12 +63,17 @@ const List = () => {
   const [goldQuestions, setGoldQuestions] = useState<GoldQuestionType[]>();
   const [chatQuestions, setChatQuestions] = useState<ChatQuestionType[]>();
 
+  /** 글쓰러 가기 버튼 */
+  const _handleGotoCreate = () => {
+    naviate("/question/create");
+  };
+
   const ToggleBtn = (text: string) => {
     setFilter(text); // 필터링
     setBtnArr(
-      btnsArr.map((b) =>
-        b.text == text ? { ...b, active: true } : { ...b, active: false }
-      )
+      btnsArr.map(b =>
+        b.text == text ? { ...b, active: true } : { ...b, active: false },
+      ),
     );
   };
 
@@ -89,7 +93,7 @@ const List = () => {
         <Text margin="0 0 19px 0">부동산 궁금한거 다 물어봐!</Text>
 
         <BtnContainer>
-          {btnsArr.map((btn) => (
+          {btnsArr.map(btn => (
             <Btn active={btn.active} onClick={() => ToggleBtn(btn.text)}>
               {btn.text}
             </Btn>
@@ -99,7 +103,7 @@ const List = () => {
         </BtnContainer>
 
         <div>
-          {goldQuestions?.map((question) => {
+          {goldQuestions?.map(question => {
             if (filter === "금쪽이") {
               return (
                 <GoldQuestionBox
@@ -112,7 +116,7 @@ const List = () => {
             }
           })}
 
-          {chatQuestions?.map((question) => {
+          {chatQuestions?.map(question => {
             if (filter === "챗쪽이") {
               return (
                 <ChatQuestionBox
@@ -125,6 +129,10 @@ const List = () => {
             }
           })}
         </div>
+
+        <WriteBtn onClick={_handleGotoCreate}>
+          <img src={pencil} />
+        </WriteBtn>
       </Container>
     </Div>
   );
@@ -155,10 +163,10 @@ const Container = styled.div`
 const Text = styled.p<{ size?: string; margin?: string }>`
   font-family: "Noto Sans KR";
   font-style: normal;
-  font-weight: ${(props) => (props.size === "big" ? "500" : "400")};
-  font-size: ${(props) => (props.size === "big" ? "24px" : "14px")};
+  font-weight: ${props => (props.size === "big" ? "500" : "400")};
+  font-size: ${props => (props.size === "big" ? "24px" : "14px")};
   color: #000000;
-  margin: ${(props) => props.margin};
+  margin: ${props => props.margin};
 `;
 
 const BtnContainer = styled.div`
@@ -194,7 +202,7 @@ const Btn = styled.div<{ active: boolean }>`
 
   border-radius: 9px;
 
-  ${(props) =>
+  ${props =>
     props.active
       ? css`
   color: #ffffff;
@@ -205,4 +213,31 @@ const Btn = styled.div<{ active: boolean }>`
           color: #707070;
           background: #f2f3f7;
         `};
+`;
+
+const WriteBtn = styled.div`
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  width: 63px;
+  height: 63px;
+  border-radius: 50%;
+  border: none;
+
+  background: linear-gradient(94.02deg, #4880ee 5.7%, #b093ee 100%);
+  box-shadow: -3px 4px 6px rgba(0, 0, 0, 0.2);
+  transform: rotate(-20deg);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  img {
+    width: 21px;
+    height: 24px;
+  }
+
+  &:active {
+    background: linear-gradient(94.02deg, #acc8fe 5.7%, #c3a6ff 100%);
+  }
 `;
