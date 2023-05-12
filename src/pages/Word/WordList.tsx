@@ -50,7 +50,8 @@ const WordList = () => {
   const [searched, setSearched] = useState(false);
 
   /** 단어 검색   */
-  const _handleSearchWord = async () => {
+  const _handleSearchWord = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
     const words = await GetSearchWords(
       searchText,
       cookies.refreshToken,
@@ -75,20 +76,17 @@ const WordList = () => {
         <p>단어장</p>
       </ScrollBookMark>
       <SearchBox>
-        <div className="input-box">
+        <form onSubmit={_handleSearchWord} className="input-box">
           <input
             placeholder="부동산 단어를 입력해주세요"
             value={searchText}
             onChange={e => setSearchText(e.target.value)}
           />
 
-          <img
-            src={magnify}
-            width={16}
-            height={16}
-            onClick={_handleSearchWord}
-          />
-        </div>
+          <SearchBtn type="submit">
+            <img src={magnify} />
+          </SearchBtn>
+        </form>
       </SearchBox>
 
       <Container>
@@ -272,5 +270,19 @@ const ScrollBookMark = styled.div`
     font-weight: 400;
     font-size: 12px;
     color: #ffffff;
+  }
+`;
+
+const SearchBtn = styled.button`
+  background-color: transparent;
+  border: none;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  img {
+    width: 20px;
+    height: auto;
+    transform: translate(0, 2px);
   }
 `;
