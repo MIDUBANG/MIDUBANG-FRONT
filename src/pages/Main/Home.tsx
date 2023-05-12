@@ -17,6 +17,8 @@ const Home = () => {
     navigate(path);
   };
 
+  console.log("env 테스트 : ", process.env.REACT_APP_REACT_URL);
+
   return (
     <Div>
       <MainNavBar text="자취가 처음이라면" />
