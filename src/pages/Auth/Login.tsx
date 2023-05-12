@@ -17,7 +17,6 @@ import { useCookies } from "react-cookie";
 import { CLIENT_MAIN_URL } from "@api/common/url";
 
 const Login = () => {
-  console.log("클라이언트 url은..!", CLIENT_MAIN_URL);
   const navigate = useNavigate();
   const [cookies, setCookie] = useCookies(["refreshToken"]);
 
