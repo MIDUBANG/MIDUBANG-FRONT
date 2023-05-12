@@ -87,21 +87,16 @@ const Main = () => {
 
       <Container>
         <BtnBar>
-          <div className="btnItem">
+          <div className="btnItem" onClick={() => navigate("/question/list")}>
             <QuestionBtn>Q</QuestionBtn>
             <Text margin="0 0 0 13px">질문 보기</Text>
           </div>
-          <div className="btnItem">
+          <div className="btnItem" onClick={() => navigate("/question/create")}>
             <WriteBtn>
               <img src={write} />
             </WriteBtn>
 
-            <Text
-              margin="0 0 0 13px"
-              onClick={() => navigate("/question/create")}
-            >
-              질문 쓰기
-            </Text>
+            <Text margin="0 0 0 13px">질문 쓰기</Text>
           </div>
         </BtnBar>
 
@@ -117,7 +112,7 @@ const Main = () => {
         </Bar>
 
         <div>
-          {chatPosts?.map((question) => (
+          {chatPosts?.map(question => (
             <ChatQuestionBox
               question={question}
               onClick={() =>
@@ -126,7 +121,7 @@ const Main = () => {
             />
           ))}
 
-          {goldPosts?.map((question) => (
+          {goldPosts?.map(question => (
             <GoldQuestionBox
               question={question}
               onClick={() => _handleClicktoDetail("금쪽이", question.postId)}
@@ -181,7 +176,7 @@ const CardsContainer = styled.div`
 const Card = styled.div<{ background: string }>`
   min-width: 193px;
   height: 231px;
-  background: ${(props) => props.background};
+  background: ${props => props.background};
   border-radius: 25px;
   box-shadow: 0px 20px 50px 4px rgba(0, 0, 0, 0.25);
 
@@ -203,12 +198,12 @@ const Title = styled.p<{ size: string }>`
   font-family: "Noto Sans KR";
   font-style: normal;
   color: #ffffff;
-  font-weight: ${(props) => (props.size === "small" ? 200 : 300)};
+  font-weight: ${props => (props.size === "small" ? 200 : 300)};
 
-  font-size: ${(props) => (props.size === "small" ? "11px" : "20px")};
+  font-size: ${props => (props.size === "small" ? "11px" : "20px")};
 
-  line-height: ${(props) => props.size === "big" && "29px"};
-  margin-top: ${(props) => props.size === "big" && "3px"};
+  line-height: ${props => props.size === "big" && "29px"};
+  margin-top: ${props => props.size === "big" && "3px"};
 `;
 
 const BtnBar = styled.div`
@@ -253,11 +248,11 @@ const Text = styled.p<{ size?: number | 16; margin?: string }>`
   font-family: "Noto Sans KR";
   font-style: normal;
   font-weight: 500;
-  font-size: ${(props) => props.size}px;
+  font-size: ${props => props.size}px;
 
   color: #090909;
 
-  margin: ${(props) => props.margin};
+  margin: ${props => props.margin};
 `;
 
 const WriteBtn = styled.div`
