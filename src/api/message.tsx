@@ -1,6 +1,6 @@
 import client from "@api/common/client";
 import { RefreshApi } from "./auth";
-
+import { FLASK_URL } from "./common/url";
 import axios from "axios";
 
 /** 문자 마법사 */
@@ -13,7 +13,7 @@ export const GetMessageMaker = async (
   try {
     console.log("문자 요청 ");
 
-    const res = await axios.post("https://nlp.midubang.com/api/message", {
+    const res = await axios.post(`${FLASK_URL}/message`, {
       receiver: receiver,
       purpose: purpose,
       tone: tone,

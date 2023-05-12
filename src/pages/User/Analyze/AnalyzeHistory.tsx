@@ -36,7 +36,7 @@ const AnalyzeHistory = () => {
     const analyzeResult = await GetAnalyze(
       reportId,
       cookies.refreshToken,
-      onCookie
+      onCookie,
     );
 
     console.log("요청 결과 >>>>>>>>", analyzeResult);
@@ -87,7 +87,7 @@ const AnalyzeHistory = () => {
     dispatch(
       setReportId({
         reportId: results?.recordId,
-      })
+      }),
     );
     navigate("/analyze/summary");
   };
@@ -116,9 +116,9 @@ const AnalyzeHistory = () => {
           wordsData={words}
         />
       )}
+      <SimpleNavBar text="레포트 결과" />
 
       <Container>
-        <SimpleNavBar text="레포트 결과" />
         <Title>
           <div></div>
           <p> 특약 조항 분석 레포트</p>
@@ -148,7 +148,7 @@ const AnalyzeHistory = () => {
           my_commission={results?.commission}
           is_expensive={results?.is_expensive}
         />
-        {cases.map((c) => {
+        {cases.map(c => {
           return (
             <ResultBox
               key={c.caseId}
@@ -169,6 +169,7 @@ const Div = styled.div`
   width: 100%;
   height: 100%;
   padding-top: 90px;
+  overflow-x: hidden;
   //overflow-y: scroll;
 `;
 

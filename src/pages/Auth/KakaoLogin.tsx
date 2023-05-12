@@ -4,11 +4,12 @@ import { useLocation } from "react-router-dom";
 import axios from "axios";
 import { useCookies } from "react-cookie";
 import { useNavigate } from "react-router-dom";
+import { SPRING_URL } from "@api/common/url";
 
 const KakaoLogin = () => {
   const location = useLocation();
   const KAKAO_CODE = location.search.split("=")[1]; // 인가코드
-  const Spring = `https://spring.midubang.com/api/member/login/oauth/kakao?code=${KAKAO_CODE}`; // 토큰 요청
+  const Spring = `${SPRING_URL}member/login/oauth/kakao?code=${KAKAO_CODE}`; // 토큰 요청
 
   const [cookies, setCookie] = useCookies(["refreshToken"]);
 

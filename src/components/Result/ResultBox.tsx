@@ -77,7 +77,7 @@ const ResultBox = ({ caseData, wordData, openWordModal }: Props) => {
 
   let wordIndex = [[0, 0]];
 
-  words.map((w) => {
+  words.map(w => {
     let searchvalue = w.word;
     let pos = 0;
     while (true) {
@@ -173,14 +173,14 @@ const ResultBox = ({ caseData, wordData, openWordModal }: Props) => {
 
       <InfoBox>
         <div className="text-info">
-          {words.map((word) => (
+          {words.map(word => (
             <p># {word.word}</p>
           ))}
         </div>
       </InfoBox>
 
       <Describe>
-        {caseTypeDesc.map((des) => {
+        {caseTypeDesc.map(des => {
           if (des.type === caseType) {
             return (
               <p>
@@ -229,7 +229,7 @@ const ResultBox = ({ caseData, wordData, openWordModal }: Props) => {
             id={caseId.toString()}
             className="toggle"
             hidden
-            onChange={(e) => _handleHighlighter(e)}
+            onChange={e => _handleHighlighter(e)}
           />
 
           <label htmlFor={caseId.toString()} className="toggleSwitch">
@@ -320,7 +320,7 @@ const Contract = styled.div<{ caseTypeColor: string }>`
   width: 80%;
 
   div {
-    background: ${(props) => props.caseTypeColor};
+    background: ${props => props.caseTypeColor};
     height: auto;
     width: 7px;
     margin-right: 10px;
@@ -391,7 +391,7 @@ const CaseTypeSpan = styled.span<{ color: string }>`
     width: 100%;
     height: 10px;
     display: inline-block;
-    background: ${(props) => props.color};
+    background: ${props => props.color};
     position: absolute;
     bottom: 0;
     left: 0;

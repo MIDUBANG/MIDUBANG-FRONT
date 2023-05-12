@@ -2,6 +2,9 @@ import client from "@api/common/client";
 import axios from "axios";
 import exp from "constants";
 import { useCookies } from "react-cookie";
+import { SPRING_URL } from "./common/url";
+
+const CLIENT_MAIN_URL = process.env.REACT_APP_REACT_URL;
 
 // 이메일 확인
 const check = (body: string, type: string): boolean => {
@@ -36,13 +39,13 @@ export const SignUpApi = (
         console.log("쿠키 저장!!");
 
         cookie(res);
-        window.location.href = "http://localhost:3000/";
+        window.location.href = CLIENT_MAIN_URL || "";
         window.location.reload();
       })
       .catch(err => {
         if (err.response.data.message === "이미 존재하는 계정입니다.") {
           alert("이미 존재하는 계정입니다.");
-          // window.location.href = "http://localhost:3000/login";
+          window.location.href = `${CLIENT_MAIN_URL}/login`;
         }
       });
   }
@@ -65,8 +68,9 @@ export const LoginApi = (
       .then(res => {
         console.log(res);
         cookie(res);
-        window.location.href = "http://localhost:3000/";
-        window.location.reload();
+        console.log("메인링크 >", CLIENT_MAIN_URL);
+        //window.location.href = CLIENT_MAIN_URL || "";
+        //window.location.reload();
       })
       .catch(err => {
         console.log(err);
@@ -85,7 +89,7 @@ export const RefreshApi = (
   cookie: (res: any) => void,
 ) => {
   axios
-    .get("https://spring.midubang.com/api/member/refresh/", {
+    .get(`${SPRING_URL}/member/refresh/`, {
       headers: {
         Authorization: `Bearer ${refreshToken}`,
       },
@@ -102,12 +106,12 @@ export const RefreshApi = (
       if (err.response.data.message === "expired token") {
         // 로그인
         alert("토큰 만료 : 다시 로그인 해주세요.");
-        window.location.href = "http://localhost:3000/login";
+        window.location.href = `${CLIENT_MAIN_URL}/login`;
       } else if (err.response.data.message === "empty token") {
         alert("토큰이 없습니다.");
-        window.location.href = "http://localhost:3000/login";
+        window.location.href = `${CLIENT_MAIN_URL}/login`;
       }
-      window.location.href = "http://localhost:3000/login";
+      window.location.href = `${CLIENT_MAIN_URL}/login`;
     });
 };
 

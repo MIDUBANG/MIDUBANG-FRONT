@@ -1,7 +1,7 @@
 import client from "@api/common/client";
 import { RefreshApi } from "./auth";
-
 import axios from "axios";
+import { SPRING_URL, FLASK_URL } from "@api/common/url";
 
 /** (1) OCR 특약 이미지 업로드 */
 export const PostContractImg = async (
@@ -14,7 +14,7 @@ export const PostContractImg = async (
     formData.append("image", file);
     formData.append("id", user_id.toString());
 
-    const res = await axios.post("https://nlp.midubang.com/api/ocr", formData, {
+    const res = await axios.post(`${FLASK_URL}/ocr`, formData, {
       headers: {
         "Content-Type": "multipart/form-data",
         Accept: "multipart/form-data",
@@ -51,7 +51,7 @@ export const PostContractCase = async (
   cookie: (res: any) => void,
 ): Promise<any> => {
   try {
-    const res = await axios.post("https://nlp.midubang.com/api/nlp", result);
+    const res = await axios.post(`${FLASK_URL}/nlp`, result);
 
     console.log("NLP 성공", res);
 
@@ -93,20 +93,52 @@ export const PostAnalyze = async (
       contract_type: contract_type,
       image_url: image_url,
       omissions: omissions,
-      inclusions: inclusions,
+      inclusions: [5],
     });
+
+    // const res = await client.post("analysis", {
+    //   commission: commission,
+    //   answer_commission: answer_commission,
+    //   is_expensive: is_expensive,
+    //   contract_type: contract_type,
+    //   image_url: image_url,
+    //   omissions: [0],
+    //   inclusions: [
+    //     {
+    //       caseNo: 5,
+    //       rawCase: "특약 문장1",
+    //     },
+    //     {
+    //       caseNo: 2,
+    //       rawCase: "특약 문장2",
+    //     },
+    //   ],
+    // });
 
     const res = await client.post("analysis", {
-      commission: commission,
-      answer_commission: answer_commission,
-      is_expensive: is_expensive,
-      contract_type: contract_type,
-      image_url: image_url,
-      omissions: omissions,
-      inclusions: inclusions,
+      commission: 121212,
+      answer_commission: 500000,
+      is_expensive: true,
+      contract_type: "JEONSE",
+      image_url: "http://",
+      omissions: [1],
+      inclusions: [
+        {
+          caseNo: 5,
+          rawCase: "특약 문장1",
+        },
+        {
+          caseNo: 4,
+          rawCase: "특약 문장2",
+        },
+        {
+          caseNo: 20,
+          rawCase: "특약 문장2",
+        },
+      ],
     });
 
-    console.log("Spring 성공`", res);
+    console.log("Spring 성공`", res.data);
     return res.data;
   } catch (err: any) {
     console.log("Spring 에러", err);
@@ -199,7 +231,7 @@ export const DeleteAnalyze = async (
 /** 레포트 요약 */
 export const SummarizeReport = async (contents: string[]): Promise<any> => {
   try {
-    const res = await axios.post("https://nlp.midubang.com/api/summary", {
+    const res = await axios.post(`${FLASK_URL}/summary`, {
       contents: contents,
     });
 

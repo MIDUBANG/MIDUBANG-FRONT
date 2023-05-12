@@ -14,9 +14,11 @@ import lockIllustration from "@assets/illustration/lock.png";
 import useInput from "@hooks/useInput";
 import { LoginApi } from "@api/auth";
 import { useCookies } from "react-cookie";
-import { CLIENT_MAIN_URL } from "@api/common/url";
+//import { CLIENT_MAIN_URL } from "@api/common/url";
 
 const Login = () => {
+  const CLIENT_MAIN_URL = process.env.REACT_APP_REACT_URL;
+  console.log(CLIENT_MAIN_URL);
   const navigate = useNavigate();
   const [cookies, setCookie] = useCookies(["refreshToken"]);
 
