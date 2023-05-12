@@ -12,9 +12,10 @@ import arrow from "@assets/my/arrow.png";
 import { GetUserInfo } from "@api/auth";
 
 import { useCookies } from "react-cookie";
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
 
 const My = () => {
+  const [userInfo, setUserInfo] = useState<{ name: string; email: string }>();
   const navigate = useNavigate();
 
   const [cookies, setCookie, removeCookie] = useCookies(["refreshToken"]);
@@ -25,6 +26,16 @@ const My = () => {
     localStorage.setItem("token", accessToken);
     const refreshToken = res.data.refreshToken;
     setCookie("refreshToken", refreshToken, { path: "/" });
+  };
+
+  const _getUserInfo = async () => {
+    const res = await GetUserInfo(cookies.refreshToken, onCookie);
+    console.log(res);
+
+    const email = res.email;
+    const name = res.email.split("@")[0];
+
+    setUserInfo({ name: name, email: email });
   };
 
   const _handleLogout = () => {
@@ -40,6 +51,10 @@ const My = () => {
     removeCookie("refreshToken", { path: "/" });
     navigate("/login");
   };
+
+  useEffect(() => {
+    _getUserInfo();
+  }, []);
   return (
     <Div>
       <SimpleNavBar text="마이페이지" />
@@ -48,10 +63,10 @@ const My = () => {
           <img src={profile} width={53} height={53} />
 
           <TextBox>
-            <p className="name">dy6578님</p>
+            <p className="name">{userInfo?.name}님</p>
             <div className="email-box">
               <p className="my-email">내 이메일</p>
-              <p className="email">dy6578ekdbs@gmail.com</p>
+              <p className="email">{userInfo?.email}</p>
             </div>
           </TextBox>
         </div>
