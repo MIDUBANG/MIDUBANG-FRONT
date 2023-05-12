@@ -14,13 +14,16 @@ import lockIllustration from "@assets/illustration/lock.png";
 import useInput from "@hooks/useInput";
 import { LoginApi } from "@api/auth";
 import { useCookies } from "react-cookie";
+import { CLIENT_MAIN_URL } from "@api/common/url";
 
 const Login = () => {
+  console.log("클라이언트 url은..!", CLIENT_MAIN_URL);
   const navigate = useNavigate();
   const [cookies, setCookie] = useCookies(["refreshToken"]);
 
   const REST_API_KEY = process.env.REACT_APP_REST_API_KEY;
-  const REDIRECT_URI = "http://localhost:3000/KakaoLogin";
+
+  const REDIRECT_URI = `${CLIENT_MAIN_URL}KakaoLogin`;
 
   const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`;
 
