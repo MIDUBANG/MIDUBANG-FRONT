@@ -54,9 +54,9 @@ const SavedWordList = () => {
 
   const _handleClickBtn = (id: number) => {
     setBtnArr(
-      btnArr.map((b) =>
-        b.id === id ? { ...b, active: true } : { ...b, active: false }
-      )
+      btnArr.map(b =>
+        b.id === id ? { ...b, active: true } : { ...b, active: false },
+      ),
     );
   };
 
@@ -97,7 +97,7 @@ const SavedWordList = () => {
             </Title>
 
             <Buttons>
-              {btnArr.map((b) => (
+              {btnArr.map(b => (
                 <Btn active={b.active} onClick={() => _handleClickBtn(b.id)}>
                   {b.text}
                 </Btn>
@@ -111,12 +111,11 @@ const SavedWordList = () => {
         <CountText>
           저장된 단어 <span>{savedWordList.length}개</span>
         </CountText>
-        {savedWordList.map((w) => (
+        {savedWordList.map(w => (
           <WordBox key={w.wordId} onClick={() => _handleWordMean(w.wordId)}>
             <div className="top-content">
               <p>{w.word}</p>
-              <span>{w.word_date}</span>
-              {/* {w.word_date.split("T")[0]} */}
+              <span>{w.word_date.split("T")[0]}</span>
             </div>
 
             <p className="mean">{w.meaning}</p>
@@ -192,10 +191,10 @@ const Btn = styled.div<{ active: boolean }>`
   font-size: 12px;
   text-align: center;
 
-  color: ${(props) => (props.active ? "#ffffff" : "#707070")};
-  background: ${(props) => (props.active ? "#5a73fc" : "#F2F3F7")};
+  color: ${props => (props.active ? "#ffffff" : "#707070")};
+  background: ${props => (props.active ? "#5a73fc" : "#F2F3F7")};
 
-  ${(props) =>
+  ${props =>
     props.active &&
     css`
       box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.25);
