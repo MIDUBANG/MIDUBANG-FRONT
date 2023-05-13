@@ -11,6 +11,8 @@ import SimpleNavBar from "@components/NavBar/SimpleNavBar";
 import magnify from "@assets/wordlist/magnify.png";
 import bookmark from "@assets/wordlist/bookmark.png";
 import bottomarrow from "@assets/wordlist/bottomarrow.png";
+import uparrow from "@assets/wordlist/uparrow.png";
+
 import scrollbookmark from "@assets/wordlist/scrollbookmark.png";
 
 const WordList = () => {
@@ -28,6 +30,8 @@ const WordList = () => {
     { wordId: number; word: string; meaning: string; isSaved: boolean }[]
   >([]);
 
+  const [reqPageNum, setReqPageNum] = useState<number>(0);
+
   const navigate = useNavigate();
 
   /** 상세 단어 뜻 보러가기 */
@@ -37,9 +41,19 @@ const WordList = () => {
 
   /** 모든 단어 가져오기  */
   const _handleGetAllWordList = async () => {
-    const words = await GetAllWordList(cookies.refreshToken, onCookie);
-    setWordList(words.content);
-    console.log(words.content);
+    const words = await GetAllWordList(
+      reqPageNum,
+      cookies.refreshToken,
+      onCookie,
+    );
+
+    console.log(words);
+
+    let newWordList = [...wordList, ...words.content];
+
+    setWordList(newWordList);
+
+    setReqPageNum(reqPageNum + 1);
   };
 
   useEffect(() => {
@@ -54,6 +68,7 @@ const WordList = () => {
     e.preventDefault();
 
     const searchWord = searchText.replace(" ", "");
+
     const words = await GetSearchWords(
       searchWord,
       cookies.refreshToken,
@@ -111,10 +126,17 @@ const WordList = () => {
           </WordMeanBox>
         ))}
 
-        <SeeMoreBox>
-          <p>더보기 13/311</p>
-          <img src={bottomarrow} width={15} height={9} />
-        </SeeMoreBox>
+        {wordList.length === 309 ? (
+          <SeeMoreBox>
+            <p> 끝 {wordList.length}/309</p>
+            <img src={uparrow} width={15} height={9} />
+          </SeeMoreBox>
+        ) : (
+          <SeeMoreBox onClick={_handleGetAllWordList}>
+            <p>더보기 {wordList.length}/309</p>
+            <img src={bottomarrow} width={15} height={9} />
+          </SeeMoreBox>
+        )}
       </Container>
     </Div>
   );

@@ -4,11 +4,14 @@ import { RefreshApi } from "./auth";
 
 // 전체 단어 불러오기
 export const GetAllWordList = async (
+  page: number,
   refreshToken: string,
   cookie: (res: any) => void,
 ): Promise<any> => {
   try {
-    const res = await client.get("word/list?sort=word,desc");
+    const res = await client.get(
+      `word/list?page=${page}&size=300&sort=word,desc`,
+    );
     return res.data;
   } catch (err: any) {
     if (err.response.data.message === "expired token") {
