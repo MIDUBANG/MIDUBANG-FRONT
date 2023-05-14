@@ -13,6 +13,7 @@ import profile from "@assets/text/profile.png";
 import loading from "@assets/text/loading.png";
 import copy from "@assets/text/copy.png";
 import { userTextHistory } from "@assets/textData";
+import { emotionData } from "@assets/emotionData";
 // api
 import { GetMessageMaker } from "@api/message";
 import { handleCopyClipBoard } from "@api/clipBoard";
@@ -43,8 +44,72 @@ const Chat = () => {
     // 새로 방지
     e.preventDefault();
 
-    // 1. 유저 입력값 저장
-    setUserBubble();
+    if (!!userInput) {
+      // 1. 유저 입력값 저장
+      setUserBubble();
+
+      // 2. 유저 버블 보여주기
+      let copy = [...userRender];
+      copy[userCurrentId.current] = true;
+      setUserRender(copy);
+      userCurrentId.current += 1;
+
+      // 3. input 창 초기화
+      reset();
+
+      // // 4. 믿어방 다음 버블 보여주기
+
+      setTimeout(() => {
+        let copy = [...assiRender];
+        copy[assiCurrentId.current] = true;
+        setAssiRender(copy);
+      }, 500);
+
+      assiCurrentId.current += 1;
+    }
+  };
+
+  /** 말풍선 안에 value 반영하기  */
+  const setUserBubble = () => {
+    // 1. userInput에 들어온 값을 userTextHistory에 반영
+    setHistory(
+      history.map(h =>
+        h.id == userCurrentId.current
+          ? { ...h, text: userInput, res: true }
+          : h,
+      ),
+    );
+  };
+
+  // 어조 버튼들
+  const [emotions, setEmotions] = useState(emotionData);
+
+  /** 어조 고르기 버튼  */
+  const _handlePickEmotionBtn = (id: number) => {
+    setEmotions(
+      emotions.map(e => (e.id === id ? { ...e, active: !e.active } : e)),
+    );
+  };
+
+  /** 다 골랐어요 버튼 */
+  const _handlePickEmotionDone = () => {
+    // 버튼 결과를 history에 반영
+
+    let pickedEmotions = emotions.filter(e => e.active);
+    let newpickedEmotions = pickedEmotions.map(e => e.emotion);
+
+    // 1. userInput에 들어온 값을 userTextHistory에 반영
+    console.log(newpickedEmotions.join());
+
+    setHistory(
+      history.map(h =>
+        h.id == userCurrentId.current
+          ? { ...h, text: newpickedEmotions.join(", "), res: true }
+          : h,
+      ),
+    );
+
+    // 버블 업데이트 해야해
 
     // 2. 유저 버블 보여주기
     let copy = [...userRender];
@@ -66,18 +131,7 @@ const Chat = () => {
     assiCurrentId.current += 1;
   };
 
-  /** 말풍선 안에 value 반영하기  */
-  const setUserBubble = () => {
-    // 1. userInput에 들어온 값을 userTextHistory에 반영
-    setHistory(
-      history.map(h =>
-        h.id == userCurrentId.current
-          ? { ...h, text: userInput, res: true }
-          : h,
-      ),
-    );
-  };
-
+  /** 문자 작성 요청하기 */
   const FetchMessageMakerApi = async () => {
     console.log("APi 호출!!", history);
 
@@ -193,31 +247,19 @@ const Chat = () => {
                 <p>마음에 드는 어조가 없나요? </p>
                 <p>직접 작성해 알려주세요!</p>
 
-                <DoneBtn>다 골랐어요</DoneBtn>
+                <DoneBtn onClick={_handlePickEmotionDone}>다 골랐어요</DoneBtn>
               </LeftBubble>
 
               <EmotionBtnBox>
-                <EmotionBtn active={true}>
-                  🤵️ <p className="active">정중한</p>
-                </EmotionBtn>
-                <EmotionBtn active={false}>
-                  😤 <p className="active">화난</p>
-                </EmotionBtn>
-                <EmotionBtn active={false}>
-                  🤵️ <p className="active">예의바른</p>
-                </EmotionBtn>
-                <EmotionBtn active={false}>
-                  😤 <p className="active">캐주얼한</p>
-                </EmotionBtn>
-                <EmotionBtn active={false}>
-                  🤵️ <p className="active">친근한</p>
-                </EmotionBtn>
-                <EmotionBtn active={false}>
-                  🤵️ <p className="active">반말</p>
-                </EmotionBtn>
-                <EmotionBtn active={false}>
-                  😤 <p className="active">급한</p>
-                </EmotionBtn>
+                {emotions?.map(e => (
+                  <EmotionBtn
+                    active={e.active}
+                    onClick={() => _handlePickEmotionBtn(e.id)}
+                  >
+                    {e.emogi}{" "}
+                    <p className={e.active ? "active" : ""}>{e.emotion}</p>
+                  </EmotionBtn>
+                ))}
               </EmotionBtnBox>
             </div>
           </LeftMessageBox>
@@ -299,15 +341,17 @@ const Chat = () => {
         <div ref={messageEndRef}></div>
       </Container>
 
-      <SendBox>
-        <SendInput onSubmit={SendUserInput}>
+      <SendBox onSubmit={SendUserInput}>
+        <SendInput>
           <input
             value={userInput}
             placeholder="작성해주세요"
             onChange={setUserInput}
           />
         </SendInput>
-        <SendBtnImg src={send} />
+        <SendBtn type="submit">
+          <img src={send} />
+        </SendBtn>
       </SendBox>
     </Div>
   );
@@ -401,7 +445,7 @@ const LeftBubble = styled.div`
     margin-bottom: 5px;
   }
 `;
-const SendBox = styled.div`
+const SendBox = styled.form`
   display: flex;
   align-items: center;
 
@@ -415,7 +459,7 @@ const SendBox = styled.div`
   border-top: 1px solid rgba(0, 0, 0, 0.1);
   background-color: white;
 `;
-const SendInput = styled.form`
+const SendInput = styled.div`
   display: flex;
   width: 100%;
   height: 40px;
@@ -447,9 +491,20 @@ const SendInput = styled.form`
     }
   }
 `;
-const SendBtnImg = styled.img`
+const SendBtn = styled.button`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  background-color: transparent;
   width: 32px;
   height: 32px;
+  border: none;
+
+  img {
+    width: 32px;
+    height: 32px;
+  }
 `;
 
 const DoneBtn = styled.div`

@@ -101,17 +101,9 @@ export const RefreshApi = (
       window.location.reload();
     })
     .catch(err => {
-      alert("토큰 재발급 실패");
-
-      if (err.response.data.message === "expired token") {
-        // 로그인
-        alert("토큰 만료 : 다시 로그인 해주세요.");
-        window.location.href = `${CLIENT_MAIN_URL}/login`;
-      } else if (err.response.data.message === "empty token") {
-        alert("토큰이 없습니다.");
-        window.location.href = `${CLIENT_MAIN_URL}/login`;
-      }
-      window.location.href = `${CLIENT_MAIN_URL}/login`;
+      alert("토큰 재발급 실패, 다시 로그인해주세요");
+      console.log("토큰 재발급 실패 >> ", err);
+      window.location.href = `${CLIENT_MAIN_URL}login`; // 다시 로그인
     });
 };
 
