@@ -73,6 +73,7 @@ const Number = styled.div`
   font-size: 14px;
 
   color: #6038d0;
+  padding-bottom: 1px;
 `;
 
 const Title = styled.p`

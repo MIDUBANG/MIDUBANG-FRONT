@@ -72,6 +72,7 @@ const Number = styled.div`
   font-weight: 500;
   font-size: 14px;
   color: #5674e2;
+  padding-bottom: 1px;
 `;
 
 const Title = styled.p`

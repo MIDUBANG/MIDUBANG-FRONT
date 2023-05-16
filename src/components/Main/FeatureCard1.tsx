@@ -82,6 +82,7 @@ const Number = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+
   width: 26px;
   height: 26px;
   border-radius: 50%;
@@ -91,6 +92,8 @@ const Number = styled.div`
   font-style: normal;
   font-weight: 500;
   font-size: 14px;
+
+  padding-bottom: 1px;
   color: #c35212;
 `;
 
