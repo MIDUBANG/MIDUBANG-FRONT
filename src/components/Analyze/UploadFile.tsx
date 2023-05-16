@@ -22,7 +22,7 @@ const UploadFile = ({ setUpload, setImgUrl, setResult }: UploadFileProps) => {
   const [status, setStatus] = useState(false);
   const [statusMsg, setStatusMsg] = useState("사진 업로드");
   const [explain, setExplain] = useState(
-    "믿어방 가이드에 맞는 이미지를 업로드해주세요."
+    "믿어방 가이드에 맞는 이미지를 업로드해주세요.",
   );
   const [imgSrc, setImgSrc] = useState(sampleImg);
   const [fileName, setFileName] = useState("");
@@ -123,11 +123,11 @@ const UploadFile = ({ setUpload, setImgUrl, setResult }: UploadFileProps) => {
         <input className="upload-name" value="" disabled />
 
         <input
-          onChange={(e) => readInputFile(e)}
+          onChange={e => readInputFile(e)}
           type="file"
           className="upload-hidden"
           id="ex_filename"
-          accept="img/*"
+          accept="image/*"
           required
         />
       </div>
