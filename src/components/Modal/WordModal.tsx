@@ -46,7 +46,7 @@ const WordModal = (props: Props) => {
   const _handleClickSaveBtn = (text: string) => {
     wordsData.map(word => {
       if (word.word === text) {
-        PostSaveWord(word.word_id, cookies.refreshToken, onCookie);
+        PostSaveWord(word.wordId, cookies.refreshToken, onCookie);
       }
     });
   };

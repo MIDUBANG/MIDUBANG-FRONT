@@ -39,7 +39,7 @@ export type CasesType = {
 };
 
 export type WordsType = {
-  word_id: number;
+  wordId: number;
   word: string;
   meaning: string;
 };

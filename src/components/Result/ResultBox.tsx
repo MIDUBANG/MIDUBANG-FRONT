@@ -41,9 +41,23 @@ const ResultBox = ({ caseData, wordData, openWordModal }: Props) => {
     }
   };
 
+  type wordType = {
+    word: string;
+  };
+
+  let words: wordType[] = [];
+
+  console.log(word_ref, wordData);
+
   // 포함되는 단어만 뽑기
-  //let words = wordData.filter((word) => word_ref.includes(word.word_id));
-  let words = [{ word: "임차보증금" }, { word: "임차권" }];
+  word_ref.map(wr => {
+    wordData.map(wd => {
+      if (wd.wordId === wr) {
+        words.push(wd);
+      }
+    });
+  });
+  console.log("words >", words);
 
   const [caseTypeState, setCaseTypeState] = useState<string>("");
   const [caseTypeColor, setCaseTypeColor] = useState<string>("");
@@ -70,10 +84,6 @@ const ResultBox = ({ caseData, wordData, openWordModal }: Props) => {
       color: "#FFE5BC",
     },
   ]);
-
-  // desc의 임시
-  //let desc =
-  //"임차인이 주택을 인도받을 때까지 근저당권 등의 권리 설정을 하지 않겠다는 내용입니다. 만약 임차인이 전입 신고 하기 전에 근저당권 등의 권리 설정이 이루어지면, 임차권이 그 권리보다 후순위가 되어 문제가 발생했을 시 임차보증금을 돌려받는데 문제가 생길 수 있기 때문입니다.@임차인이 주택을 인도받을 때까지 근저당권 등의 권리 설정을 하지 않겠다는 내용입니다. 만약 임차인이 전입 신고 하기 전에 근저당권 등의 권리 설정이 이루어지면, 임차권이 그 권리보다 후순위가 되어 문제가 발생했을 시 임차보증금을 돌려받는데 문제가 생길 수 있기 때문입니다.@임차인이 주택을 인도받을 때까지 근저당권 등의 권리 설정을 하지 않겠다는 내용입니다. 만약 임차인이 전입 신고 하기 전에 근저당권 등의 권리 설정이 이루어지면, 임차권이 그 권리보다 후순위가 되어 문제가 발생했을 시 임차보증금을 돌려받는데 문제가 생길 수 있기 때문입니다.";
 
   let wordIndex = [[0, 0]];
 
@@ -304,13 +314,11 @@ const BookMark = styled.div`
 `;
 
 const Block = styled.div`
-  overflow: hidden;
   position: relative;
   box-sizing: border-box;
   height: auto;
 
   margin: 18px;
-  padding: 0 20px;
 
   border: 0.5px solid rgba(147, 147, 147, 0.5);
   border-radius: 5px;
@@ -318,7 +326,7 @@ const Block = styled.div`
 
 const Contract = styled.div<{ caseTypeColor: string }>`
   display: flex;
-  margin: 26px 0 30px 0;
+  margin: 26px auto 30px 24px;
   width: 80%;
 
   div {
@@ -340,7 +348,7 @@ const Contract = styled.div<{ caseTypeColor: string }>`
 const Describe = styled.div`
   display: flex;
   flex-direction: column;
-
+  margin: 28px;
   p {
     margin-bottom: 10px;
     font-family: "Noto Sans KR";
@@ -444,7 +452,7 @@ const InfoBox = styled.div`
     line-height: 20px;
     text-align: center;
     letter-spacing: -0.05em;
-    color: #9a9a9a;
+    color: #9a9a9a !important;
 
     p {
       margin-right: 6px;
