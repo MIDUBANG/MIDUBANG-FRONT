@@ -304,11 +304,13 @@ const BookMark = styled.div`
 `;
 
 const Block = styled.div`
+  overflow: hidden;
   position: relative;
   box-sizing: border-box;
   height: auto;
 
   margin: 18px;
+  padding: 0 20px;
 
   border: 0.5px solid rgba(147, 147, 147, 0.5);
   border-radius: 5px;
@@ -316,7 +318,7 @@ const Block = styled.div`
 
 const Contract = styled.div<{ caseTypeColor: string }>`
   display: flex;
-  margin: 26px auto 30px 24px;
+  margin: 26px 0 30px 0;
   width: 80%;
 
   div {
@@ -338,7 +340,7 @@ const Contract = styled.div<{ caseTypeColor: string }>`
 const Describe = styled.div`
   display: flex;
   flex-direction: column;
-  margin: 28px;
+
   p {
     margin-bottom: 10px;
     font-family: "Noto Sans KR";
