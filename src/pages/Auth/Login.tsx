@@ -51,7 +51,7 @@ const Login = () => {
 
   return (
     <Div>
-      <SimpleNavBar text="로그인" />
+      <SimpleNavBar text="로그인" to="/" />
       <Container>
         <Illurstration src={lockIllustration} />
         <form onSubmit={_handleLogin}>

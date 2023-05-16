@@ -14,9 +14,10 @@ import logo from "@assets/nav/logo.png";
 
 type SimpleNavBarProps = {
   text?: string;
+  to?: string;
 };
 
-const SimpleNavBar = ({ text }: SimpleNavBarProps) => {
+const SimpleNavBar = ({ text, to }: SimpleNavBarProps) => {
   const navigate = useNavigate();
 
   const _clickHomeLogo = () => {
@@ -24,7 +25,11 @@ const SimpleNavBar = ({ text }: SimpleNavBarProps) => {
   };
 
   const _clickBackBtn = () => {
-    navigate(-1);
+    if (to) {
+      navigate(to);
+    } else {
+      navigate(-1);
+    }
   };
 
   const [scrollDirection, setScrollDirection] = useScrollDirection("up");
@@ -46,6 +51,7 @@ SimpleNavBar.defaultProps = {
   text: "",
   direction: "up",
   noTitle: false,
+  to: "",
 };
 
 const BarDiv = styled.div`
