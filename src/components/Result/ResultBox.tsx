@@ -1,13 +1,11 @@
 import styled from "@emotion/styled";
 // asset
 import ill from "@assets/illustration/loadingPerson.png";
-import readmore from "@assets/result/readmore.svg";
+import readmore from "@assets/analyze/result/readmore.svg";
 import { CasesType, WordsType } from "@assets/types";
-import CaseTypeDesc from "@components/Result/CaseTypeDesc";
-import mark from "@assets/result/mark.svg";
-import bookmark from "@assets/result/bookmark.png";
-import ballon from "@assets/result/ballon.png";
-import ballontemp from "@assets/result/ballontemp.png";
+
+import bookmark from "@assets/analyze/result/bookmark.png";
+import message from "@assets/analyze/result/message.png";
 
 // hooks
 import { useState, useEffect } from "react";
@@ -168,14 +166,13 @@ const ResultBox = ({ caseData, wordData, openWordModal }: Props) => {
         <BookMarkBox onClick={_handleOpneBallon}>
           <BookMark>
             <img src={bookmark} className="bookmark" />
-            {/* <img src={mark} className="mark" /> */}
           </BookMark>
         </BookMarkBox>
       )}
 
       {isBallon && (
         <BallonBox>
-          <img src={ballontemp} />
+          <img src={message} />
         </BallonBox>
       )}
 
@@ -258,6 +255,11 @@ const BallonBox = styled.div`
   position: absolute;
   top: -90px;
   right: 20px;
+
+  img {
+    height: 80px;
+    width: auto;
+  }
 `;
 
 const BookMarkBox = styled.div`
