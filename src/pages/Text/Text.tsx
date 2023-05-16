@@ -8,6 +8,7 @@ import UnderstandBtn from "@components/Buttons/UnderstandBtn";
 import SimpleNavBar from "@components/NavBar/SimpleNavBar";
 // asset
 import text from "@assets/text/text.png";
+import illust from "@assets/text/illustration.png";
 
 const Text = () => {
   const naviate = useNavigate();
@@ -25,7 +26,7 @@ const Text = () => {
           chatGPT가 <span>문자</span> 대신 써드립니다!
         </Title>
 
-        <Img src={text} />
+        <Img src={illust} />
 
         <DesText margin="">
           자취를 하다보면 주변인에게 문자를 보낼 일이 많습니다. 그럴 때 문자를
@@ -111,7 +112,7 @@ const BlueText = styled.div<{ margin: string }>`
   display: flex;
   align-content: center;
 
-  margin: ${(props) => props.margin};
+  margin: ${props => props.margin};
 
   font-family: "Noto Sans KR";
   font-style: normal;
@@ -139,7 +140,7 @@ const DesText = styled.p<{ margin: string }>`
   line-height: 20px;
   color: #7d7d7d;
 
-  margin: ${(props) => props.margin};
+  margin: ${props => props.margin};
   span {
     font-weight: 500;
   }
