@@ -9,6 +9,8 @@ import BottomModal from "@components/Modal/BottomModal";
 import SimpleNavBar from "@components/NavBar/SimpleNavBar";
 import { FontGray, FontDescribed } from "@style/font.style";
 import { PropsContracts } from "@assets/types";
+import Loading from "@components/Loading/Loading";
+import FloatingLoading from "@components/Loading/FloatingLoading";
 // api & hook
 import { PostContractCase } from "@api/analyze";
 import { useCookies } from "react-cookie";
@@ -60,18 +62,18 @@ const Feedback = () => {
 
   const _handleClickCheck = (id: number) => {
     setContracts(
-      contracts.map((c) => (c.id === id ? { ...c, done: !c.done } : c))
+      contracts.map(c => (c.id === id ? { ...c, done: !c.done } : c)),
     );
   };
 
   const _handleClickEdit = (id: number) => {
     setContracts(
-      contracts.map((c) =>
-        c.id === id ? { ...c, selected: true } : { ...c, selected: false }
-      )
+      contracts.map(c =>
+        c.id === id ? { ...c, selected: true } : { ...c, selected: false },
+      ),
     );
 
-    const selectedContract = contracts.filter((c) => c.id === id)[0].contract;
+    const selectedContract = contracts.filter(c => c.id === id)[0].contract;
     setNewContract(selectedContract);
 
     setIsOpen(true);
@@ -79,9 +81,9 @@ const Feedback = () => {
 
   const _handleEdit = (id: number) => {
     setContracts(
-      contracts.map((c) =>
-        c.id === id ? { ...c, edit: true } : { ...c, edit: false }
-      )
+      contracts.map(c =>
+        c.id === id ? { ...c, edit: true } : { ...c, edit: false },
+      ),
     );
   };
 
@@ -89,13 +91,13 @@ const Feedback = () => {
     e.preventDefault();
 
     setContracts(
-      contracts.map((c) => {
+      contracts.map(c => {
         if (c.edit === true) {
           return { ...c, contract: newContract, edit: false };
         } else {
           return c;
         }
-      })
+      }),
     );
 
     setTimeout(() => {
@@ -129,7 +131,7 @@ const Feedback = () => {
     // (1) NLP 업로드 -> case 번호 (in, out )
     let valueContents: string[] = [];
 
-    contracts.map((c) => {
+    contracts.map(c => {
       valueContents.push(c.contract);
     });
 
@@ -142,7 +144,7 @@ const Feedback = () => {
     const nlpresult = await PostContractCase(
       NLP,
       cookies.refreshToken,
-      onCookie
+      onCookie,
     );
 
     console.log("NLP 결과 >>", nlpresult);
@@ -154,7 +156,7 @@ const Feedback = () => {
         is_expensive: nlpresult.is_expensive,
         inclusions: nlpresult.in,
         omissions: nlpresult.out,
-      })
+      }),
     );
 
     navigate("/analyze/result");
@@ -175,7 +177,7 @@ const Feedback = () => {
           <FontGray margin="23px auto 0 auto">
             오타를 수정하면 더 정확한 분석을 받아보실 수 있습니다.
           </FontGray>
-          {contracts.map((con) => {
+          {contracts.map(con => {
             return (
               <Contract>
                 <Dot
@@ -184,12 +186,12 @@ const Feedback = () => {
                 />
 
                 {con.edit ? (
-                  <EditForm onSubmit={(e) => _handleSubmitEdit(e)}>
+                  <EditForm onSubmit={e => _handleSubmitEdit(e)}>
                     <input
                       autoFocus={true}
                       type="text"
                       value={newContract}
-                      onChange={(e) => setNewContract(e.target.value)}
+                      onChange={e => setNewContract(e.target.value)}
                     />
                   </EditForm>
                 ) : (
@@ -207,12 +209,12 @@ const Feedback = () => {
             <Contract>
               <Dot done={false} onClick={() => _handleClickCheck(9)} />
 
-              <EditForm onSubmit={(e) => _handleSubmitAddContract(e)}>
+              <EditForm onSubmit={e => _handleSubmitAddContract(e)}>
                 <input
                   autoFocus={true}
                   type="text"
                   value={newContract}
-                  onChange={(e) => setNewContract(e.target.value)}
+                  onChange={e => setNewContract(e.target.value)}
                 />
               </EditForm>
             </Contract>
@@ -231,16 +233,15 @@ const Feedback = () => {
           />
         </>
       ) : (
-        <div>
+        <Container>
           <FontTitle margin="20px 0 0 37px" size="20px">
-            레포트 생성 중{" "}
+            레포트 생성 중
           </FontTitle>
-          <IlluImg imgWidth="318px" imgHeight="auto" imgMargin="40px 0 0 25px">
-            <img src={rokect} />
-          </IlluImg>
-          <ProgressFont>65%</ProgressFont>
+          <FloatingLoading />
+
           <WatingFont>열심히 레포트 쓰는 중...</WatingFont>
-        </div>
+          <Loading />
+        </Container>
       )}
     </Div>
   );
@@ -255,6 +256,10 @@ const Div = styled.div`
   padding-top: 69px;
 `;
 
+const Container = styled.div`
+  width: 100%;
+  height: auto;
+`;
 const EditForm = styled.form`
   width: 85%;
 
@@ -291,9 +296,9 @@ const IlluImg = styled.div<{
   align-items: center;
 
   img {
-    margin: ${(props) => props.imgMargin};
-    width: ${(props) => props.imgWidth};
-    height: ${(props) => props.imgHeight};
+    margin: ${props => props.imgMargin};
+    width: ${props => props.imgWidth};
+    height: ${props => props.imgHeight};
   }
 `;
 
@@ -318,8 +323,8 @@ const Dot = styled.div<{ done: boolean }>`
   margin-bottom: auto;
   margin-top: 4px;
 
-  // ${(props) => props.done && "#4880ee"};
-  //    ${(props) => (props.done ? "1px solid #4880ee" : "1px solid #9A9A9A")};
+  // ${props => props.done && "#4880ee"};
+  //    ${props => (props.done ? "1px solid #4880ee" : "1px solid #9A9A9A")};
 
   background-color: #4880ee;
   border: 1px solid #4880ee;
@@ -407,12 +412,12 @@ const ProgressFont = styled.p`
 
 const WatingFont = styled.p`
   margin-left: 9px;
+  margin-top: 30px;
+
   font-family: "Noto Sans KR";
   font-style: normal;
-  font-weight: 350;
-  font-size: 32px;
-  line-height: 46px;
+  font-weight: 500;
+  font-size: 24px;
   text-align: center;
-
   color: #959595;
 `;

@@ -2,6 +2,9 @@
 import { useEffect, useState } from "react";
 import styled from "@emotion/styled";
 
+import Loading from "@components/Loading/Loading";
+import FloatingLoading from "@components/Loading/FloatingLoading";
+
 import SimpleNavBar from "@components/NavBar/SimpleNavBar";
 import { Swiper, SwiperSlide } from "swiper/react";
 import SwiperCore, { Pagination, Autoplay } from "swiper";
@@ -81,7 +84,7 @@ const Upload = () => {
         pet: extraInfo.pet,
         loan: extraInfo.loan,
         substitute: extraInfo.substitute,
-      })
+      }),
     );
   }, [upload]);
 
@@ -169,16 +172,16 @@ const Upload = () => {
           </SwiperSlide>
         </Swiper>
       ) : (
-        <div>
+        <Container>
           <FontTitle margin="20px 0 0 37px" size="20px">
             특약 텍스트 추출 중
           </FontTitle>
-          <IlluImg>
-            <img src={rokect} />
-          </IlluImg>
-          <ProgressFont>65%</ProgressFont>
-          <WatingFont>추출 중...</WatingFont>
-        </div>
+          <FloatingLoading />
+
+          <WatingFont>열심히 OCR 하는 중...</WatingFont>
+
+          <Loading />
+        </Container>
       )}
     </Div>
   );
@@ -187,7 +190,7 @@ const Upload = () => {
 export default Upload;
 
 const Div = styled.div`
-  width: 100%;
+  width: 100vw;
   height: 100%;
 
   padding-top: 69px;
@@ -208,40 +211,18 @@ const Div = styled.div`
   }
 `;
 
-const IlluImg = styled.div`
-  margin: 35px auto 0 auto;
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  img {
-    margin-left: 25px;
-
-    width: 318px;
-    height: auto;
-  }
+const Container = styled.div`
+  width: 100%;
+  height: auto;
 `;
-const ProgressFont = styled.p`
-  margin-top: 19px;
-  font-family: "Poppins", sans-serif;
-  font-style: normal;
-  font-weight: 500;
-  font-size: 40px;
-  line-height: 60px;
-  /* identical to box height */
-  text-align: center;
-  color: #9b9b9b;
-`;
-
 const WatingFont = styled.p`
   margin-left: 9px;
+  margin-top: 30px;
+
   font-family: "Noto Sans KR";
   font-style: normal;
-  font-weight: 350;
-  font-size: 32px;
-  line-height: 46px;
+  font-weight: 500;
+  font-size: 24px;
   text-align: center;
-
   color: #959595;
 `;

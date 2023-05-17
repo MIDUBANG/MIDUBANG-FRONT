@@ -37,7 +37,7 @@ const Result = () => {
       requestData.inclusions,
       requestData.omissions,
       cookies.refreshToken,
-      onCookie
+      onCookie,
     );
 
     const resultRecord = analyzeResult.record;
@@ -95,7 +95,7 @@ const Result = () => {
     dispatch(
       setReportId({
         reportId: results?.recordId,
-      })
+      }),
     );
     navigate("/analyze/summary");
   };
@@ -138,7 +138,7 @@ const Result = () => {
           my_commission={results?.commission}
           is_expensive={results?.is_expensive}
         />
-        {cases.map((c) => {
+        {cases.map(c => {
           return (
             <ResultBox
               key={c.caseId}
@@ -159,6 +159,8 @@ const Div = styled.div`
   width: 100%;
   height: 100%;
   padding-top: 90px;
+  overflow-x: hidden;
+
   //overflow-y: scroll;
 `;
 
