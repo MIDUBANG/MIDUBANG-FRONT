@@ -6,14 +6,12 @@ import { useCookies } from "react-cookie";
 
 // componnet
 import SimpleNavBar from "@components/NavBar/SimpleNavBar";
-
+import QuickBookMark from "@components/Word/QuickBookMark";
 // image
 import magnify from "@assets/wordlist/magnify.png";
 import bookmark from "@assets/wordlist/bookmark.png";
 import bottomarrow from "@assets/wordlist/bottomarrow.png";
 import uparrow from "@assets/wordlist/uparrow.png";
-
-import scrollbookmark from "@assets/wordlist/scrollbookmark.png";
 
 const WordList = () => {
   const [cookies, setCookie, removeCookie] = useCookies(["refreshToken"]);
@@ -80,18 +78,11 @@ const WordList = () => {
     setSearched(true);
   };
 
-  const _handleGotoMyBookmark = () => {
-    navigate("/my/savedword");
-  };
-
   return (
     <Div>
       <SimpleNavBar text="단어 사전" />
+      <QuickBookMark />
 
-      <ScrollBookMark onClick={_handleGotoMyBookmark}>
-        <img src={scrollbookmark} width={61} height={35} />
-        <p>단어장</p>
-      </ScrollBookMark>
       <SearchBox>
         <form onSubmit={_handleSearchWord} className="input-box">
           <input
@@ -274,26 +265,6 @@ const SeeMoreBox = styled.div`
     color: #4b4b4b;
 
     margin-right: 10px;
-  }
-`;
-
-const ScrollBookMark = styled.div`
-  position: absolute;
-  right: 0;
-  top: 200px;
-  display: flex;
-  align-items: center;
-  p {
-    position: absolute;
-    left: 50%;
-
-    width: 40px;
-    transform: translate(-30%);
-    font-family: "Inter";
-    font-style: normal;
-    font-weight: 400;
-    font-size: 12px;
-    color: #ffffff;
   }
 `;
 
