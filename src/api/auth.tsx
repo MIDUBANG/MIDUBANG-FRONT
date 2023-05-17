@@ -4,6 +4,9 @@ import exp from "constants";
 import { useCookies } from "react-cookie";
 import { SPRING_URL } from "./common/url";
 
+import { CustomModal, WarningSwal } from "@components/Modal/CustomModal";
+import { notValidEmailStyle } from "@style/swalstyle";
+
 const CLIENT_MAIN_URL = process.env.REACT_APP_REACT_URL;
 
 // 이메일 확인
@@ -26,9 +29,12 @@ export const SignUpApi = (
   cookie: (res: any) => void,
 ) => {
   if (!check(email, "email")) {
-    alert("이메일의 형식이 유효하지 않습니다.");
+    WarningSwal("회원가입 실패", "이메일의 형식이 유효하지 않습니다.");
   } else if (!check(pw, "password")) {
-    alert("8 ~ 15자 길이의 영문과 숫자의 조합으로 작성해주세요.");
+    WarningSwal(
+      "회원가입 실패",
+      "8 ~ 15자 길이의 영문과 숫자의 조합으로 작성해주세요.",
+    );
   } else {
     client
       .post("member/signup", {
@@ -44,7 +50,8 @@ export const SignUpApi = (
       })
       .catch(err => {
         if (err.response.data.message === "이미 존재하는 계정입니다.") {
-          alert("이미 존재하는 계정입니다.");
+          WarningSwal("회원가입 실패", "이미 존재하는 계정입니다.");
+
           window.location.href = `${CLIENT_MAIN_URL}/login`;
         }
       });
@@ -58,7 +65,7 @@ export const LoginApi = (
   cookie: (res: any) => void,
 ) => {
   if (!check(email, "email")) {
-    alert("이메일의 형식이 유효하지 않습니다.");
+    WarningSwal("로그인 실패", "이메일의 형식이 유효하지 않습니다.");
   } else {
     client
       .post("member/login", {
@@ -68,18 +75,38 @@ export const LoginApi = (
       .then(res => {
         console.log(res);
         cookie(res);
-        console.log("메인링크 >", CLIENT_MAIN_URL);
-        //window.location.href = CLIENT_MAIN_URL || "";
-        //window.location.reload();
       })
       .catch(err => {
         console.log(err);
         if (err.response.data.message == "비밀번호가 일치하지 않습니다.") {
-          alert("비밀번호가 일치하지 않습니다.");
+          WarningSwal("로그인 실패", "비밀번호가 일치하지 않습니다.");
         } else if (err.response.data.message == "가입하지 않은 계정입니다.") {
-          alert("가입하지 않은 계정입니다.");
+          WarningSwal("로그인 실패", "가입하지 않은 계정입니다.");
         }
       });
+  }
+};
+
+// 유저 정보 조회
+export const GetUserInfo = async (
+  refreshToken: string,
+  cookie: (res: any) => void,
+): Promise<any> => {
+  try {
+    const res = await client.get("member/info");
+    return res.data;
+  } catch (err: any) {
+    console.log("에러임>", err);
+    RefreshApi(refreshToken, cookie);
+
+    // if (err.response.data.message === "expired token") {
+    //   alert("유저 정보 조회 시도했으나 토큰 만료");
+    //   RefreshApi(refreshToken, cookie); // 재발급
+    // } else {
+    //   WarningSwal("인증 오류", "다시 로그인해주세요");
+    //   let e = new Error("로그인 필요");
+    //   throw e;
+    // }
   }
 };
 
@@ -95,38 +122,11 @@ export const RefreshApi = (
       },
     })
     .then(res => {
-      alert("토큰 재발급 완료");
-      console.log("토큰 재발급 완료", res);
       cookie(res); // 토큰 2개 재설정
       window.location.reload();
     })
     .catch(err => {
-      alert("토큰 재발급 실패, 다시 로그인해주세요");
-      console.log("토큰 재발급 실패 >> ", err);
+      WarningSwal("토큰 만료", "다시 로그인해주세요");
       window.location.href = `${CLIENT_MAIN_URL}login`; // 다시 로그인
     });
-};
-
-// 유저 정보 조회
-export const GetUserInfo = async (
-  refreshToken: string,
-  cookie: (res: any) => void,
-): Promise<any> => {
-  try {
-    const res = await client.get("member/info");
-    return res.data;
-  } catch (err: any) {
-    console.log("에러임>", err);
-
-    if (err.response.data.message === "expired token") {
-      alert("유저 정보 조회 시도했으나 토큰 만료");
-      RefreshApi(refreshToken, cookie);
-    } else if (err.response.data.message === "malformed token") {
-      console.log("유효하지 않은 토큰을 넣음");
-    } else if (err.response.data.message === "empty token") {
-      alert("유저 정보 조회 시도했으나 빈 토큰");
-      let e = new Error("로그인 필요");
-      throw e;
-    }
-  }
 };

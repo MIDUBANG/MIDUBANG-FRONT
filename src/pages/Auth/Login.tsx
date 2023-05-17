@@ -31,6 +31,7 @@ const Login = () => {
   const [email, setEmail] = useInput("");
   const [pw, setPw] = useInput("");
 
+  /** 카카오 로그인 요청  */
   const _handleKakaoLogin = () => {
     window.location.href = KAKAO_AUTH_URL;
   };
