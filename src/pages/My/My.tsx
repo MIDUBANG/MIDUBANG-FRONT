@@ -14,6 +14,11 @@ import { GetUserInfo } from "@api/auth";
 import { useCookies } from "react-cookie";
 import { useState, useEffect } from "react";
 
+// modal
+import Swal from "sweetalert2";
+import { ConfirmMOdal } from "@components/Modal/CustomModal";
+import { logoutStyle } from "@style/swalstyle";
+
 const My = () => {
   const [userInfo, setUserInfo] = useState<{ name: string; email: string }>();
   const navigate = useNavigate();
@@ -28,28 +33,37 @@ const My = () => {
     setCookie("refreshToken", refreshToken, { path: "/" });
   };
 
+  /** 유저 정보 불러오기 */
   const _getUserInfo = async () => {
     const res = await GetUserInfo(cookies.refreshToken, onCookie);
     console.log(res);
-
     const email = res.email;
     const name = res.email.split("@")[0];
-
     setUserInfo({ name: name, email: email });
   };
 
+  /** 로그아웃 */
   const _handleLogout = () => {
-    alert("로그아웃합니다");
-    localStorage.removeItem("token");
-    removeCookie("refreshToken", { path: "/" });
-    navigate("/");
+    ConfirmMOdal(logoutStyle).then(result => {
+      if (result.isConfirmed) {
+        localStorage.removeItem("token");
+        removeCookie("refreshToken", { path: "/" });
+        Swal.fire("로그아웃 성공");
+        navigate("/");
+      }
+    });
   };
 
+  /** 다른 계정으로 로그인 */
   const _handleLoginOuther = () => {
-    alert("다른 계정으로 로그인합니다.");
-    localStorage.removeItem("token");
-    removeCookie("refreshToken", { path: "/" });
-    navigate("/login");
+    ConfirmMOdal(logoutStyle).then(result => {
+      if (result.isConfirmed) {
+        localStorage.removeItem("token");
+        removeCookie("refreshToken", { path: "/" });
+        Swal.fire({ title: "로그아웃 성공", text: "다시 로그인 해주세요" });
+        navigate("/login");
+      }
+    });
   };
 
   useEffect(() => {
