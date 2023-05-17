@@ -131,7 +131,7 @@ const Main = () => {
     <Div>
       <SimpleNavBar text="자취 A-Z 체크리스트" />
       <Banner>
-        <img src={house} width={82} height={82} />
+        <img src={checkCategoryData[categoryId].emoji} width={82} height={82} />
         <p className="title">{categoryTitle}</p>
         <p className="sub-title">{categorySubTitle}</p>
       </Banner>
@@ -155,7 +155,7 @@ const Main = () => {
       </Container>
 
       <BottomContainer>
-        <OtherCheckList />
+        <OtherCheckList except={parseInt(id || "0")} />
       </BottomContainer>
     </Div>
   );
