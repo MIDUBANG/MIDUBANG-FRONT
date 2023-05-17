@@ -14,14 +14,7 @@ const QuickBookMark = () => {
 
   const _handleUpdatePosition = () => {
     if (markRef.current) {
-      const regex = /[^0-9]/g;
-      let currentPosition: any = markRef.current.style.top.replace(regex, "");
-      currentPosition = parseInt(currentPosition);
-      console.log(currentPosition);
       let position = window.scrollY;
-
-      //markRef.current.animate({ top: position + 200 + "px" }, 1000);
-
       markRef.current.style.top = position + 200 + "px";
     }
   };
