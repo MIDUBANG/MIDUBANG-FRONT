@@ -2,7 +2,11 @@ import client from "@api/common/client";
 import axios from "axios";
 import { SPRING_URL } from "./common/url";
 
-import { WarningSwal, ErrorSwal } from "@components/Modal/CustomModal";
+import {
+  WarningSwal,
+  ErrorSwal,
+  SuccessSwal,
+} from "@components/Modal/CustomModal";
 
 const CLIENT_MAIN_URL = process.env.REACT_APP_REACT_URL;
 
@@ -39,7 +43,7 @@ export const SignUpApi = (
         password: pw,
       })
       .then(res => {
-        alert("회원가입 성공~");
+        SuccessSwal("회원 가입 성공", "축하드립니다!");
         cookie(res);
         window.location.href = CLIENT_MAIN_URL || "";
       })
