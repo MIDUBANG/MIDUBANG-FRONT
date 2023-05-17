@@ -20,9 +20,6 @@ const SignupPage = loadable(() => import("@pages/Auth/Signup"));
 const LoginPage = loadable(() => import("@pages/Auth/Login"));
 const KakoLoginPage = loadable(() => import("@pages/Auth/KakaoLogin"));
 
-const HousePage = loadable(() => import("@pages/House/House"));
-const TextPage = loadable(() => import("@pages/Text/Text"));
-
 const App: React.FC = () => {
   return (
     <Routes>
@@ -32,21 +29,20 @@ const App: React.FC = () => {
       <Route path="/signup" element={<SignupPage />} />
       <Route path="/login" element={<LoginPage />} />
       <Route path="/KakaoLogin" element={<KakoLoginPage />} />
-      <Route path="/house/*" element={<HouseRoutes />} />
-      <Route path="/question/*" element={<QuestionRoutes />} />
-      <Route path="/text/*" element={<TextRoutes />} />
 
       <Route element={<PrivateRoute authentication={true} />}>
         {/* 문자 마법사 */}
+        <Route path="/text/*" element={<TextRoutes />} />
         {/* 등기부등본 */}
+        <Route path="/house/*" element={<HouseRoutes />} />
         {/* 금쪽이 */}
+        <Route path="/question/*" element={<QuestionRoutes />} />
         {/* 자취 체크리스트 */}
         <Route path="/checklist/*" element={<CheckListRoutes />} />
         {/* 단어 관련 */}
         <Route path="/word/*" element={<WordRoutes />} />
         {/* 유저 관련 */}
         <Route path="/my/*" element={<UserRoutes />} />
-
         {/* 특약 기능 */}
         <Route path="/analyze/*" element={<AnalyzeRoutes />} />
       </Route>

@@ -1,20 +1,15 @@
 /* 회원가입 페이지 */
-import { useState } from "react";
 import styled from "@emotion/styled";
-import axios from "axios";
 import { useCookies } from "react-cookie";
-import { useNavigate } from "react-router-dom";
 // component
 import SimpleNavBar from "@components/NavBar/SimpleNavBar";
 import greencheck from "@assets/icon/greencheck.svg";
 import graycheck from "@assets/icon/graycheck.svg";
 import lockIllustration from "@assets/illustration/lock.png";
-import { FontTitle, FontDescribed } from "@style/font.style";
 import AuthInput from "@components/Input/AuthInput";
 import LongBtn from "@components/Buttons/LongBtn";
 // hooks
 import useInput from "@hooks/useInput";
-
 import { SignUpApi } from "@api/auth";
 
 const Signup = () => {
