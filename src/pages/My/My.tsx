@@ -77,7 +77,7 @@ const My = () => {
           <img src={profile} width={53} height={53} />
 
           <TextBox>
-            <p className="name">{userInfo?.name}님</p>
+            <p className="name">{userInfo?.name} 님</p>
             <div className="email-box">
               <p className="my-email">내 이메일</p>
               <p className="email">{userInfo?.email}</p>
@@ -178,6 +178,10 @@ const TextBox = styled.div`
     border-radius: 10.5px;
 
     text-align: center;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 
   .email {
@@ -193,7 +197,7 @@ const TextBox = styled.div`
 
 const Container = styled.div`
   width: 100%;
-  height: 100%;
+  height: auto;
 
   padding: 0 18px;
 
