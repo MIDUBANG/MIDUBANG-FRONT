@@ -32,6 +32,18 @@ export const logoutStyle = {
   closeOnClickOutside: false,
 };
 
+export const notValidEmailStyle = {
+  title: "로그인 실패",
+  text: "이메일의 형식이 유효하지 않습니다.",
+  icon: "warning",
+  iconColor: "green",
+  showConfirmButton: false,
+  timer: 2000,
+  background: "white",
+  color: "black",
+  backdrop: "rgba(0,0,0,0.2)",
+};
+
 // export const SwalError = {
 //   width: 400,
 //   background: palette.black,

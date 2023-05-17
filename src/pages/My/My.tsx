@@ -16,7 +16,7 @@ import { useState, useEffect } from "react";
 
 // modal
 import Swal from "sweetalert2";
-import { ConfirmMOdal } from "@components/Modal/CustomModal";
+import { ConfirmModal } from "@components/Modal/CustomModal";
 import { logoutStyle } from "@style/swalstyle";
 
 const My = () => {
@@ -44,7 +44,7 @@ const My = () => {
 
   /** 로그아웃 */
   const _handleLogout = () => {
-    ConfirmMOdal(logoutStyle).then(result => {
+    ConfirmModal(logoutStyle).then(result => {
       if (result.isConfirmed) {
         localStorage.removeItem("token");
         removeCookie("refreshToken", { path: "/" });
@@ -56,7 +56,7 @@ const My = () => {
 
   /** 다른 계정으로 로그인 */
   const _handleLoginOuther = () => {
-    ConfirmMOdal(logoutStyle).then(result => {
+    ConfirmModal(logoutStyle).then(result => {
       if (result.isConfirmed) {
         localStorage.removeItem("token");
         removeCookie("refreshToken", { path: "/" });

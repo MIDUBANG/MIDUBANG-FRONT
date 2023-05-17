@@ -1,10 +1,5 @@
 import { ReactElement } from "react";
-import { Navigate, Outlet } from "react-router-dom";
-import axios from "axios";
-import { useState, useEffect } from "react";
-// api
-import client from "@api/common/client";
-//import { GetUserInfo } from "@api/auth";
+import { Navigate, Outlet, useNavigate } from "react-router-dom";
 
 interface PrivateRouteProps {
   children?: ReactElement; // Router.tsx에서 PrivateRoute가 감싸고 있는 Componet Element
@@ -14,8 +9,6 @@ interface PrivateRouteProps {
 export default function PrivateRoute({
   authentication,
 }: PrivateRouteProps): React.ReactElement | null {
-  //const [isAuthenticated, setisAuthenticated] = useState<any>(null);
-
   /**
    * 로그인 했는지 여부
    * 로그인 했을 경우 : true 라는 텍스트 반환
@@ -23,14 +16,15 @@ export default function PrivateRoute({
    */
 
   const isAuthenticated = !!localStorage.getItem("token");
-
-  console.log("테스트>>", isAuthenticated);
+  const navigate = useNavigate();
 
   if (authentication) {
-    // 인증이 반드시 필요한 페이지
+    // 로그인 필요한 페이지 접근
 
     if (isAuthenticated === false) {
-      alert("로그인이 필요한 서비스 입니다.");
+      // 유저가 로그인을 안함
+      // 히스토리 삭제해야함
+      // navigate("/llk", { replace: true });
     }
 
     // 인증을 안했을 경우 로그인 페이지로, 했을 경우 해당 페이지로

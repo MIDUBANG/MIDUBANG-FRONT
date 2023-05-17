@@ -41,6 +41,4 @@ export const SuccessSwal = (title: string, text: string) =>
     backdrop: "rgba(0,0,0,0.2)",
   });
 
-export const CustomModal = (swalStyle: any) => Swal.fire(swalStyle);
-
-export const ConfirmMOdal = (swalStyle: any) => Swal.fire(swalStyle);
+export const ConfirmModal = (swalStyle: any) => Swal.fire(swalStyle);

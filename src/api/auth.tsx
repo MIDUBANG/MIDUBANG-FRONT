@@ -1,11 +1,8 @@
 import client from "@api/common/client";
 import axios from "axios";
-import exp from "constants";
-import { useCookies } from "react-cookie";
 import { SPRING_URL } from "./common/url";
 
-import { CustomModal, WarningSwal } from "@components/Modal/CustomModal";
-import { notValidEmailStyle } from "@style/swalstyle";
+import { WarningSwal } from "@components/Modal/CustomModal";
 
 const CLIENT_MAIN_URL = process.env.REACT_APP_REACT_URL;
 
