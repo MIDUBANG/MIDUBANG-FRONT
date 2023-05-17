@@ -5,12 +5,17 @@ import { css } from "@emotion/react";
 
 // assets
 import arrow from "@assets/checklist/arrows/arrow1.png";
-import bear from "@assets/checklist/emojis/bear.png";
+import { checkCategoryData } from "@assets/checkCategoryData";
 
-type Props = {};
-const OtherCheckList = ({}: Props) => {
-  const data = [1, 2, 3, 4, 5];
+type Props = { except: number };
 
+const OtherCheckList = ({ except }: Props) => {
+  const navigate = useNavigate();
+
+  /** 다른 카테고리로 이동하는 클릭 함수 */
+  const _handleClickOtherCategory = (id: number) => {
+    navigate(`/checklist/${id}`);
+  };
   return (
     <BackgroundBox>
       <p className="title">
@@ -20,12 +25,16 @@ const OtherCheckList = ({}: Props) => {
         <p>View all</p> <img src={arrow} width={36} height={11} />
       </div>
 
-      {data.map((d) => (
-        <CheckBtnBox>
-          <img src={bear} width={27} height={27} />
-          <p>자취 생활</p>
-        </CheckBtnBox>
-      ))}
+      {checkCategoryData.map(d => {
+        if (d.id !== except) {
+          return (
+            <CheckBtnBox onClick={() => _handleClickOtherCategory(d.id)}>
+              <img src={d.emoji} width={27} height={27} />
+              <p>{d.title}</p>
+            </CheckBtnBox>
+          );
+        }
+      })}
     </BackgroundBox>
   );
 };

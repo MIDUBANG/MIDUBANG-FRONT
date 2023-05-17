@@ -15,6 +15,7 @@ type checklistType = {
   checked: boolean;
   last: boolean;
 };
+
 type Props = {
   checklistData: checklistType[];
   _handleToggleChecklist: (id: number) => void;
@@ -38,7 +39,7 @@ const CheckBox = ({
 
   return (
     <BackgroundBox>
-      {checklistData.map((d) => (
+      {checklistData.map(d => (
         <IndiCheckBox last={d.last}>
           <div className="top-content">
             {d.checked ? (
@@ -59,7 +60,7 @@ const CheckBox = ({
             <p className="content">{detail}</p>
           ))} */}
 
-          {d.listDetail?.split("\\").map((detail) => (
+          {d.listDetail?.split("\\").map(detail => (
             <div className="sub-content">
               ⭐<p> {detail}</p>
             </div>
@@ -83,7 +84,7 @@ const BackgroundBox = styled.div`
 `;
 
 const IndiCheckBox = styled.div<{ last: boolean }>`
-  ${(props) =>
+  ${props =>
     props.last ||
     css`
       border-bottom: 1px solid #ebebeb;
