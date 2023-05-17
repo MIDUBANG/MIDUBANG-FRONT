@@ -24,8 +24,6 @@ type Props = {
 const WordModal = (props: Props) => {
   const { open, close, text, wordsData } = props;
 
-  console.log("단어 데이타!!", wordsData);
-
   // 스크롤 방지
   useEffect(() => {
     document.body.style.overflow = "hidden";
