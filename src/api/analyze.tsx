@@ -2,6 +2,9 @@ import client from "@api/common/client";
 import { RefreshApi } from "./auth";
 import axios from "axios";
 import { SPRING_URL, FLASK_URL } from "@api/common/url";
+import { WarningSwal } from "@components/Modal/CustomModal";
+
+const CLIENT_MAIN_URL = process.env.REACT_APP_REACT_URL;
 
 /** (1) OCR 특약 이미지 업로드 */
 export const PostContractImg = async (
@@ -23,7 +26,7 @@ export const PostContractImg = async (
 
     return res.data;
   } catch (err: any) {
-    alert("OCR 서버 에러 발생! 다시 시도해주세요");
+    WarningSwal("OCR 에러 발생", "다시 시도해주세요");
     console.log(err);
   }
 };
@@ -60,11 +63,11 @@ export const PostContractCase = async (
     console.log("NLP 에러", err);
 
     if (err.response.data.message === "expired token") {
-      alert("토큰 만료");
+      WarningSwal("에러 발생", "다시 시도해주세요");
       RefreshApi(refreshToken, cookie);
     } else if (err.response.data.message === "empty token") {
-      alert("빈 토큰");
-      RefreshApi(refreshToken, cookie);
+      WarningSwal("에러 발생", "로그인 해주세요");
+      window.location.href = `${CLIENT_MAIN_URL}login`;
     }
   }
 };
@@ -93,49 +96,17 @@ export const PostAnalyze = async (
       contract_type: contract_type,
       image_url: image_url,
       omissions: omissions,
-      inclusions: [5],
+      inclusions: inclusions,
     });
 
-    // const res = await client.post("analysis", {
-    //   commission: commission,
-    //   answer_commission: answer_commission,
-    //   is_expensive: is_expensive,
-    //   contract_type: contract_type,
-    //   image_url: image_url,
-    //   omissions: [0],
-    //   inclusions: [
-    //     {
-    //       caseNo: 5,
-    //       rawCase: "특약 문장1",
-    //     },
-    //     {
-    //       caseNo: 2,
-    //       rawCase: "특약 문장2",
-    //     },
-    //   ],
-    // });
-
     const res = await client.post("analysis", {
-      commission: 121212,
-      answer_commission: 500000,
-      is_expensive: true,
-      contract_type: "JEONSE",
-      image_url: "http://",
-      omissions: [1],
-      inclusions: [
-        {
-          caseNo: 5,
-          rawCase: "특약 문장1",
-        },
-        {
-          caseNo: 4,
-          rawCase: "특약 문장2",
-        },
-        {
-          caseNo: 20,
-          rawCase: "특약 문장2",
-        },
-      ],
+      commission: commission,
+      answer_commission: answer_commission,
+      is_expensive: is_expensive,
+      contract_type: contract_type,
+      image_url: image_url,
+      omissions: [0],
+      inclusions: inclusions,
     });
 
     console.log("Spring 성공`", res.data);
@@ -144,11 +115,11 @@ export const PostAnalyze = async (
     console.log("Spring 에러", err);
 
     if (err.response.data.message === "expired token") {
-      alert("토큰 만료");
+      WarningSwal("에러 발생", "다시 시도해주세요");
       RefreshApi(refreshToken, cookie);
     } else if (err.response.data.message === "empty token") {
-      alert("빈 토큰");
-      RefreshApi(refreshToken, cookie);
+      WarningSwal("에러 발생", "로그인 해주세요");
+      window.location.href = `${CLIENT_MAIN_URL}login`;
     }
   }
 };
@@ -167,11 +138,11 @@ export const GetAnalyzeList = async (
     console.log("분석 불러오기 에러", err);
 
     if (err.response.data.message === "expired token") {
-      alert("토큰 만료");
+      WarningSwal("에러 발생", "다시 시도해주세요");
       RefreshApi(refreshToken, cookie);
     } else if (err.response.data.message === "empty token") {
-      alert("빈 토큰");
-      RefreshApi(refreshToken, cookie);
+      WarningSwal("에러 발생", "로그인 해주세요");
+      window.location.href = `${CLIENT_MAIN_URL}login`;
     }
   }
 };
@@ -191,13 +162,13 @@ export const GetAnalyze = async (
     console.log("에러", err);
 
     if (err.response.data.message === "record_id not exist") {
-      alert("record_id not exist");
+      WarningSwal("에러 발생", "존재하지 않는 레포트입니다.");
     } else if (err.response.data.message === "expired token") {
-      alert("토큰 만료");
+      WarningSwal("에러 발생", "다시 시도해주세요");
       RefreshApi(refreshToken, cookie);
     } else if (err.response.data.message === "empty token") {
-      alert("빈 토큰");
-      RefreshApi(refreshToken, cookie);
+      WarningSwal("에러 발생", "로그인 해주세요");
+      window.location.href = `${CLIENT_MAIN_URL}login`;
     }
   }
 };
@@ -217,13 +188,13 @@ export const DeleteAnalyze = async (
     const message = err.response.data.message;
 
     if (message === "record_id not exist") {
-      alert("record_id not exist");
+      WarningSwal("에러 발생", "존재하지 않는 레포트입니다.");
     } else if (err.response.data.message === "expired token") {
-      alert("토큰 만료");
+      WarningSwal("에러 발생", "다시 시도해주세요");
       RefreshApi(refreshToken, cookie);
     } else if (err.response.data.message === "empty token") {
-      alert("빈 토큰");
-      RefreshApi(refreshToken, cookie);
+      WarningSwal("에러 발생", "로그인 해주세요");
+      window.location.href = `${CLIENT_MAIN_URL}login`;
     }
   }
 };
@@ -238,5 +209,6 @@ export const SummarizeReport = async (contents: string[]): Promise<any> => {
     return res;
   } catch (err: any) {
     console.log("요약 에러", err);
+    WarningSwal("에러 발생", "다시 시도해주세요");
   }
 };

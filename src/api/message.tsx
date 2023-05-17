@@ -3,6 +3,8 @@ import { RefreshApi } from "./auth";
 import { FLASK_URL } from "./common/url";
 import axios from "axios";
 
+import { ErrorSwal } from "@components/Modal/CustomModal";
+
 /** 문자 마법사 */
 export const GetMessageMaker = async (
   receiver: string,
@@ -22,6 +24,6 @@ export const GetMessageMaker = async (
 
     return res.data.result;
   } catch (err: any) {
-    console.log("문자 마법사 API post 에러", err);
+    ErrorSwal("GPT 에러 발생", "다시 시도해주세요");
   }
 };

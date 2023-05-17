@@ -1,21 +1,30 @@
 import client from "@api/common/client";
 import { RefreshApi } from "./auth";
 
+import {
+  ErrorSwal,
+  WarningSwal,
+  SuccessSwal,
+} from "@components/Modal/CustomModal";
+const CLIENT_MAIN_URL = process.env.REACT_APP_REACT_URL;
+
 // 금쪽이 포스트 리스트 조회
 export const GetTodayPosts = async (
   refreshToken: string,
-  cookie: (res: any) => void
+  cookie: (res: any) => void,
 ): Promise<any> => {
   try {
     const res = await client.get("community/today");
     return res.data;
   } catch (err: any) {
     if (err.response.data.message === "expired token") {
-      alert("토큰 만료");
+      WarningSwal("에러 발생", "다시 시도해주세요");
       RefreshApi(refreshToken, cookie);
     } else if (err.response.data.message === "empty token") {
-      alert("빈 토큰");
-      RefreshApi(refreshToken, cookie);
+      WarningSwal("에러 발생", "다시 로그인 해주세요");
+      window.location.href = `${CLIENT_MAIN_URL}login`;
+    } else {
+      ErrorSwal("에러 발생", "다시 시도해주세요.");
     }
   }
 };
@@ -25,18 +34,20 @@ export const GetTodayPosts = async (
 // 금쪽이 포스트 리스트 조회
 export const GetAllGoldPosts = async (
   refreshToken: string,
-  cookie: (res: any) => void
+  cookie: (res: any) => void,
 ): Promise<any> => {
   try {
     const res = await client.get("community/post/all");
     return res.data;
   } catch (err: any) {
     if (err.response.data.message === "expired token") {
-      alert("토큰 만료");
+      WarningSwal("에러 발생", "다시 시도해주세요");
       RefreshApi(refreshToken, cookie);
     } else if (err.response.data.message === "empty token") {
-      alert("빈 토큰");
-      RefreshApi(refreshToken, cookie);
+      WarningSwal("에러 발생", "다시 로그인 해주세요");
+      window.location.href = `${CLIENT_MAIN_URL}login`;
+    } else {
+      ErrorSwal("에러 발생", "다시 시도해주세요.");
     }
   }
 };
@@ -45,18 +56,20 @@ export const GetAllGoldPosts = async (
 export const GetGoldPost = async (
   postId: number,
   refreshToken: string,
-  cookie: (res: any) => void
+  cookie: (res: any) => void,
 ): Promise<any> => {
   try {
     const res = await client.get(`/community/post/${postId}`);
     return res.data;
   } catch (err: any) {
     if (err.response.data.message === "expired token") {
-      alert("토큰 만료");
+      WarningSwal("에러 발생", "다시 시도해주세요");
       RefreshApi(refreshToken, cookie);
     } else if (err.response.data.message === "empty token") {
-      alert("빈 토큰");
-      RefreshApi(refreshToken, cookie);
+      WarningSwal("에러 발생", "다시 로그인 해주세요");
+      window.location.href = `${CLIENT_MAIN_URL}login`;
+    } else {
+      ErrorSwal("에러 발생", "다시 시도해주세요.");
     }
   }
 };
@@ -66,7 +79,7 @@ export const PostGoldPost = async (
   question: string,
   detail: string,
   refreshToken: string,
-  cookie: (res: any) => void
+  cookie: (res: any) => void,
 ): Promise<any> => {
   try {
     const res = await client.post("community/post", {
@@ -77,13 +90,13 @@ export const PostGoldPost = async (
   } catch (err: any) {
     console.log(err);
     if (err.response.data.message === "expired token") {
-      alert("토큰 만료");
+      WarningSwal("에러 발생", "다시 시도해주세요");
       RefreshApi(refreshToken, cookie);
     } else if (err.response.data.message === "empty token") {
-      alert("빈 토큰");
-      RefreshApi(refreshToken, cookie);
-    } else if (err.response.data.message === "word not exist") {
-      alert("존재하지 않는 단어입니다.");
+      WarningSwal("에러 발생", "다시 로그인 해주세요");
+      window.location.href = `${CLIENT_MAIN_URL}login`;
+    } else {
+      ErrorSwal("에러 발생", "다시 시도해주세요.");
     }
   }
 };
@@ -92,7 +105,7 @@ export const PostGoldPost = async (
 export const DeleteGoldPost = async (
   postId: number,
   refreshToken: string,
-  cookie: (res: any) => void
+  cookie: (res: any) => void,
 ): Promise<any> => {
   try {
     const res = await client.delete(`community/post/${postId}`);
@@ -100,13 +113,13 @@ export const DeleteGoldPost = async (
   } catch (err: any) {
     console.log(err);
     if (err.response.data.message === "expired token") {
-      alert("토큰 만료");
+      WarningSwal("에러 발생", "다시 시도해주세요");
       RefreshApi(refreshToken, cookie);
     } else if (err.response.data.message === "empty token") {
-      alert("빈 토큰");
-      RefreshApi(refreshToken, cookie);
-    } else if (err.response.data.message === "word not exist") {
-      alert("존재하지 않는 단어입니다.");
+      WarningSwal("에러 발생", "다시 로그인 해주세요");
+      window.location.href = `${CLIENT_MAIN_URL}login`;
+    } else {
+      ErrorSwal("에러 발생", "다시 시도해주세요.");
     }
   }
 };
@@ -116,7 +129,7 @@ export const PostGoldComment = async (
   postId: number,
   comment: string,
   refreshToken: string,
-  cookie: (res: any) => void
+  cookie: (res: any) => void,
 ): Promise<any> => {
   try {
     const res = await client.post(`community/post/${postId}/comment`, {
@@ -126,16 +139,14 @@ export const PostGoldComment = async (
   } catch (err: any) {
     console.log(err);
     const message = err.response.data.message;
-    if (message === "존재하지 않는 단어 id") {
-      alert("존재하지 않는 단어 id");
-    } else if (message === "이미 저장된 단어입니다.") {
-      alert("이미 저장된 단어입니다.");
-    } else if (err.response.data.message === "expired token") {
-      alert("토큰 만료");
+    if (err.response.data.message === "expired token") {
+      WarningSwal("에러 발생", "다시 시도해주세요");
       RefreshApi(refreshToken, cookie);
     } else if (err.response.data.message === "empty token") {
-      alert("빈 토큰");
-      RefreshApi(refreshToken, cookie);
+      WarningSwal("에러 발생", "다시 로그인 해주세요");
+      window.location.href = `${CLIENT_MAIN_URL}login`;
+    } else {
+      ErrorSwal("에러 발생", "다시 시도해주세요.");
     }
   }
 };
@@ -144,7 +155,7 @@ export const PostGoldComment = async (
 export const DeleteGoldComment = async (
   commentId: number,
   refreshToken: string,
-  cookie: (res: any) => void
+  cookie: (res: any) => void,
 ): Promise<any> => {
   try {
     const res = await client.delete(`community/post/comment/${commentId}`);
@@ -152,32 +163,34 @@ export const DeleteGoldComment = async (
   } catch (err: any) {
     console.log(err);
     if (err.response.data.message === "expired token") {
-      alert("토큰 만료");
+      WarningSwal("에러 발생", "다시 시도해주세요");
       RefreshApi(refreshToken, cookie);
     } else if (err.response.data.message === "empty token") {
-      alert("빈 토큰");
-      RefreshApi(refreshToken, cookie);
+      WarningSwal("에러 발생", "다시 로그인 해주세요");
+      window.location.href = `${CLIENT_MAIN_URL}login`;
+    } else {
+      ErrorSwal("에러 발생", "다시 시도해주세요.");
     }
   }
 };
 
-///////////////////////////////////////////////
-
 // 챗쪽이 포스트 리스트 조회
 export const GetAllChatPosts = async (
   refreshToken: string,
-  cookie: (res: any) => void
+  cookie: (res: any) => void,
 ): Promise<any> => {
   try {
     const res = await client.get("community/question/all");
     return res.data;
   } catch (err: any) {
     if (err.response.data.message === "expired token") {
-      alert("토큰 만료");
+      WarningSwal("에러 발생", "다시 시도해주세요");
       RefreshApi(refreshToken, cookie);
     } else if (err.response.data.message === "empty token") {
-      alert("빈 토큰");
-      RefreshApi(refreshToken, cookie);
+      WarningSwal("에러 발생", "다시 로그인 해주세요");
+      window.location.href = `${CLIENT_MAIN_URL}login`;
+    } else {
+      ErrorSwal("에러 발생", "다시 시도해주세요.");
     }
   }
 };
@@ -186,18 +199,20 @@ export const GetAllChatPosts = async (
 export const GetChatPost = async (
   postId: number,
   refreshToken: string,
-  cookie: (res: any) => void
+  cookie: (res: any) => void,
 ): Promise<any> => {
   try {
     const res = await client.get(`/community/question/${postId}`);
     return res.data;
   } catch (err: any) {
     if (err.response.data.message === "expired token") {
-      alert("토큰 만료");
+      WarningSwal("에러 발생", "다시 시도해주세요");
       RefreshApi(refreshToken, cookie);
     } else if (err.response.data.message === "empty token") {
-      alert("빈 토큰");
-      RefreshApi(refreshToken, cookie);
+      WarningSwal("에러 발생", "다시 로그인 해주세요");
+      window.location.href = `${CLIENT_MAIN_URL}login`;
+    } else {
+      ErrorSwal("에러 발생", "다시 시도해주세요.");
     }
   }
 };
@@ -207,7 +222,7 @@ export const PostChatComment = async (
   postId: number,
   comment: string,
   refreshToken: string,
-  cookie: (res: any) => void
+  cookie: (res: any) => void,
 ): Promise<any> => {
   try {
     const res = await client.post(`community/question/${postId}/answer`, {
@@ -217,16 +232,14 @@ export const PostChatComment = async (
   } catch (err: any) {
     console.log(err);
     const message = err.response.data.message;
-    if (message === "존재하지 않는 단어 id") {
-      alert("존재하지 않는 단어 id");
-    } else if (message === "이미 저장된 단어입니다.") {
-      alert("이미 저장된 단어입니다.");
-    } else if (err.response.data.message === "expired token") {
-      alert("토큰 만료");
+    if (err.response.data.message === "expired token") {
+      WarningSwal("에러 발생", "다시 시도해주세요");
       RefreshApi(refreshToken, cookie);
     } else if (err.response.data.message === "empty token") {
-      alert("빈 토큰");
-      RefreshApi(refreshToken, cookie);
+      WarningSwal("에러 발생", "다시 로그인 해주세요");
+      window.location.href = `${CLIENT_MAIN_URL}login`;
+    } else {
+      ErrorSwal("에러 발생", "다시 시도해주세요.");
     }
   }
 };
@@ -235,7 +248,7 @@ export const PostChatComment = async (
 export const DeleteChatComment = async (
   answerId: number,
   refreshToken: string,
-  cookie: (res: any) => void
+  cookie: (res: any) => void,
 ): Promise<any> => {
   try {
     const res = await client.delete(`community/question/answer/${answerId}`);
@@ -243,11 +256,13 @@ export const DeleteChatComment = async (
   } catch (err: any) {
     console.log(err);
     if (err.response.data.message === "expired token") {
-      alert("토큰 만료");
+      WarningSwal("에러 발생", "다시 시도해주세요");
       RefreshApi(refreshToken, cookie);
     } else if (err.response.data.message === "empty token") {
-      alert("빈 토큰");
-      RefreshApi(refreshToken, cookie);
+      WarningSwal("에러 발생", "다시 로그인 해주세요");
+      window.location.href = `${CLIENT_MAIN_URL}login`;
+    } else {
+      ErrorSwal("에러 발생", "다시 시도해주세요.");
     }
   }
 };

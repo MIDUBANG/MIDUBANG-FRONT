@@ -1,6 +1,12 @@
 import client from "@api/common/client";
 
 import { RefreshApi } from "./auth";
+import {
+  ErrorSwal,
+  WarningSwal,
+  SuccessSwal,
+} from "@components/Modal/CustomModal";
+const CLIENT_MAIN_URL = process.env.REACT_APP_REACT_URL;
 
 // 전체 단어 불러오기
 export const GetAllWordList = async (
@@ -15,11 +21,13 @@ export const GetAllWordList = async (
     return res.data;
   } catch (err: any) {
     if (err.response.data.message === "expired token") {
-      alert("토큰 만료");
+      WarningSwal("에러 발생", "다시 시도해주세요");
       RefreshApi(refreshToken, cookie);
     } else if (err.response.data.message === "empty token") {
-      alert("빈 토큰");
-      RefreshApi(refreshToken, cookie);
+      WarningSwal("에러 발생", "다시 로그인 해주세요");
+      window.location.href = `${CLIENT_MAIN_URL}login`;
+    } else {
+      ErrorSwal("에러 발생", "다시 시도해주세요.");
     }
   }
 };
@@ -34,11 +42,13 @@ export const GetSavedWordList = async (
     return res.data;
   } catch (err: any) {
     if (err.response.data.message === "expired token") {
-      alert("토큰 만료");
+      WarningSwal("에러 발생", "다시 시도해주세요");
       RefreshApi(refreshToken, cookie);
     } else if (err.response.data.message === "empty token") {
-      alert("빈 토큰");
-      RefreshApi(refreshToken, cookie);
+      WarningSwal("에러 발생", "다시 로그인 해주세요");
+      window.location.href = `${CLIENT_MAIN_URL}login`;
+    } else {
+      ErrorSwal("에러 발생", "다시 시도해주세요.");
     }
   }
 };
@@ -55,13 +65,15 @@ export const GetWord = async (
   } catch (err: any) {
     console.log(err);
     if (err.response.data.message === "expired token") {
-      alert("토큰 만료");
+      WarningSwal("에러 발생", "다시 시도해주세요");
       RefreshApi(refreshToken, cookie);
     } else if (err.response.data.message === "empty token") {
-      alert("빈 토큰");
-      RefreshApi(refreshToken, cookie);
+      WarningSwal("에러 발생", "다시 로그인 해주세요");
+      window.location.href = `${CLIENT_MAIN_URL}login`;
     } else if (err.response.data.message === "word not exist") {
-      alert("존재하지 않는 단어입니다.");
+      ErrorSwal("에러 발생", "존재하지 않는 단어입니다.");
+    } else {
+      ErrorSwal("에러 발생", "다시 시도해주세요.");
     }
   }
 };
@@ -81,13 +93,15 @@ export const GetSearchWords = async (
   } catch (err: any) {
     console.log(err);
     if (err.response.data.message === "expired token") {
-      alert("토큰 만료");
+      WarningSwal("에러 발생", "다시 시도해주세요");
       RefreshApi(refreshToken, cookie);
     } else if (err.response.data.message === "empty token") {
-      alert("빈 토큰");
-      RefreshApi(refreshToken, cookie);
+      WarningSwal("에러 발생", "다시 로그인 해주세요");
+      window.location.href = `${CLIENT_MAIN_URL}login`;
     } else if (err.response.data.message === "word not exist") {
-      alert("존재하지 않는 단어입니다.");
+      ErrorSwal("에러 발생", "존재하지 않는 단어입니다.");
+    } else {
+      ErrorSwal("에러 발생", "다시 시도해주세요.");
     }
   }
 };
@@ -105,15 +119,15 @@ export const PostSaveWord = async (
     console.log(err);
     const message = err.response.data.message;
     if (message === "존재하지 않는 단어 id") {
-      alert("존재하지 않는 단어 id");
-    } else if (message === "이미 저장된 단어입니다.") {
-      alert("이미 저장된 단어입니다.");
+      ErrorSwal("에러 발생", "존재하지 않는 단어입니다.");
     } else if (err.response.data.message === "expired token") {
-      alert("토큰 만료");
+      WarningSwal("에러 발생", "다시 시도해주세요");
       RefreshApi(refreshToken, cookie);
     } else if (err.response.data.message === "empty token") {
-      alert("빈 토큰");
-      RefreshApi(refreshToken, cookie);
+      WarningSwal("에러 발생", "다시 로그인 해주세요");
+      window.location.href = `${CLIENT_MAIN_URL}login`;
+    } else {
+      ErrorSwal("에러 발생", "다시 시도해주세요.");
     }
   }
 };
@@ -130,11 +144,13 @@ export const DeleteWord = async (
   } catch (err: any) {
     console.log(err);
     if (err.response.data.message === "expired token") {
-      alert("토큰 만료");
+      WarningSwal("에러 발생", "다시 시도해주세요");
       RefreshApi(refreshToken, cookie);
     } else if (err.response.data.message === "empty token") {
-      alert("빈 토큰");
-      RefreshApi(refreshToken, cookie);
+      WarningSwal("에러 발생", "다시 로그인 해주세요");
+      window.location.href = `${CLIENT_MAIN_URL}login`;
+    } else {
+      ErrorSwal("에러 발생", "다시 시도해주세요.");
     }
   }
 };
