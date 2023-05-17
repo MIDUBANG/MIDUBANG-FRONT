@@ -2,7 +2,7 @@ import client from "@api/common/client";
 import axios from "axios";
 import { SPRING_URL } from "./common/url";
 
-import { WarningSwal } from "@components/Modal/CustomModal";
+import { WarningSwal, ErrorSwal } from "@components/Modal/CustomModal";
 
 const CLIENT_MAIN_URL = process.env.REACT_APP_REACT_URL;
 
@@ -39,17 +39,17 @@ export const SignUpApi = (
         password: pw,
       })
       .then(res => {
-        console.log("쿠키 저장!!");
-
+        alert("회원가입 성공~");
         cookie(res);
         window.location.href = CLIENT_MAIN_URL || "";
-        window.location.reload();
       })
       .catch(err => {
+        console.log(err);
         if (err.response.data.message === "이미 존재하는 계정입니다.") {
           WarningSwal("회원가입 실패", "이미 존재하는 계정입니다.");
-
           window.location.href = `${CLIENT_MAIN_URL}/login`;
+        } else {
+          ErrorSwal("에러 발생", "다시 시도해주세요.");
         }
       });
   }
@@ -79,6 +79,8 @@ export const LoginApi = (
           WarningSwal("로그인 실패", "비밀번호가 일치하지 않습니다.");
         } else if (err.response.data.message == "가입하지 않은 계정입니다.") {
           WarningSwal("로그인 실패", "가입하지 않은 계정입니다.");
+        } else {
+          ErrorSwal("에러 발생", "다시 시도해주세요.");
         }
       });
   }
@@ -94,6 +96,9 @@ export const GetUserInfo = async (
     return res.data;
   } catch (err: any) {
     console.log("에러임>", err);
+
+    ErrorSwal("에러 발생", "다시 시도해주세요.");
+
     RefreshApi(refreshToken, cookie);
 
     // if (err.response.data.message === "expired token") {
