@@ -26,6 +26,7 @@ const ResultBox = ({ caseData, wordData, openWordModal }: Props) => {
     desc,
     article_url,
     word_ref,
+    raw_case,
   } = caseData;
 
   // 단어 관련
@@ -159,7 +160,7 @@ const ResultBox = ({ caseData, wordData, openWordModal }: Props) => {
     <Block>
       <Contract caseTypeColor={caseTypeColor}>
         <div></div>
-        <p> "{case_detail}"</p>
+        <p> "{raw_case}"</p>
       </Contract>
 
       {!case_exists && (

@@ -36,6 +36,7 @@ export type CasesType = {
   case_exists: boolean;
   word_ref: number[];
   article_url: string;
+  raw_case: string;
 };
 
 export type WordsType = {
