@@ -16,7 +16,7 @@ export const GetAllWordList = async (
 ): Promise<any> => {
   try {
     const res = await client.get(
-      `word/list?page=${page}&size=300&sort=word,desc`,
+      `word/list?page=${page}&size=20&sort=word,asc`,
     );
     return res.data;
   } catch (err: any) {
