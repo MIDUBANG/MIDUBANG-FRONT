@@ -46,6 +46,8 @@ const App: React.FC = () => {
         {/* 특약 기능 */}
         <Route path="/analyze/*" element={<AnalyzeRoutes />} />
       </Route>
+
+      <Route path="*" element={<h1>404 not found</h1>} />
     </Routes>
   );
 };
