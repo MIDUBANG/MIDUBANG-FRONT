@@ -19,6 +19,7 @@ const House = () => {
   const [percentage, setPercentage] = useState(0);
   const [complete, setComplete] = useState(0);
 
+  /** 진행률 localstorage 관리 */
   const _getRecordCompletion = () => {
     let rate: any = localStorage.getItem("houseCompleteRate");
     if (!rate) {
@@ -45,6 +46,7 @@ const House = () => {
     }
   };
 
+  /** 진행도 - 초록 체크로 수정 */
   const _UpdateCompleteRate = (id: number, subId: number) => {
     let menu = houseData[id - 1];
     let contents = menu.contents;

@@ -55,7 +55,7 @@ const Check1 = () => {
           inputData={checkData}
           _handleUpdateCheckData={_handleUpdateCheckData}
         />
-        <UnderstandBtn id={4} subId={3} complete={isComplete} />
+        <UnderstandBtn id={4} subId={1} complete={isComplete} />
       </Container>
     </Div>
   );
