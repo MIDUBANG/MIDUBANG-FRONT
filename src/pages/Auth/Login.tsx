@@ -48,6 +48,7 @@ const Login = () => {
   /**일반 로그인  */
   const _handleLogin = () => {
     LoginApi(email, pw, onCookie);
+    navigate("/");
   };
 
   return (

@@ -76,6 +76,8 @@ export const LoginApi = (
       .then(res => {
         console.log(res);
         cookie(res);
+
+        window.location.reload();
       })
       .catch(err => {
         console.log(err);
