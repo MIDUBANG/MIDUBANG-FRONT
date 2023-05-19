@@ -8,13 +8,27 @@ type Props = {
   setIsOpen: (isopen: boolean) => void;
   contracts: PropsContracts[];
   _handleEdit: (id: number) => void;
+  _handleDelete: (id: number) => void;
 };
 
-const BottomModal = ({ isOpen, setIsOpen, contracts, _handleEdit }: Props) => {
-  const contract = contracts.filter((c) => c.selected === true);
+const BottomModal = ({
+  isOpen,
+  setIsOpen,
+  contracts,
+  _handleEdit,
+  _handleDelete,
+}: Props) => {
+  const contract = contracts.filter(c => c.selected === true);
 
-  const ClickEdit = (id: number) => {
+  /** 수정하기 */
+  const _handleEditContract = (id: number) => {
     _handleEdit(id);
+    setIsOpen(false);
+  };
+
+  /** 특약 삭제하기 */
+  const _handleDeleteContract = (id: number) => {
+    _handleDelete(id);
     setIsOpen(false);
   };
 
@@ -31,12 +45,12 @@ const BottomModal = ({ isOpen, setIsOpen, contracts, _handleEdit }: Props) => {
           </Contract>
 
           <Buttons>
-            <Button onClick={() => ClickEdit(contract[0]?.id)}>
+            <Button onClick={() => _handleEditContract(contract[0]?.id)}>
               <img src={edit} />
               <p>수정하기</p>
             </Button>
 
-            <Button onClick={() => setIsOpen(false)}>
+            <Button onClick={() => _handleDeleteContract(contract[0]?.id)}>
               <img src={trash} />
               <p>삭제하기</p>
             </Button>

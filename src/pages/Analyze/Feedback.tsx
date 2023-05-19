@@ -1,5 +1,5 @@
 /* 오타 수정 페이지 */
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import styled from "@emotion/styled";
 // img
 import loadingPerson from "@assets/illustration/loadingPerson.png";
@@ -66,7 +66,9 @@ const Feedback = () => {
     );
   };
 
+  /** 바텀 모달 열고, 선택된 특약 세팅함 */
   const _handleClickEdit = (id: number) => {
+    console.log("특약 선택해서 바텀 모달 열림");
     setContracts(
       contracts.map(c =>
         c.id === id ? { ...c, selected: true } : { ...c, selected: false },
@@ -79,6 +81,7 @@ const Feedback = () => {
     setIsOpen(true);
   };
 
+  /** 데이터 수정하려고 input에 세팅  */
   const _handleEdit = (id: number) => {
     setContracts(
       contracts.map(c =>
@@ -87,7 +90,9 @@ const Feedback = () => {
     );
   };
 
+  /** 수정 - 제출 */
   const _handleSubmitEdit = (e: React.FormEvent<HTMLFormElement>) => {
+    console.log("폼");
     e.preventDefault();
 
     setContracts(
@@ -105,10 +110,31 @@ const Feedback = () => {
     }, 200);
   };
 
+  /** 수정 제출 버튼 */
+  const _handleSubmitEdit_Click = () => {
+    console.log("클릭!!!!!!!!");
+    setContracts(
+      contracts.map(c => {
+        if (c.edit === true) {
+          return { ...c, contract: newContract, edit: false };
+        } else {
+          return c;
+        }
+      }),
+    );
+
+    setTimeout(() => {
+      setNewContract("");
+    }, 200);
+  };
+
+  /** 추가 - input 창 열기 */
   const _handleAddContract = () => {
+    setNewContract("");
     setIsAdd(true);
   };
 
+  /** 추가 */
   const _handleSubmitAddContract = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
@@ -122,8 +148,15 @@ const Feedback = () => {
 
     setContracts([...contracts, add]);
     setIsAdd(false);
+    setNewContract("");
   };
 
+  /** 선택된 특약 삭제하기 */
+  const _handleDeleteContract = (id: number) => {
+    setContracts(contracts.filter(c => c.id !== id));
+  };
+
+  /** 최종 분석 요청 버튼 */
   const _handlePostAnalyze = async () => {
     setRequest(true);
 
@@ -162,6 +195,7 @@ const Feedback = () => {
     navigate("/analyze/result");
   };
 
+  // loading 화면 보여줄지말지 선택하는 state
   const [request, setRequest] = useState(false);
 
   return (
@@ -169,7 +203,7 @@ const Feedback = () => {
       <SimpleNavBar text="레포트" />
 
       {!request ? (
-        <>
+        <Container>
           <Title>총 {contracts.length}개의 특약조항 검출</Title>
           <IlluImg imgWidth="220px" imgHeight="auto" imgMargin="10px 0 0 0">
             <img src={loadingPerson} />
@@ -177,9 +211,21 @@ const Feedback = () => {
           <FontGray margin="23px auto 0 auto">
             오타를 수정하면 더 정확한 분석을 받아보실 수 있습니다.
           </FontGray>
+
+          <BtnBox>
+            <AddBtn onClick={_handleAddContract}>
+              <img src={pencil} /> 추가
+            </AddBtn>
+            <EditBtn onClick={_handleSubmitEdit_Click} isEditActive={true}>
+              수정
+            </EditBtn>
+
+            <DoneBtn onClick={_handlePostAnalyze}>분석하기</DoneBtn>
+          </BtnBox>
+
           {contracts.map(con => {
             return (
-              <Contract>
+              <Contract onClick={() => _handleClickEdit(con.id)}>
                 <Dot
                   done={con.done}
                   onClick={() => _handleClickCheck(con.id)}
@@ -195,10 +241,7 @@ const Feedback = () => {
                     />
                   </EditForm>
                 ) : (
-                  <FontDescribed
-                    margin="0 0 0 14px"
-                    onClick={() => _handleClickEdit(con.id)}
-                  >
+                  <FontDescribed margin="0 0 0 14px">
                     {con.contract}
                   </FontDescribed>
                 )}
@@ -219,19 +262,15 @@ const Feedback = () => {
               </EditForm>
             </Contract>
           )}
-          <BtnBox>
-            <AddBtn onClick={_handleAddContract}>
-              <img src={pencil} /> 추가
-            </AddBtn>
-            <DoneBtn onClick={_handlePostAnalyze}>분석하기</DoneBtn>
-          </BtnBox>
+
           <BottomModal
             isOpen={isOpen}
             setIsOpen={setIsOpen}
             _handleEdit={_handleEdit}
+            _handleDelete={_handleDeleteContract}
             contracts={contracts}
           />
-        </>
+        </Container>
       ) : (
         <Container>
           <FontTitle margin="20px 0 0 37px" size="20px">
@@ -254,11 +293,14 @@ const Div = styled.div`
   height: 100%;
 
   padding-top: 69px;
+  margin-bottom: 30px;
 `;
 
 const Container = styled.div`
   width: 100%;
   height: auto;
+
+  padding-bottom: 100px;
 `;
 const EditForm = styled.form`
   width: 85%;
@@ -344,16 +386,15 @@ const Title = styled.p`
 
 const BtnBox = styled.div`
   display: flex;
+  justify-content: space-between;
   width: 100%;
 
+  margin-top: 20px;
   padding: 0 30px;
   box-sizing: border-box;
-
-  position: fixed;
-  bottom: 33px;
 `;
 const AddBtn = styled.div`
-  width: 100%;
+  width: 25vw;
   height: 41px;
   border: 1px solid #4880ee;
   border-radius: 8px;
@@ -378,10 +419,29 @@ const AddBtn = styled.div`
   }
 `;
 
-const DoneBtn = styled.div`
-  margin-left: 14px;
+const EditBtn = styled.div<{ isEditActive: boolean }>`
+  width: 25vw;
+  height: 41px;
+  border: 1px solid #4880ee;
+  border-radius: 8px;
 
-  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  font-family: "Noto Sans KR";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 19px;
+  text-align: center;
+  color: #4880ee;
+
+  background: ${props => props.isEditActive && "#5a73fc"};
+  color: ${props => props.isEditActive && "#ffffff"};
+`;
+const DoneBtn = styled.div`
+  width: 25vw;
   height: 41px;
   background: #5a73fc;
   border-radius: 8px;
@@ -398,18 +458,6 @@ const DoneBtn = styled.div`
   text-align: center;
   color: #ffffff;
 `;
-const ProgressFont = styled.p`
-  margin-top: 19px;
-  font-family: "Poppins", sans-serif;
-  font-style: normal;
-  font-weight: 500;
-  font-size: 40px;
-  line-height: 60px;
-  /* identical to box height */
-  text-align: center;
-  color: #9b9b9b;
-`;
-
 const WatingFont = styled.p`
   margin-left: 9px;
   margin-top: 30px;
