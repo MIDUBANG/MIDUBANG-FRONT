@@ -1,3 +1,4 @@
+import { useState, useEffect } from "react";
 import styled from "@emotion/styled";
 import edit from "@assets/feedback/edit.svg";
 import trash from "@assets/feedback/trash.svg";
@@ -32,9 +33,20 @@ const BottomModal = ({
     setIsOpen(false);
   };
 
+  const [wHeight, setWHeight] = useState(
+    document.documentElement.scrollHeight + "px",
+  );
+
+  /** background 영역 높이 수정 */
+  useEffect(() => {
+    setWHeight(document.documentElement.scrollHeight + "px");
+  });
+
   return (
     <Modal>
-      {isOpen && <Background onClick={() => setIsOpen(false)} />}
+      {isOpen && (
+        <Background onClick={() => setIsOpen(false)} wHeight={wHeight} />
+      )}
       <div className={isOpen ? "container modal-open" : "container"}>
         <div className="modal">
           <Bar />
@@ -137,15 +149,13 @@ const Contract = styled.div`
   }
 `;
 
-const Background = styled.div`
+const Background = styled.div<{ wHeight: string }>`
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
-  height: 100%;
+  height: ${props => props.wHeight};
 
-  width: 100%;
-  height: 100%;
   background: rgba(0, 0, 0, 0.45);
 
   backdrop-filter: blur(5px);
@@ -163,6 +173,7 @@ const Background = styled.div`
 
 const Modal = styled.div`
   z-index: 100;
+
   .modal {
     box-sizing: border-box;
 
