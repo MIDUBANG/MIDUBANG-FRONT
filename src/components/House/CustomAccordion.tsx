@@ -40,9 +40,9 @@ const CustomAccordion = ({ inputData, _handleUpdateCheckData }: Props) => {
                 >
                   확인했어요
                 </CheckBtn>
-                <WeirdBtn>
+                {/* <WeirdBtn>
                   이상해요 <img src={arrowRightWhite} />
-                </WeirdBtn>
+                </WeirdBtn> */}
               </div>
             </div>
           </Accordion.Body>
