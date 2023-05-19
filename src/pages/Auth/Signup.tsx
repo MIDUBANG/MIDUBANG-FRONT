@@ -1,6 +1,7 @@
 /* 회원가입 페이지 */
 import styled from "@emotion/styled";
 import { useCookies } from "react-cookie";
+import { useNavigate } from "react-router-dom";
 // component
 import SimpleNavBar from "@components/NavBar/SimpleNavBar";
 import greencheck from "@assets/icon/greencheck.svg";
@@ -13,6 +14,7 @@ import useInput from "@hooks/useInput";
 import { SignUpApi } from "@api/auth";
 
 const Signup = () => {
+  const navigate = useNavigate();
   const [cookies, setCookie, removeCookie] = useCookies(["refreshToken"]);
 
   const [email, setEmail] = useInput("");
@@ -30,6 +32,11 @@ const Signup = () => {
   /**회원가입 */
   const _handleSignUp = () => {
     SignUpApi(email, pw, onCookie);
+  };
+
+  /** 로그인하러가기 */
+  const _handleGotoLogin = () => {
+    navigate("/login");
   };
 
   return (
@@ -59,7 +66,7 @@ const Signup = () => {
           onClick={_handleSignUp}
         />
 
-        <p className="description">
+        <p className="description" onClick={_handleGotoLogin}>
           이미 계정이 있나요? <span>로그인</span>
         </p>
       </Container>
