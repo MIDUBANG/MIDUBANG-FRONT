@@ -18,9 +18,13 @@ const Loading = () => {
   return (
     <Box>
       <div className="clipText" ref={domRef}>
-        <p>전세 사기에 대해 알고계신가요?</p>
-        <p>조심하세욧!!</p>
-        <p>부동산 사기</p>
+        <p>계약 후 24시간 내로 해지하면</p>
+        <p>계약금을 돌려받을 수 있을까?</p>
+        <p>돌려받을 수 없습니다!!🙅‍♀️</p>
+        <p>계약서에 서명하고 계약이 성립된 시점부터</p>
+        <p>법적 구속력을 가지기 때문입니다.</p>
+        <p>만약 계약 해지 후 계약금을 돌려 받고 싶다면,</p>
+        <p>해당 내용을 포함한 특약을 작성하면 됩니다.</p>
       </div>
     </Box>
   );
@@ -30,10 +34,10 @@ export default Loading;
 
 const Box = styled.div`
   height: auto;
-  width: 100vw;
+  width: 90vw;
 
   padding: 0;
-  margin: 30px 0 0 0;
+  margin: 30px auto 0 auto;
 
   display: flex;
   flex-direction: column;

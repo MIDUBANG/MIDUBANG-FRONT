@@ -101,7 +101,7 @@ export const GetUserInfo = async (
   } catch (err: any) {
     console.log("에러임>", err);
 
-    ErrorSwal("에러 발생", "다시 시도해주세요.");
+    //ErrorSwal("에러 발생", "다시 시도해주세요.");
 
     RefreshApi(refreshToken, cookie);
 
@@ -132,7 +132,8 @@ export const RefreshApi = (
       window.location.reload();
     })
     .catch(err => {
-      WarningSwal("토큰 만료", "다시 로그인해주세요");
-      window.location.href = `${CLIENT_MAIN_URL}login`; // 다시 로그인
+      WarningSwal("토큰 만료", "다시 로그인해주세요").then(res => {
+        window.location.href = `${CLIENT_MAIN_URL}login`; // 다시 로그인
+      });
     });
 };

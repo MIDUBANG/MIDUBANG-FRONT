@@ -11,6 +11,8 @@ import ChatQuestionBox from "@components/Question/ChatQuestionBox";
 
 // asset
 import card1 from "@assets/question/card1.png";
+import card2 from "@assets/question/card2.png";
+
 import write from "@assets/question/write.svg";
 import rightArrow from "@assets/question/rightArrow.png";
 // api
@@ -71,7 +73,7 @@ const Main = () => {
             대신 물어봅니다
           </Title>
 
-          <img src={card1} width={123} height={128} />
+          <img src={card1} className="card1" />
         </Card>
 
         <Card background={backgroundArray[1]}>
@@ -81,7 +83,7 @@ const Main = () => {
             가능한가요?
           </Title>
 
-          <img src={card1} width={123} height={128} />
+          <img src={card2} className="card2" />
         </Card>
       </CardsContainer>
 
@@ -191,6 +193,21 @@ const Card = styled.div<{ background: string }>`
     position: absolute;
     right: -5px;
     bottom: 0;
+  }
+
+  .card1 {
+    position: absolute;
+    right: -5px;
+    bottom: 0;
+    width: 123px;
+  }
+
+  .card2 {
+    position: absolute;
+    left: 11px;
+    bottom: 11px;
+
+    width: 85px;
   }
 `;
 
