@@ -6,7 +6,7 @@ import { css } from "@emotion/react";
 import { useParams } from "react-router-dom";
 import { useCookies } from "react-cookie";
 //component
-import MainNavBar from "@components/NavBar/MainNavBar";
+import SimpleNavBar from "@components/NavBar/SimpleNavBar";
 import QuestionBox from "@components/Question/GoldQuestionBox";
 // asset
 import dino1 from "@assets/question/dino1.png";
@@ -94,7 +94,7 @@ const ChatDetail = () => {
   }, []);
   return (
     <Div>
-      <MainNavBar text="챗쪽이가 대신 질문" />
+      <SimpleNavBar text="챗쪽이의 질문" />
 
       <Container>
         <PostContainer>

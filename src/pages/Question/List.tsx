@@ -5,7 +5,7 @@ import styled from "@emotion/styled";
 import { css } from "@emotion/react";
 import { useCookies } from "react-cookie";
 //component
-import MainNavBar from "@components/NavBar/MainNavBar";
+import SimpleNavBar from "@components/NavBar/SimpleNavBar";
 import GoldQuestionBox from "@components/Question/GoldQuestionBox";
 import ChatQuestionBox from "@components/Question/ChatQuestionBox";
 
@@ -84,7 +84,7 @@ const List = () => {
 
   return (
     <Div>
-      <MainNavBar text="챗쪽이가 대신 질문" />
+      <SimpleNavBar text="부동산 질문 게시판" />
 
       <Container>
         <Text size="big" margin="25px 0 7px 0">
@@ -226,7 +226,6 @@ const WriteBtn = styled.div`
 
   background: linear-gradient(94.02deg, #4880ee 5.7%, #b093ee 100%);
   box-shadow: -3px 4px 6px rgba(0, 0, 0, 0.2);
-  transform: rotate(-20deg);
 
   display: flex;
   justify-content: center;

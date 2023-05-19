@@ -5,7 +5,7 @@ import styled from "@emotion/styled";
 import { useCookies } from "react-cookie";
 
 //component
-import MainNavBar from "@components/NavBar/MainNavBar";
+import SimpleNavBar from "@components/NavBar/SimpleNavBar";
 import GoldQuestionBox from "@components/Question/GoldQuestionBox";
 import ChatQuestionBox from "@components/Question/ChatQuestionBox";
 
@@ -19,6 +19,7 @@ import rightArrow from "@assets/question/rightArrow.png";
 import { GetTodayPosts } from "@api/community";
 // type
 import { GoldQuestionType, ChatQuestionType } from "@assets/types";
+import MainNavBar from "@components/NavBar/MainNavBar";
 
 const Main = () => {
   const navigate = useNavigate();
@@ -62,8 +63,7 @@ const Main = () => {
   }, []);
   return (
     <Div>
-      <MainNavBar text="금쪽이" />
-      {/* <SimpleNavBar text="금쪽이" direction="up" noTitle={true} /> */}
+      <MainNavBar text="챗쪽이의 부동산 질문" />
 
       <CardsContainer>
         <Card background={backgroundArray[0]}>
