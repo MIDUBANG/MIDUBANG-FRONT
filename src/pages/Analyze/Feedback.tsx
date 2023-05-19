@@ -223,7 +223,7 @@ const Feedback = () => {
             <AddBtn onClick={_handleAddContract}>
               <img src={pencil} /> 추가
             </AddBtn>
-            <DoneBtn onClick={_handlePostAnalyze}>완료</DoneBtn>
+            <DoneBtn onClick={_handlePostAnalyze}>분석하기</DoneBtn>
           </BtnBox>
           <BottomModal
             isOpen={isOpen}
