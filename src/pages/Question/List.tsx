@@ -98,8 +98,6 @@ const List = () => {
               {btn.text}
             </Btn>
           ))}
-
-          <div className="control"></div>
         </BtnContainer>
 
         <div>
