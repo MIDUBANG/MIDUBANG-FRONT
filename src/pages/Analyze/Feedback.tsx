@@ -59,6 +59,7 @@ const Feedback = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [newContract, setNewContract] = useState<string>("");
   const [isAdd, setIsAdd] = useState<boolean>(false);
+  const [editBtnActive, setEditBtnActive] = useState<boolean>(false);
 
   const _handleClickCheck = (id: number) => {
     setContracts(
@@ -88,6 +89,7 @@ const Feedback = () => {
         c.id === id ? { ...c, edit: true } : { ...c, edit: false },
       ),
     );
+    setEditBtnActive(true);
   };
 
   /** 수정 - 제출 */
@@ -108,6 +110,7 @@ const Feedback = () => {
     setTimeout(() => {
       setNewContract("");
     }, 200);
+    setEditBtnActive(false);
   };
 
   /** 수정 제출 버튼 */
@@ -126,6 +129,7 @@ const Feedback = () => {
     setTimeout(() => {
       setNewContract("");
     }, 200);
+    setEditBtnActive(false);
   };
 
   /** 추가 - input 창 열기 */
@@ -216,7 +220,10 @@ const Feedback = () => {
             <AddBtn onClick={_handleAddContract}>
               <img src={pencil} /> 추가
             </AddBtn>
-            <EditBtn onClick={_handleSubmitEdit_Click} isEditActive={true}>
+            <EditBtn
+              onClick={_handleSubmitEdit_Click}
+              isEditActive={editBtnActive}
+            >
               수정
             </EditBtn>
 
