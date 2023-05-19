@@ -7,8 +7,8 @@ import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
 //component
 import SimpleNavBar from "@components/NavBar/SimpleNavBar";
 // asset
-import greencheck from "@assets/house/greencheck.png";
-import graycheck from "@assets/house/graycheck.png";
+import greencheck from "@assets/house/main/greencheck.png";
+import graycheck from "@assets/house/main/graycheck.png";
 import { HouseData } from "@assets/houseData";
 import { Navigate } from "react-router-dom";
 
