@@ -23,6 +23,7 @@ import {
 import { checkCategoryData } from "@assets/checkCategoryData";
 
 const Main = () => {
+  console.log("렌더링");
   const { id } = useParams();
   const categoryId = parseInt(id || "0") - 1;
   const categoryTitle = checkCategoryData[categoryId].title;
@@ -62,6 +63,7 @@ const Main = () => {
     setDoneCount(res.count);
   };
 
+  /** 체크리스트 상태 불러오기 */
   const _handleGetChecklist = async () => {
     let checklistId = parseInt(id || "0");
     const res = await GetChecklist(checklistId, cookies.refreshToken, onCookie);
@@ -125,7 +127,7 @@ const Main = () => {
   useEffect(() => {
     _handleGetCheckCount();
     _handleGetChecklist();
-  }, [req]);
+  }, [req, categoryId]);
 
   return (
     <Div>
