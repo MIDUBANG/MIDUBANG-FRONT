@@ -118,7 +118,7 @@ const SavedWordList = () => {
               <span>{w.word_date.split("T")[0]}</span>
             </div>
 
-            <p className="mean">{w.meaning}</p>
+            <p className="mean">{w.meaning.substr(0, 70)}...</p>
 
             <img src={bookmark} width={16} height={23} />
           </WordBox>
@@ -222,7 +222,7 @@ const WordBox = styled.div`
   flex-direction: column;
 
   width: 100%;
-  height: 156px;
+  height: auto;
   background: #f4f5f7;
   border-radius: 5px;
 
