@@ -1,5 +1,6 @@
 import styled from "@emotion/styled";
 import { useNavigate } from "react-router-dom";
+import { useMediaQuery } from "react-responsive";
 // component
 import SimpleNavBar from "@components/NavBar/SimpleNavBar";
 // asset
@@ -8,18 +9,26 @@ import background from "@assets/my/background.png";
 import wordbook from "@assets/my/wordbook.png";
 import report from "@assets/my/report.png";
 import arrow from "@assets/my/arrow.png";
-
 import { GetUserInfo } from "@api/auth";
-
 import { useCookies } from "react-cookie";
 import { useState, useEffect } from "react";
-
 // modal
 import Swal from "sweetalert2";
 import { ConfirmModal } from "@components/Modal/CustomModal";
 import { logoutStyle } from "@style/swalstyle";
 
 const My = () => {
+  // w  img 삭제
+  const isNoImg = useMediaQuery({
+    query: "(max-width : 335px)",
+  });
+  // h  img랑 보기 버튼 삭제
+  const isNoImg_Btn = useMediaQuery({
+    query: "(max-height : 600px)",
+  });
+
+  console.log(isNoImg);
+
   const [userInfo, setUserInfo] = useState<{ name: string; email: string }>();
   const navigate = useNavigate();
 
@@ -87,14 +96,23 @@ const My = () => {
         <img src={background} className="background" />
       </TopContainer>
       <Container>
-        <BigButton onClick={() => navigate("/my/savedword")}>
+        <BigButton
+          onClick={() => navigate("/my/savedword")}
+          isNoImg={isNoImg}
+          isNoImg_Btn={isNoImg_Btn}
+        >
           <div className="left-flex-box">
             <p className="title">저장한 부동산 단어</p>
             <div className="small-btn">단어장 보기</div>
           </div>
+
           <img src={wordbook} />
         </BigButton>
-        <BigButton onClick={() => navigate("/my/analyzelist")}>
+        <BigButton
+          onClick={() => navigate("/my/analyzelist")}
+          isNoImg={isNoImg}
+          isNoImg_Btn={isNoImg_Btn}
+        >
           <div className="left-flex-box">
             <p className="title">내 계약서 분석 기록</p>
             <div className="small-btn">레포트 보기</div>
@@ -135,7 +153,7 @@ const TopContainer = styled.div`
     position: absolute;
     display: flex;
 
-    padding: 39px 31px;
+    padding: 39px 0px 39px 31px;
   }
 
   .background {
@@ -204,7 +222,7 @@ const Container = styled.div`
   transform: translate(0, -90px);
 `;
 
-const BigButton = styled.div`
+const BigButton = styled.div<{ isNoImg: boolean; isNoImg_Btn: boolean }>`
   width: 100%;
   height: auto;
   background: #ffffff;
@@ -231,6 +249,7 @@ const BigButton = styled.div`
     font-size: 20px;
     line-height: 29px;
     color: #363636;
+    white-space: nowrap;
   }
 
   .small-btn {
@@ -248,11 +267,16 @@ const BigButton = styled.div`
     font-weight: 500;
     font-size: 11px;
     color: #727272;
+
+    display: ${props => props.isNoImg_Btn && "none"};
   }
 
   img {
     width: 110px;
     margin: 10px 16px;
+
+    display: ${props => props.isNoImg && "none"};
+    display: ${props => props.isNoImg_Btn && "none"};
   }
 `;
 
