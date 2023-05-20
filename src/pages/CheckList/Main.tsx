@@ -47,7 +47,9 @@ const Main = () => {
         <EnText weight="700" size="14px" color="#474747" margin="7px 0 0 3px">
           슬기로운 자취 시작 A to Z
         </EnText>
-        <img src={illustration} />
+        <div className="img-box">
+          <img src={illustration} />
+        </div>
       </Banner>
 
       <Container>
@@ -63,7 +65,7 @@ const Main = () => {
           </div>
         </ProgressBox>
 
-        {checkCategoryData.map((c) => (
+        {checkCategoryData.map(c => (
           <CategoryBox
             backgroundColor={c.backgroundColor}
             pointColor={c.pointColor}
@@ -92,15 +94,26 @@ const Banner = styled.div`
   flex-direction: column;
 
   width: 100%;
-  height: 305px;
+  height: auto;
   background: #f7f5fa;
 
-  padding: 24px 30px;
+  padding: 24px 30px 40px 30px;
+
+  .img-box {
+    width: 100%;
+    height: 130px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    margin-top: 20px;
+  }
 
   img {
-    margin-top: 24px;
-    align-self: center;
-    width: 60vw;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
   }
 `;
 
@@ -119,18 +132,18 @@ const EnText = styled.div<{
 }>`
   font-family: "Inter", sans-serif;
   font-style: normal;
-  font-weight: ${(props) => props.weight};
-  font-size: ${(props) => props.size};
-  color: ${(props) => props.color};
-  margin: ${(props) => props.margin};
+  font-weight: ${props => props.weight};
+  font-size: ${props => props.size};
+  color: ${props => props.color};
+  margin: ${props => props.margin};
 `;
 
 const KRText = styled.div<{ weight: string; size: string; color: string }>`
   font-family: "Noto Sans KR";
   font-style: normal;
-  font-weight: ${(props) => props.weight};
-  font-size: ${(props) => props.size};
-  color: ${(props) => props.color};
+  font-weight: ${props => props.weight};
+  font-size: ${props => props.size};
+  color: ${props => props.color};
 `;
 
 const ProgressBox = styled.div`
@@ -178,7 +191,7 @@ const ProgressBar = styled.div<{ percent: number }>`
     position: absolute;
     left: 0;
 
-    width: ${(props) => props.percent}%;
+    width: ${props => props.percent}%;
     height: 8px;
     background: linear-gradient(270.04deg, #4e75ff 0.03%, #87a2ff 98.93%);
     border-radius: 7px;
