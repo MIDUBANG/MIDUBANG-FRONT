@@ -113,7 +113,6 @@ const WordList = () => {
             </div>
 
             <p className="meaning">{w.meaning}</p>
-            <hr />
           </WordMeanBox>
         ))}
 
@@ -208,6 +207,8 @@ const CountText = styled.div`
 `;
 
 const WordMeanBox = styled.div`
+  border-bottom: 1px solid #e3e3e3;
+  margin-bottom: 29px;
   .word-box {
     display: flex;
     justify-content: space-between;
@@ -239,12 +240,6 @@ const WordMeanBox = styled.div`
     font-size: 14px;
     line-height: 20px;
     color: #4b4b4b;
-  }
-
-  hr {
-    width: 330px;
-    height: 2px;
-    background-color: #e3e3e3;
   }
 `;
 

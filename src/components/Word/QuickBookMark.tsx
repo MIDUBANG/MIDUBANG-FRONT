@@ -33,7 +33,7 @@ const QuickBookMark = () => {
       ref={markRef}
       style={{ top: "200px" }}
     >
-      <img src={scrollbookmark} width={61} height={35} />
+      <img src={scrollbookmark} />
       <p>단어장</p>
     </ScrollBookMark>
   );
@@ -42,6 +42,8 @@ const QuickBookMark = () => {
 export default QuickBookMark;
 
 const ScrollBookMark = styled.div`
+  width: 60px;
+
   transition: all 800ms ease 100ms;
   z-index: 100;
   position: absolute;
@@ -51,7 +53,6 @@ const ScrollBookMark = styled.div`
   p {
     position: absolute;
     left: 50%;
-
     width: 40px;
     transform: translate(-30%);
     font-family: "Inter";
@@ -59,5 +60,10 @@ const ScrollBookMark = styled.div`
     font-weight: 400;
     font-size: 12px;
     color: #ffffff;
+  }
+
+  img {
+    width: 60px;
+    height: auto;
   }
 `;
