@@ -79,7 +79,7 @@ const Container = styled.div`
   flex-direction: column;
   padding: 24px;
   padding-top: 65px;
-  padding-bottom: 50px;
+  padding-bottom: 10px;
 
   box-sizing: border-box;
 `;
@@ -97,10 +97,10 @@ const Title = styled.p`
 `;
 
 const Img = styled.img`
-  width: 264px;
-  height: 183px;
+  width: auto;
+  height: 20vh;
 
-  margin: 113px 0 53px auto;
+  margin: 10% 0 10% auto;
 `;
 
 const BlueTextBox = styled.div`
@@ -147,17 +147,11 @@ const DesText = styled.p<{ margin: string }>`
 `;
 
 const BlueBtn = styled.div`
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  margin: 0 auto;
-
   margin-top: auto;
 
-  margin-bottom: 24px;
+  margin-bottom: 20px;
 
-  width: 90%;
+  width: 100%;
   height: 40px;
   min-height: 40px;
   background: #5a73fc;
