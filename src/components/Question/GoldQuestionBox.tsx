@@ -36,7 +36,7 @@ export default GoldQuestionBox;
 
 const BoxDiv = styled.div`
   padding: 9px 12px 17px 12px;
-  width: 346px;
+  width: 100%;
   height: auto;
   min-height: 85px;
 
