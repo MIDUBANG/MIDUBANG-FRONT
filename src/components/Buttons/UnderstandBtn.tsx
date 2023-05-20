@@ -12,16 +12,37 @@ type Props = {
 const UnderstandBtn = ({ id, subId, complete, bottomFix }: Props) => {
   const navigate = useNavigate();
 
+  const IncludeSame = (original: []) => {
+    let result = false;
+
+    original.map(o => {
+      if (o[0] === id && o[1] === subId) {
+        result = true;
+      }
+    });
+
+    return result;
+  };
+
   const _clickUnderStand = () => {
     if (complete) {
       // 버튼이 활성화 상태일 때만 클릭 가능
       let completeRate: any = null;
       let original: any = localStorage.getItem("houseCompleteRate"); // [[],[]]
+
       if (original) {
         original = JSON.parse(original);
-        completeRate = [...original, [id, subId]];
-        console.log("테스트", completeRate);
-        localStorage.setItem("houseCompleteRate", JSON.stringify(completeRate));
+        console.log(original);
+
+        // 중복 없을 때만
+        if (!IncludeSame(original)) {
+          completeRate = [...original, [id, subId]];
+          console.log("테스트", completeRate);
+          localStorage.setItem(
+            "houseCompleteRate",
+            JSON.stringify(completeRate),
+          );
+        }
       } else {
         original = [];
         completeRate = [...original, [id, subId]];
