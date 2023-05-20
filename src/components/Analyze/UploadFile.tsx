@@ -13,12 +13,18 @@ import { useCookies } from "react-cookie";
 import { useNavigate } from "react-router-dom";
 
 type UploadFileProps = {
+  extraInfo: any;
   setUpload: React.Dispatch<React.SetStateAction<boolean>>;
   setImgUrl: (url: string) => void;
   setResult: (result: string[]) => void;
 };
 
-const UploadFile = ({ setUpload, setImgUrl, setResult }: UploadFileProps) => {
+const UploadFile = ({
+  extraInfo,
+  setUpload,
+  setImgUrl,
+  setResult,
+}: UploadFileProps) => {
   const [status, setStatus] = useState(false);
   const [statusMsg, setStatusMsg] = useState("사진 업로드");
   const [explain, setExplain] = useState(
@@ -53,23 +59,6 @@ const UploadFile = ({ setUpload, setImgUrl, setResult }: UploadFileProps) => {
       return;
     }
 
-    // 파일 확장자 체크
-    // if (!fileExtensionValid(uploadfiles)) {
-    //   target.value = "";
-    //   alert(
-    //     `업로드 가능한 확장자가 아닙니다. [가능한 확장자 : ${ALLOW_FILE_EXTENSION}]`
-    //   );
-    //   return;
-    // }
-
-    // 파일 용량 체크
-    // if (files.size > FILE_SIZE_MAX_LIMIT) {
-    //   target.value = "";
-    //   alert("업로드 가능한 최대 용량은 5MB입니다. ");
-    //   return;
-    // }
-
-    // validation을 정상적으로 통과한 File
     setUploadFile(uploadfiles);
   };
 
@@ -114,7 +103,7 @@ const UploadFile = ({ setUpload, setImgUrl, setResult }: UploadFileProps) => {
         <FontGray>{fileName}</FontGray>
       </ImgDiv>
 
-      <FontBig margin="80px auto 0 auto" size="20px">
+      <FontBig margin="20px auto 0 auto" size="20px">
         {statusMsg}
       </FontBig>
       <FontGray margin="17px auto 0 auto">{explain}</FontGray>
@@ -220,7 +209,7 @@ const ImgDiv = styled.div`
 `;
 
 const Illustration = styled.img`
-  max-width: 320px;
-  max-height: 260px;
+  width: auto;
+  height: 25vh;
   margin: 0 auto 10px auto;
 `;
