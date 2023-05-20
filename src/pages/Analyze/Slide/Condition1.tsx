@@ -78,7 +78,7 @@ const Title = styled.p`
 
 const Des = styled.p`
   margin-top: 19px;
-  margin-bottom: 100px;
+  margin-bottom: 10vh;
 
   font-family: "Noto Sans KR";
   font-style: normal;
