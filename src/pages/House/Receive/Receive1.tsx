@@ -35,7 +35,7 @@ const Receive1 = () => {
           위조의 위험을 줄이고, 발급일에 따라 근저당 여부가 바뀌기 때문입니다!
         </DesText>
 
-        <UnderstandBtn id={2} subId={1} bottomFix />
+        <UnderstandBtn id={2} subId={1} />
       </Container>
     </Div>
   );
