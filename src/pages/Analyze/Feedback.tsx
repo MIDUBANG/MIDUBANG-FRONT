@@ -209,7 +209,7 @@ const Feedback = () => {
       {!request ? (
         <Container>
           <Title>총 {contracts.length}개의 특약조항 검출</Title>
-          <IlluImg imgWidth="220px" imgHeight="auto" imgMargin="10px 0 0 0">
+          <IlluImg>
             <img src={loadingPerson} />
           </IlluImg>
           <FontGray margin="23px auto 0 auto">
@@ -333,21 +333,14 @@ const EditForm = styled.form`
   }
 `;
 
-const IlluImg = styled.div<{
-  imgWidth: string;
-  imgHeight: string;
-  imgMargin: string;
-}>`
-  //margin: 35px auto 0 auto;
-
+const IlluImg = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
 
   img {
-    margin: ${props => props.imgMargin};
-    width: ${props => props.imgWidth};
-    height: ${props => props.imgHeight};
+    width: auto;
+    height: 20vh;
   }
 `;
 
