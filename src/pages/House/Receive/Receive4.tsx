@@ -34,7 +34,7 @@ const Receive4 = () => {
           등기부등본의 가장 마지막 페이지에 주요 등기사항 요약(참고용) 이 함께
           표시됩니다.
         </DesText>
-        <UnderstandBtn id={2} subId={4} bottomFix={true} />
+        <UnderstandBtn id={2} subId={4} />
       </Container>
     </Div>
   );
