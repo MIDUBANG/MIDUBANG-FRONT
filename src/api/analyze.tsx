@@ -99,7 +99,7 @@ export const PostAnalyze = async (
       is_expensive: is_expensive,
       contract_type: contract_type,
       image_url: image_url,
-      omissions: [0],
+      omissions: omissions,
       inclusions: inclusions,
     });
 
