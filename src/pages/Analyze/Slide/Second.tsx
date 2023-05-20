@@ -44,9 +44,12 @@ const Second = () => {
         나의 계약에 필요한 부분만 골라서 해설합니다.
       </SmallText>
 
-      {service.map((s) => (
+      {service.map(s => (
         <ServiceBox key={s.id}>
-          <img src={s.img} className="service-img" />
+          <div className="service-img">
+            <img src={s.img} />
+          </div>
+
           <div className="text-box">
             <p className="title">{s.title}</p>
             <p className="sub-text">{s.description}</p>
@@ -74,7 +77,7 @@ const Title = styled.p<{ margin: string }>`
   text-align: center;
 
   color: #000000;
-  margin: ${(props) => props.margin};
+  margin: ${props => props.margin};
 
   span {
     color: #4880ee;
@@ -89,12 +92,12 @@ const SmallText = styled.p<{ margin: string }>`
   line-height: 23px;
   text-align: center;
   color: #7d7d7d;
-  margin: ${(props) => props.margin};
+  margin: ${props => props.margin};
 `;
 
 const ServiceBox = styled.div`
   width: 90%;
-  height: 97px;
+  height: 10vh;
   background: #ffffff;
   border: 0.5px solid rgba(202, 202, 202, 0.33);
   box-shadow: 0px 10px 10px rgba(0, 0, 0, 0.05);
@@ -102,13 +105,21 @@ const ServiceBox = styled.div`
 
   display: flex;
   align-items: center;
-  margin: 18px auto;
-  padding: 16px 0;
+  margin: 10px auto;
+  padding: 10px 0;
+
+  box-sizing: border-box;
 
   .service-img {
-    width: 55px;
-    height: 55px;
+    width: auto;
+    height: 100%;
     margin-left: 20px;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
   }
 
   .text-box {
@@ -118,7 +129,7 @@ const ServiceBox = styled.div`
       font-family: "Noto Sans KR";
       font-style: normal;
       font-weight: 500;
-      font-size: 20px;
+      font-size: 1.2em;
       line-height: 29px;
       color: #000000;
     }
@@ -127,11 +138,9 @@ const ServiceBox = styled.div`
       font-family: "Noto Sans KR";
       font-style: normal;
       font-weight: 400;
-      font-size: 16px;
+      font-size: 0.8em;
       line-height: 23px;
       color: #7d7d7d;
-
-      margin-top: 5px;
     }
   }
 `;
