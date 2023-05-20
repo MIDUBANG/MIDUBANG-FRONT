@@ -37,7 +37,7 @@ const Box = styled.div`
   width: 90vw;
 
   padding: 0;
-  margin: 30px auto 0 auto;
+  margin: 30px auto;
 
   display: flex;
   flex-direction: column;
