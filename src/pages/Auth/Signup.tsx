@@ -85,7 +85,7 @@ const Div = styled.div`
 const Illurstration = styled.img`
   margin-top: 15px;
   margin-bottom: 40px;
-  width: 255px;
+  width: 30vh;
   height: auto;
 `;
 
@@ -122,7 +122,7 @@ const Container = styled.div`
 `;
 
 const Box = styled.div`
-  margin-bottom: 50px;
+  margin-bottom: 10px;
   display: flex;
   justify-content: space-between;
 `;
