@@ -22,6 +22,8 @@ LongBtn.defaultProps = {
 };
 
 const Btn = styled.div<{ activeColor: string }>`
+  margin-top: 10%;
+
   display: flex;
   align-items: center;
   justify-content: center;
@@ -41,9 +43,9 @@ const Btn = styled.div<{ activeColor: string }>`
   color: #ffffff;
 
   // 색상
-  background: var(${(props) => props.color});
+  background: var(${props => props.color});
   box-shadow: -3px 4px 5px rgba(0, 0, 0, 0.15);
   &:active {
-    background: var(${(props) => props.activeColor});
+    background: var(${props => props.activeColor});
   }
 `;

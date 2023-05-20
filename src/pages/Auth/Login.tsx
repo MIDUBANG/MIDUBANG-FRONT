@@ -61,7 +61,6 @@ const Login = () => {
           <AuthInput placeholder="비밀번호" value={pw} onChange={setPw} />
         </form>
 
-        <div className="box"></div>
         <LongBtn
           onClick={_handleLogin}
           text="로그인"
@@ -91,7 +90,7 @@ const Div = styled.div`
 const Illurstration = styled.img`
   margin-top: 15px;
   margin-bottom: 40px;
-  width: 255px;
+  width: 30vh;
   height: auto;
 `;
 
