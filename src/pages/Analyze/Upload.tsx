@@ -165,6 +165,7 @@ const Upload = () => {
 
           <SwiperSlide>
             <UploadFile
+            
               setUpload={setUpload}
               setImgUrl={setImgUrl}
               setResult={setResult}

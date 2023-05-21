@@ -13,18 +13,12 @@ import { useCookies } from "react-cookie";
 import { useNavigate } from "react-router-dom";
 
 type UploadFileProps = {
-  extraInfo: any;
   setUpload: React.Dispatch<React.SetStateAction<boolean>>;
   setImgUrl: (url: string) => void;
   setResult: (result: string[]) => void;
 };
 
-const UploadFile = ({
-  extraInfo,
-  setUpload,
-  setImgUrl,
-  setResult,
-}: UploadFileProps) => {
+const UploadFile = ({ setUpload, setImgUrl, setResult }: UploadFileProps) => {
   const [status, setStatus] = useState(false);
   const [statusMsg, setStatusMsg] = useState("사진 업로드");
   const [explain, setExplain] = useState(
