@@ -99,10 +99,10 @@ const UploadFile = ({ setUpload, setImgUrl, setResult }: UploadFileProps) => {
     <Div>
       <ImgDiv>
         <Illustration src={imgSrc} />
-        <FontGray>{fileName}</FontGray>
       </ImgDiv>
+      <FontGray>{fileName}</FontGray>
 
-      <FontBig margin="20px auto 0 auto" size="20px">
+      <FontBig margin="10px auto 0 auto" size="20px">
         {statusMsg}
       </FontBig>
       <FontGray margin="17px auto 0 auto">{explain}</FontGray>
@@ -189,7 +189,7 @@ const Div = styled.div`
 `;
 
 const ImgDiv = styled.div`
-  margin: 0 auto;
+  margin: 0 auto 20px auto;
   padding-top: 50px;
   width: auto;
   height: 30vh;
