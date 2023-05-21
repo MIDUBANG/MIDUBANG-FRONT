@@ -13,6 +13,7 @@ import WordRoutes from "@route/WordRoutes";
 import UserRoutes from "@route/UserRoutes";
 import AnalyzeRoutes from "@route/AnalyzeRoutes";
 import PrivateRoute from "@route/PrivateRoute";
+import NotFoundPage from "@pages/404/NotFoundPage";
 
 const HomePage = loadable(() => import("@pages/Main/Home"));
 
@@ -47,7 +48,7 @@ const App: React.FC = () => {
         <Route path="/analyze/*" element={<AnalyzeRoutes />} />
       </Route>
 
-      <Route path="*" element={<h1>404 not found</h1>} />
+      <Route path="*" element={<NotFoundPage />} />
     </Routes>
   );
 };
