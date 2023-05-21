@@ -191,8 +191,8 @@ const Div = styled.div`
 const ImgDiv = styled.div`
   margin: 0 auto;
   padding-top: 50px;
-  width: 90%;
-  height: auto;
+  width: auto;
+  height: 30vh;
 
   display: flex;
   flex-direction: column;
