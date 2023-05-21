@@ -161,7 +161,7 @@ const ResultBox = ({ caseData, wordData, openWordModal }: Props) => {
     <Block>
       <Contract caseTypeColor={caseTypeColor}>
         <div></div>
-        <p> "{raw_case}"</p>
+        <p>"{raw_case ? raw_case : case_detail}"</p>
       </Contract>
 
       {!case_exists && (
