@@ -21,7 +21,7 @@ const Condition4 = ({ extraInfo, setExtraInfo }: Props) => {
     } else {
       setMoney("");
     }
-    setExtraInfo({ ...extraInfo, commission: money });
+    setExtraInfo({ ...extraInfo, commission: money * 10000 });
   };
 
   return (

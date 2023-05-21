@@ -31,7 +31,11 @@ const Condition2 = ({ extraInfo, setExtraInfo }: Props) => {
       setMoney("");
     }
 
-    setExtraInfo({ ...extraInfo, deposit: money, lumpSumMoney: money });
+    setExtraInfo({
+      ...extraInfo,
+      deposit: money * 10000,
+      lumpSumMoney: money * 10000,
+    });
   };
 
   return (
