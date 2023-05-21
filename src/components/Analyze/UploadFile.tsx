@@ -95,18 +95,6 @@ const UploadFile = ({ setUpload, setImgUrl, setResult }: UploadFileProps) => {
 
   const downRef = useRef<HTMLAnchorElement>(null);
 
-  const _handleDownTestImg = () => {
-    const file = new Blob([contractSample]);
-    const downloadUrl = window.URL.createObjectURL(file); // 해당 file을 가리키는 url 생성
-
-    if (downRef.current) {
-      downRef.current.download = "some file"; // a tag에 download 속성을 줘서 클릭할 때 다운로드가 일어날 수 있도록 하기
-      downRef.current.href = downloadUrl; // href에 url 달아주기
-
-      downRef.current.click(); // 코드 상으로 클릭을 해줘서 다운로드를 트리거
-    }
-  };
-
   return (
     <Div>
       <ImgDiv>
