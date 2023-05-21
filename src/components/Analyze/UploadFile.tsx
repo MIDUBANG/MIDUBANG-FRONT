@@ -1,16 +1,17 @@
 import styled from "@emotion/styled";
-import { FontBig, FontGray } from "@style/font.style";
-import CloudBtn from "@components/Buttons/CloudBtn";
-import ArrowBtn from "@components/Buttons/ArrowBtn";
-import sampleImg from "@assets/illustration/sampleImg.png";
+import { useRef } from "react";
 import { useState } from "react";
+import { useCookies } from "react-cookie";
+import { useNavigate } from "react-router-dom";
 
 import { PostContractImg } from "@api/analyze";
 import { GetUserInfo } from "@api/auth";
 
-import { useCookies } from "react-cookie";
-
-import { useNavigate } from "react-router-dom";
+import { FontBig, FontGray } from "@style/font.style";
+import CloudBtn from "@components/Buttons/CloudBtn";
+import ArrowBtn from "@components/Buttons/ArrowBtn";
+import TestUploadBtn from "@components/Buttons/TestUploadBtn";
+import sampleImg from "@assets/illustration/sampleImg.png";
 
 type UploadFileProps = {
   setUpload: React.Dispatch<React.SetStateAction<boolean>>;
@@ -52,8 +53,9 @@ const UploadFile = ({ setUpload, setImgUrl, setResult }: UploadFileProps) => {
     if (uploadfiles === undefined) {
       return;
     }
-
     setUploadFile(uploadfiles);
+
+    console.log(uploadfiles);
   };
 
   const [cookies, setCookie, removeCookie] = useCookies(["refreshToken"]);
@@ -81,13 +83,28 @@ const UploadFile = ({ setUpload, setImgUrl, setResult }: UploadFileProps) => {
 
     const res = await PostContractImg(memberId, uploadfile);
 
-    console.log("결과>>", res);
+    console.log("결과 ????? ", res);
 
     //url과 분석 결과 상위로 전달 -> 상태관리 필요
     const { s3_url, text } = res;
+    console.log("결2222 ", s3_url, text);
     setImgUrl(s3_url);
     //setImgUrl(imgUrl);
     setResult(text);
+  };
+
+  const downRef = useRef<HTMLAnchorElement>(null);
+
+  const _handleDownTestImg = () => {
+    const file = new Blob([contractSample]);
+    const downloadUrl = window.URL.createObjectURL(file); // 해당 file을 가리키는 url 생성
+
+    if (downRef.current) {
+      downRef.current.download = "some file"; // a tag에 download 속성을 줘서 클릭할 때 다운로드가 일어날 수 있도록 하기
+      downRef.current.href = downloadUrl; // href에 url 달아주기
+
+      downRef.current.click(); // 코드 상으로 클릭을 해줘서 다운로드를 트리거
+    }
   };
 
   return (
@@ -114,10 +131,11 @@ const UploadFile = ({ setUpload, setImgUrl, setResult }: UploadFileProps) => {
           required
         />
       </div>
-      <div className="btn-container">
+      <BtnContainer>
+        <TestUploadBtn />
         <CloudBtn />
         {status && <ArrowBtn onClick={_handleUploadImg} />}
-      </div>
+      </BtnContainer>
     </Div>
   );
 };
@@ -177,19 +195,9 @@ const Div = styled.div`
     display: none;
   }
 
-  // ㅇㄴㄹㄴㅇㄹㅇ
-
   display: flex;
   flex-direction: column;
   justify-content: center;
-
-  .btn-container {
-    width: 180px;
-    display: flex;
-    justify-content: center;
-
-    margin: 0 auto;
-  }
 `;
 
 const ImgDiv = styled.div`
@@ -203,7 +211,17 @@ const ImgDiv = styled.div`
 `;
 
 const Illustration = styled.img`
-  width: auto;
-  height: 25vh;
+  width: 100%;
+  height: 100%;
   margin: 0 auto 10px auto;
+
+  object-fit: contain;
+`;
+
+const BtnContainer = styled.div`
+  width: 70%;
+  display: flex;
+  justify-content: space-evenly;
+
+  margin: 0 auto;
 `;

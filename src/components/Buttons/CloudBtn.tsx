@@ -12,7 +12,7 @@ const CloudBtn = () => {
 export default CloudBtn;
 
 const BtnLabel = styled.label`
-  margin: 0 auto 0 auto;
+  // margin: 0 auto 0 auto;
   display: flex;
   justify-content: center;
   align-items: center;
