@@ -46,17 +46,21 @@ const ResultBox = ({ caseData, wordData, openWordModal }: Props) => {
 
   let words: wordType[] = [];
 
-  console.log(word_ref, wordData);
+  // console.log(word_ref, wordData);
 
   // 포함되는 단어만 뽑기
-  word_ref.map(wr => {
-    wordData.map(wd => {
-      if (wd.wordId === wr) {
-        words.push(wd);
-      }
+
+  if (word_ref) {
+    word_ref.map(wr => {
+      wordData.map(wd => {
+        if (wd.wordId === wr) {
+          words.push(wd);
+        }
+      });
     });
-  });
-  console.log("words >", words);
+  }
+
+  //console.log("words >", words);
 
   const [caseTypeState, setCaseTypeState] = useState<string>("");
   const [caseTypeColor, setCaseTypeColor] = useState<string>("");
@@ -136,15 +140,12 @@ const ResultBox = ({ caseData, wordData, openWordModal }: Props) => {
 
   useEffect(() => {
     if (caseType === "INVALID") {
-      console.log("무효");
       setCaseTypeState("무효");
       setCaseTypeColor("#EF5353");
     } else if (caseType === "VALID_MUST") {
-      console.log("유효 필수");
       setCaseTypeState("유효 필수");
       setCaseTypeColor("#9CDB75");
     } else {
-      console.log("유효 주의");
       setCaseTypeState("유효 주의");
       setCaseTypeColor("#FBB03B");
     }
