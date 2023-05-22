@@ -1,10 +1,6 @@
 import styled from "@emotion/styled";
-import { css } from "@emotion/css";
-import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import MiniLogo from "@assets/logo/MiniLogo.svg";
 import CancleLogo from "@assets/icon/Cancle.png";
-import rod from "@assets/icon/rod.svg";
 import "@style/font.css";
 
 import useScrollDirection from "@hooks/useScrollDirection";
@@ -100,5 +96,8 @@ const BarDiv = styled.div`
 
   .cancle-logo {
     margin-right: 24px;
+    width: 18px;
+    height: 18px;
+    margin-top: 3px;
   }
 `;
