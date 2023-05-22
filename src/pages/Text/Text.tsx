@@ -34,7 +34,7 @@ const Text = () => {
         </DesText>
 
         <DesText margin="20px 0 10px 0">
-          다음 3가지만 작성해주시면 OpenAI의 chatGPT가 요구사항에 따라 문자를
+          다음 4가지만 작성해주시면 OpenAI의 chatGPT가 요구사항에 따라 문자를
           작성해드려요.
         </DesText>
 
