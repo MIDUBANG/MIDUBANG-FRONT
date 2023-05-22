@@ -22,10 +22,8 @@ const Footer = () => {
 
       <hr />
 
-      <Text margin="4px 0 0 0">
-        오류 제보 및 문의 - https://github.com/MIDUBANG
-      </Text>
-      <Text margin="4px 0 0 0">CONTACT - mailto:dy6578ekdbs@gmail.com</Text>
+      <Text margin="4px 0 0 0">오류 제보 및 문의 - dy6578ekdbs@gmail.com</Text>
+      <Text margin="4px 0 0 0">CONTACT - dy6578ekdbs@gmail.com</Text>
       <Text margin="4px 0 0 0">Copyright ⓒ 믿어방 부동산 연구소</Text>
     </FooterDiv>
   );
