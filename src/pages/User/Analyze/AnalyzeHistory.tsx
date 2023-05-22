@@ -133,9 +133,9 @@ const AnalyzeHistory = () => {
           <RemoveBtn onClick={_handleClickDelete}>
             삭제하기 <img src={removeIcon} />
           </RemoveBtn>
-          <SummaryBtn onClick={_clickSummaryBtn}>
+          {/* <SummaryBtn onClick={_clickSummaryBtn}>
             요약 확인하기 <img src={whiteArrow} />
-          </SummaryBtn>
+          </SummaryBtn> */}
         </BtnBox>
 
         <CommissionBox
