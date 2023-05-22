@@ -1,13 +1,10 @@
 // lib
-import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "@emotion/styled";
 import "react-circular-progressbar/dist/styles.css";
 //component
-import UnderstandBtn from "@components/Buttons/UnderstandBtn";
 import SimpleNavBar from "@components/NavBar/SimpleNavBar";
 // asset
-import text from "@assets/text/text.png";
 import illust from "@assets/text/illustration.png";
 
 const Text = () => {

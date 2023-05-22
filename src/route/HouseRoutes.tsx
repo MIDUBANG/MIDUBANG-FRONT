@@ -1,4 +1,3 @@
-import React, { useState, useCallback } from "react";
 import { Routes, Route } from "react-router-dom";
 
 import House from "@pages/House/House";

@@ -2,9 +2,7 @@
 import { useState } from "react";
 import styled from "@emotion/styled";
 import alert from "@assets/analyze/upload/condition/alert.png";
-
 import ConditionInput from "@components/Input/Condition/ConditionInput";
-
 import { PropsExtra } from "@assets/types";
 
 type Props = {

@@ -1,14 +1,6 @@
 /* 오타 수정 페이지 */
 import { useState } from "react";
 import styled from "@emotion/styled";
-
-import SimpleNavBar from "@components/NavBar/SimpleNavBar";
-
-import loadingPerson from "@assets/illustration/loadingPerson.png";
-
-import { FontTitle, FontGray } from "@style/font.style";
-import { PostContractCase, PostAnalyze } from "@api/analyze";
-import { useCookies } from "react-cookie";
 import ConditionBtn from "@components/Buttons/Condition/ConditionBtn";
 
 import { PropsExtra } from "@assets/types";

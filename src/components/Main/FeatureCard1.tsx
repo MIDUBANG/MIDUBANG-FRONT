@@ -1,5 +1,4 @@
 import styled from "@emotion/styled";
-import { css } from "@emotion/react";
 import { useNavigate } from "react-router-dom";
 
 import paper1 from "@assets/main/paper1.png";

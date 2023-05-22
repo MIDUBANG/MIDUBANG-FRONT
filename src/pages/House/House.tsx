@@ -1,16 +1,14 @@
 // lib
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import styled from "@emotion/styled";
-import { Navigator, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
-//import "react-circular-progressbar/dist/styles.css";
 //component
 import SimpleNavBar from "@components/NavBar/SimpleNavBar";
 // asset
 import greencheck from "@assets/house/main/greencheck.png";
 import graycheck from "@assets/house/main/graycheck.png";
 import { HouseData } from "@assets/houseData";
-import { Navigate } from "react-router-dom";
 
 const House = () => {
   const navigate = useNavigate();
@@ -31,12 +29,8 @@ const House = () => {
 
     setComplete(rate.length);
 
-    console.log(rate.length);
-
     let prePercentage = parseInt(((rate.length / 12) * 100).toString());
     setPercentage(prePercentage);
-
-    console.log("rate >> ", rate);
 
     if (rate) {
       rate.map((r: any) => _UpdateCompleteRate(r[0], r[1]));

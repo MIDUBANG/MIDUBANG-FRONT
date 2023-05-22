@@ -54,13 +54,10 @@ const UploadFile = ({ setUpload, setImgUrl, setResult }: UploadFileProps) => {
       return;
     }
     setUploadFile(uploadfiles);
-
-    console.log(uploadfiles);
   };
 
   const [cookies, setCookie, removeCookie] = useCookies(["refreshToken"]);
   const onCookie = (res: any) => {
-    console.log("쿠키");
     const accessToken = res.data.accessToken;
     localStorage.setItem("token", accessToken);
     const refreshToken = res.data.refreshToken;
@@ -77,17 +74,11 @@ const UploadFile = ({ setUpload, setImgUrl, setResult }: UploadFileProps) => {
     // 유저 아이디 요청
     const { memberId } = await GetUserInfo(cookies.refreshToken, onCookie);
 
-    console.log("member_id", memberId);
-
-    console.log("ocr 요청.... ");
-
     const res = await PostContractImg(memberId, uploadfile);
-
-    console.log("결과 ????? ", res);
 
     //url과 분석 결과 상위로 전달 -> 상태관리 필요
     const { s3_url, text } = res;
-    console.log("결2222 ", s3_url, text);
+
     setImgUrl(s3_url);
     //setImgUrl(imgUrl);
     setResult(text);

@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import styled from "@emotion/styled";
 import { css } from "@emotion/react";
 import { GetSavedWordList } from "@api/word";
@@ -14,10 +14,7 @@ import bookmark from "@assets/wordlist/bookmark.png";
 const SavedWordList = () => {
   const [cookies, setCookie, removeCookie] = useCookies(["refreshToken"]);
 
-  console.log("리프레시는", cookies.refreshToken);
-
   const onCookie = (res: any) => {
-    console.log("쿠키");
     const accessToken = res.data.accessToken;
     localStorage.setItem("token", accessToken);
     const refreshToken = res.data.refreshToken;
@@ -40,7 +37,6 @@ const SavedWordList = () => {
     const words = await GetSavedWordList(cookies.refreshToken, onCookie);
 
     setSavedWordList(words.content);
-    console.log(words.content);
   };
 
   useEffect(() => {
@@ -62,8 +58,6 @@ const SavedWordList = () => {
 
   /** 정렬 */
   useEffect(() => {
-    console.log("정렬결과");
-
     var newArray = [...savedWordList];
 
     if (btnArr[0].active) {

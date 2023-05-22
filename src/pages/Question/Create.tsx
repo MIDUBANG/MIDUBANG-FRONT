@@ -1,28 +1,17 @@
 // lib
-import React, { useEffect, useState } from "react";
+import { useState } from "react";
 import { useRef, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "@emotion/styled";
-import { css } from "@emotion/react";
-import { useParams } from "react-router-dom";
 import { useCookies } from "react-cookie";
-
 //component
-import MainNavBar from "@components/NavBar/MainNavBar";
-import QuestionBox from "@components/Question/GoldQuestionBox";
 import SimpleNavBar from "@components/NavBar/SimpleNavBar";
-// asset
-import dino1 from "@assets/question/dino1.png";
-import deleteicon from "@assets/question/delete.png";
-import profile from "@assets/question/user.png";
-import send from "@assets/question/send.png";
 // api
 import { PostGoldPost } from "@api/community";
 
 const Create = () => {
   const [cookies, setCookie, removeCookie] = useCookies(["refreshToken"]);
   const onCookie = (res: any) => {
-    console.log("쿠키");
     const accessToken = res.data.accessToken;
     localStorage.setItem("token", accessToken);
     const refreshToken = res.data.refreshToken;
@@ -53,12 +42,10 @@ const Create = () => {
       question,
       detail,
       cookies.refreshToken,
-      onCookie
+      onCookie,
     );
 
     naviate(`/question/gold/${res.id}`);
-
-    console.log(res);
   };
 
   const _handleSubmitGoldPost = () => {
@@ -78,7 +65,7 @@ const Create = () => {
           <input
             placeholder="제목"
             value={title}
-            onChange={(e) => setTitle(e.target.value)}
+            onChange={e => setTitle(e.target.value)}
           />
         </TitleBox>
         <ContentBox>
@@ -87,7 +74,7 @@ const Create = () => {
             onInput={handleResizeHeight}
             placeholder="질문을 작성해주세요"
             value={content}
-            onChange={(e) => setContent(e.target.value)}
+            onChange={e => setContent(e.target.value)}
           />
         </ContentBox>
 
@@ -196,6 +183,6 @@ const Btn = styled.div<{ background: string; color: string }>`
   line-height: 19px;
   text-align: center;
 
-  background: ${(props) => props.background};
-  color: ${(props) => props.color};
+  background: ${props => props.background};
+  color: ${props => props.color};
 `;

@@ -1,11 +1,10 @@
 // lib
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "@emotion/styled";
 import { useCookies } from "react-cookie";
 
 //component
-import SimpleNavBar from "@components/NavBar/SimpleNavBar";
 import GoldQuestionBox from "@components/Question/GoldQuestionBox";
 import ChatQuestionBox from "@components/Question/ChatQuestionBox";
 
@@ -31,7 +30,6 @@ const Main = () => {
 
   const [cookies, setCookie, removeCookie] = useCookies(["refreshToken"]);
   const onCookie = (res: any) => {
-    console.log("쿠키");
     const accessToken = res.data.accessToken;
     localStorage.setItem("token", accessToken);
     const refreshToken = res.data.refreshToken;
@@ -43,7 +41,6 @@ const Main = () => {
 
   const _handleGetTodayPosts = async () => {
     const res = await GetTodayPosts(cookies.refreshToken, onCookie);
-    console.log("결과", res.data);
     setChatPosts(res.data.questionList);
     setGoldPosts(res.data.postList);
   };

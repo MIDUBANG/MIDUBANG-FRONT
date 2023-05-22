@@ -1,7 +1,5 @@
-import React from "react";
 import styled from "@emotion/styled";
 import { css } from "@emotion/react";
-
 import grayTail from "@assets/house/grayTail.png";
 import blueTail from "@assets/house/blueTail.png";
 
@@ -25,7 +23,7 @@ export default Bubble;
 const BubbleDiv = styled.div<{ color: string }>`
   margin-bottom: 40px;
 
-  ${(props) =>
+  ${props =>
     props.color === "gray"
       ? css`
           margin-left: auto;
@@ -40,7 +38,7 @@ const BubbleDiv = styled.div<{ color: string }>`
   height: auto;
 
   border-radius: 13px;
-  background-color: ${(props) =>
+  background-color: ${props =>
     props.color === "gray" ? "#BEBEBE" : "#278EFF"};
 
   padding: 13px 24px;
@@ -50,7 +48,7 @@ const BubbleDiv = styled.div<{ color: string }>`
     position: absolute;
     bottom: -5px;
 
-    ${(props) =>
+    ${props =>
       props.color === "gray"
         ? css`
             right: -8px;
@@ -64,7 +62,7 @@ const BubbleDiv = styled.div<{ color: string }>`
     position: absolute;
     top: -20px;
 
-    ${(props) =>
+    ${props =>
       props.color === "gray"
         ? css`
             right: 5px;

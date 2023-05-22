@@ -19,13 +19,11 @@ const KakaoLogin = () => {
   const navigate = useNavigate();
 
   const _reqKakoLogin = async () => {
-    console.log("로그인 요청...");
     axios.defaults.withCredentials = true;
     axios
       .post(Spring)
       .then(res => {
         const accessToken = res.data.accessToken;
-        console.log(accessToken);
         localStorage.setItem("token", accessToken);
 
         const refreshToken = res.data.refreshToken;
@@ -34,7 +32,6 @@ const KakaoLogin = () => {
         window.location.reload();
       })
       .catch(err => {
-        console.log("카카오 로그인 에러.", err);
         navigate("/login");
       });
   };

@@ -1,7 +1,4 @@
-import React from "react";
 import styled from "@emotion/styled";
-import { css } from "@emotion/react";
-
 import logo from "@assets/footer/whitelogo.png";
 import github from "@assets/footer/github.png";
 import insta from "@assets/footer/insta.png";

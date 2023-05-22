@@ -1,5 +1,4 @@
 import styled from "@emotion/styled";
-import profile from "@assets/text/profile.png";
 
 type PropsType = {
   text: string;

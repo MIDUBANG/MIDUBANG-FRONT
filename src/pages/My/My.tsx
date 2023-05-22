@@ -27,15 +27,12 @@ const My = () => {
     query: "(max-height : 600px)",
   });
 
-  console.log(isNoImg);
-
   const [userInfo, setUserInfo] = useState<{ name: string; email: string }>();
   const navigate = useNavigate();
 
   const [cookies, setCookie, removeCookie] = useCookies(["refreshToken"]);
 
   const onCookie = (res: any) => {
-    console.log("쿠키");
     const accessToken = res.data.accessToken;
     localStorage.setItem("token", accessToken);
     const refreshToken = res.data.refreshToken;
@@ -45,7 +42,6 @@ const My = () => {
   /** 유저 정보 불러오기 */
   const _getUserInfo = async () => {
     const res = await GetUserInfo(cookies.refreshToken, onCookie);
-    console.log(res);
     const email = res.email;
     const name = res.email.split("@")[0];
     setUserInfo({ name: name, email: email });

@@ -1,16 +1,13 @@
 // lib
-import React, { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 import styled from "@emotion/styled";
 import { useCookies } from "react-cookie";
 
 //component
-import MainNavBar from "@components/NavBar/MainNavBar";
 import SimpleNavBar from "@components/NavBar/SimpleNavBar";
 import CheckBox from "@components/CheckList/CheckBox";
 import OtherCheckList from "@components/CheckList/OtherCheckList";
-// asset
-import house from "@assets/checklist/emojis/house.png";
 // api
 import {
   GetCheckCount,
@@ -23,7 +20,6 @@ import {
 import { checkCategoryData } from "@assets/checkCategoryData";
 
 const Main = () => {
-  console.log("렌더링");
   const { id } = useParams();
   const categoryId = parseInt(id || "0") - 1;
   const categoryTitle = checkCategoryData[categoryId].title;
@@ -32,8 +28,6 @@ const Main = () => {
   const [cookies, setCookie, removeCookie] = useCookies(["refreshToken"]);
 
   const onCookie = (res: any) => {
-    console.log("쿠키");
-
     const accessToken = res.data.accessToken;
     localStorage.setItem("token", accessToken);
     const refreshToken = res.data.refreshToken;
@@ -67,7 +61,6 @@ const Main = () => {
   const _handleGetChecklist = async () => {
     let checklistId = parseInt(id || "0");
     const res = await GetChecklist(checklistId, cookies.refreshToken, onCookie);
-    console.log("설마ㅠ", res);
 
     let checklist = res.checklist;
     let donelist = res.userCheck;

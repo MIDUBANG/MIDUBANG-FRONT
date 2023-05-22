@@ -1,6 +1,5 @@
 // lib
-import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
 import styled from "@emotion/styled";
 import { useCookies } from "react-cookie";
 //component
@@ -17,7 +16,6 @@ import { GetAllCheckCount } from "@api/checklist";
 const Main = () => {
   const [cookies, setCookie, removeCookie] = useCookies(["refreshToken"]);
   const onCookie = (res: any) => {
-    console.log("쿠키");
     const accessToken = res.data.accessToken;
     localStorage.setItem("token", accessToken);
     const refreshToken = res.data.refreshToken;
@@ -30,7 +28,6 @@ const Main = () => {
   const _handleGetAllCheckCount = async () => {
     const res = await GetAllCheckCount(cookies.refreshToken, onCookie);
     setDoneCount(res.count);
-    console.log(res);
   };
 
   useEffect(() => {

@@ -1,7 +1,5 @@
-import React from "react";
 import styled from "@emotion/styled";
 import { useNavigate } from "react-router-dom";
-import { css } from "@emotion/react";
 
 // assets
 import arrow from "@assets/checklist/arrows/arrow1.png";

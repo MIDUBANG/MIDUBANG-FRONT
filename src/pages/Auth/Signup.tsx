@@ -22,7 +22,6 @@ const Signup = () => {
   const [checkPw, setCheckPw] = useInput("");
 
   const onCookie = (res: any) => {
-    console.log("쿠키", res);
     const accessToken = res.data.accessToken;
     localStorage.setItem("token", accessToken);
     const refreshToken = res.data.refreshToken;

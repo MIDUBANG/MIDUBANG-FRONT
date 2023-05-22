@@ -1,5 +1,4 @@
-import styled from "@emotion/styled";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 type Props = {
   caseTypeBoolean: boolean[];
@@ -7,20 +6,6 @@ type Props = {
 
 const CaseTypeDesc = ({ caseTypeBoolean }: Props) => {
   const [arr, setArr] = useState<boolean[]>(caseTypeBoolean);
-  console.log("결과 :", caseTypeBoolean);
-
-  //   useEffect(() => {
-  //     if (num === 0) {
-  //       console.log("번호 0");
-  //       setArr([true, false, false]);
-  //     } else if (num === 1) {
-  //       console.log("번호 1");
-  //       setArr([false, true, false]);
-  //     } else {
-  //       console.log("번호 2");
-  //       setArr([false, false, true]);
-  //     }
-  //   }, []);
 
   return (
     <div>

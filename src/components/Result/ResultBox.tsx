@@ -9,7 +9,6 @@ import message from "@assets/analyze/result/message.png";
 
 // hooks
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
 
 type Props = {
   caseData: CasesType;
@@ -32,7 +31,6 @@ const ResultBox = ({ caseData, wordData, openWordModal }: Props) => {
   // 단어 관련
   const [highlighter, setHighlighter] = useState<boolean>(false);
   const _handleHighlighter = (e: React.ChangeEvent<HTMLInputElement>) => {
-    console.log("클릭", e);
     if (e.target.checked) {
       setHighlighter(true);
     } else {
@@ -46,10 +44,7 @@ const ResultBox = ({ caseData, wordData, openWordModal }: Props) => {
 
   let words: wordType[] = [];
 
-  // console.log(word_ref, wordData);
-
   // 포함되는 단어만 뽑기
-
   if (word_ref) {
     word_ref.map(wr => {
       wordData.map(wd => {
@@ -59,8 +54,6 @@ const ResultBox = ({ caseData, wordData, openWordModal }: Props) => {
       });
     });
   }
-
-  //console.log("words >", words);
 
   const [caseTypeState, setCaseTypeState] = useState<string>("");
   const [caseTypeColor, setCaseTypeColor] = useState<string>("");
@@ -131,11 +124,6 @@ const ResultBox = ({ caseData, wordData, openWordModal }: Props) => {
   /**기사 보기 함수 */
   const _handleReadNews = () => {
     window.location.href = article_url;
-  };
-
-  /**단어 뜻 보기 함수 */
-  const _handleClickWord = (word: string) => {
-    console.log(word);
   };
 
   useEffect(() => {

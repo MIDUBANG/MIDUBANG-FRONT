@@ -1,5 +1,4 @@
 import styled from "@emotion/styled";
-
 import circle from "@assets/loading/circle.png";
 import house from "@assets/loading/house.png";
 import rokect from "@assets/loading/rokect.png";

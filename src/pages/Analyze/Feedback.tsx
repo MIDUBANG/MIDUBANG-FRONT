@@ -1,5 +1,5 @@
 /* 오타 수정 페이지 */
-import { useState, useEffect, useRef } from "react";
+import { useState } from "react";
 import styled from "@emotion/styled";
 // img
 import loadingPerson from "@assets/illustration/loadingPerson.png";
@@ -19,9 +19,7 @@ import { useNavigate } from "react-router-dom";
 import { RootState } from "@store/store";
 import { useAppDispatch, useAppSelector } from "@store/store";
 import { setNlpReult } from "@store/resultSlice";
-
 import { FontTitle } from "@style/font.style";
-import rokect from "@assets/analyze/loading/rokect.png";
 
 const Feedback = () => {
   const navigate = useNavigate();
@@ -45,7 +43,6 @@ const Feedback = () => {
   const [cookies, setCookie, removeCookie] = useCookies(["refreshToken"]);
 
   const onCookie = (res: any) => {
-    console.log("쿠키");
     const accessToken = res.data.accessToken;
     localStorage.setItem("token", accessToken);
     const refreshToken = res.data.refreshToken;
@@ -69,7 +66,6 @@ const Feedback = () => {
 
   /** 바텀 모달 열고, 선택된 특약 세팅함 */
   const _handleClickEdit = (id: number) => {
-    console.log("특약 선택해서 바텀 모달 열림");
     setContracts(
       contracts.map(c =>
         c.id === id ? { ...c, selected: true } : { ...c, selected: false },
@@ -94,7 +90,6 @@ const Feedback = () => {
 
   /** 수정 - 제출 */
   const _handleSubmitEdit = (e: React.FormEvent<HTMLFormElement>) => {
-    console.log("폼");
     e.preventDefault();
 
     setContracts(
@@ -115,7 +110,6 @@ const Feedback = () => {
 
   /** 수정 제출 버튼 */
   const _handleSubmitEdit_Click = () => {
-    console.log("클릭!!!!!!!!");
     setContracts(
       contracts.map(c => {
         if (c.edit === true) {
@@ -164,7 +158,6 @@ const Feedback = () => {
   const _handlePostAnalyze = async () => {
     setRequest(true);
 
-    console.log("nlp 요청 버튼 클릭");
     // (1) NLP 업로드 -> case 번호 (in, out )
     let valueContents: string[] = [];
 
@@ -183,8 +176,6 @@ const Feedback = () => {
       cookies.refreshToken,
       onCookie,
     );
-
-    console.log("NLP 결과 >>", nlpresult);
 
     dispatch(
       setNlpReult({

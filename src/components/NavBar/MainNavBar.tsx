@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import logo from "@assets/nav/logo.png";
 import profile from "@assets/nav/profile.png";
@@ -13,8 +13,6 @@ type MainNavBarProps = {
 };
 
 const MainNavBar = ({ text }: MainNavBarProps) => {
-  console.log("정신차려");
-
   const navigate = useNavigate();
 
   const _clickProfileBtn = () => {
@@ -26,10 +24,6 @@ const MainNavBar = ({ text }: MainNavBarProps) => {
   };
 
   const [scrollDirection, setScrollDirection] = useScrollDirection("up");
-
-  useEffect(() => {
-    console.log(scrollDirection);
-  }, [scrollDirection]);
 
   return (
     <BarDiv>

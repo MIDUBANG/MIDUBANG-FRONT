@@ -1,5 +1,4 @@
 import { useParams, useNavigate } from "react-router-dom";
-
 // conponents
 import SimpleNavBar from "@components/NavBar/SimpleNavBar";
 import styled from "@emotion/styled";
@@ -41,7 +40,6 @@ const WordMean = () => {
   const [cookies, setCookie, removeCookie] = useCookies(["refreshToken"]);
 
   const onCookie = (res: any) => {
-    console.log("쿠키");
     const accessToken = res.data.accessToken;
     localStorage.setItem("token", accessToken);
     const refreshToken = res.data.refreshToken;
@@ -50,7 +48,6 @@ const WordMean = () => {
 
   const _handleGetWord = async () => {
     let word = await GetWord(Number(id), cookies.refreshToken, onCookie);
-    console.log(word);
 
     setWord(word.simpleWordDto);
     setNaverWord(word.naverWordDto);

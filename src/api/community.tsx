@@ -1,11 +1,7 @@
 import client from "@api/common/client";
 import { RefreshApi } from "./auth";
 
-import {
-  ErrorSwal,
-  WarningSwal,
-  SuccessSwal,
-} from "@components/Modal/CustomModal";
+import { ErrorSwal, WarningSwal } from "@components/Modal/CustomModal";
 const CLIENT_MAIN_URL = process.env.REACT_APP_REACT_URL;
 
 // 금쪽이 포스트 리스트 조회
@@ -88,7 +84,6 @@ export const PostGoldPost = async (
     });
     return res.data;
   } catch (err: any) {
-    console.log(err);
     if (err.response.data.message === "expired token") {
       WarningSwal("에러 발생", "다시 시도해주세요");
       RefreshApi(refreshToken, cookie);
@@ -111,7 +106,6 @@ export const DeleteGoldPost = async (
     const res = await client.delete(`community/post/${postId}`);
     return res.data;
   } catch (err: any) {
-    console.log(err);
     if (err.response.data.message === "expired token") {
       WarningSwal("에러 발생", "다시 시도해주세요");
       RefreshApi(refreshToken, cookie);
@@ -137,7 +131,6 @@ export const PostGoldComment = async (
     });
     return res;
   } catch (err: any) {
-    console.log(err);
     const message = err.response.data.message;
     if (err.response.data.message === "expired token") {
       WarningSwal("에러 발생", "다시 시도해주세요");
@@ -161,7 +154,6 @@ export const DeleteGoldComment = async (
     const res = await client.delete(`community/post/comment/${commentId}`);
     return res;
   } catch (err: any) {
-    console.log(err);
     if (err.response.data.message === "expired token") {
       WarningSwal("에러 발생", "다시 시도해주세요");
       RefreshApi(refreshToken, cookie);
@@ -230,7 +222,6 @@ export const PostChatComment = async (
     });
     return res;
   } catch (err: any) {
-    console.log(err);
     const message = err.response.data.message;
     if (err.response.data.message === "expired token") {
       WarningSwal("에러 발생", "다시 시도해주세요");
@@ -254,7 +245,6 @@ export const DeleteChatComment = async (
     const res = await client.delete(`community/question/answer/${answerId}`);
     return res;
   } catch (err: any) {
-    console.log(err);
     if (err.response.data.message === "expired token") {
       WarningSwal("에러 발생", "다시 시도해주세요");
       RefreshApi(refreshToken, cookie);

@@ -1,5 +1,3 @@
-import client from "@api/common/client";
-import { RefreshApi } from "./auth";
 import { FLASK_URL } from "./common/url";
 import axios from "axios";
 
@@ -13,8 +11,6 @@ export const GetMessageMaker = async (
   more_info: string,
 ): Promise<any> => {
   try {
-    console.log("문자 요청 ");
-
     const res = await axios.post(`${FLASK_URL}/message`, {
       receiver: receiver,
       purpose: purpose,

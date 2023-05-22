@@ -48,7 +48,6 @@ export const SignUpApi = (
         window.location.href = CLIENT_MAIN_URL || "";
       })
       .catch(err => {
-        console.log(err);
         if (err.response.data.message === "이미 존재하는 계정입니다.") {
           WarningSwal("회원가입 실패", "이미 존재하는 계정입니다.");
           window.location.href = `${CLIENT_MAIN_URL}/login`;
@@ -74,13 +73,11 @@ export const LoginApi = (
         password: pw,
       })
       .then(res => {
-        console.log(res);
         cookie(res);
 
         window.location.reload();
       })
       .catch(err => {
-        console.log(err);
         if (err.response.data.message == "비밀번호가 일치하지 않습니다.") {
           WarningSwal("로그인 실패", "비밀번호가 일치하지 않습니다.");
         } else if (err.response.data.message == "가입하지 않은 계정입니다.") {
@@ -101,20 +98,7 @@ export const GetUserInfo = async (
     const res = await client.get("member/info");
     return res.data;
   } catch (err: any) {
-    console.log("에러임>", err);
-
-    //ErrorSwal("에러 발생", "다시 시도해주세요.");
-
     RefreshApi(refreshToken, cookie);
-
-    // if (err.response.data.message === "expired token") {
-    //   alert("유저 정보 조회 시도했으나 토큰 만료");
-    //   RefreshApi(refreshToken, cookie); // 재발급
-    // } else {
-    //   WarningSwal("인증 오류", "다시 로그인해주세요");
-    //   let e = new Error("로그인 필요");
-    //   throw e;
-    // }
   }
 };
 

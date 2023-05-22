@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import styled from "@emotion/styled";
 import { GetAllWordList, GetSearchWords } from "@api/word";
 import { useCookies } from "react-cookie";
@@ -17,7 +17,6 @@ const WordList = () => {
   const [cookies, setCookie, removeCookie] = useCookies(["refreshToken"]);
 
   const onCookie = (res: any) => {
-    console.log("쿠키");
     const accessToken = res.data.accessToken;
     localStorage.setItem("token", accessToken);
     const refreshToken = res.data.refreshToken;
@@ -44,8 +43,6 @@ const WordList = () => {
       cookies.refreshToken,
       onCookie,
     );
-
-    console.log(words);
 
     let newWordList = [...wordList, ...words.content];
 
@@ -74,7 +71,6 @@ const WordList = () => {
     );
 
     setWordList(words.content);
-    console.log(words.content);
     setSearched(true);
   };
 

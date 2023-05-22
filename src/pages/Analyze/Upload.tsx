@@ -1,13 +1,11 @@
 /* Upload 페이지 */
 import { useEffect, useState } from "react";
 import styled from "@emotion/styled";
-
 import Loading from "@components/Loading/Loading";
 import FloatingLoading from "@components/Loading/FloatingLoading";
-
 import SimpleNavBar from "@components/NavBar/SimpleNavBar";
 import { Swiper, SwiperSlide } from "swiper/react";
-import SwiperCore, { Pagination, Autoplay } from "swiper";
+import SwiperCore, { Pagination } from "swiper";
 import "swiper/swiper.min.css";
 import "swiper/components/pagination/pagination.scss";
 
@@ -23,12 +21,8 @@ import Condition7 from "@pages/Analyze/Slide/Condition7";
 
 import UploadFile from "@components/Analyze/UploadFile";
 import { FontTitle } from "@style/font.style";
-import rokect from "@assets/analyze/loading/rokect.png";
-
 import { PropsExtra } from "@assets/types";
-
 import { useAppDispatch } from "@store/store";
-
 import { setExtraInfo, setContents } from "@store/extraInfoSlice";
 import { setContractType, setImgUrlReducer } from "@store/resultSlice";
 
@@ -59,10 +53,6 @@ const Upload = () => {
   });
 
   useEffect(() => {
-    console.log("사진과 extrainfo 업로드");
-
-    console.log(extraInfo);
-
     // Contract type (전세, 월세, 반전세)
     dispatch(setContractType({ contract_type: extraInfo.monthly }));
 
@@ -89,8 +79,6 @@ const Upload = () => {
   }, [upload]);
 
   useEffect(() => {
-    console.log("S3 url과 1차 text 결과 저장");
-
     dispatch(setImgUrlReducer({ image_url: imgUrl }));
 
     dispatch(setContents({ contents: result }));

@@ -1,12 +1,7 @@
-import React from "react";
 import styled from "@emotion/styled";
-import { css } from "@emotion/css";
-
 import Accordion from "react-bootstrap/Accordion";
 import "./style.scss";
 import plus from "@assets/house/plus.png";
-import minus from "@assets/house/minus.png";
-import arrowRightWhite from "@assets/house/check/rightArrowWhite.png";
 
 type Item = {
   id: string;

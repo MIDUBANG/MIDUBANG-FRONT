@@ -1,9 +1,5 @@
-import React from "react";
 import styled from "@emotion/styled";
 import { useNavigate } from "react-router-dom";
-import { css } from "@emotion/react";
-import arrow from "@assets/checklist/arrows/arrow1.png";
-import house from "@assets/checklist/emojis/house.png";
 
 type Props = {
   backgroundColor: string;
@@ -48,7 +44,7 @@ const BoxDiv = styled.div<{ backgroundColor: string }>`
   width: 100%;
   height: 140px;
 
-  background: ${(props) => props.backgroundColor};
+  background: ${props => props.backgroundColor};
   border-radius: 19px;
 
   padding: 20px 31px 22px 31px;
@@ -71,7 +67,7 @@ const Title = styled.p<{ pointColor: string }>`
   font-size: 16px;
   line-height: 23px;
 
-  color: ${(props) => props.pointColor};
+  color: ${props => props.pointColor};
 `;
 
 const Checklist = styled.div<{ pointColor: string }>`
@@ -81,7 +77,7 @@ const Checklist = styled.div<{ pointColor: string }>`
   font-size: 12px;
   line-height: 15px;
 
-  color: ${(props) => props.pointColor};
+  color: ${props => props.pointColor};
 
   margin-right: 8px;
 `;

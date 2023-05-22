@@ -1,6 +1,5 @@
 import styled from "@emotion/styled";
 import dino1 from "@assets/question/dino1.png";
-import user from "@assets/question/user.png";
 import comment from "@assets/question/comment.png";
 
 import { ChatQuestionType } from "@assets/types";

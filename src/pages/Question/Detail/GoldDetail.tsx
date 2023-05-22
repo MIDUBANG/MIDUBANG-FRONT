@@ -1,5 +1,5 @@
 // lib
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "@emotion/styled";
 import { css } from "@emotion/react";
@@ -7,9 +7,7 @@ import { useParams } from "react-router-dom";
 import { useCookies } from "react-cookie";
 //component
 import SimpleNavBar from "@components/NavBar/SimpleNavBar";
-import QuestionBox from "@components/Question/GoldQuestionBox";
 // asset
-import dino1 from "@assets/question/dino1.png";
 import deleteicon from "@assets/question/delete.png";
 import profile from "@assets/question/user.png";
 import send from "@assets/question/send.png";
@@ -28,7 +26,6 @@ import { GoldComment, GoldQuestionDetailType } from "@assets/types";
 const GoldDetail = () => {
   const [cookies, setCookie, removeCookie] = useCookies(["refreshToken"]);
   const onCookie = (res: any) => {
-    console.log("쿠키");
     const accessToken = res.data.accessToken;
     localStorage.setItem("token", accessToken);
     const refreshToken = res.data.refreshToken;
@@ -46,7 +43,6 @@ const GoldDetail = () => {
   /** 유저 정보 가져오기 */
   const _handleGetUserInfo = async () => {
     const res = await GetUserInfo(cookies.refreshToken, onCookie);
-    console.log("내정보", res);
     setCurrenUser(res.email);
   };
 
@@ -69,7 +65,6 @@ const GoldDetail = () => {
         onCookie,
       );
 
-      console.log("댓글 결과 : ", res);
       _handleGetGoldPost();
     } else {
       alert("댓글을 작성해주세요");

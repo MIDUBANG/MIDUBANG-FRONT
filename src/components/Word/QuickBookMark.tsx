@@ -1,5 +1,5 @@
-import { useState, useEffect, useRef } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useEffect, useRef } from "react";
+import { useNavigate } from "react-router-dom";
 import styled from "@emotion/styled";
 import scrollbookmark from "@assets/wordlist/scrollbookmark.png";
 

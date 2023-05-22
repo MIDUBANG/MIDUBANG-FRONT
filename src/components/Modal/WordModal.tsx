@@ -1,5 +1,5 @@
 // hooks
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import styled from "@emotion/styled";
 import { useCookies } from "react-cookie";
 

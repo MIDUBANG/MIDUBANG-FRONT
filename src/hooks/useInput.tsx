@@ -1,9 +1,9 @@
-import { useState, useCallback, ChangeEvent } from "react";
+import { useState, useCallback } from "react";
 
 type UserInputProps = [
   string,
   (e: React.ChangeEvent<HTMLInputElement>) => void,
-  () => void
+  () => void,
 ];
 
 const useInput = (initialValue: string): UserInputProps => {

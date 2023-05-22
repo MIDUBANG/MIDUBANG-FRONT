@@ -1,5 +1,4 @@
 import styled from "@emotion/styled";
-import { propTypes } from "react-bootstrap/esm/Image";
 import { useNavigate } from "react-router-dom";
 
 type Props = {
@@ -32,12 +31,11 @@ const UnderstandBtn = ({ id, subId, complete, bottomFix }: Props) => {
 
       if (original) {
         original = JSON.parse(original);
-        console.log(original);
 
         // 중복 없을 때만
         if (!IncludeSame(original)) {
           completeRate = [...original, [id, subId]];
-          console.log("테스트", completeRate);
+
           localStorage.setItem(
             "houseCompleteRate",
             JSON.stringify(completeRate),
@@ -46,7 +44,6 @@ const UnderstandBtn = ({ id, subId, complete, bottomFix }: Props) => {
       } else {
         original = [];
         completeRate = [...original, [id, subId]];
-        console.log("테스트", completeRate);
         localStorage.setItem("houseCompleteRate", JSON.stringify(completeRate));
       }
 

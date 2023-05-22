@@ -1,12 +1,10 @@
 // lib
-import React, { useEffect, useState } from "react";
 import styled from "@emotion/styled";
 import "react-circular-progressbar/dist/styles.css";
 //component
 import UnderstandBtn from "@components/Buttons/UnderstandBtn";
 import SimpleNavBar from "@components/NavBar/SimpleNavBar";
 // asset
-import ex1 from "@assets/house/ex1.png";
 import house3d from "@assets/house/house3d.png";
 import my3eximg from "@assets/house/갑구.png";
 import redbell from "@assets/house/redbell.png";

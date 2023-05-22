@@ -9,12 +9,10 @@ import ResultBox from "@components/Result/ResultBox";
 import WordModal from "@components/Modal/WordModal";
 //api
 import { GetAnalyze, DeleteAnalyze } from "@api/analyze";
-import { RootState } from "@store/store";
-import { useAppSelector, useAppDispatch } from "@store/store";
+import { useAppDispatch } from "@store/store";
 import { setReportId } from "@store/summarySlice";
 // asset
 import { resultsType, CasesType, WordsType } from "@assets/types";
-import temp from "@assets/result/temp.png";
 import CommissionBox from "@components/Result/CommissionBox";
 import whiteArrow from "@assets/analyze/result/whiteArrow.png";
 import removeIcon from "@assets/analyze/result/removeIcon.png";
@@ -38,8 +36,6 @@ const AnalyzeHistory = () => {
       cookies.refreshToken,
       onCookie,
     );
-
-    console.log("요청 결과 >>>>>>>>", analyzeResult);
 
     const resultRecord = analyzeResult.record;
     let resultCase = analyzeResult.myCaseDto;
@@ -93,7 +89,6 @@ const AnalyzeHistory = () => {
   };
 
   useEffect(() => {
-    console.log("useEffect 실행");
     _handleGetAnalyze();
   }, []);
 

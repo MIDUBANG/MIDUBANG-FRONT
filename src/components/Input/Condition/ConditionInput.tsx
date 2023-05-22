@@ -1,7 +1,5 @@
 /* Result 특약사항 페이지 */
-import { useState } from "react";
 import styled from "@emotion/styled";
-import { css } from "@emotion/css";
 
 type Props = {
   value: number;
@@ -19,7 +17,7 @@ const ConditionInput = ({ value, setValue, placeholder }: Props) => {
       type="number"
       value={value}
       placeholder={placeholder}
-      onChange={(e) => onChange(e)}
+      onChange={e => onChange(e)}
     />
   );
 };

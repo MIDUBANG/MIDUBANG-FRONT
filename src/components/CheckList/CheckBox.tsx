@@ -1,8 +1,5 @@
-import React, { useState } from "react";
 import styled from "@emotion/styled";
-import { useNavigate } from "react-router-dom";
 import { css } from "@emotion/react";
-import { useCookies } from "react-cookie";
 
 // assets
 import checkedbox from "@assets/checklist/checkedbox.png";
@@ -27,16 +24,6 @@ const CheckBox = ({
   _handleToggleChecklist,
   _handleUnToggleChecklist,
 }: Props) => {
-  const [cookies, setCookie, removeCookie] = useCookies(["refreshToken"]);
-
-  const onCookie = (res: any) => {
-    console.log("쿠키");
-    const accessToken = res.data.accessToken;
-    localStorage.setItem("token", accessToken);
-    const refreshToken = res.data.refreshToken;
-    setCookie("refreshToken", refreshToken, { path: "/" });
-  };
-
   return (
     <BackgroundBox>
       {checklistData.map(d => (

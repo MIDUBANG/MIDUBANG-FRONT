@@ -63,7 +63,6 @@ export const GetWord = async (
     const res = await client.get(`/word/${wordId}`);
     return res.data;
   } catch (err: any) {
-    console.log(err);
     if (err.response.data.message === "expired token") {
       WarningSwal("에러 발생", "다시 시도해주세요");
       RefreshApi(refreshToken, cookie);
@@ -88,10 +87,9 @@ export const GetSearchWords = async (
     const res = await client.get(
       `/word/search/list?searchKeyword=${searchText}&page=0&size=10&sort=word,asc`,
     );
-    console.log("검색 결과:", res);
+
     return res.data;
   } catch (err: any) {
-    console.log(err);
     if (err.response.data.message === "expired token") {
       WarningSwal("에러 발생", "다시 시도해주세요");
       RefreshApi(refreshToken, cookie);
@@ -116,7 +114,6 @@ export const PostSaveWord = async (
     const res = await client.post(`/word/${wordId}`);
     return res;
   } catch (err: any) {
-    console.log(err);
     const message = err.response.data.message;
     if (message === "존재하지 않는 단어 id") {
       ErrorSwal("에러 발생", "존재하지 않는 단어입니다.");
@@ -142,7 +139,6 @@ export const DeleteWord = async (
     const res = await client.delete(`/word/${wordId}`);
     return res;
   } catch (err: any) {
-    console.log(err);
     if (err.response.data.message === "expired token") {
       WarningSwal("에러 발생", "다시 시도해주세요");
       RefreshApi(refreshToken, cookie);

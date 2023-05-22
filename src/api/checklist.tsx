@@ -90,7 +90,6 @@ export const UnToggleChecklist = async (
   cookie: (res: any) => void,
 ): Promise<any> => {
   try {
-    console.log("취소 시도");
     const res = await client.delete(`checklist/${checklistId}`);
 
     return res.data;

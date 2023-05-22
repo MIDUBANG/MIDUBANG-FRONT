@@ -1,7 +1,5 @@
 /* Result 특약사항 페이지 */
-import { useState } from "react";
 import styled from "@emotion/styled";
-import { css } from "@emotion/css";
 
 type Props = {
   text: string;
@@ -38,9 +36,8 @@ const BtnDiv = styled.div<{ selected: boolean }>`
 
   border-radius: 20.5px;
 
-  background: ${(props) => (props.selected ? "#5a73fc" : "")};
-  color: ${(props) =>
-    props.selected ? "#ffffff" : "rgba(125, 125, 125, 0.5)"};
+  background: ${props => (props.selected ? "#5a73fc" : "")};
+  color: ${props => (props.selected ? "#ffffff" : "rgba(125, 125, 125, 0.5)")};
 
-  border: ${(props) => (props.selected ? "" : "1px solid #d9d9d9")};
+  border: ${props => (props.selected ? "" : "1px solid #d9d9d9")};
 `;

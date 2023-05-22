@@ -1,7 +1,7 @@
 import client from "@api/common/client";
 import { RefreshApi } from "./auth";
 import axios from "axios";
-import { SPRING_URL, FLASK_URL } from "@api/common/url";
+import { FLASK_URL } from "@api/common/url";
 import { WarningSwal, ErrorSwal } from "@components/Modal/CustomModal";
 
 const CLIENT_MAIN_URL = process.env.REACT_APP_REACT_URL;
@@ -12,7 +12,6 @@ export const PostContractImg = async (
   file: File,
 ): Promise<any> => {
   try {
-    console.log("OCR 요청 중...");
     const formData = new FormData();
     formData.append("image", file);
     formData.append("id", user_id.toString());
@@ -27,7 +26,6 @@ export const PostContractImg = async (
     return res.data;
   } catch (err: any) {
     WarningSwal("OCR 에러 발생", "다시 시도해주세요");
-    console.log(err);
   }
 };
 
@@ -56,12 +54,8 @@ export const PostContractCase = async (
   try {
     const res = await axios.post(`${FLASK_URL}/nlp`, result);
 
-    console.log("NLP 성공", res);
-
     return res.data;
   } catch (err: any) {
-    console.log("NLP 에러", err);
-
     ErrorSwal("에러 발생", "다시 시도해주세요.");
   }
 };
@@ -83,15 +77,15 @@ export const PostAnalyze = async (
   cookie: (res: any) => void,
 ): Promise<any> => {
   try {
-    console.log("스프링 요청:", {
-      commission: commission,
-      answer_commission: answer_commission,
-      is_expensive: is_expensive,
-      contract_type: contract_type,
-      image_url: image_url,
-      omissions: omissions,
-      inclusions: inclusions,
-    });
+    // console.log("스프링 요청:", {
+    //   commission: commission,
+    //   answer_commission: answer_commission,
+    //   is_expensive: is_expensive,
+    //   contract_type: contract_type,
+    //   image_url: image_url,
+    //   omissions: omissions,
+    //   inclusions: inclusions,
+    // });
 
     const res = await client.post("analysis", {
       commission: commission,
@@ -103,11 +97,8 @@ export const PostAnalyze = async (
       inclusions: inclusions,
     });
 
-    console.log("Spring 성공`", res.data);
     return res.data;
   } catch (err: any) {
-    console.log("Spring 에러", err);
-
     if (err.response.data.message === "expired token") {
       WarningSwal("에러 발생", "다시 시도해주세요");
       RefreshApi(refreshToken, cookie);
@@ -127,12 +118,9 @@ export const GetAnalyzeList = async (
 ): Promise<any> => {
   try {
     const res = await client.get("analysis/list");
-    console.log("분석 불러오기 성공", res);
 
     return res;
   } catch (err: any) {
-    console.log("분석 불러오기 에러", err);
-
     if (err.response.data.message === "expired token") {
       WarningSwal("에러 발생", "다시 시도해주세요");
       RefreshApi(refreshToken, cookie);
@@ -150,13 +138,9 @@ export const GetAnalyze = async (
   cookie: (res: any) => void,
 ): Promise<any> => {
   try {
-    console.log("api 내부 try 실행");
     const res = await client.get(`analysis?recordId=${record_id}`);
-    console.log("성공 >>>> ", res);
     return res.data;
   } catch (err: any) {
-    console.log("에러", err);
-
     if (err.response.data.message === "record_id not exist") {
       WarningSwal("에러 발생", "존재하지 않는 레포트입니다.");
     } else if (err.response.data.message === "expired token") {
@@ -179,10 +163,7 @@ export const DeleteAnalyze = async (
 ) => {
   try {
     const res = await client.delete(`analysis?recordId=${recordId}`);
-    console.log("분석 삭제", res);
   } catch (err: any) {
-    console.log(err);
-
     const message = err.response.data.message;
 
     if (message === "record_id not exist") {
@@ -208,7 +189,6 @@ export const SummarizeReport = async (contents: string[]): Promise<any> => {
 
     return res;
   } catch (err: any) {
-    console.log("요약 에러", err);
     WarningSwal("에러 발생", "다시 시도해주세요");
   }
 };

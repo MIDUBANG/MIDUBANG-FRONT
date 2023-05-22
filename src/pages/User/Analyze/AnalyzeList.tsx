@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import styled from "@emotion/styled";
 import { css } from "@emotion/react";
 
-import { GetAnalyzeList, GetAnalyze, DeleteAnalyze } from "@api/analyze";
+import { GetAnalyzeList } from "@api/analyze";
 import { useCookies } from "react-cookie";
 // img
 import report from "@assets/analyzelist/report.png";
@@ -33,7 +33,6 @@ const AnalyzeHistory = () => {
 
   const [cookies, setCookie, removeCookie] = useCookies(["refreshToken"]);
   const onCookie = (res: any) => {
-    console.log("쿠키");
     const accessToken = res.data.accessToken;
     localStorage.setItem("token", accessToken);
     const refreshToken = res.data.refreshToken;
@@ -47,9 +46,9 @@ const AnalyzeHistory = () => {
 
   const _handleClickBtn = (id: number) => {
     setBtnArr(
-      btnArr.map((b) =>
-        b.id === id ? { ...b, active: true } : { ...b, active: false }
-      )
+      btnArr.map(b =>
+        b.id === id ? { ...b, active: true } : { ...b, active: false },
+      ),
     );
   };
 
@@ -60,8 +59,6 @@ const AnalyzeHistory = () => {
 
   /** 정렬 */
   useEffect(() => {
-    console.log("정렬결과");
-
     var newArray = [...results];
 
     if (btnArr[0].active) {
@@ -99,7 +96,7 @@ const AnalyzeHistory = () => {
             </Title>
 
             <Buttons>
-              {btnArr.map((b) => (
+              {btnArr.map(b => (
                 <Btn active={b.active} onClick={() => _handleClickBtn(b.id)}>
                   {b.text}
                 </Btn>
@@ -113,7 +110,7 @@ const AnalyzeHistory = () => {
         <CountText>
           저장된 레포트 <span>{results.length}개</span>
         </CountText>
-        {results?.map((result) => {
+        {results?.map(result => {
           let date =
             result.record_date.substring(5, 10).replace("-", "월 ") + "일";
           let contractType = "";
@@ -201,10 +198,10 @@ const Btn = styled.div<{ active: boolean }>`
   font-size: 12px;
   text-align: center;
 
-  color: ${(props) => (props.active ? "#ffffff" : "#707070")};
-  background: ${(props) => (props.active ? "#5a73fc" : "#F2F3F7")};
+  color: ${props => (props.active ? "#ffffff" : "#707070")};
+  background: ${props => (props.active ? "#5a73fc" : "#F2F3F7")};
 
-  ${(props) =>
+  ${props =>
     props.active &&
     css`
       box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.25);

@@ -1,13 +1,11 @@
 // lib
-import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
 import styled from "@emotion/styled";
 import { css } from "@emotion/react";
 import { useParams } from "react-router-dom";
 import { useCookies } from "react-cookie";
 //component
 import SimpleNavBar from "@components/NavBar/SimpleNavBar";
-import QuestionBox from "@components/Question/GoldQuestionBox";
 // asset
 import dino1 from "@assets/question/dino1.png";
 import deleteicon from "@assets/question/delete.png";
@@ -27,7 +25,6 @@ import { ChatComment, ChatQuestionDetailType } from "@assets/types";
 const ChatDetail = () => {
   const [cookies, setCookie, removeCookie] = useCookies(["refreshToken"]);
   const onCookie = (res: any) => {
-    console.log("쿠키");
     const accessToken = res.data.accessToken;
     localStorage.setItem("token", accessToken);
     const refreshToken = res.data.refreshToken;
@@ -44,7 +41,6 @@ const ChatDetail = () => {
   /** 유저 정보 가져오기 */
   const _handleGetUserInfo = async () => {
     const res = await GetUserInfo(cookies.refreshToken, onCookie);
-    console.log("내정보", res);
     setCurrenUser(res.email);
   };
 
@@ -55,8 +51,6 @@ const ChatDetail = () => {
 
     setPost(res.data);
     setCommnets(res.data.answers);
-
-    console.log(res);
   };
 
   /** 챗쪽이 글에 댓글 남기기  */
@@ -70,7 +64,6 @@ const ChatDetail = () => {
         onCookie,
       );
 
-      console.log("댓글 결과 : ", res);
       _handleGetChatPost();
     } else {
       alert("댓글을 작성해주세요");

@@ -1,5 +1,5 @@
 // lib
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "@emotion/styled";
 import { css } from "@emotion/react";
@@ -20,7 +20,6 @@ import { GoldQuestionType, ChatQuestionType } from "@assets/types";
 const List = () => {
   const [cookies, setCookie, removeCookie] = useCookies(["refreshToken"]);
   const onCookie = (res: any) => {
-    console.log("쿠키");
     const accessToken = res.data.accessToken;
     localStorage.setItem("token", accessToken);
     const refreshToken = res.data.refreshToken;
@@ -50,14 +49,12 @@ const List = () => {
   const _handleGetAllGoldPosts = async () => {
     const res = await GetAllGoldPosts(cookies.refreshToken, onCookie);
     setGoldQuestions(res.data);
-    console.log(res);
   };
 
   /** 모든 챗쪽이 포스트 가져오기  */
   const _handleGetAllChatPosts = async () => {
     const res = await GetAllChatPosts(cookies.refreshToken, onCookie);
     setChatQuestions(res.data);
-    console.log(res);
   };
 
   const [goldQuestions, setGoldQuestions] = useState<GoldQuestionType[]>();

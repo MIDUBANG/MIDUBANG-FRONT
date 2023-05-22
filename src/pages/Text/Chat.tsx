@@ -1,7 +1,6 @@
 // lib
 import React, { useEffect, useState, useRef } from "react";
 import styled from "@emotion/styled";
-import { css } from "@emotion/css";
 import "react-circular-progressbar/dist/styles.css";
 // hooks
 import useInput from "@hooks/useInput";
@@ -99,7 +98,6 @@ const Chat = () => {
     let newpickedEmotions = pickedEmotions.map(e => e.emotion);
 
     // 1. userInput에 들어온 값을 userTextHistory에 반영
-    console.log(newpickedEmotions.join());
 
     setHistory(
       history.map(h =>
@@ -133,8 +131,6 @@ const Chat = () => {
 
   /** 문자 작성 요청하기 */
   const FetchMessageMakerApi = async () => {
-    console.log("APi 호출!!", history);
-
     const res = await GetMessageMaker(
       history[0].text,
       history[1].text,
@@ -142,7 +138,6 @@ const Chat = () => {
       history[3].text,
     );
 
-    console.log("결과 : ", res);
     setResult(res);
 
     // 로딩 버블 보여주기
@@ -150,11 +145,8 @@ const Chat = () => {
     copy[assiCurrentId.current] = true;
     setAssiRender(copy);
 
-    console.log("현재 id :", assiCurrentId.current);
-
     // 1초 뒤 로딩 지우고 결과 보여주기
     setTimeout(() => {
-      console.log("바꿔치기!");
       assiCurrentId.current += 1;
       let copy = [...assiRender];
       copy[assiCurrentId.current] = true;
@@ -165,7 +157,6 @@ const Chat = () => {
 
   useEffect(() => {
     if (userCurrentId.current === 4) {
-      console.log("바뀜?", history[3]);
       FetchMessageMakerApi();
     }
   }, [history[3]]);

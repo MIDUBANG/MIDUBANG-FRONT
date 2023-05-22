@@ -1,5 +1,4 @@
 import styled from "@emotion/styled";
-import logoperson from "@assets/illustration/logo&person.png";
 import personAuth from "@assets/icon/personAuth.svg";
 import lock from "@assets/icon/lock.svg";
 

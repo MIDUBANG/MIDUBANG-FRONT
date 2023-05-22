@@ -2,23 +2,13 @@
 import { useCookies } from "react-cookie";
 import { useState, useEffect } from "react";
 import styled from "@emotion/styled";
-
 // store
 import { useAppSelector } from "@store/store";
 import { RootState } from "@store/store";
-
 // component
 import SimpleNavBar from "@components/NavBar/SimpleNavBar";
-import ResultBox from "@components/Result/ResultBox";
-import WordModal from "@components/Modal/WordModal";
 //api
 import { SummarizeReport, GetAnalyze } from "@api/analyze";
-
-// asset
-import { resultsType, CasesType, WordsType } from "@assets/types";
-import temp from "@assets/result/temp.png";
-import CommissionBox from "@components/Result/CommissionBox";
-
 import { FontTitle } from "@style/font.style";
 import rokect from "@assets/analyze/loading/rokect.png";
 
@@ -28,7 +18,6 @@ const Summary = () => {
   const [cookies, setCookie, removeCookie] = useCookies(["refreshToken"]);
 
   const onCookie = (res: any) => {
-    console.log("쿠키");
     const accessToken = res.data.accessToken;
     localStorage.setItem("token", accessToken);
     const refreshToken = res.data.refreshToken;
@@ -98,7 +87,6 @@ const Summary = () => {
       summary: res3[i],
     }));
 
-    console.log("최종 결과:", INVALID, VALID_MUST, VALID_WARNING);
     setINVALID(INVALID);
     setVALID_MUST(VALID_MUST);
     setVALID_WARNING(VALID_WARNING);

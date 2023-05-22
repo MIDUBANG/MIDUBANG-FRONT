@@ -1,7 +1,5 @@
 /* 회원가입 페이지 */
-import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import axios from "axios";
+import { useNavigate } from "react-router-dom";
 import styled from "@emotion/styled";
 // componnet
 import SimpleNavBar from "@components/NavBar/SimpleNavBar";
@@ -14,11 +12,9 @@ import lockIllustration from "@assets/illustration/lock.png";
 import useInput from "@hooks/useInput";
 import { LoginApi } from "@api/auth";
 import { useCookies } from "react-cookie";
-//import { CLIENT_MAIN_URL } from "@api/common/url";
 
 const Login = () => {
   const CLIENT_MAIN_URL = process.env.REACT_APP_REACT_URL;
-  console.log(CLIENT_MAIN_URL);
   const navigate = useNavigate();
   const [cookies, setCookie] = useCookies(["refreshToken"]);
 
@@ -38,7 +34,6 @@ const Login = () => {
 
   /**access, refresh 토큰 저장 */
   const onCookie = (res: any) => {
-    console.log("쿠키");
     const accessToken = res.data.accessToken;
     localStorage.setItem("token", accessToken);
     const refreshToken = res.data.refreshToken;
