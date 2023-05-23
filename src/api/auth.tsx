@@ -48,9 +48,10 @@ export const SignUpApi = (
         window.location.href = CLIENT_MAIN_URL || "";
       })
       .catch(err => {
+        console.log("회원가입 실패", err);
         if (err.response.data.message === "이미 존재하는 계정입니다.") {
           WarningSwal("회원가입 실패", "이미 존재하는 계정입니다.");
-          window.location.href = `${CLIENT_MAIN_URL}/login`;
+          window.location.href = `${CLIENT_MAIN_URL}login`;
         } else {
           ErrorSwal("에러 발생", "다시 시도해주세요.");
         }
@@ -74,8 +75,10 @@ export const LoginApi = (
       })
       .then(res => {
         cookie(res);
+        SuccessSwal("로그인 성공", "어서오세요!");
 
-        window.location.reload();
+        console.log("엑세스 토큰 발급 성공");
+        //window.location.reload();
       })
       .catch(err => {
         console.log(err);
@@ -117,14 +120,15 @@ export const RefreshApi = (
       },
     })
     .then(res => {
+      alert("리프레시 토큰 발급 성공");
       cookie(res); // 토큰 2개 재설정
       window.location.reload();
     })
     .catch(err => {
-      console.log("리프레시 실패", err);
+      console.log("리프레시 토큰 발급 실패", err);
       //alert(err);
-      WarningSwal("토큰 만료", "다시 로그인해주세요").then(res => {
-        //window.location.href = `${CLIENT_MAIN_URL}login`; // 다시 로그인
+      WarningSwal("토큰 재발급 실패", "다시 로그인해주세요").then(res => {
+        window.location.href = `${CLIENT_MAIN_URL}login`; // 다시 로그인
       });
     });
 };

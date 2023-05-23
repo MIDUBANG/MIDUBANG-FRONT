@@ -25,6 +25,7 @@ export const PostContractImg = async (
 
     return res.data;
   } catch (err: any) {
+    console.log("ocr 에러 발생 슈발", err);
     WarningSwal("OCR 에러 발생", "다시 시도해주세요");
   }
 };
