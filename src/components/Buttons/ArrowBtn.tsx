@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import arrow from "@assets/icon/arrow.png";
+import arrow from "@assets/analyze/upload/upload.png";
 
 type BtnProps = {
   onClick: React.Dispatch<React.SetStateAction<boolean>>;
@@ -26,6 +26,10 @@ const BtnDiv = styled.div`
   background: var(--aurora-bright);
   box-shadow: -3px 4px 6px rgba(0, 0, 0, 0.2);
 
+  img {
+    width: 28px;
+    height: auto;
+  }
   &:active {
     width: 60px;
     height: 60px;

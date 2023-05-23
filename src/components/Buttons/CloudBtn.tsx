@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import cloud from "@assets/icon/cloud.png";
+import cloud from "@assets/analyze/upload/cloud.png";
 
 const CloudBtn = () => {
   return (
@@ -22,6 +22,11 @@ const BtnLabel = styled.label`
   border-radius: 50%;
   background: var(--aurora);
   box-shadow: -3px 4px 6px rgba(0, 0, 0, 0.2);
+
+  img {
+    width: 27px;
+    height: auto;
+  }
 
   &:active {
     width: 60px;
