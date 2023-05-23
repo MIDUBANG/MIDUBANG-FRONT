@@ -30,7 +30,7 @@ const Condition1 = ({ extraInfo, setExtraInfo }: Props) => {
   return (
     <Div>
       <Title>계약 유형을 선택해주세요.</Title>
-      <Des>월세, 전세, 반전세 중 어떤 게약인가요? </Des>
+      <Des>월세, 전세, 반전세 중 어떤 계약인가요? </Des>
 
       <ConditionBtn
         text="월세"
