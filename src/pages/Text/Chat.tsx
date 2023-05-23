@@ -9,15 +9,17 @@ import SimpleNavBar from "@components/NavBar/SimpleNavBar";
 // asset
 import send from "@assets/text/send.png";
 import profile from "@assets/text/profile.png";
-import loading from "@assets/text/loading.png";
+import spinner from "@assets/text/spinner.gif";
 import copy from "@assets/text/copy.png";
 import { userTextHistory } from "@assets/textData";
 import { emotionData } from "@assets/emotionData";
 // api
 import { GetMessageMaker } from "@api/message";
 import { handleCopyClipBoard } from "@api/clipBoard";
+import { CopyToClipboard } from "react-copy-to-clipboard";
 
 const Chat = () => {
+  const testRef = useRef<HTMLImageElement | null>(null);
   const messageEndRef = useRef<HTMLDivElement | null>(null);
   const userCurrentId = useRef(0);
   const assiCurrentId = useRef(0);
@@ -296,9 +298,9 @@ const Chat = () => {
                 }}
               >
                 <img
-                  src={loading}
-                  width={113}
-                  height={113}
+                  src={spinner}
+                  width={150}
+                  height={150}
                   style={{ margin: "0 30px" }}
                 />
                 <p style={{ marginTop: "15px" }}>믿어방 문자 작성 중...</p>
@@ -313,9 +315,11 @@ const Chat = () => {
             <div>
               <LeftBubble style={{ maxWidth: "250px", paddingBottom: "50px" }}>
                 <p className="name">믿어방</p>
+
                 <p style={{ marginBottom: "15px" }}>{result}</p>
 
                 <img
+                  ref={testRef}
                   src={copy}
                   style={{
                     marginTop: "15px",
@@ -323,8 +327,23 @@ const Chat = () => {
                     bottom: "15px",
                     right: "19px",
                   }}
-                  onClick={() => handleCopyClipBoard(result)}
+                  onClick={() => {}}
                 />
+
+                <CopyToClipboard
+                  text={result}
+                  onCopy={() => handleCopyClipBoard()}
+                >
+                  <img
+                    src={copy}
+                    style={{
+                      marginTop: "15px",
+                      position: "absolute",
+                      bottom: "15px",
+                      right: "19px",
+                    }}
+                  />
+                </CopyToClipboard>
               </LeftBubble>
             </div>
           </LeftMessageBox>
