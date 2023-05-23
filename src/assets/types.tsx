@@ -7,6 +7,7 @@ export type PropsExtra = {
   pet: boolean; // 반려동물
   loan: boolean; // 전세대출 (case (유효-필수 20번))
   substitute: boolean; // 대리인
+  officetel: string; // 매물 종류
 };
 
 export type PropsContracts = {

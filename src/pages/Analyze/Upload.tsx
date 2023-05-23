@@ -18,6 +18,7 @@ import Condition4 from "@pages/Analyze/Slide/Condition4";
 import Condition5 from "@pages/Analyze/Slide/Condition5";
 import Condition6 from "@pages/Analyze/Slide/Condition6";
 import Condition7 from "@pages/Analyze/Slide/Condition7";
+import Condition8 from "./Slide/Condition8";
 
 import UploadFile from "@components/Analyze/UploadFile";
 import { FontTitle } from "@style/font.style";
@@ -50,6 +51,7 @@ const Upload = () => {
     pet: true,
     loan: true,
     substitute: true,
+    officetel: "",
   });
 
   useEffect(() => {
@@ -74,6 +76,7 @@ const Upload = () => {
         pet: extraInfo.pet,
         loan: extraInfo.loan,
         substitute: extraInfo.substitute,
+        officetel: extraInfo.officetel,
       }),
     );
   }, [upload]);
@@ -104,6 +107,13 @@ const Upload = () => {
 
           <SwiperSlide>
             <Condition1
+              extraInfo={extraInfo}
+              setExtraInfo={setExtraInfostate}
+            />
+          </SwiperSlide>
+
+          <SwiperSlide>
+            <Condition8
               extraInfo={extraInfo}
               setExtraInfo={setExtraInfostate}
             />

@@ -12,6 +12,7 @@ type extraInfoType = {
   pet: boolean;
   loan: boolean;
   substitute: boolean;
+  officetel: string;
 };
 
 type stateType = {
@@ -30,6 +31,7 @@ const initialState: stateType = {
     pet: false,
     loan: false,
     substitute: false,
+    officetel: "",
   },
 };
 
@@ -37,7 +39,7 @@ export const extraInfoSlice = createSlice({
   name: name,
   initialState,
   reducers: {
-    initExtraInfo: (state) => {
+    initExtraInfo: state => {
       state.contents = initialState.contents;
       state.extraInfo.monthly = initialState.extraInfo.monthly;
       state.extraInfo.lumpSumMoney = initialState.extraInfo.lumpSumMoney;
@@ -47,6 +49,7 @@ export const extraInfoSlice = createSlice({
       state.extraInfo.pet = initialState.extraInfo.pet;
       state.extraInfo.loan = initialState.extraInfo.loan;
       state.extraInfo.substitute = initialState.extraInfo.substitute;
+      state.extraInfo.officetel = initialState.extraInfo.officetel;
     },
     setContents: (state, action) => {
       state.contents = action.payload.contents;
@@ -60,9 +63,10 @@ export const extraInfoSlice = createSlice({
       state.extraInfo.pet = action.payload.pet;
       state.extraInfo.loan = action.payload.loan;
       state.extraInfo.substitute = action.payload.substitute;
+      state.extraInfo.officetel = action.payload.officetel;
     },
   },
-  extraReducers: (builder) => {
+  extraReducers: builder => {
     builder.addCase(PURGE, () => initialState);
   },
 });
