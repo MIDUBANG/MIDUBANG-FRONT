@@ -78,6 +78,7 @@ export const LoginApi = (
         window.location.reload();
       })
       .catch(err => {
+        console.log(err);
         if (err.response.data.message == "비밀번호가 일치하지 않습니다.") {
           WarningSwal("로그인 실패", "비밀번호가 일치하지 않습니다.");
         } else if (err.response.data.message == "가입하지 않은 계정입니다.") {
@@ -98,6 +99,7 @@ export const GetUserInfo = async (
     const res = await client.get("member/info");
     return res.data;
   } catch (err: any) {
+    console.log("유저 정보 조회 실패", err);
     RefreshApi(refreshToken, cookie);
   }
 };
@@ -118,6 +120,8 @@ export const RefreshApi = (
       window.location.reload();
     })
     .catch(err => {
+      console.log("리프레시 실패", err);
+      alert(err);
       WarningSwal("토큰 만료", "다시 로그인해주세요").then(res => {
         window.location.href = `${CLIENT_MAIN_URL}login`; // 다시 로그인
       });

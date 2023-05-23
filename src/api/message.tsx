@@ -20,6 +20,7 @@ export const GetMessageMaker = async (
 
     return res.data.result;
   } catch (err: any) {
+    console.log(err);
     ErrorSwal("GPT 에러 발생", "다시 시도해주세요");
   }
 };
