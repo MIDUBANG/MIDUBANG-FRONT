@@ -6,6 +6,7 @@ import { useCookies } from "react-cookie";
 import { useNavigate } from "react-router-dom";
 import { SPRING_URL } from "@api/common/url";
 import { useEffect } from "react";
+import { ErrorSwal } from "@components/Modal/CustomModal";
 // asset
 import kakoloading from "@assets/kako/kakaoloading.gif";
 
@@ -32,6 +33,7 @@ const KakaoLogin = () => {
         window.location.reload();
       })
       .catch(err => {
+        ErrorSwal("카카오 오류", "죄송합니다. 다시 시도해주세요😢");
         navigate("/login");
       });
   };
