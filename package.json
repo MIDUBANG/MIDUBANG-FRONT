@@ -63,6 +63,7 @@
     ]
   },
   "devDependencies": {
-    "@types/loadable__component": "^5.13.4"
+    "@types/loadable__component": "^5.13.4",
+    "@types/react-copy-to-clipboard": "^5.0.4"
   }
 }
