@@ -99,7 +99,7 @@ const ServiceBox = styled.div`
   width: 90%;
   height: 10vh;
   background: #ffffff;
-  border: 0.5px solid rgba(202, 202, 202, 0.33);
+  border: 0.5px solid rgba(202, 202, 202, 0.5);
   box-shadow: 0px 10px 10px rgba(0, 0, 0, 0.05);
   border-radius: 7px;
 

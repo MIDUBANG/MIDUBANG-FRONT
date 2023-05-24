@@ -34,7 +34,7 @@ const Input = styled.input`
 
   font-family: "Noto Sans KR";
   font-style: normal;
-  font-weight: 200;
+  font-weight: 300;
   font-size: 13px;
   line-height: 19px;
 

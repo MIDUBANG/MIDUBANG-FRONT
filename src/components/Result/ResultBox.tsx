@@ -166,7 +166,9 @@ const ResultBox = ({ caseData, wordData, openWordModal }: Props) => {
         </BallonBox>
       )}
 
-      <img src={ill} />
+      <Illustration>
+        <img src={ill} />
+      </Illustration>
 
       <InfoBox>
         <div className="text-info">
@@ -241,6 +243,14 @@ const ResultBox = ({ caseData, wordData, openWordModal }: Props) => {
 
 export default ResultBox;
 
+const Illustration = styled.div`
+  display: flex;
+  justify-content: center;
+  img {
+    height: 25vh;
+    width: auto;
+  }
+`;
 const BallonBox = styled.div`
   position: absolute;
   top: -90px;
@@ -347,12 +357,14 @@ const Describe = styled.div`
     font-style: normal;
     font-weight: 300;
     font-size: 15px;
-    line-height: 20px;
+    line-height: 25px;
   }
 
   .word {
     display: inline-block;
     position: relative;
+
+    margin-left: 5px;
   }
 
   .word:after {
@@ -411,9 +423,9 @@ const NewsBtn = styled.div`
   p {
     font-family: "Noto Sans KR";
     font-style: normal;
-    font-weight: 500;
-    font-size: 14px;
-    line-height: 20px;
+    font-weight: 600;
+    font-size: 15px;
+    line-height: 25px;
     letter-spacing: -0.05em;
     color: #4880ee;
     margin: 0;
@@ -421,9 +433,10 @@ const NewsBtn = styled.div`
 
   img {
     margin-left: 5px;
+    margin-top: 2px;
 
     width: 14px;
-    height: 10px;
+    height: 13px;
   }
 `;
 
