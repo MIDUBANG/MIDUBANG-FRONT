@@ -83,7 +83,7 @@ const Buttons = styled.div`
   height: 70px;
   border-radius: 5px;
 
-  margin-top: 18px;
+  margin-top: 13px;
 `;
 
 const Button = styled.div`
@@ -115,11 +115,13 @@ const Button = styled.div`
 `;
 
 const Bar = styled.hr`
-  width: 26px;
-  height: 1px;
-  background-color: #c5c5c5;
-  border: 1px solid #c5c5c5;
+  width: 30px;
+  height: 2px;
+  background-color: #565656;
+  border: 1px solid #565656;
   border-radius: 1px;
+  padding: 0;
+  margin: 11px 0 10px 0;
 `;
 const Contract = styled.div`
   display: flex;
@@ -181,7 +183,7 @@ const Modal = styled.div`
     border-radius: 14px 14px 0px 0px;
 
     width: 100%;
-    height: 150px;
+    height: 170px;
 
     // 숨기기
     position: fixed;
@@ -192,6 +194,7 @@ const Modal = styled.div`
 
     display: flex;
     flex-direction: column;
+    align-items: center;
 
     transition: all 300ms cubic-bezier(0.86, 0, 0.07, 1);
   }
