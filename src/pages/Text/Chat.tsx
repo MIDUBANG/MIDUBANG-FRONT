@@ -166,6 +166,7 @@ const Chat = () => {
   useEffect(() => {
     if (userCurrentId.current === 4) {
       FetchMessageMakerApi();
+      userCurrentId.current = 100; // 재요청 오류 방지
     }
   }, [history[3]]);
 
