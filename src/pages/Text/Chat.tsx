@@ -23,7 +23,7 @@ import { gptGuideStyle } from "@style/swalstyle";
 const Chat = () => {
   useEffect(() => {
     ConfirmModal(gptGuideStyle);
-  });
+  }, []);
 
   const testRef = useRef<HTMLImageElement | null>(null);
   const messageEndRef = useRef<HTMLDivElement | null>(null);
