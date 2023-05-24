@@ -1,5 +1,5 @@
 /* 오타 수정 페이지 */
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import styled from "@emotion/styled";
 
 import ConditionBtn from "@components/Buttons/Condition/ConditionBtn";
@@ -26,6 +26,11 @@ const Condition1 = ({ extraInfo, setExtraInfo }: Props) => {
   };
 
   const [isSelected, setIsSelected] = useState([true, false, false]);
+
+  useEffect(() => {
+    console.log("월세 기본 세팅");
+    _handleClickBtn("월세");
+  }, []);
 
   return (
     <Div>

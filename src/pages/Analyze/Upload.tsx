@@ -24,8 +24,13 @@ import UploadFile from "@components/Analyze/UploadFile";
 import { FontTitle } from "@style/font.style";
 import { PropsExtra } from "@assets/types";
 import { useAppDispatch } from "@store/store";
-import { setExtraInfo, setContents } from "@store/extraInfoSlice";
+import {
+  setExtraInfo,
+  setContents,
+  initExtraInfo,
+} from "@store/extraInfoSlice";
 import { setContractType, setImgUrlReducer } from "@store/resultSlice";
+import { persistor } from "@store/store";
 
 // hooks
 import { useNavigate } from "react-router-dom";
@@ -45,11 +50,14 @@ const Upload = () => {
   /** 유저 정보 불러오기 */
   const _getUserInfo = async () => {
     const res = await GetUserInfo(cookies.refreshToken, onCookie);
+
+    // await persistor.purge();
   };
 
   /** 토큰 검사  */
   useEffect(() => {
     _getUserInfo();
+    dispatch(initExtraInfo);
   }, []);
 
   const navigate = useNavigate();
@@ -64,7 +72,7 @@ const Upload = () => {
 
   // extra condition
   const [extraInfo, setExtraInfostate] = useState<PropsExtra>({
-    monthly: "",
+    monthly: "MONTHLY_RENT",
     lumpSumMoney: 0,
     deposit: 0,
     monthlyMoney: 0,
@@ -72,12 +80,11 @@ const Upload = () => {
     pet: true,
     loan: true,
     substitute: true,
-    officetel: "",
+    officetel: "HOUSE",
   });
 
   useEffect(() => {
-    // Contract type (전세, 월세, 반전세)
-    dispatch(setContractType({ contract_type: extraInfo.monthly }));
+    console.log("업로드 직후 저장될 떄 쓰이는 extraInfo : ", extraInfo);
 
     if (extraInfo.monthly === "MONTHLY_RENT") {
       dispatch(setContractType({ contract_type: "MONTHLY_RENT" }));

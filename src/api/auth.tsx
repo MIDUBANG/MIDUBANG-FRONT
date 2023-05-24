@@ -109,6 +109,10 @@ export const GetUserInfo = async (
   cookie: (res: any) => void,
 ): Promise<any> => {
   try {
+    console.log(
+      "요청 시 사용한 토큰",
+      client.defaults.headers.common["Authorization"],
+    );
     const res = await client.get("member/info");
     return res.data;
   } catch (err: any) {

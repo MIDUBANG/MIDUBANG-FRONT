@@ -1,5 +1,6 @@
 /* 오타 수정 페이지 */
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import styled from "@emotion/styled";
 // img
 import loadingPerson from "@assets/illustration/loadingPerson.png";
@@ -22,6 +23,7 @@ import { setNlpReult } from "@store/resultSlice";
 import { FontTitle } from "@style/font.style";
 
 const Feedback = () => {
+  const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
   const { contents } = useAppSelector((state: RootState) => state.extraInfo);
@@ -164,6 +166,7 @@ const Feedback = () => {
       valueContents.push(c.contract);
     });
 
+    console.log("extraInfo :", extraInfo);
     const NLP = {
       contents: valueContents,
       extraInfo: extraInfo,
@@ -182,7 +185,7 @@ const Feedback = () => {
       }),
     );
 
-    //setTimeout(() => navigate("/analyze/result"), 60000);
+    navigate("/analyze/result");
   };
 
   // loading 화면 보여줄지말지 선택하는 state

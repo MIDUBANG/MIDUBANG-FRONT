@@ -55,6 +55,7 @@ export const PostContractCase = async (result: NLPtype): Promise<any> => {
 
     return res.data;
   } catch (err: any) {
+    console.log("nlp 에러", err);
     ErrorSwal("에러 발생", "다시 시도해주세요.");
   }
 };

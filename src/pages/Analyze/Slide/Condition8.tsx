@@ -1,5 +1,5 @@
 /* 오타 수정 페이지 */
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import styled from "@emotion/styled";
 
 import ConditionBtn from "@components/Buttons/Condition/ConditionBtn";
@@ -27,6 +27,10 @@ const Condition8 = ({ extraInfo, setExtraInfo }: Props) => {
   };
 
   const [isSelected, setIsSelected] = useState([true, false, false]);
+
+  useEffect(() => {
+    _handleClickBtn("주택");
+  }, []);
 
   return (
     <Div>
