@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "@emotion/styled";
 import { css } from "@emotion/react";
+import { useMediaQuery } from "react-responsive";
 
 import { GetAnalyzeList } from "@api/analyze";
 import { useCookies } from "react-cookie";
@@ -12,6 +13,10 @@ import SimpleNavBar from "@components/NavBar/SimpleNavBar";
 import { resultsType } from "@assets/types";
 
 const AnalyzeHistory = () => {
+  const isNoImg = useMediaQuery({
+    query: "(max-width : 370px)",
+  });
+
   const [results, setResults] = useState<resultsType[]>([]);
 
   const navigate = useNavigate();
@@ -104,8 +109,7 @@ const AnalyzeHistory = () => {
               ))}
             </Buttons>
           </div>
-
-          <img src={report} width={160} height={137} />
+          <Illustration src={report} isNoImg={isNoImg} />
         </Banner>
 
         <CountText>
@@ -158,13 +162,14 @@ const Banner = styled.div`
   width: 100%;
 
   margin-bottom: 35px;
-
-  img {
-    width: 140px;
-    height: auto;
-  }
 `;
 
+const Illustration = styled.img<{ isNoImg: boolean }>`
+  width: 120px;
+  height: 100px;
+
+  display: ${props => props.isNoImg && "none"};
+`;
 const Title = styled.p`
   font-family: "Noto Sans KR";
   font-style: normal;

@@ -4,6 +4,7 @@ import styled from "@emotion/styled";
 import { css } from "@emotion/react";
 import { GetSavedWordList } from "@api/word";
 import { useCookies } from "react-cookie";
+import { useMediaQuery } from "react-responsive";
 
 // componnet
 import SimpleNavBar from "@components/NavBar/SimpleNavBar";
@@ -11,7 +12,12 @@ import SimpleNavBar from "@components/NavBar/SimpleNavBar";
 // image
 import wordbook from "@assets/wordlist/wordbook.png";
 import bookmark from "@assets/wordlist/bookmark.png";
+
 const SavedWordList = () => {
+  const isNoImg = useMediaQuery({
+    query: "(max-width : 370px)",
+  });
+
   const [cookies, setCookie, removeCookie] = useCookies(["refreshToken"]);
 
   const onCookie = (res: any) => {
@@ -99,7 +105,7 @@ const SavedWordList = () => {
             </Buttons>
           </div>
 
-          <img src={wordbook} />
+          <Illustration src={wordbook} isNoImg={isNoImg} />
         </Banner>
 
         <CountText>
@@ -130,7 +136,15 @@ const Div = styled.div`
   padding-top: 70px;
 `;
 
+const Illustration = styled.img<{ isNoImg: boolean }>`
+  width: 120px;
+  height: 100px;
+
+  display: ${props => props.isNoImg && "none"};
+`;
 const Container = styled.div`
+  width: 100%;
+
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -145,10 +159,6 @@ const Banner = styled.div`
   width: 100%;
 
   margin-bottom: 35px;
-
-  img {
-    width: 140px;
-  }
 `;
 
 const Title = styled.p`
