@@ -4,7 +4,7 @@ import { PURGE } from "redux-persist";
 const name = "extraInfoSlice";
 
 type extraInfoType = {
-  monthly: boolean;
+  monthly: string;
   lumpSumMoney: number;
   commission: number;
   deposit: number;
@@ -23,7 +23,7 @@ type stateType = {
 const initialState: stateType = {
   contents: [],
   extraInfo: {
-    monthly: true,
+    monthly: "MONTHLY_RENT",
     lumpSumMoney: 0,
     commission: 0,
     deposit: 0,
@@ -31,7 +31,7 @@ const initialState: stateType = {
     pet: false,
     loan: false,
     substitute: false,
-    officetel: "",
+    officetel: "HOUSE",
   },
 };
 

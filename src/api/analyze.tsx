@@ -31,7 +31,7 @@ export const PostContractImg = async (
 };
 
 type extrainfoType = {
-  monthly: boolean;
+  monthly: string;
   lumpSumMoney: number;
   commission: number;
   deposit: number;
@@ -50,6 +50,7 @@ type NLPtype = {
 /** (2) NLP case 분석 */
 export const PostContractCase = async (result: NLPtype): Promise<any> => {
   try {
+    console.log("nlp 요청 body : ", result);
     const res = await axios.post(`${FLASK_URL}/nlp`, result);
 
     return res.data;
