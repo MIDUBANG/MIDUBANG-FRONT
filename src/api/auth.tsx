@@ -17,8 +17,9 @@ const check = (body: string, type: string): boolean => {
       /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i;
     return email.test(body);
   } else {
-    //  8 ~ 15자 영문, 숫자 조합
-    const password = /^(?=.*\d)(?=.*[a-zA-Z])[0-9a-zA-Z]{8,15}$/;
+    //  4 ~ 15자 영문 또는 숫자 조합
+    //const password = /^(?=.*\d)(?=.*[a-zA-Z])[0-9a-zA-Z]{4,15}$/;
+    const password = /^[0-9a-zA-Z]{4,15}$/;
     return password.test(body);
   }
 };
@@ -29,12 +30,15 @@ export const SignUpApi = (
   pw: string,
   cookie: (res: any) => void,
 ) => {
-  if (!check(email, "email")) {
-    WarningSwal("회원가입 실패", "이메일의 형식이 유효하지 않습니다.");
-  } else if (!check(pw, "password")) {
+  let invalidEmail = !check(email, "email");
+  let invalidPassword = !check(pw, "password");
+
+  if (invalidEmail) {
+    WarningSwal("회원가입 실패", "이메일의 형식이 유효하지 않습니다.", 4000);
+  } else if (invalidPassword) {
     WarningSwal(
       "회원가입 실패",
-      "8 ~ 15자 길이의 영문과 숫자의 조합으로 작성해주세요.",
+      "비밀번호는 4 ~ 15자 길이의 영문 또는 숫자의 조합으로 작성해주세요. (⚠️특수문자 불가능)",
     );
   } else {
     client
@@ -60,12 +64,14 @@ export const SignUpApi = (
 };
 
 // 로그인
-export const LoginApi = (
+export const LoginApi = async (
   email: string,
   pw: string,
   cookie: (res: any) => void,
-) => {
-  if (!check(email, "email")) {
+): Promise<any> => {
+  let invalidEmail = !check(email, "email");
+
+  if (invalidEmail) {
     WarningSwal("로그인 실패", "이메일의 형식이 유효하지 않습니다.");
   } else {
     client
@@ -77,8 +83,10 @@ export const LoginApi = (
         cookie(res);
         SuccessSwal("로그인 성공", "어서오세요!");
 
-        console.log("엑세스 토큰 발급 성공");
+        console.log("엑세스 토큰 발급 성공", res);
+        //window.location.href = `${CLIENT_MAIN_URL}`;
         //window.location.reload();
+        return true;
       })
       .catch(err => {
         console.log(err);
