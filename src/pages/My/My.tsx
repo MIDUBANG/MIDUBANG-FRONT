@@ -263,6 +263,7 @@ const BigButton = styled.div<{ isNoImg: boolean; isNoImg_Btn: boolean }>`
     font-weight: 500;
     font-size: 11px;
     color: #727272;
+    margin-top: ${props => props.isNoImg && "10px"};
 
     display: ${props => props.isNoImg_Btn && "none"};
   }
