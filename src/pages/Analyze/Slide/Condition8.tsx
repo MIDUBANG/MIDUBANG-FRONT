@@ -5,6 +5,7 @@ import styled from "@emotion/styled";
 import ConditionBtn from "@components/Buttons/Condition/ConditionBtn";
 
 import { PropsExtra } from "@assets/types";
+import alert from "@assets/analyze/upload/condition/alert.png";
 
 type Props = {
   extraInfo: any;
@@ -48,6 +49,29 @@ const Condition8 = ({ extraInfo, setExtraInfo }: Props) => {
         selected={isSelected[2]}
         onClick={() => _handleClickBtn("주택 외 부동산")}
       />
+
+      <DescriptionBox>
+        <img src={alert} />
+        <p>
+          <span>주택</span> <br /> 주택의 부속 토지, 부택 분양권 포함
+        </p>
+      </DescriptionBox>
+
+      <DescriptionBox>
+        <img src={alert} />
+        <p>
+          <span>오피스텔</span> <br /> 부엌·화장실 등의 시설을 갖춘 전용면적
+          85㎡ 이하 오피스텔
+        </p>
+      </DescriptionBox>
+
+      <DescriptionBox>
+        <img src={alert} />
+        <p>
+          <span>주택 외 부동산</span> <br /> 오피스텔(주거용 제외), 상가, 토지
+          등
+        </p>
+      </DescriptionBox>
     </Div>
   );
 };
@@ -78,7 +102,7 @@ const Title = styled.p`
 
 const Des = styled.p`
   margin-top: 19px;
-  margin-bottom: 10vh;
+  margin-bottom: 5vh;
 
   font-family: "Noto Sans KR";
   font-style: normal;
@@ -86,4 +110,37 @@ const Des = styled.p`
   font-size: 13px;
   line-height: 19px;
   color: #7d7d7d;
+`;
+
+const DescriptionBox = styled.div`
+  display: flex;
+
+  margin-bottom: 15px;
+
+  img {
+    width: 16px;
+    height: 16px;
+    margin-top: 3px;
+  }
+
+  span {
+    font-family: "Noto Sans KR";
+    font-style: normal;
+    font-weight: 500;
+    font-size: 15px;
+    color: #7d7d7d;
+  }
+
+  p {
+    word-break: keep-all;
+    margin-left: 10px;
+    font-family: "Noto Sans KR";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 20px;
+    color: #7d7d7d;
+
+    width: 100%;
+  }
 `;
