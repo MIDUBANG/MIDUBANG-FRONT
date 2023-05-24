@@ -29,8 +29,29 @@ import { setContractType, setImgUrlReducer } from "@store/resultSlice";
 
 // hooks
 import { useNavigate } from "react-router-dom";
+import { useCookies } from "react-cookie";
+import { GetUserInfo } from "@api/auth";
 
 const Upload = () => {
+  const [cookies, setCookie, removeCookie] = useCookies(["refreshToken"]);
+
+  const onCookie = (res: any) => {
+    const accessToken = res.data.accessToken;
+    localStorage.setItem("token", accessToken);
+    const refreshToken = res.data.refreshToken;
+    setCookie("refreshToken", refreshToken, { path: "/" });
+  };
+
+  /** 유저 정보 불러오기 */
+  const _getUserInfo = async () => {
+    const res = await GetUserInfo(cookies.refreshToken, onCookie);
+  };
+
+  /** 토큰 검사  */
+  useEffect(() => {
+    _getUserInfo();
+  }, []);
+
   const navigate = useNavigate();
 
   const dispatch = useAppDispatch();
