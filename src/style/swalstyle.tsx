@@ -5,6 +5,7 @@ export const logoutStyle = {
   iconColor: "orange",
 
   showCancelButton: true,
+
   cancelButtonText: "취소",
 
   showConfirmButton: true,
@@ -16,7 +17,7 @@ export const logoutStyle = {
   color: "black",
   backdrop: "rgba(0,0,0,0.2)",
 
-  closeOnClickOutside: false,
+  allowOutsideClick: false,
 
   reverseButtons: true,
 };
@@ -39,7 +40,7 @@ export const uploadGuideStyle = {
   color: "black",
   backdrop: "rgba(0,0,0,0.2)",
 
-  closeOnClickOutside: false,
+  allowOutsideClick: false,
 
   reverseButtons: true,
 };
@@ -61,5 +62,5 @@ export const gptGuideStyle = {
   color: "black",
   backdrop: "rgba(0,0,0,0.2)",
 
-  closeOnClickOutside: true,
+  allowOutsideClick: true,
 };
