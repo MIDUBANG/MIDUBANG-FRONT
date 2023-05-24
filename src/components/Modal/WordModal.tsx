@@ -176,7 +176,7 @@ type BtnProps = {
   color: string;
 };
 const Btn = styled.div<BtnProps>`
-  min-width: 131px;
+  //min-width: 131px;
   width: 45%;
   height: 37px;
   background: var(${props => props.color});
