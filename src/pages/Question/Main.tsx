@@ -87,7 +87,9 @@ const Main = () => {
       <Container>
         <BtnBar>
           <div className="btnItem" onClick={() => navigate("/question/list")}>
-            <QuestionBtn>Q</QuestionBtn>
+            <QuestionBtn>
+              <p>Q</p>
+            </QuestionBtn>
             <Text margin="0 0 0 13px">질문 보기</Text>
           </div>
           <div className="btnItem" onClick={() => navigate("/question/create")}>
@@ -249,13 +251,14 @@ const QuestionBtn = styled.div`
   justify-content: center;
   align-items: center;
 
-  font-family: "Murecho";
-  font-style: normal;
-  font-weight: 400;
-  font-size: 25px;
-  color: #ffffff;
-
-  padding-bottom: 5px;
+  p {
+    font-family: "Murecho";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 25px;
+    color: #ffffff;
+    padding-bottom: 5px;
+  }
 `;
 
 const Text = styled.p<{ size?: number | 16; margin?: string }>`
@@ -314,14 +317,14 @@ const ViewAllBtn = styled.div`
   p {
     font-family: "Noto Sans KR";
     font-style: normal;
-    font-weight: 350;
-    font-size: 11px;
+    font-weight: 400;
+    font-size: 14px;
     color: #616161;
   }
   img {
     margin-left: 7px;
     margin-top: 1px;
-    width: 4px;
-    height: 7px;
+    width: 5px;
+    height: 10px;
   }
 `;

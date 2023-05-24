@@ -61,6 +61,7 @@ const BoxDiv = styled.div`
     font-size: 14px;
 
     margin-top: 7px;
+    line-height: 20px;
   }
 
   .content {
@@ -78,6 +79,7 @@ const BoxDiv = styled.div`
 
     p {
       margin-left: 3px;
+
       color: #5a73fc;
     }
   }
