@@ -243,7 +243,6 @@ const Feedback = () => {
             );
           })}
 
-          <DoneBtn onClick={_handlePostAnalyze}>분석하기</DoneBtn>
           {isAdd && (
             <Contract>
               <Dot done={false} onClick={() => _handleClickCheck(9)} />
@@ -258,6 +257,8 @@ const Feedback = () => {
               </EditForm>
             </Contract>
           )}
+
+          <DoneBtn onClick={_handlePostAnalyze}>분석하기</DoneBtn>
 
           <BottomModal
             isOpen={isOpen}
