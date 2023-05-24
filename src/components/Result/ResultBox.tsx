@@ -428,14 +428,11 @@ const NewsBtn = styled.div`
 `;
 
 const InfoBox = styled.div`
-  display: flex;
-  justify-content: space-between;
   margin: 0 27px 20px 27px;
 
   .text-info {
     display: flex;
-
-    justify-content: space-between;
+    justify-content: start;
 
     font-family: "Noto Sans KR";
     font-style: normal;
@@ -445,6 +442,8 @@ const InfoBox = styled.div`
     text-align: center;
     letter-spacing: -0.05em;
     color: #9a9a9a !important;
+
+    flex-wrap: wrap;
 
     p {
       margin-right: 6px;
