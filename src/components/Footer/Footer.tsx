@@ -70,8 +70,8 @@ const Text = styled.p<{ margin: string }>`
   font-family: "Noto Sans KR";
   font-style: normal;
   font-weight: 400;
-  font-size: 10px;
-  line-height: 16px;
+  font-size: 12px;
+  line-height: 20px;
 
   color: #ffffff;
   margin: ${props => props.margin};
