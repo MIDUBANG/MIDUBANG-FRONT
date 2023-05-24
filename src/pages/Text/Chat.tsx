@@ -184,10 +184,13 @@ const Chat = () => {
             <div>
               <LeftBubble>
                 <p className="name">믿어방</p>
-                <p>안녕하세요, 믿어방 문자 마법사입니다. </p>
+                <p>안녕하세요!</p>
                 <p style={{ marginBottom: "15px" }}>
-                  원하는 문자를 대신 작성해드립니다!
+                  믿어방 <span>문자 마법사</span>입니다.
                 </p>
+                {/* <p style={{ marginBottom: "15px" }}>
+                  원하는 문자를 대신 작성해드립니다!
+                </p> */}
                 <p>
                   몇가지 질문에 답해주시면 <span>문자 템플릿</span>을
                   만들어드리겠습니다.
@@ -447,9 +450,9 @@ const LeftBubble = styled.div`
 
   font-family: "Noto Sans KR";
   font-style: normal;
-  font-weight: 350;
+  font-weight: 400;
   font-size: 13px;
-  line-height: 19px;
+  line-height: 22px;
   color: #7d7d7d;
 
   span {
@@ -457,7 +460,7 @@ const LeftBubble = styled.div`
   }
 
   .name {
-    font-weight: 700;
+    font-weight: 800;
     margin-bottom: 5px;
   }
 `;
