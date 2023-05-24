@@ -15,8 +15,6 @@ import { ConfirmModal } from "@components/Modal/CustomModal";
 import { uploadGuideStyle } from "@style/swalstyle";
 // api & hook
 import { PostContractCase } from "@api/analyze";
-import { useCookies } from "react-cookie";
-import { useNavigate } from "react-router-dom";
 // store
 import { RootState } from "@store/store";
 import { useAppDispatch, useAppSelector } from "@store/store";
@@ -24,7 +22,6 @@ import { setNlpReult } from "@store/resultSlice";
 import { FontTitle } from "@style/font.style";
 
 const Feedback = () => {
-  const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
   const { contents } = useAppSelector((state: RootState) => state.extraInfo);
@@ -41,15 +38,6 @@ const Feedback = () => {
       edit: false,
     });
   });
-
-  const [cookies, setCookie, removeCookie] = useCookies(["refreshToken"]);
-
-  const onCookie = (res: any) => {
-    const accessToken = res.data.accessToken;
-    localStorage.setItem("token", accessToken);
-    const refreshToken = res.data.refreshToken;
-    setCookie("refreshToken", refreshToken, { path: "/" });
-  };
 
   // 전역 상태 관리에서 뽑아와야함
   const [contracts, setContracts] =
@@ -182,11 +170,7 @@ const Feedback = () => {
     };
 
     // {in, out, answer_commission, is_expensive}
-    const nlpresult = await PostContractCase(
-      NLP,
-      cookies.refreshToken,
-      onCookie,
-    );
+    const nlpresult = await PostContractCase(NLP);
 
     dispatch(
       setNlpReult({

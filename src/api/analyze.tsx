@@ -39,6 +39,7 @@ type extrainfoType = {
   pet: boolean;
   loan: boolean;
   substitute: boolean;
+  officetel: string;
 };
 
 type NLPtype = {
@@ -47,11 +48,7 @@ type NLPtype = {
 };
 
 /** (2) NLP case 분석 */
-export const PostContractCase = async (
-  result: NLPtype,
-  refreshToken: string,
-  cookie: (res: any) => void,
-): Promise<any> => {
+export const PostContractCase = async (result: NLPtype): Promise<any> => {
   try {
     const res = await axios.post(`${FLASK_URL}/nlp`, result);
 
