@@ -92,7 +92,8 @@ const AnalyzeHistory = () => {
         <Banner>
           <div>
             <Title>
-              내가 저장한 <br /> 믿어방 부동산 단어
+              내 임대차계약서
+              <br /> 레포트 목록
             </Title>
 
             <Buttons>
