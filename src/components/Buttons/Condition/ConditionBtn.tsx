@@ -29,7 +29,7 @@ const BtnDiv = styled.div<{ selected: boolean }>`
 
   font-family: "Noto Sans KR";
   font-style: normal;
-  font-weight: 200;
+  font-weight: 400;
   font-size: 13px;
   line-height: 19px;
   text-align: center;
@@ -37,7 +37,7 @@ const BtnDiv = styled.div<{ selected: boolean }>`
   border-radius: 20.5px;
 
   background: ${props => (props.selected ? "#5a73fc" : "")};
-  color: ${props => (props.selected ? "#ffffff" : "rgba(125, 125, 125, 0.5)")};
+  color: ${props => (props.selected ? "#ffffff" : "rgba(125, 125, 125, 0.8)")};
 
   border: ${props => (props.selected ? "" : "1px solid #d9d9d9")};
 `;
