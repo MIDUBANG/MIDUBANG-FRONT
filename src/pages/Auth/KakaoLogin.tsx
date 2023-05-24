@@ -9,6 +9,7 @@ import { useEffect } from "react";
 import { ErrorSwal, SuccessSwal } from "@components/Modal/CustomModal";
 // asset
 import kakoloading from "@assets/kako/kakaoloading.gif";
+const CLIENT_MAIN_URL = process.env.REACT_APP_REACT_URL;
 
 const KakaoLogin = () => {
   const location = useLocation();
@@ -31,8 +32,9 @@ const KakaoLogin = () => {
         setCookie("refreshToken", refreshToken, { path: "/" });
 
         SuccessSwal("카카오 로그인 성공", "축하드립니다!");
+        window.location.href = `${CLIENT_MAIN_URL}`;
 
-        navigate("/");
+        //navigate("/");
         // window.location.reload();
       })
       .catch(err => {

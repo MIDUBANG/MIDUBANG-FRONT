@@ -43,11 +43,6 @@ const Login = () => {
   /**일반 로그인  */
   const _handleLogin = async () => {
     const success = await LoginApi(email, pw, onCookie);
-    // 실패하면 튕겨나오지 않게 해야해..
-    console.log("결과", success);
-    if (success) {
-      navigate("/");
-    }
   };
 
   return (

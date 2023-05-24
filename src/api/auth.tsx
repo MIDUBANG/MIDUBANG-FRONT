@@ -7,7 +7,6 @@ import {
   ErrorSwal,
   SuccessSwal,
 } from "@components/Modal/CustomModal";
-import { Card } from "react-bootstrap";
 
 const CLIENT_MAIN_URL = process.env.REACT_APP_REACT_URL;
 
@@ -85,7 +84,7 @@ export const LoginApi = async (
       SuccessSwal("로그인 성공", "어서오세요!");
 
       console.log("엑세스 토큰 발급 성공", res);
-      //window.location.href = `${CLIENT_MAIN_URL}`;
+      window.location.href = `${CLIENT_MAIN_URL}`;
       //window.location.reload();
       return true;
     }
