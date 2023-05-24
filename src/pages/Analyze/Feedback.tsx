@@ -11,6 +11,8 @@ import { FontGray, FontDescribed } from "@style/font.style";
 import { PropsContracts } from "@assets/types";
 import Loading from "@components/Loading/Loading";
 import FloatingLoading from "@components/Loading/FloatingLoading";
+import { ConfirmModal } from "@components/Modal/CustomModal";
+import { uploadGuideStyle } from "@style/swalstyle";
 // api & hook
 import { PostContractCase } from "@api/analyze";
 import { useCookies } from "react-cookie";
@@ -154,8 +156,17 @@ const Feedback = () => {
     setContracts(contracts.filter(c => c.id !== id));
   };
 
-  /** 최종 분석 요청 버튼 */
+  /** 최종 분석 요청 버튼 z클릭*/
   const _handlePostAnalyze = async () => {
+    ConfirmModal(uploadGuideStyle).then(res => {
+      if (res.isConfirmed) {
+        _reqPostAnalyze();
+      }
+    });
+  };
+
+  /** 분석 요청! */
+  const _reqPostAnalyze = async () => {
     setRequest(true);
 
     // (1) NLP 업로드 -> case 번호 (in, out )
@@ -187,7 +198,7 @@ const Feedback = () => {
       }),
     );
 
-    navigate("/analyze/result");
+    //setTimeout(() => navigate("/analyze/result"), 60000);
   };
 
   // loading 화면 보여줄지말지 선택하는 state
