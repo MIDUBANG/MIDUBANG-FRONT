@@ -21,7 +21,7 @@ export const GetAllWordList = async (
     return res.data;
   } catch (err: any) {
     if (err.response.data.message === "expired token") {
-      WarningSwal("에러 발생", "다시 시도해주세요");
+      //WarningSwal("에러 발생", "다시 시도해주세요");
       RefreshApi(refreshToken, cookie);
     } else if (err.response.data.message === "empty token") {
       WarningSwal("에러 발생", "다시 로그인 해주세요");
@@ -42,7 +42,7 @@ export const GetSavedWordList = async (
     return res.data;
   } catch (err: any) {
     if (err.response.data.message === "expired token") {
-      WarningSwal("에러 발생", "다시 시도해주세요");
+      //WarningSwal("에러 발생", "다시 시도해주세요");
       RefreshApi(refreshToken, cookie);
     } else if (err.response.data.message === "empty token") {
       WarningSwal("에러 발생", "다시 로그인 해주세요");
@@ -64,7 +64,7 @@ export const GetWord = async (
     return res.data;
   } catch (err: any) {
     if (err.response.data.message === "expired token") {
-      WarningSwal("에러 발생", "다시 시도해주세요");
+      // WarningSwal("에러 발생", "다시 시도해주세요");
       RefreshApi(refreshToken, cookie);
     } else if (err.response.data.message === "empty token") {
       WarningSwal("에러 발생", "다시 로그인 해주세요");
@@ -91,7 +91,7 @@ export const GetSearchWords = async (
     return res.data;
   } catch (err: any) {
     if (err.response.data.message === "expired token") {
-      WarningSwal("에러 발생", "다시 시도해주세요");
+      //WarningSwal("에러 발생", "다시 시도해주세요");
       RefreshApi(refreshToken, cookie);
     } else if (err.response.data.message === "empty token") {
       WarningSwal("에러 발생", "다시 로그인 해주세요");
@@ -112,17 +112,21 @@ export const PostSaveWord = async (
 ): Promise<any> => {
   try {
     const res = await client.post(`/word/${wordId}`);
+    SuccessSwal("단어 저장", "단어를 저장했습니다!");
     return res;
   } catch (err: any) {
+    console.log(err);
     const message = err.response.data.message;
     if (message === "존재하지 않는 단어 id") {
       ErrorSwal("에러 발생", "존재하지 않는 단어입니다.");
-    } else if (err.response.data.message === "expired token") {
+    } else if (message === "expired token") {
       WarningSwal("에러 발생", "다시 시도해주세요");
       RefreshApi(refreshToken, cookie);
-    } else if (err.response.data.message === "empty token") {
+    } else if (message === "empty token") {
       WarningSwal("에러 발생", "다시 로그인 해주세요");
       window.location.href = `${CLIENT_MAIN_URL}login`;
+    } else if (message === "이미 저장된 단어입니다.") {
+      WarningSwal("중복 저장", "이미 저장된 단어입니다.");
     } else {
       ErrorSwal("에러 발생", "다시 시도해주세요.");
     }
@@ -137,10 +141,11 @@ export const DeleteWord = async (
 ): Promise<any> => {
   try {
     const res = await client.delete(`/word/${wordId}`);
+    SuccessSwal("단어 삭제", "단어를 삭제했습니다.");
     return res;
   } catch (err: any) {
     if (err.response.data.message === "expired token") {
-      WarningSwal("에러 발생", "다시 시도해주세요");
+      // WarningSwal("에러 발생", "다시 시도해주세요");
       RefreshApi(refreshToken, cookie);
     } else if (err.response.data.message === "empty token") {
       WarningSwal("에러 발생", "다시 로그인 해주세요");
