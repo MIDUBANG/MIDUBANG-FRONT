@@ -198,12 +198,12 @@ const Feedback = () => {
       {!request ? (
         <Container>
           <Title>총 {contracts.length}개의 특약조항 검출</Title>
-          <IlluImg>
+          {/* <IlluImg>
             <img src={loadingPerson} />
-          </IlluImg>
-          <FontGray margin="23px auto 0 auto">
-            오타를 수정하면 더 정확한 분석을 받아보실 수 있습니다.
-          </FontGray>
+          </IlluImg> */}
+          <DescribeGrayFont>
+            오타를 수정하면 더 정확한 분석이 가능합니다.
+          </DescribeGrayFont>
 
           <BtnBox>
             <AddBtn onClick={_handleAddContract}>
@@ -215,8 +215,6 @@ const Feedback = () => {
             >
               수정
             </EditBtn>
-
-            <DoneBtn onClick={_handlePostAnalyze}>분석하기</DoneBtn>
           </BtnBox>
 
           {contracts.map(con => {
@@ -244,6 +242,8 @@ const Feedback = () => {
               </Contract>
             );
           })}
+
+          <DoneBtn onClick={_handlePostAnalyze}>분석하기</DoneBtn>
           {isAdd && (
             <Contract>
               <Dot done={false} onClick={() => _handleClickCheck(9)} />
@@ -290,6 +290,18 @@ const Div = styled.div`
 
   padding-top: 69px;
   margin-bottom: 30px;
+`;
+
+const DescribeGrayFont = styled.p`
+  margin: 23px auto 0 30px;
+
+  font-family: "Noto Sans KR", sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 13px;
+  font-size: 14px;
+
+  color: #7d7d7d;
 `;
 
 const Container = styled.div`
@@ -370,7 +382,7 @@ const Title = styled.p`
   color: #000000;
 
   margin-top: 20px;
-  margin-left: 31px;
+  margin-left: 30px;
 `;
 
 const BtnBox = styled.div`
@@ -382,8 +394,9 @@ const BtnBox = styled.div`
   padding: 0 30px;
   box-sizing: border-box;
 `;
+
 const AddBtn = styled.div`
-  width: 25vw;
+  width: 45%;
   height: 41px;
   border: 1px solid #4880ee;
   border-radius: 8px;
@@ -409,7 +422,7 @@ const AddBtn = styled.div`
 `;
 
 const EditBtn = styled.div<{ isEditActive: boolean }>`
-  width: 25vw;
+  width: 45%;
   height: 41px;
   border: 1px solid #4880ee;
   border-radius: 8px;
@@ -430,9 +443,9 @@ const EditBtn = styled.div<{ isEditActive: boolean }>`
   color: ${props => props.isEditActive && "#ffffff"};
 `;
 const DoneBtn = styled.div`
-  width: 25vw;
+  width: 85%;
   height: 41px;
-  background: #5a73fc;
+  background: #fbb03b;
   border-radius: 8px;
 
   display: flex;
@@ -441,11 +454,13 @@ const DoneBtn = styled.div`
 
   font-family: "Noto Sans KR";
   font-style: normal;
-  font-weight: 400;
-  font-size: 13px;
+  font-weight: 500;
+  font-size: 16px;
   line-height: 19px;
   text-align: center;
   color: #ffffff;
+
+  margin: 30px auto 10px auto;
 `;
 const WatingFont = styled.p`
   margin-left: 9px;
