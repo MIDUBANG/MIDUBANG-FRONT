@@ -25,7 +25,7 @@ export const PostContractImg = async (
 
     return res.data;
   } catch (err: any) {
-    console.log("ocr 에러 발생 슈발", err);
+    console.log("ocr 에러 발생", err);
     WarningSwal("OCR 에러 발생", "다시 시도해주세요");
   }
 };
@@ -122,11 +122,13 @@ export const GetAnalyzeList = async (
     return res;
   } catch (err: any) {
     if (err.response.data.message === "expired token") {
-      WarningSwal("에러 발생", "다시 시도해주세요");
+      //WarningSwal("에러 발생", "다시 시도해주세요");
       RefreshApi(refreshToken, cookie);
     } else if (err.response.data.message === "empty token") {
       WarningSwal("에러 발생", "로그인 해주세요");
       window.location.href = `${CLIENT_MAIN_URL}login`;
+    } else {
+      ErrorSwal("에러 발생", "다시 시도해주세요.");
     }
   }
 };
@@ -169,7 +171,7 @@ export const DeleteAnalyze = async (
     if (message === "record_id not exist") {
       WarningSwal("에러 발생", "존재하지 않는 레포트입니다.");
     } else if (err.response.data.message === "expired token") {
-      WarningSwal("에러 발생", "다시 시도해주세요");
+      //WarningSwal("에러 발생", "다시 시도해주세요");
       RefreshApi(refreshToken, cookie);
     } else if (err.response.data.message === "empty token") {
       WarningSwal("에러 발생", "로그인 해주세요");

@@ -1,7 +1,7 @@
 import client from "@api/common/client";
 
 import { RefreshApi } from "./auth";
-import { WarningSwal } from "@components/Modal/CustomModal";
+import { WarningSwal, ErrorSwal } from "@components/Modal/CustomModal";
 const CLIENT_MAIN_URL = process.env.REACT_APP_REACT_URL;
 
 // 전체 체크리스트 완료 count수
@@ -14,11 +14,13 @@ export const GetAllCheckCount = async (
     return res.data;
   } catch (err: any) {
     if (err.response.data.message === "expired token") {
-      WarningSwal("에러 발생", "다시 시도해주세요");
+      //WarningSwal("에러 발생", "다시 시도해주세요");
       RefreshApi(refreshToken, cookie);
     } else if (err.response.data.message === "empty token") {
       WarningSwal("에러 발생", "로그인 해주세요");
       window.location.href = `${CLIENT_MAIN_URL}login`;
+    } else {
+      ErrorSwal("에러 발생", "다시 시도해주세요.");
     }
   }
 };
@@ -34,11 +36,13 @@ export const GetCheckCount = async (
     return res.data;
   } catch (err: any) {
     if (err.response.data.message === "expired token") {
-      WarningSwal("에러 발생", "다시 시도해주세요");
+      //WarningSwal("에러 발생", "다시 시도해주세요");
       RefreshApi(refreshToken, cookie);
     } else if (err.response.data.message === "empty token") {
       WarningSwal("에러 발생", "로그인 해주세요");
       window.location.href = `${CLIENT_MAIN_URL}login`;
+    } else {
+      ErrorSwal("에러 발생", "다시 시도해주세요.");
     }
   }
 };
@@ -54,11 +58,13 @@ export const GetChecklist = async (
     return res.data;
   } catch (err: any) {
     if (err.response.data.message === "expired token") {
-      WarningSwal("에러 발생", "다시 시도해주세요");
+      //  WarningSwal("에러 발생", "다시 시도해주세요");
       RefreshApi(refreshToken, cookie);
     } else if (err.response.data.message === "empty token") {
       WarningSwal("에러 발생", "로그인 해주세요");
       window.location.href = `${CLIENT_MAIN_URL}login`;
+    } else {
+      ErrorSwal("에러 발생", "다시 시도해주세요.");
     }
   }
 };
@@ -74,11 +80,13 @@ export const ToggleChecklist = async (
     return res.data;
   } catch (err: any) {
     if (err.response.data.message === "expired token") {
-      WarningSwal("에러 발생", "다시 시도해주세요");
+      //WarningSwal("에러 발생", "다시 시도해주세요");
       RefreshApi(refreshToken, cookie);
     } else if (err.response.data.message === "empty token") {
       WarningSwal("에러 발생", "로그인 해주세요");
       window.location.href = `${CLIENT_MAIN_URL}login`;
+    } else {
+      ErrorSwal("에러 발생", "다시 시도해주세요.");
     }
   }
 };
@@ -95,11 +103,13 @@ export const UnToggleChecklist = async (
     return res.data;
   } catch (err: any) {
     if (err.response.data.message === "expired token") {
-      WarningSwal("에러 발생", "다시 시도해주세요");
+      //WarningSwal("에러 발생", "다시 시도해주세요");
       RefreshApi(refreshToken, cookie);
     } else if (err.response.data.message === "empty token") {
       WarningSwal("에러 발생", "로그인 해주세요");
       window.location.href = `${CLIENT_MAIN_URL}login`;
+    } else {
+      ErrorSwal("에러 발생", "다시 시도해주세요.");
     }
   }
 };
@@ -116,11 +126,13 @@ export const UnToggleAllChecklist = async (
     return res.data;
   } catch (err: any) {
     if (err.response.data.message === "expired token") {
-      WarningSwal("에러 발생", "다시 시도해주세요");
+      // WarningSwal("에러 발생", "다시 시도해주세요");
       RefreshApi(refreshToken, cookie);
     } else if (err.response.data.message === "empty token") {
       WarningSwal("에러 발생", "로그인 해주세요");
       window.location.href = `${CLIENT_MAIN_URL}login`;
+    } else {
+      ErrorSwal("에러 발생", "다시 시도해주세요.");
     }
   }
 };
