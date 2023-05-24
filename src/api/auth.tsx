@@ -7,6 +7,7 @@ import {
   ErrorSwal,
   SuccessSwal,
 } from "@components/Modal/CustomModal";
+import { Card } from "react-bootstrap";
 
 const CLIENT_MAIN_URL = process.env.REACT_APP_REACT_URL;
 
@@ -69,35 +70,36 @@ export const LoginApi = async (
   pw: string,
   cookie: (res: any) => void,
 ): Promise<any> => {
-  let invalidEmail = !check(email, "email");
+  try {
+    let invalidEmail = !check(email, "email");
 
-  if (invalidEmail) {
-    WarningSwal("로그인 실패", "이메일의 형식이 유효하지 않습니다.");
-  } else {
-    client
-      .post("member/login", {
+    if (invalidEmail) {
+      WarningSwal("로그인 실패", "이메일의 형식이 유효하지 않습니다.");
+    } else {
+      const res = await client.post("member/login", {
         email: email,
         password: pw,
-      })
-      .then(res => {
-        cookie(res);
-        SuccessSwal("로그인 성공", "어서오세요!");
-
-        console.log("엑세스 토큰 발급 성공", res);
-        //window.location.href = `${CLIENT_MAIN_URL}`;
-        //window.location.reload();
-        return true;
-      })
-      .catch(err => {
-        console.log(err);
-        if (err.response.data.message == "비밀번호가 일치하지 않습니다.") {
-          WarningSwal("로그인 실패", "비밀번호가 일치하지 않습니다.");
-        } else if (err.response.data.message == "가입하지 않은 계정입니다.") {
-          WarningSwal("로그인 실패", "가입하지 않은 계정입니다.");
-        } else {
-          ErrorSwal("에러 발생", "다시 시도해주세요.");
-        }
       });
+
+      cookie(res);
+      SuccessSwal("로그인 성공", "어서오세요!");
+
+      console.log("엑세스 토큰 발급 성공", res);
+      //window.location.href = `${CLIENT_MAIN_URL}`;
+      //window.location.reload();
+      return true;
+    }
+  } catch (err: any) {
+    console.log(err);
+    if (err.response.data.message == "비밀번호가 일치하지 않습니다.") {
+      WarningSwal("로그인 실패", "비밀번호가 일치하지 않습니다.");
+    } else if (err.response.data.message == "가입하지 않은 계정입니다.") {
+      WarningSwal("로그인 실패", "가입하지 않은 계정입니다.");
+    } else {
+      ErrorSwal("에러 발생", "다시 시도해주세요.");
+    }
+
+    return false;
   }
 };
 
