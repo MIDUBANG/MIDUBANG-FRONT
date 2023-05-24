@@ -6,7 +6,7 @@ import { useCookies } from "react-cookie";
 import { useNavigate } from "react-router-dom";
 import { SPRING_URL } from "@api/common/url";
 import { useEffect } from "react";
-import { ErrorSwal } from "@components/Modal/CustomModal";
+import { ErrorSwal, SuccessSwal } from "@components/Modal/CustomModal";
 // asset
 import kakoloading from "@assets/kako/kakaoloading.gif";
 
@@ -19,7 +19,7 @@ const KakaoLogin = () => {
 
   const navigate = useNavigate();
 
-  const _reqKakoLogin = async () => {
+  const _reqKakoLogin = () => {
     axios.defaults.withCredentials = true;
     axios
       .post(Spring)
@@ -29,8 +29,11 @@ const KakaoLogin = () => {
 
         const refreshToken = res.data.refreshToken;
         setCookie("refreshToken", refreshToken, { path: "/" });
+
+        SuccessSwal("카카오 로그인 성공", "축하드립니다!");
+
         navigate("/");
-        window.location.reload();
+        // window.location.reload();
       })
       .catch(err => {
         ErrorSwal("카카오 오류", "죄송합니다. 다시 시도해주세요😢");
