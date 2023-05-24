@@ -313,7 +313,9 @@ const Chat = () => {
                   height={150}
                   style={{ margin: "0 30px" }}
                 />
+
                 <p style={{ marginTop: "15px" }}>믿어방 문자 작성 중...</p>
+                <p>화면을 끄지 마세요 😢</p>
               </LeftBubble>
             </div>
           </LeftMessageBox>
