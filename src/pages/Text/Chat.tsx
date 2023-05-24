@@ -17,8 +17,14 @@ import { emotionData } from "@assets/emotionData";
 import { GetMessageMaker } from "@api/message";
 import { handleCopyClipBoard } from "@api/clipBoard";
 import { CopyToClipboard } from "react-copy-to-clipboard";
+import { ConfirmModal } from "@components/Modal/CustomModal";
+import { gptGuideStyle } from "@style/swalstyle";
 
 const Chat = () => {
+  useEffect(() => {
+    ConfirmModal(gptGuideStyle);
+  });
+
   const testRef = useRef<HTMLImageElement | null>(null);
   const messageEndRef = useRef<HTMLDivElement | null>(null);
   const userCurrentId = useRef(0);
