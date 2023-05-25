@@ -1,5 +1,9 @@
 // hooks
 import styled from "@emotion/styled";
+import bell from "@assets/result/bell.png";
+import thumb from "@assets/result/thumb.png";
+
+import { useMediaQuery } from "react-responsive";
 
 type Props = {
   answer_commission: number | any;
@@ -11,11 +15,17 @@ const CommissionBox = ({
   my_commission,
   is_expensive,
 }: Props) => {
+  const isNoImg = useMediaQuery({
+    query: "(max-width : 345px)",
+  });
+
   return (
     <Block>
-      <Title>
-        <p>이 계약의 최대 중개 보수</p>
-        <p>내 복비는 적당할까?</p>
+      <Title isNoImg={isNoImg} is_expensive={is_expensive}>
+        <img src={is_expensive ? bell : thumb} />
+
+        <p className="big">부동산 중개 수수료 계산기</p>
+        <p className="small">내 복비는 적당할까?</p>
       </Title>
 
       <BarBox is_expensive={is_expensive}>
@@ -36,17 +46,23 @@ const CommissionBox = ({
         </div>
       </BarBox>
 
-      <Desc>
-        {is_expensive
-          ? `나의 복비 ${my_commission}만원은 이 계약의 최대 복비인
-        ${answer_commission}만원을 초과한 금액입니다.`
-          : `나의 복비는 ${my_commission}만원 입니다. 이 계약의 최대 복비는
-        ${answer_commission}만원입니다.`}
-
-        {is_expensive
-          ? "바가지를 쓴 것은 아닌지 확인 할 필요가 있습니다. 😢 "
-          : " 적정 수준의 복비로 계약하셨군요, 축하드립니다!"}
-      </Desc>
+      {is_expensive ? (
+        <Desc>
+          나의 복비 <span className="bold">{my_commission} 원</span>은 이 계약의
+          최대 복비인
+          <span className="bold">{answer_commission} 원</span>을 초과한
+          금액입니다. 혹시 <span className="red">바가지</span>를 쓴 것은 아닌지
+          확인 할 필요가 있습니다. 😢
+        </Desc>
+      ) : (
+        <Desc>
+          나의 복비는 <span className="bold">{my_commission} 원</span> 입니다.
+          이 계약의 최대 복비는
+          <span className="bold"> {answer_commission} 원</span>입니다.
+          <span className="green">적정 수준</span>의 복비로 계약하셨군요,
+          축하드립니다! 🎉
+        </Desc>
+      )}
     </Block>
   );
 };
@@ -61,21 +77,48 @@ const Block = styled.div`
   border-radius: 5px;
 `;
 
-const Title = styled.p`
-  margin-left: 26px;
-  margin-top: 29px;
-  p {
+const Title = styled.div<{ isNoImg: boolean; is_expensive: boolean }>`
+  //border: 1px solid red;
+  position: relative;
+
+  height: 76px;
+
+  margin: 29px 26px 0 26px;
+
+  img {
+    position: absolute;
+
+    width: ${props => (props.is_expensive ? "95px" : "80px")};
+    height: auto;
+
+    top: ${props => (props.is_expensive ? "-20px" : "-10px")};
+    right: -15px;
+
+    display: ${props => props.isNoImg && "none"};
+  }
+
+  .big {
     font-family: "Noto Sans KR";
     font-style: normal;
     font-weight: 500;
-    font-size: 20px;
-    line-height: 23px;
-    color: #1f4ef5;
+    font-size: 18px;
+    line-height: 26px;
+    color: #454545;
+  }
+
+  .small {
+    font-family: "Noto Sans KR";
+    font-style: normal;
+    font-weight: 500;
+    font-size: 15px;
+    line-height: 22px;
+
+    color: #454545;
   }
 `;
 
 const BarBox = styled.div<{ is_expensive: boolean }>`
-  margin: 28px 20px 50px 20px;
+  margin: 0px 20px 50px 20px;
   position: relative;
 
   .bar-back {
@@ -90,10 +133,10 @@ const BarBox = styled.div<{ is_expensive: boolean }>`
   .bar {
     position: absolute;
 
-    width: ${(props) => (props.is_expensive ? "80%" : "30%")};
+    width: ${props => (props.is_expensive ? "80%" : "30%")};
     height: 14px;
 
-    background: ${(props) => (props.is_expensive ? "#EF5353" : "#2D6FEE")};
+    background: ${props => (props.is_expensive ? "#EF5353" : "#9CDB75")};
     border-radius: 10.5px 0px 0px 10.5px;
   }
 
@@ -110,7 +153,7 @@ const BarBox = styled.div<{ is_expensive: boolean }>`
   }
 
   .mydot {
-    left: ${(props) => (props.is_expensive ? "80%" : "30%")};
+    left: ${props => (props.is_expensive ? "80%" : "30%")};
   }
 
   .commission {
@@ -139,7 +182,7 @@ const BarBox = styled.div<{ is_expensive: boolean }>`
   .mycommission {
     position: absolute;
     bottom: 0;
-    left: ${(props) => (props.is_expensive ? "80%" : "30%")};
+    left: ${props => (props.is_expensive ? "80%" : "30%")};
     transform: translate(-50%, 100%);
   }
 
@@ -157,7 +200,20 @@ const Desc = styled.p`
   font-family: "Noto Sans KR";
   font-style: normal;
   font-weight: 400;
-  font-size: 13px;
-  line-height: 19px;
-  letter-spacing: -0.05em;
+  font-size: 14px;
+  line-height: 22px;
+
+  .bold {
+    font-weight: 600;
+  }
+
+  .red {
+    color: #ef5353;
+    font-weight: 600;
+  }
+
+  .green {
+    color: #7ab953;
+    font-weight: 600;
+  }
 `;
