@@ -72,7 +72,7 @@ const WordModal = (props: Props) => {
 
               {wordsData.map(m => {
                 if (m.word === text) {
-                  return <p className="mean">{m.meaning} ?</p>;
+                  return <p className="mean">{m.meaning}</p>;
                 }
               })}
             </Contents>
