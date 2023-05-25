@@ -26,8 +26,8 @@ const Text = () => {
         <Img src={illust} />
 
         <DesText margin="">
-          자취를 하다보면 주변인에게 문자를 보낼 일이 많습니다. 그럴 때 문자를
-          작성하는 것이 막막하지 않나요?
+          자취를 하다보면 주변인에게 문자를 보낼 일이 많습니다. 그럴 때 매번
+          문자를 작성하는 것이 번거롭지 않나요?
         </DesText>
 
         <DesText margin="20px 0 10px 0">
@@ -94,10 +94,9 @@ const Title = styled.p`
 `;
 
 const Img = styled.img`
+  height: 18vh;
   width: auto;
-  height: 20vh;
-
-  margin: 10% 0 10% auto;
+  margin: 10% 0 6% auto;
 `;
 
 const BlueTextBox = styled.div`
@@ -114,7 +113,7 @@ const BlueText = styled.div<{ margin: string }>`
   font-family: "Noto Sans KR";
   font-style: normal;
   font-weight: 500;
-  font-size: 13px;
+  font-size: 15px;
   line-height: 19px;
   text-align: center;
   color: #5a73fc;
@@ -132,9 +131,9 @@ const Dot = styled.div`
 const DesText = styled.p<{ margin: string }>`
   font-family: "Noto Sans KR";
   font-style: normal;
-  font-weight: 350;
-  font-size: 14px;
-  line-height: 20px;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 22px;
   color: #7d7d7d;
 
   margin: ${props => props.margin};
