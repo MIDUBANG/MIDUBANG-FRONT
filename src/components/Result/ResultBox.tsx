@@ -98,23 +98,32 @@ const ResultBox = ({ caseData, wordData, openWordModal }: Props) => {
 
   wordIndex.sort((a, b) => a[0] - b[0]);
 
-  if (wordIndex[0][0] === 0 && wordIndex[0][1] === 0) {
-    wordIndex.shift();
-  }
-
   for (let i = 1; i < wordIndex.length; i++) {
-    let pre = desc.slice(wordIndex[i - 1][1], wordIndex[i][0] - 1);
-    let now_t = desc.slice(wordIndex[i][0], wordIndex[i][1]);
+    if (i == 1 && wordIndex[i - 1][1] == 0 && wordIndex[i][0] == 0) {
+      let pre = "";
+      let now_t = desc.slice(wordIndex[i][0], wordIndex[i][1]);
 
-    finalText.push(pre);
-    finalText.push(now_t);
+      finalText.push(pre);
+      finalText.push(now_t);
+    } else {
+      let pre = desc.slice(wordIndex[i - 1][1], wordIndex[i][0] - 1);
+      let now_t = desc.slice(wordIndex[i][0], wordIndex[i][1]);
+
+      finalText.push(pre);
+      finalText.push(now_t);
+    }
   }
 
   let isException = wordIndex[wordIndex.length - 1];
 
   if (!!isException) {
     finalText.push(desc.slice(wordIndex[wordIndex.length - 1][1], desc.length)); // 젤 마지막?
+  } else {
+    console.log("문제의 경우", wordIndex);
+    console.log(caseData);
+    finalText.push(desc); // 젤 마지막?
   }
+
   let finalResultText: string[] = [];
 
   finalText.forEach((text, index) => {
@@ -208,7 +217,7 @@ const ResultBox = ({ caseData, wordData, openWordModal }: Props) => {
               return (
                 <span
                   key={index}
-                  className={highlighter ? "word" : ""}
+                  className={highlighter ? "word" : "before-word"}
                   onClick={() => {
                     openWordModal(word);
                   }}
@@ -367,6 +376,9 @@ const Describe = styled.div`
     line-height: 25px;
   }
 
+  .before-word {
+    margin-left: 5px;
+  }
   .word {
     display: inline-block;
     position: relative;
