@@ -294,13 +294,12 @@ const Div = styled.div`
 `;
 
 const DescribeGrayFont = styled.p`
-  margin: 23px auto 0 30px;
+  margin: 15px auto 0 30px;
 
   font-family: "Noto Sans KR", sans-serif;
   font-style: normal;
   font-weight: 400;
-  font-size: 13px;
-  font-size: 14px;
+  font-size: 16px;
 
   color: #7d7d7d;
 `;
@@ -332,17 +331,6 @@ const EditForm = styled.form`
     &:focus {
       outline: none;
     }
-  }
-`;
-
-const IlluImg = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  img {
-    width: auto;
-    height: 20vh;
   }
 `;
 
@@ -378,7 +366,7 @@ const Title = styled.p`
   font-family: "Noto Sans KR";
   font-style: normal;
   font-weight: 400;
-  font-size: 20px;
+  font-size: 25px;
   line-height: 29px;
   color: #000000;
 
