@@ -379,7 +379,7 @@ const BtnBox = styled.div`
   justify-content: space-between;
   width: 100%;
 
-  margin-top: 20px;
+  margin-top: 40px;
   padding: 0 30px;
   box-sizing: border-box;
 `;
@@ -449,7 +449,7 @@ const DoneBtn = styled.div`
   text-align: center;
   color: #ffffff;
 
-  margin: 30px auto 10px auto;
+  margin: 50px auto 10px auto;
 `;
 const WatingFont = styled.p`
   margin-left: 9px;
