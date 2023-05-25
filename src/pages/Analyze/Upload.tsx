@@ -84,7 +84,7 @@ const Upload = () => {
   });
 
   useEffect(() => {
-    console.log("업로드 직후 저장될 떄 쓰이는 extraInfo : ", extraInfo);
+    // console.log("업로드 직후 저장될 떄 쓰이는 extraInfo : ", extraInfo);
 
     if (extraInfo.monthly === "MONTHLY_RENT") {
       dispatch(setContractType({ contract_type: "MONTHLY_RENT" }));

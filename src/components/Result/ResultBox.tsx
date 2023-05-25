@@ -119,8 +119,8 @@ const ResultBox = ({ caseData, wordData, openWordModal }: Props) => {
   if (!!isException) {
     finalText.push(desc.slice(wordIndex[wordIndex.length - 1][1], desc.length)); // 젤 마지막?
   } else {
-    console.log("문제의 경우", wordIndex);
-    console.log(caseData);
+    //console.log("문제의 경우", wordIndex);
+    //console.log(caseData);
     finalText.push(desc); // 젤 마지막?
   }
 

@@ -25,7 +25,7 @@ export const PostContractImg = async (
 
     return res.data;
   } catch (err: any) {
-    console.log("ocr 에러 발생", err);
+    //console.log("ocr 에러 발생", err);
     WarningSwal("OCR 에러 발생", "다시 시도해주세요");
   }
 };
@@ -50,12 +50,12 @@ type NLPtype = {
 /** (2) NLP case 분석 */
 export const PostContractCase = async (result: NLPtype): Promise<any> => {
   try {
-    console.log("nlp 요청 body : ", result);
+    //le.log("nlp 요청 body : ", result);
     const res = await axios.post(`${FLASK_URL}/nlp`, result);
 
     return res.data;
   } catch (err: any) {
-    console.log("nlp 에러", err);
+    // console.log("nlp 에러", err);
     ErrorSwal("에러 발생", "다시 시도해주세요.");
   }
 };

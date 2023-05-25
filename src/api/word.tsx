@@ -115,7 +115,7 @@ export const PostSaveWord = async (
     SuccessSwal("단어 저장", "단어를 저장했습니다!");
     return res;
   } catch (err: any) {
-    console.log(err);
+    // console.log(err);
     const message = err.response.data.message;
     if (message === "존재하지 않는 단어 id") {
       ErrorSwal("에러 발생", "존재하지 않는 단어입니다.");

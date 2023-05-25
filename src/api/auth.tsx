@@ -52,7 +52,7 @@ export const SignUpApi = (
         window.location.href = CLIENT_MAIN_URL || "";
       })
       .catch(err => {
-        console.log("회원가입 실패", err);
+        // console.log("회원가입 실패", err);
         if (err.response.data.message === "이미 존재하는 계정입니다.") {
           WarningSwal("회원가입 실패", "이미 존재하는 계정입니다.");
           window.location.href = `${CLIENT_MAIN_URL}login`;
@@ -83,13 +83,13 @@ export const LoginApi = async (
       cookie(res);
       SuccessSwal("로그인 성공", "어서오세요!");
 
-      console.log("엑세스 토큰 발급 성공", res);
+      //console.log("엑세스 토큰 발급 성공", res);
       window.location.href = `${CLIENT_MAIN_URL}`;
       //window.location.reload();
       return true;
     }
   } catch (err: any) {
-    console.log(err);
+    // console.log(err);
     if (err.response.data.message == "비밀번호가 일치하지 않습니다.") {
       WarningSwal("로그인 실패", "비밀번호가 일치하지 않습니다.");
     } else if (err.response.data.message == "가입하지 않은 계정입니다.") {
@@ -108,14 +108,14 @@ export const GetUserInfo = async (
   cookie: (res: any) => void,
 ): Promise<any> => {
   try {
-    console.log(
-      "요청 시 사용한 토큰",
-      client.defaults.headers.common["Authorization"],
-    );
+    // console.log(
+    //   "요청 시 사용한 토큰",
+    //   client.defaults.headers.common["Authorization"],
+    // );
     const res = await client.get("member/info");
     return res.data;
   } catch (err: any) {
-    console.log("유저 정보 조회 실패", err);
+    //console.log("유저 정보 조회 실패", err);
     RefreshApi(refreshToken, cookie);
   }
 };
@@ -125,7 +125,7 @@ export const RefreshApi = (
   refreshToken: string,
   cookie: (res: any) => void,
 ) => {
-  console.log("리프레시", refreshToken);
+  //console.log("리프레시", refreshToken);
   axios
     .get(`${SPRING_URL}member/refresh/`, {
       headers: {
@@ -138,7 +138,7 @@ export const RefreshApi = (
       window.location.reload();
     })
     .catch(err => {
-      console.log("리프레시 토큰 발급 실패", err);
+      //console.log("리프레시 토큰 발급 실패", err);
       //alert(err);
       WarningSwal("토큰 재발급 실패", "다시 로그인해주세요").then(res => {
         window.location.href = `${CLIENT_MAIN_URL}login`; // 다시 로그인

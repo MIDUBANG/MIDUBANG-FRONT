@@ -20,7 +20,7 @@ export const GetMessageMaker = async (
 
     return res.data.result;
   } catch (err: any) {
-    console.log(err);
+    //console.log(err);
     ErrorSwal(
       "GPT 에러 발생",
       "서버 과부화로 인한 에러가 발생했습니다. 다시 시도해주세요😢",
