@@ -5,7 +5,7 @@ const First = () => {
   return (
     <Div>
       <Illustration src={illustration} />
-      <Title margin="10vh 0 0 0">임대차계약서 분석 서비스 </Title>
+      <Title margin="5vh 0 0 0">임대차계약서 분석 서비스 </Title>
       <SmallText margin="5vh 0 0 0">
         처음 하는 부동산 계약, <br /> 불리한 계약이 아닌지 불안하다면?
       </SmallText>
