@@ -3,8 +3,12 @@ import logo from "@assets/footer/whitelogo.png";
 import github from "@assets/footer/github.png";
 import insta from "@assets/footer/insta.png";
 import linktree from "@assets/footer/linktree.png";
+import form from "@assets/footer/form.png";
 
 const Footer = () => {
+  const _handleClickIcon = (path: string) => {
+    window.location.href = path;
+  };
   return (
     <FooterDiv>
       <Logo src={logo} />
@@ -15,9 +19,22 @@ const Footer = () => {
       </Text>
 
       <div className="sns-logo-container">
-        <img src={github} />
-        <img src={insta} />
-        <img src={linktree} />
+        <img
+          src={github}
+          onClick={() =>
+            _handleClickIcon("https://github.com/orgs/MIDUBANG/repositories")
+          }
+        />
+        <img
+          src={insta}
+          onClick={() =>
+            _handleClickIcon("https://forms.gle/TuFVuu6mzfNAok7U9")
+          }
+        />
+        <img
+          src={linktree}
+          onClick={() => _handleClickIcon("https://linktr.ee/midubang")}
+        />
       </div>
 
       <hr />
