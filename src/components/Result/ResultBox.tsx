@@ -98,6 +98,10 @@ const ResultBox = ({ caseData, wordData, openWordModal }: Props) => {
 
   wordIndex.sort((a, b) => a[0] - b[0]);
 
+  if (wordIndex[0][0] === 0 && wordIndex[0][1] === 0) {
+    wordIndex.shift();
+  }
+
   for (let i = 1; i < wordIndex.length; i++) {
     let pre = desc.slice(wordIndex[i - 1][1], wordIndex[i][0] - 1);
     let now_t = desc.slice(wordIndex[i][0], wordIndex[i][1]);
@@ -106,8 +110,11 @@ const ResultBox = ({ caseData, wordData, openWordModal }: Props) => {
     finalText.push(now_t);
   }
 
-  finalText.push(desc.slice(wordIndex[wordIndex.length - 1][1], desc.length));
+  let isException = wordIndex[wordIndex.length - 1];
 
+  if (!!isException) {
+    finalText.push(desc.slice(wordIndex[wordIndex.length - 1][1], desc.length)); // 젤 마지막?
+  }
   let finalResultText: string[] = [];
 
   finalText.forEach((text, index) => {
