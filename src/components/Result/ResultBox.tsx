@@ -232,7 +232,7 @@ const ResultBox = ({ caseData, wordData, openWordModal }: Props) => {
         </p>
 
         <NewsBtn onClick={_handleReadNews}>
-          <p>관련 기사 더 보기</p>
+          <p>관련 링크 더 보기</p>
           <img src={readmore} />
         </NewsBtn>
       </Describe>
