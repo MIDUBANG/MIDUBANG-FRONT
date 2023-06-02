@@ -44,7 +44,7 @@ https://youtu.be/_XU-MlcxcF8
 
 # 🚀 예상 아키텍쳐
 
-![System Architecture (2)](https://user-images.githubusercontent.com/81161750/206648092-03bbb167-da75-45d4-b1b0-4fad050a60b3.jpg)
+![아키텍처_최종](https://github.com/MIDUBANG/MIDUBANG-FRONT/assets/81161750/ee74ad29-b94b-4cad-9f8b-fa598dc2d899)
 
 # 🚀 UI 프로토타입 (피그마)
 
