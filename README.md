@@ -1,23 +1,27 @@
-# 🚀 믿어방 프로젝트
+# 🏠 믿어방
+[![image](https://github.com/MIDUBANG/MIDUBANG-FRONT/assets/81161750/a000a22e-8dd3-43e1-bdb0-e9d99cb3e703)](https://www.midubang.com/)
 
-### 프로젝트 목적
 
-- 믿어방은 자취생을 위한 부동산 전월세 계약 전문 AI 매니저 서비스입니다.
-- 믿어방 서비스는 자취를 처음해보거나 전/월세 부동산 계약에 대한 배경지식이 부족한 사람들에게 서비스를 제공합니다
+### 🏠 개요
 
-### 제공 기능
+믿어방은 OCR과 chatGPT를 이용한 사회초년생 대상 임대차계약 가이드 서비스입니다. 
+믿어방 서비스는 자취를 처음해보거나 전/월세 부동산 계약에 대한 배경지식이 부족한 사람들에게 임대차계약 전반에 대한 지식을 알기 쉽게 제공합니다.
 
-1. OCR 간단 촬영을 통한 주택임대차계약서 분석 서비스
-2. OCR 간단 촬영을 통한 등기부등본 해설 서비스
-3. 쉽게 풀어 설명해주는 부동산 용어 해설 서비스
-4. 슬기로운 자취 생활 체크리스트
-5. 자취 경험이 있는 사람에게 조언을 구할 수 있는 ‘자율 Q&A 게시판’
-6. 자취 생활에 필요한 지식을 모두 정리한 ‘자취 백과 사전’
+### 🏠 제공 기능
+![Frame 358 (1)](https://github.com/MIDUBANG/MIDUBANG-FRONT/assets/81161750/88cf7508-2795-4abc-be1a-ca9bf75f98a5)
+
+1. 우리집 등기부등본 A to Z 분석
+2. 임대차계약서 특약 조항 해설 보기 
+3. 어려운 부동산 용어 쉽게 배우기
+4. 믿어방 AI 문자 마법사
+5. 자취방 구하기 A to Z 체크리스트 
+6. "챗쪽이 vs 금쪽이" 부동산 질문 게시판
+
 
 <br>
 <br>
 
-# 🚀 프로젝트 레포지토리 정리
+# 🏠 프로젝트 레포지토리 정리
 
 - [스타트 10팀 - 나는가수다 Organization](https://github.com/orgs/MIDUBANG/repositories)
 - [Konlpy와 TF-IDF를 이용한 한국어 문장 유사도 계산 API (React)](https://github.com/MIDUBANG/Korean-Sentence-Similarity-Client)
@@ -29,27 +33,24 @@
 <br>
 <br>
 
-# 🚀 프로젝트 시연
-
+# 🏠 프로젝트 시연
+### 사이트 사용 시연 영상
+https://www.youtube.com/watch?v=87sgWqe0_CM
 ### 믿어방 기술 요소 검증 시연 영상
-
 https://www.youtube.com/watch?v=12Gp_7EzfkM
 
-### 믿어방 시제품 실물 시연 영상 (UI 프로토타입)
-
-https://youtu.be/_XU-MlcxcF8
 
 <br>
 <br>
 
-# 🚀 예상 아키텍쳐
+# 🏠 System Architecture
 ![Frame 360](https://github.com/MIDUBANG/MIDUBANG-FRONT/assets/81161750/94067b2d-266f-4563-ae6a-f3734ff601d1)
 
-# 🚀 UI 프로토타입 (피그마)
+# 🏠 UI
 
 ![image](https://user-images.githubusercontent.com/81161750/206647444-8064c796-36ab-4f17-8fbc-3e807875b654.png)
 
-# 🚀 팀원
+# 🏠 Member
 
 <table border="" cellspacing="0" cellpadding="0" width="100%">
     <tr width="100%">
