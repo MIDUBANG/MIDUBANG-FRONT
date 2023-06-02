@@ -91,7 +91,7 @@
     <tr width="100%">
          <td  align="center"><img src = "https://user-images.githubusercontent.com/81161750/206687440-f11f8d10-e8d5-46e4-9c49-5d146cf316d9.png" width="150px"/></td>
         <td  align="center"><img src = "https://velog.velcdn.com/images/goinggoing/post/802427b5-4500-41f4-a5f9-dbf95226ed4c/image.png" width="150px" /></td>
-        <td  align="center"><img src = "https://s3.us-west-2.amazonaws.com/secure.notion-static.com/8db9ddb1-2c3a-49ec-811a-b807748d8f77/5ECA5D11-679A-419A-AED1-AE0EE3029894.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20221209%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20221209T104642Z&X-Amz-Expires=86400&X-Amz-Signature=438a3c7c044b4d8b5c3cd3bb856cd9e65f14c2fa99f0f518536cdff087ac86c6&X-Amz-SignedHeaders=host&response-content-disposition=filename%3D%225ECA5D11-679A-419A-AED1-AE0EE3029894.png%22&x-id=GetObject" width="150px"/></td>
+        <td  align="center"><img src = "https://github.com/MIDUBANG/MIDUBANG-FRONT/assets/48647199/081b7f86-d3cd-4b01-822b-be7641292464" width="150px"/></td>
     </tr>
     <tr width="100%">
       <td  align="center"><p>FrontEnd</p><p>Masking</p><p>NLP</p></td>
