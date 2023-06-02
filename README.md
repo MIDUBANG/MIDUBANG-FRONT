@@ -43,8 +43,7 @@ https://youtu.be/_XU-MlcxcF8
 <br>
 
 # 🚀 예상 아키텍쳐
-
-![아키텍처_최종](https://github.com/MIDUBANG/MIDUBANG-FRONT/assets/81161750/ee74ad29-b94b-4cad-9f8b-fa598dc2d899)
+![Frame 360](https://github.com/MIDUBANG/MIDUBANG-FRONT/assets/81161750/94067b2d-266f-4563-ae6a-f3734ff601d1)
 
 # 🚀 UI 프로토타입 (피그마)
 
