@@ -1,6 +1,7 @@
 # 🏠 믿어방 
+
 [![image](https://github.com/MIDUBANG/MIDUBANG-FRONT/assets/81161750/a000a22e-8dd3-43e1-bdb0-e9d99cb3e703)](https://www.midubang.com/)
-(썸네일 클릭 시 사이트로 이동됩니다.)
+썸네일 클릭 시 사이트로 이동됩니다.
 
 <br>
 <br>
@@ -51,28 +52,16 @@
 
 
 #### FrontEnd
-<img src="https://img.shields.io/badge/React-61DAFB?style=flat-square&logo=React&logoColor=white">  
-<img src="https://img.shields.io/badge/Typescript-3178C6?style=flat-square&logo=typescript&logoColor=white">  
-<img src="https://img.shields.io/badge/Redux-764ABC?style=flat-square&logo=Redux&logoColor=white"> 
-<img src="https://img.shields.io/badge/ReduxToolkit-764ABC?style=flat-square&logo=Redux&logoColor=white"> 
-<img src="https://img.shields.io/badge/ReduxPersist-764ABC?style=flat-square&logo=Redux&logoColor=white"> 
-<img src="https://img.shields.io/badge/axios-5A29E4?style=flat-square&logo=Axios&logoColor=white"> 
-<img src="https://img.shields.io/badge/loadable-3178C6?style=flat-square">  
-<img src="https://img.shields.io/badge/craco-3178C6?style=flat-square">  
+<img src="https://img.shields.io/badge/React-61DAFB?style=flat-square&logo=React&logoColor=white">  <img src="https://img.shields.io/badge/Typescript-3178C6?style=flat-square&logo=typescript&logoColor=white">  <img src="https://img.shields.io/badge/Redux-764ABC?style=flat-square&logo=Redux&logoColor=white"> <img src="https://img.shields.io/badge/ReduxToolkit-764ABC?style=flat-square&logo=Redux&logoColor=white"> <img src="https://img.shields.io/badge/ReduxPersist-764ABC?style=flat-square&logo=Redux&logoColor=white"> <img src="https://img.shields.io/badge/axios-5A29E4?style=flat-square&logo=Axios&logoColor=white"> <img src="https://img.shields.io/badge/loadable-3178C6?style=flat-square">  <img src="https://img.shields.io/badge/craco-3178C6?style=flat-square">  
 
 #### Style 
-<img src="https://img.shields.io/badge/emotion-764ABC?style=flat-square"> 
-<img src="https://img.shields.io/badge/sweetalert2-764ABC?style=flat-square"> 
-<img src="https://img.shields.io/badge/swiper-6332F6?style=flat-square&logo=swiper&logoColor=white"> 
-<img src="https://img.shields.io/badge/bootstrap-7952B3?style=flat-square&logo=bootstrap&logoColor=white"> 
+<img src="https://img.shields.io/badge/emotion-764ABC?style=flat-square"> <img src="https://img.shields.io/badge/sweetalert2-764ABC?style=flat-square"> <img src="https://img.shields.io/badge/swiper-6332F6?style=flat-square&logo=swiper&logoColor=white"> <img src="https://img.shields.io/badge/bootstrap-7952B3?style=flat-square&logo=bootstrap&logoColor=white"> 
 
 #### Code Formmater 
-<img src="https://img.shields.io/badge/ESLint-4B32C3?style=flat-square&logo=ESLint&logoColor=white">
-<img src="https://img.shields.io/badge/Prettier-F7B93E?style=flat-square&logo=prettier&logoColor=white">
+<img src="https://img.shields.io/badge/ESLint-4B32C3?style=flat-square&logo=ESLint&logoColor=white"><img src="https://img.shields.io/badge/Prettier-F7B93E?style=flat-square&logo=prettier&logoColor=white">
 
 ####  ETC &nbsp; 
- <img src="https://img.shields.io/badge/Figma -F24E1E?style=flat-square&logo=Figma&logoColor=white"/> 
- <img src="https://img.shields.io/badge/GitHub -181717?style=flat-square&logo=GitHub&logoColor=white"/> 
+ <img src="https://img.shields.io/badge/Figma -F24E1E?style=flat-square&logo=Figma&logoColor=white"/> <img src="https://img.shields.io/badge/GitHub -181717?style=flat-square&logo=GitHub&logoColor=white"/> 
  
 #### deploy 
 <img src="https://img.shields.io/badge/Vercel-000000?style=flat-square&logo=Vercel&logoColor=white">
