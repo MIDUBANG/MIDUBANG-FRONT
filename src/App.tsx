@@ -4,22 +4,19 @@ import loadable from "@loadable/component";
 import "@style/font.css";
 import "@style/common.scss";
 
-// Routes
-import HouseRoutes from "@route/HouseRoutes";
-import TextRoutes from "@route/TextRoutes";
-import QuestionRoutes from "@route/QuestionRoutes";
-import CheckListRoutes from "@route/CheckListRoutes";
-import WordRoutes from "@route/WordRoutes";
-import UserRoutes from "@route/UserRoutes";
-import AnalyzeRoutes from "@route/AnalyzeRoutes";
-import PrivateRoute from "@route/PrivateRoute";
-import NotFoundPage from "@pages/404/NotFoundPage";
-
 const HomePage = loadable(() => import("@pages/Main/Home"));
-
 const SignupPage = loadable(() => import("@pages/Auth/Signup"));
 const LoginPage = loadable(() => import("@pages/Auth/Login"));
 const KakoLoginPage = loadable(() => import("@pages/Auth/KakaoLogin"));
+const HouseRoutes = loadable(() => import("@route/HouseRoutes"));
+const TextRoutes = loadable(() => import("@route/TextRoutes"));
+const QuestionRoutes = loadable(() => import("@route/QuestionRoutes"));
+const CheckListRoutes = loadable(() => import("@route/CheckListRoutes"));
+const WordRoutes = loadable(() => import("@route/WordRoutes"));
+const UserRoutes = loadable(() => import("@route/UserRoutes"));
+const AnalyzeRoutes = loadable(() => import("@route/AnalyzeRoutes"));
+const PrivateRoute = loadable(() => import("@route/PrivateRoute"));
+const NotFoundPage = loadable(() => import("@pages/404/NotFoundPage"));
 
 const App: React.FC = () => {
   return (
