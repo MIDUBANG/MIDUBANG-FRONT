@@ -17,13 +17,15 @@
 ### 🏠 제공 기능
 ![Frame 358 (1)](https://github.com/MIDUBANG/MIDUBANG-FRONT/assets/81161750/88cf7508-2795-4abc-be1a-ca9bf75f98a5)
 
+
+### 🏠 기능 상세 
 1. 우리집 등기부등본 A to Z 분석
 2. 임대차계약서 특약 조항 해설 보기 
 3. 어려운 부동산 용어 쉽게 배우기
 4. 믿어방 AI 문자 마법사
 5. 자취방 구하기 A to Z 체크리스트 
 6. "챗쪽이 vs 금쪽이" 부동산 질문 게시판
-
+   
 
 <br>
 <br>
